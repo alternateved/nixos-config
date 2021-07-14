@@ -1,0 +1,55 @@
+Config
+{ font = "xft:JetBrainsMono Nerd Font:weight=regular:pixelsize=13:antialias=true:hinting=true"
+, additionalFonts = [ "xft:Font Awesome 5 Free Solid:pixelsize=13" ]
+, bgColor = "#1d1f21"
+, fgColor = "#c4c8c5"
+, position = TopW L 100
+, lowerOnStart = True
+, hideOnStart = False
+, allDesktops = True
+, persistent = True
+, commands =
+        [ Run Weather "EPLL"
+                          [ "--template", "<weather> <tempC>°C"
+                          , "-L", "0"
+                          , "-H", "25"
+                          , "--low"   , "#c4c8c5"
+                          , "--normal", "#c4c8c5"
+                          , "--high"  , "#cc6666"
+                          ] 36000
+        , Run Com "bash" ["-c", "if [[ $(dunstctl is-paused) = false ]]; then echo '<fn=1>\xf0f3</fn>'; else echo '<fn=1>\xf1f6</fn>'; fi" ] "notif" 1
+        , Run Network "wlp2s0" ["-t", "<fn=1>\xf063</fn><rx>kb  <fn=1>\xf062</fn><tx>kb"] 20
+        , Run Cpu ["-L","3","-H","50"
+                          ,"--high","#D47D85"
+                          , "-t", "<total>%"] 20
+        , Run Memory ["-t", " <used>M (<usedratio>%)"] 20
+        , Run Alsa "default" "Master"
+            [ "--template", "<volumestatus>"
+            , "--suffix"  , "True"
+            , "--"
+            , "--on", ""
+            , "--off", "—"
+            ]
+        , Run Battery [ "--template" , "<acstatus>"
+                          , "--Low"      , "10"        -- units: %
+                          , "--High"     , "95"        -- units: %
+                          , "--low"      , "#cc6666"
+                          , "--high"     , "#c4c8c5"
+                          -- send message when low
+                          , "-a", "dunstify -i 'dialog-warning' -u critical -t 3000 'Battery critically low'"
+                          --, "-A", "5"
+                          , "--" -- battery specific options
+                          -- discharging status
+                          , "-o"  , "<fn=1>\xf243</fn> <left>% <timeleft>"
+                          -- AC "on" status
+                          , "-O"    , "<fn=1>\xf242</fn> <left>%"
+                          -- charged status
+                          , "-i"  , "<fn=1>\xf240</fn> 100%"
+                         ] 150
+        , Run Date "%H:%M" "date" 300
+        , Run UnsafeStdinReader
+        ]
+, sepChar = "%"
+, alignSep = "}{"
+, template = " λ | %UnsafeStdinReader% }{ %EPLL% | %notif% | %wlp2s0% |  %cpu% | %memory% |  %alsa:default:Master% | %battery% | %date% "
+}
