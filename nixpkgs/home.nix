@@ -191,6 +191,7 @@
 
   services = {
     emacs.package = pkgs.emacsUnstable;
+    flameshot.enable = true;
     dunst.iconTheme = "Papirus-Dark";
 
     picom = {
@@ -242,14 +243,16 @@
     # utilities
     dunst
     nitrogen
-    flameshot
     slock
     lxsession
     xfce.xfce4-power-manager
+    xarchiver
     qalculate-gtk
 
     # Theming
     lxappearance
+    gtk-engine-murrine
+    gsettings-desktop-schemas
     materia-theme
     papirus-icon-theme
     vanilla-dmz
