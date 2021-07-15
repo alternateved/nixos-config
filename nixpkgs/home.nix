@@ -220,15 +220,6 @@
       };
     };
 
-    polybar = {
-      enable = true;
-      package = pkgs.polybar.override {
-        alsaSupport = true;
-        pulseSupport = true;
-      };
-      config = /home/alternateved/.nixos-config/polybar/launch.sh;
-      script = "polybar main &";
-    };
   };
 
   xdg = {
@@ -246,10 +237,9 @@
     alacritty
 
     # temporary haskell stuff
-    # xmobar
+    xmobar
 
     # utilities
-    dmenu
     dunst
     nitrogen
     flameshot

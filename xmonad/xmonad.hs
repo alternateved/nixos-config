@@ -150,15 +150,15 @@ myStartupHook = do
     setDefaultCursor xC_left_ptr
     -- spawnOnce "autorandr -c &"
     spawnOnce "lxpolkit &"
-    spawnonce "xfce4-power-manager &"
-    spawnonce "dunst &"
-    spawnonce "bluetoothctl power on"
-    spawnonce "nitrogen --restore &"
-    spawnonce "emacs --daemon &"
-    spawnonce "firefox-devedition &"
-    spawnonce "signal-desktop &"
-    spawnonce "thunderbird &"
-    setwmname "LG3D"
+    spawnOnce "xfce4-power-manager &"
+    spawnOnce "dunst &"
+    spawnOnce "bluetoothctl power on"
+    spawnOnce "nitrogen --restore &"
+    spawnOnce "emacs --daemon &"
+    spawnOnce "firefox-devedition &"
+    spawnOnce "signal-desktop &"
+    spawnOnce "thunderbird &"
+    setWMName "LG3D"
 
 -------------------------------------------------------------------------
 -- MANAGEHOOK

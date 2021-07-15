@@ -67,8 +67,7 @@
       xkbOptions = "caps:escape_shifted_capslock";
 
       displayManager = {
-        # defaultSession = "none+xmonad";
-        defaultSession = "none+herbstluftwm";
+        defaultSession = "none+xmonad";
         autoLogin.enable = true;
         autoLogin.user = "alternateved";
         lightdm.greeters.mini = {
@@ -86,17 +85,10 @@
         };
       };
 
-      windowManager.herbstluftwm.enable = true;
-
-      # windowManager.xmonad = {
-      #   enable = true;
-      #   enableContribAndExtras = true;
-      #   extraPackages = haskellPackages: [
-      #     haskellPackages.xmonad
-      #     haskellPackages.xmonad-contrib
-      #     haskellPackages.xmobar
-      #   ];
-      # };
+      windowManager.xmonad = {
+        enable = true;
+        enableContribAndExtras = true;
+      };
 
       libinput = {
         enable = true;
@@ -109,6 +101,16 @@
     gvfs.enable = true;
 
   };
+
+  # nixpkgs.overlays = [
+  #   (self: super: {
+  #     xmonad = super.xmonad.overrideAttrs
+  #       (_: { src = builtins.fetchGit "https://github.com/xmonad/xmonad"; });
+  #     xmonad-contrib = super.xmonad-contrib.overrideAttrs (_: {
+  #       src = builtins.fetchGit "https://github.com/xmonad/xmonad-contrib";
+  #     });
+  #   })
+  # ];
 
   environment.systemPackages = with pkgs; [
     vim
