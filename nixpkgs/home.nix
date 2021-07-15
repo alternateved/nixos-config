@@ -23,6 +23,12 @@
   };
 
   programs = {
+
+    direnv = {
+      enable = true;
+      nix-direnv.enable = true;
+    };
+
     alacritty = {
       enable = true;
       settings = {
@@ -41,6 +47,7 @@
           shape = "Underline";
           blinking = "On";
         };
+
         colors = {
           primary = {
             background = "#1d1f21";
@@ -196,7 +203,7 @@
 
     picom = {
       enable = true;
-      shadow = true;
+      shadow = false;
       shadowExclude = [ "class_g = 'Firefox Developer Edition' && argb" ];
       fade = false;
       blur = true;
@@ -222,6 +229,7 @@
     };
 
   };
+  dconf.enable = true;
 
   xdg = {
     enable = true;
@@ -251,15 +259,20 @@
 
     # Theming
     lxappearance
-    gtk-engine-murrine
-    gsettings-desktop-schemas
     materia-theme
     papirus-icon-theme
+    gtk-engine-murrine
+    gsettings-desktop-schemas
     vanilla-dmz
 
     # File managers
     pcmanfm
     ranger
+
+    # Dictionaries
+    aspell
+    aspellDicts.en
+    aspellDicts.pl
 
     # Media
     gimp
