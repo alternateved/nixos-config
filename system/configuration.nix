@@ -88,6 +88,32 @@
       windowManager.xmonad = {
         enable = true;
         enableContribAndExtras = true;
+        haskellPackages = let
+          compiler = "ghc884";
+          src1 = pkgs.fetchFromGitHub {
+            owner = "xmonad";
+            repo = "xmonad";
+            rev = "af354f7528ada1de451365a0f5138ef10a318360";
+            sha256 = "08iifadqwgczmkz727gx0k8vm2xpincp4binpw8zdk8z4c7a3bxj";
+          };
+          src2 = pkgs.fetchFromGitHub {
+            owner = "xmonad";
+            repo = "xmonad-contrib";
+            rev = "da2fb360b81c969854a66e246cc37a0864edf8d0";
+            sha256 = "0kf5jvfdz017qbrfwlk6z54msf6klrm3cd71dl977r54lmwg9m98";
+          };
+          myXmonad =
+            pkgs.haskell.packages.${compiler}.callCabal2nix "xmonad" src1 { };
+          myXmonadContrib =
+            pkgs.haskell.packages.${compiler}.callCabal2nix "xmonad-contrib"
+            src2 { };
+          myHaskellPackages = pkgs.haskell.packages.${compiler}.override {
+            overrides = hself: hsuper: {
+              xmonad = myXmonad;
+              xmonad-contrib = myXmonadContrib;
+            };
+          };
+        in myHaskellPackages;
       };
 
       libinput = {
@@ -101,16 +127,6 @@
     gvfs.enable = true;
 
   };
-
-  # nixpkgs.overlays = [
-  #   (self: super: {
-  #     xmonad = super.xmonad.overrideAttrs
-  #       (_: { src = builtins.fetchGit "https://github.com/xmonad/xmonad"; });
-  #     xmonad-contrib = super.xmonad-contrib.overrideAttrs (_: {
-  #       src = builtins.fetchGit "https://github.com/xmonad/xmonad-contrib";
-  #     });
-  #   })
-  # ];
 
   environment.systemPackages = with pkgs; [
     vim
@@ -136,12 +152,11 @@
     gc = {
       automatic = true;
       dates = "monthly";
-      options = "--delete-older-than 90d";
+      options = "--delete-older-than 30d";
     };
+
     autoOptimiseStore = true;
-
     trustedUsers = [ "alternateved" "root" ];
-
     binaryCaches = [
       "https://nix-community.cachix.org/"
       "https://hydra.iohk.io" # Haskell.nix
