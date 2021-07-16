@@ -1,3 +1,0 @@
-  #!/bin/sh
-
-  exec stack ghc -- --make $1 -threaded
