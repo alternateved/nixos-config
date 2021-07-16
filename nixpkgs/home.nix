@@ -199,7 +199,6 @@
   services = {
     emacs.package = pkgs.emacsUnstable;
     flameshot.enable = true;
-    dunst.iconTheme = "Papirus-Dark";
 
     picom = {
       enable = true;
@@ -227,8 +226,75 @@
         night = 3000;
       };
     };
+    dunst = {
+      enable = true;
 
+      iconTheme = {
+        name = "Papirus-Dark";
+        package = pkgs.papirus-icon-theme;
+        size = "22x22";
+      };
+      settings = {
+        global = {
+          monitor = 0;
+          follow = "mouse";
+          geometry = "380x15-5+28";
+          alignment = "left";
+          bounce_freq = 0;
+          corner_radius = 2;
+          font = "JetBrains Mono Nerd Font 11";
+          format = ''
+            <b>%s</b>
+            %b'';
+          frame_color = "#1a1c25";
+          frame_width = 0;
+          history_length = 20;
+          horizontal_padding = 16;
+          icon_position = "left";
+          idle_threshold = 120;
+          ignore_newline = "no";
+          indicate_hidden = "yes";
+          line_height = 0;
+          markup = "full";
+          max_icon_size = 48;
+          padding = 20;
+          separator_color = "auto";
+          separator_height = 4;
+          show_age_threshold = 60;
+          show_indicators = "yes";
+          shrink = "no";
+          sort = "yes";
+          startup_notification = false;
+          sticky_history = "yes";
+          transparency = 5;
+          word_wrap = "yes";
+        };
+        shortcuts = {
+          close = "ctrl+shift+space";
+          close_all = "ctrl+shift+space";
+          history = "ctrl+shift+comma";
+          context = "ctrl+shift+period";
+        };
+        urgency_low = {
+          background = "#1d1f21";
+          foreground = "#ecf0ed";
+          timeout = 8;
+        };
+        urgency_normal = {
+          background = "#1d1f21";
+          foreground = "#ecf0ed";
+          timeout = 14;
+        };
+        urgency_critical = {
+          background = "#cc6666";
+          foreground = "#1E2029";
+          timeout = 0;
+        };
+      };
+
+    };
   };
+
   dconf.enable = true;
 
   xdg = {
@@ -249,10 +315,11 @@
     xmobar
 
     # utilities
-    dunst
     nitrogen
-    slock
+    xsecurelock
     lxsession
+    xdotool
+    autorandr
     xfce.xfce4-power-manager
     xarchiver
     qalculate-gtk
