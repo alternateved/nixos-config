@@ -8,13 +8,11 @@ import           XMonad
 import qualified XMonad.StackSet                     as W
 
     -- Data
-import           Data.Monoid                         (Endo, (<>))
 import           Data.Maybe                          (fromJust)
 import qualified Data.Map as M
 
     -- Actions
 import           XMonad.Actions.CopyWindow           (kill1)
-import           XMonad.Actions.CycleWS              (moveTo, shiftTo)
 import           XMonad.Actions.GroupNavigation      (Direction (History),
                                                       historyHook, nextMatch)
 import           XMonad.Actions.Promote              (promote)
@@ -57,8 +55,7 @@ import           XMonad.Prompt                       (XPConfig (..),
                                                       mkXPrompt, showXPrompt)
 import           XMonad.Prompt.DirExec               (dirExecPromptNamed)
 import           XMonad.Prompt.FuzzyMatch            (fuzzyMatch)
-import           XMonad.Prompt.Shell                 (Shell (Shell),
-                                                      getCommands,
+import           XMonad.Prompt.Shell                 (getCommands,
                                                       getShellCompl,
                                                       shellPrompt)
 import           XMonad.Prompt.Window
@@ -88,16 +85,13 @@ xmonadConfig :: String
 xmonadConfig = myDots ++ "/xmonad/xmonad.hs"
 
 xmobarConfig :: String
-xmobarConfig = myDots ++ "/xmobar/xmobarrc0"
+xmobarConfig = myDots ++ "/xmobar/xmobar.hs"
 
 myFont :: String
-myFont = "xft:JetBrainsMono Nerd Font:style=medium:size=9:antialias=true:hinting=true"
+myFont = "xft:JetBrainsMono Nerd Font:style=medium:size=10:antialias=true:hinting=true"
 
 myModMask :: KeyMask
 myModMask = mod4Mask
-
-altMask :: KeyMask
-altMask = mod1Mask
 
 myTerminal :: String
 myTerminal = "alacritty"
@@ -165,9 +159,10 @@ myStartupHook = do
 -------------------------------------------------------------------------
 myManageHook :: ManageHook
 myManageHook = composeAll
-     [ className =? "Firefox Developer Edition" --> doShift ( myWorkspaces !! 0)
+     [ className =? "Firefox Developer Edition" --> doShift ( head myWorkspaces)
      , className =? "Thunderbird"               --> doShift ( myWorkspaces !! 1)
      , className =? "Signal"                    --> doShift ( myWorkspaces !! 1)
+     , className =? "discord"                   --> doShift ( myWorkspaces !! 1)
      , isFullscreen                             --> doFullFloat
      , isDialog                                 --> doCenterFloat
      , insertPosition Master Newer
@@ -186,14 +181,18 @@ myLogHook = refocusLastLogHook
 -------------------------------------------------------------------------
 myWorkspaces :: [String]
 myWorkspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
-myWorkspaceIndices = M.fromList $ zipWith (,) myWorkspaces [1..] -- (,) == \x y -> (x,y)
 
+myWorkspaceIndices :: M.Map String Integer
+myWorkspaceIndices = M.fromList $ zip myWorkspaces [1..] -- (,) == \x y -> (x,y)
+
+clickable :: [Char] -> [Char]
 clickable ws = "<action=xdotool key super+"++show i++">"++ws++"</action>"
     where i = fromJust $ M.lookup ws myWorkspaceIndices
 
 -------------------------------------------------------------------------
 -- TABS CONFIGURATION
 -------------------------------------------------------------------------
+myTabConfig :: Theme
 myTabConfig = def
       { fontName            = myFont
       , activeTextColor     = colorHiWhite
@@ -205,7 +204,7 @@ myTabConfig = def
       , urgentTextColor     = colorRed
       , urgentColor         = colorBg
       , urgentBorderColor   = colorBg
-      , decoHeight          = 18
+      , decoHeight          = 20
       }
 
 -------------------------------------------------------------------------
@@ -236,12 +235,10 @@ tabs      = renamed [Replace "tabs"]
             $ noBorders
             $ tabbed shrinkText myTabConfig
 monocle   = renamed [Replace "monocle"]
-            $ noBorders
-            $ Full
+            $ noBorders Full
 
 myLayoutHook = workspaceDir myHome
-               $ smartBorders
-               $ myDefaultLayout
+               $ smartBorders myDefaultLayout
              where
                myDefaultLayout =     tall
                                  ||| wide
@@ -257,6 +254,8 @@ myKeys =
     -- Xmonad
         [ ("M-S-r", spawn "xmonad --recompile; xmonad --restart")     -- Recompile and restart xmonad
         , ("M-C-r", spawn $ myEditor ++ xmonadConfig)                 -- Modify configuration file
+        , ("M-S-b", spawn $ "sh " ++ myDots ++ "/xmobar/xmobar_recompile.sh" )                 -- Modify configuration file
+        , ("M-C-b", spawn $ myEditor ++ xmobarConfig)                 -- Modify configuration file
 
     -- Open my preferred terminal
         , ("M-S-<Return>", spawn myTerminal)
@@ -325,10 +324,10 @@ myKeys =
     -- "M-e" -- focus screen marked as 0
     -- M-S-[screenKeybind] -- move and focus window on particulart screen
         ++
-        [ (mask ++ "M-" ++ [key], screenWorkspace scr >>= flip whenJust (windows . action))
-        | (key, scr)  <- zip "we" [0,1] -- was [0..] *** change to match your screen order ***
-        , let shiftAndView i = W.view i . W.shift i
-        , (action, mask) <- [ (W.view, "") , (shiftAndView, "S-")]
+        [ (mask ++ "M-" ++ [key], screenWorkspace scr >>= flip whenJust (windows . action)) |
+          let shiftAndView i = W.view i . W.shift i,
+          (key, scr)  <- zip "we" [0,1],
+          (action, mask) <- [ (W.view, "") , (shiftAndView, "S-")]
         ]
 
 -------------------------------------------------------------------------
@@ -353,6 +352,7 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm medium
     medium = customFloating $ W.RationalRect (1 / 6)  (1 / 6)  (2 / 3) (2 / 3)
     large  = customFloating $ W.RationalRect (1 / 10) (1 / 10) (4 / 5) (4 / 5)
 
+scratchTerm, scratchMixer, scratchCalc :: X ()
 scratchTerm  = namedScratchpadAction myScratchPads "terminal"
 scratchMixer = namedScratchpadAction myScratchPads "volumectl"
 scratchCalc  = namedScratchpadAction myScratchPads "calculator"
@@ -361,7 +361,6 @@ scratchCalc  = namedScratchpadAction myScratchPads "calculator"
 -- PROMPT
 -------------------------------------------------------------------------
 data TShell = TShell
-type Predicate = String -> String -> Bool
 
 instance XPrompt TShell where
     showXPrompt TShell     = "Run in terminal: "
@@ -448,7 +447,7 @@ main = xmonad
      . docks
      . ewmh
      . withUrgencyHook NoUrgencyHook
-     =<< statusBar "xmobar -x 0 ~/.config/xmobar/xmobarrc0" (myXmobarPP) toggleStrutsKey myConfig
+     =<< statusBar "./.config/xmobar/xmobar" myXmobarPP toggleStrutsKey myConfig
     where
       toggleStrutsKey :: XConfig Layout -> (KeyMask, KeySym)
-      toggleStrutsKey XConfig{ modMask = m } = (m, xK_space)
+      toggleStrutsKey XConfig{ modMask = m } = (m, xK_b)
