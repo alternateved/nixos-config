@@ -202,17 +202,17 @@
 
     picom = {
       enable = true;
-      shadow = false;
-      shadowExclude = [ "class_g = 'Firefox Developer Edition' && argb" ];
+      vSync = true;
       fade = false;
+      shadow = false;
       blur = true;
+      shadowExclude = [ "class_g = 'Firefox Developer Edition' && argb" ];
       blurExclude = [ "class_g = 'Firefox Developer Edition' && argb" ];
       backend = "glx";
-      vSync = true;
+      experimentalBackends = true;
       extraOptions = ''
-        glx-no-rebind-pixmap  = true;
-        glx-no-stencil        = true;
-        use-damage            = true;
+        use-damage = true;
+        blur-strength = 12;
       '';
     };
 
@@ -228,7 +228,6 @@
     };
     dunst = {
       enable = true;
-
       iconTheme = {
         name = "Papirus-Dark";
         package = pkgs.papirus-icon-theme;
@@ -242,7 +241,7 @@
           alignment = "left";
           bounce_freq = 0;
           corner_radius = 2;
-          font = "JetBrains Mono Nerd Font 11";
+          font = "Fira Sans Regular 11";
           format = ''
             <b>%s</b>
             %b'';
@@ -261,7 +260,7 @@
           separator_color = "auto";
           separator_height = 4;
           show_age_threshold = 60;
-          show_indicators = "yes";
+          show_indicators = "no";
           shrink = "no";
           sort = "yes";
           startup_notification = false;

@@ -88,32 +88,33 @@
       windowManager.xmonad = {
         enable = true;
         enableContribAndExtras = true;
-        haskellPackages = let
-          compiler = "ghc884";
-          src1 = pkgs.fetchFromGitHub {
-            owner = "xmonad";
-            repo = "xmonad";
-            rev = "af354f7528ada1de451365a0f5138ef10a318360";
-            sha256 = "08iifadqwgczmkz727gx0k8vm2xpincp4binpw8zdk8z4c7a3bxj";
-          };
-          src2 = pkgs.fetchFromGitHub {
-            owner = "xmonad";
-            repo = "xmonad-contrib";
-            rev = "da2fb360b81c969854a66e246cc37a0864edf8d0";
-            sha256 = "0kf5jvfdz017qbrfwlk6z54msf6klrm3cd71dl977r54lmwg9m98";
-          };
-          myXmonad =
-            pkgs.haskell.packages.${compiler}.callCabal2nix "xmonad" src1 { };
-          myXmonadContrib =
-            pkgs.haskell.packages.${compiler}.callCabal2nix "xmonad-contrib"
-            src2 { };
-          myHaskellPackages = pkgs.haskell.packages.${compiler}.override {
-            overrides = hself: hsuper: {
-              xmonad = myXmonad;
-              xmonad-contrib = myXmonadContrib;
-            };
-          };
-        in myHaskellPackages;
+        # extraPackages = haskellPackages: [ haskellPackages.xmonad-contrib ];
+        # haskellPackages = let
+        #   compiler = "ghc884";
+        #   src1 = pkgs.fetchFromGitHub {
+        #     owner = "xmonad";
+        #     repo = "xmonad";
+        #     rev = "af354f7528ada1de451365a0f5138ef10a318360";
+        #     sha256 = "08iifadqwgczmkz727gx0k8vm2xpincp4binpw8zdk8z4c7a3bxj";
+        #   };
+        #   src2 = pkgs.fetchFromGitHub {
+        #     owner = "xmonad";
+        #     repo = "xmonad-contrib";
+        #     rev = "da2fb360b81c969854a66e246cc37a0864edf8d0";
+        #     sha256 = "0kf5jvfdz017qbrfwlk6z54msf6klrm3cd71dl977r54lmwg9m98";
+        #   };
+        #   myXmonad =
+        #     pkgs.haskell.packages.${compiler}.callCabal2nix "xmonad" src1 { };
+        #   myXmonadContrib =
+        #     pkgs.haskell.packages.${compiler}.callCabal2nix "xmonad-contrib"
+        #     src2 { };
+        #   myHaskellPackages = pkgs.haskell.packages.${compiler}.override {
+        #     overrides = hself: hsuper: {
+        #       xmonad = myXmonad;
+        #       xmonad-contrib = myXmonadContrib;
+        #     };
+        #   };
+        # in myHaskellPackages;
       };
 
       libinput = {
@@ -134,11 +135,9 @@
     curl
     git
     mesa
-    autorandr
     htop
-    xorg.xkill
     killall
-    xdotool
+    xorg.xkill
   ];
 
   fonts.fonts = with pkgs; [
@@ -160,16 +159,18 @@
     binaryCaches = [
       "https://nix-community.cachix.org/"
       "https://hydra.iohk.io" # Haskell.nix
-      "https://ebn.cachix.org"
     ];
 
     binaryCachePublicKeys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ=" # Haskell.nix
-      "ebn.cachix.org-1:Z8QlCh2aXXURAyMpMgDh7VaHo/iTJ7P8r52fxpjJ5JA="
     ];
   };
 
+  nix.package = pkgs.nixUnstable;
+  nix.extraOptions = ''
+    experimental-features = nix-command flakes
+  '';
   system.stateVersion = "21.05";
 
 }
