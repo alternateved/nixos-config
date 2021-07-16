@@ -79,7 +79,7 @@ myHome :: String
 myHome = "/home/alternateved"
 
 myDots :: String
-myDots = myHome ++ "/.nixos-config"
+myDots = myHome ++ "/.nixos-config/home/config"
 
 xmonadConfig :: String
 xmonadConfig = myDots ++ "/xmonad/xmonad.hs"
