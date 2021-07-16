@@ -1,0 +1,77 @@
+{
+  "nodes": {
+    "emacs-overlay": {
+      "locked": {
+        "lastModified": 1626456493,
+        "narHash": "sha256-lH9uzF5E4gOx3qw0hxSYVWDVoR1gJA2NSQWxTGuMNcM=",
+        "owner": "nix-community",
+        "repo": "emacs-overlay",
+        "rev": "47a84eaa4dc1cf443e2e0edd36d751bc208abfa6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "emacs-overlay",
+        "type": "github"
+      }
+    },
+    "home-manager": {
+      "inputs": {
+        "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "lastModified": 1626356862,
+        "narHash": "sha256-4ONLWH4UygF4pI0XBej8+2OMUrdb8HsUUFsiRDFmjrk=",
+        "owner": "rycee",
+        "repo": "home-manager",
+        "rev": "c476cc61b2dd8c7f868b213b7757b565bdf2bb7d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rycee",
+        "ref": "master",
+        "repo": "home-manager",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1626464457,
+        "narHash": "sha256-u2PCh/+8vQSLwf0mPpKHKQ8hAPB3l4uNZR3r0TdK2Lg=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "c6c4a3d45ab200f17805d2d86a1ff1cc7ca2b186",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "type": "indirect"
+      }
+    },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1626393312,
+        "narHash": "sha256-69bpkwa6c3WoYGe8ukSsyVo3s2WDJhAt5naKpwwJvtQ=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "53079ed913181b2f945cf1580746828b57d47edb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "emacs-overlay": "emacs-overlay",
+        "home-manager": "home-manager",
+        "nixpkgs": "nixpkgs_2"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}

@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 {
   # Let Home Manager install and manage itself.
@@ -6,14 +6,13 @@
 
   home.username = "alternateved";
   home.homeDirectory = "/home/alternateved";
-
-  nixpkgs.config.allowUnfree = true;
-  nixpkgs.overlays = [
-    (import (builtins.fetchTarball {
-      url =
-        "https://github.com/nix-community/emacs-overlay/archive/master.tar.gz";
-    }))
-  ];
+  # nixpkgs.overlays = [
+  #   (import (builtins.fetchTarball {
+  #     url =
+  #       "https://github.com/nix-community/emacs-overlay/archive/master.tar.gz";
+  #     sha256 = "lH9uzF5E4gOx3qw0hxSYVWDVoR1gJA2NSQWxTGuMNcM=";
+  #   }))
+  # ];
 
   home.sessionVariables = {
     ALTERNATE_EDITOR = "";
