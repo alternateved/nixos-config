@@ -6,13 +6,6 @@
 
   home.username = "alternateved";
   home.homeDirectory = "/home/alternateved";
-  # nixpkgs.overlays = [
-  #   (import (builtins.fetchTarball {
-  #     url =
-  #       "https://github.com/nix-community/emacs-overlay/archive/master.tar.gz";
-  #     sha256 = "lH9uzF5E4gOx3qw0hxSYVWDVoR1gJA2NSQWxTGuMNcM=";
-  #   }))
-  # ];
 
   home.sessionVariables = {
     ALTERNATE_EDITOR = "";
@@ -274,12 +267,12 @@
           context = "ctrl+shift+period";
         };
         urgency_low = {
-          background = "#1d1f21";
+          background = "#545B68";
           foreground = "#ecf0ed";
           timeout = 8;
         };
         urgency_normal = {
-          background = "#1d1f21";
+          background = "#545B68";
           foreground = "#ecf0ed";
           timeout = 14;
         };
