@@ -236,6 +236,7 @@
           font = "Fira Sans Regular 11";
           format = ''
             <b>%s</b>
+
             %b'';
           frame_width = 0;
           history_length = 20;
@@ -251,7 +252,7 @@
           separator_color = "auto";
           separator_height = 4;
           show_age_threshold = 60;
-          show_indicators = "no";
+          show_indicators = "false";
           shrink = "no";
           sort = "yes";
           startup_notification = false;
@@ -349,8 +350,6 @@
     # Doom emacs module dependencies
     gnumake
     cmake
-    hlint
-    cabal-install
     jq
     nixfmt
     shellcheck
