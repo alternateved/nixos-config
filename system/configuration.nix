@@ -30,7 +30,6 @@
         enableCryptodisk = true;
       };
     };
-    kernelPackages = pkgs.linuxPackages_zen.kernel;
     kernel.sysctl = { "vm.swappiness" = 10; };
   };
 

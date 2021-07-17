@@ -237,7 +237,6 @@
           format = ''
             <b>%s</b>
             %b'';
-          frame_color = "#1a1c25";
           frame_width = 0;
           history_length = 20;
           horizontal_padding = 16;
@@ -267,12 +266,12 @@
           context = "ctrl+shift+period";
         };
         urgency_low = {
-          background = "#545B68";
+          background = "#313335";
           foreground = "#ecf0ed";
           timeout = 8;
         };
         urgency_normal = {
-          background = "#545B68";
+          background = "#313335";
           foreground = "#ecf0ed";
           timeout = 14;
         };
@@ -333,6 +332,7 @@
     aspellDicts.pl
 
     # Media
+    feh
     gimp
     zathura
     calibre

@@ -10,10 +10,12 @@
   outputs = { nixpkgs, home-manager, emacs-overlay, ... }:
     let
       system = "x86_64-linux";
-      pkgs = import nixpkgs {
-        inherit system;
-        config = { allowUnfree = true; };
-        overlays = [ emacs-overlay.overlay ];
+      devShell.${system} = import ./shell.nix {
+        pkgs = import nixpkgs {
+          inherit system;
+          config = { allowUnfree = true; };
+          overlays = [ emacs-overlay.overlay ];
+        };
       };
 
     in {
