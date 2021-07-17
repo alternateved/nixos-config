@@ -61,6 +61,7 @@ import XMonad.Actions.GroupNavigation
     nextMatch,
   )
 import XMonad.Actions.Promote (promote)
+import XMonad.Actions.RotSlaves (rotSlavesDown)
 import XMonad.Actions.UpdatePointer (updatePointer)
 import XMonad.Actions.WithAll (killAll, sinkAll)
 -- Hooks
@@ -330,10 +331,6 @@ tabs =
         noBorders $
           tabbed shrinkText myTabConfig
 
-monocle =
-  renamed [Replace "monocle"] $
-    noBorders Full
-
 myLayoutHook =
   workspaceDir myHome $
     smartBorders $
@@ -344,7 +341,6 @@ myLayoutHook =
         ||| wide
         ||| columns
         ||| tabs
-        ||| monocle
 
 -------------------------------------------------------------------------
 -- KEYBINDINGS
@@ -359,6 +355,7 @@ myKeys =
 
     -- Open my preferred terminal
     ("M-S-<Return>", spawn myTerminal),
+
     -- Run Prompt
     ("M-p", shellPrompt myXPConfig),
     ("M-S-p", myPrompt myTerminal myXPConfig),
@@ -366,6 +363,7 @@ myKeys =
     ("M-S-d", changeDir myXPConfig'),
     ("M-d b", windowPrompt myXPConfig Bring allWindows),
     ("M-d g", windowPrompt myXPConfig Goto allWindows),
+
     -- Windows
     ("M-S-c", kill1), -- Kill the currently focused client
     ("M-S-a", killAll), -- Kill all windows on current workspace
@@ -384,10 +382,11 @@ myKeys =
     ("M-<Backspace>", promote), -- Moves focused window to master, others maintain order
     ("M-g u", focusUrgent), -- Go to urgent window
     ("M-S-g u", clearUrgents), -- Clear all urgent windows
+    ("M-<Tab>", rotSlavesDown),  -- Rotate all windows except master and keep focus in place
     ("M-g p", nextMatch History (return True)), -- Go to previous window
 
     -- Layouts
-    ("M-<Tab>", sendMessage NextLayout), -- Switch to next layout
+    ("M-<Space>", sendMessage NextLayout), -- Switch to next layout
     ("M-C-h", sendMessage Shrink), -- Shrink horiz window width
     ("M-C-l", sendMessage Expand), -- Expand horiz window width
     ("M-C-j", sendMessage MirrorShrink), -- Shrink vert window width
@@ -398,6 +397,7 @@ myKeys =
     ("M-s t", scratchTerm),
     ("M-s c", scratchCalc),
     ("M-s v", scratchMixer),
+
     -- Notifications
     ("C-M1-\\", spawn "dunstctl set-paused toggle"), -- Toggle dunst notifications
 
@@ -405,6 +405,7 @@ myKeys =
     ("M-M1-e", spawn myEditor),
     ("M-M1-f", spawn myFileManager),
     ("M-M1-b", spawn myBrowser),
+
     -- Multimedia Keys
     ("<XF86AudioMute>", spawn "amixer -q set Master toggle"),
     ("<XF86AudioLowerVolume>", spawn "amixer -q set Master 5%-"),
