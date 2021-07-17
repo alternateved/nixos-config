@@ -235,8 +235,7 @@
           corner_radius = 2;
           font = "Fira Sans Regular 11";
           format = ''
-            <b>%s</b>
-
+            <big>%s</big>\\n
             %b'';
           frame_width = 0;
           history_length = 20;
@@ -286,16 +285,37 @@
     };
   };
 
-  dconf.enable = true;
+  dconf.enable = false;
 
   xdg = {
     enable = true;
     userDirs.enable = true;
   };
 
+  gtk = {
+    enable = true;
+
+    theme = {
+      package = pkgs.materia-theme;
+      name = "Materia-dark-compact";
+    };
+
+    gtk3.extraConfig = { gtk-application-prefer-dark-theme = 1; };
+
+    iconTheme = {
+      package = pkgs.papirus-icon-theme;
+      name = "Papirus-Dark";
+    };
+
+    font = {
+      package = pkgs.fira;
+      name = "Fira Sans Regular 11";
+    };
+  };
+
   qt = {
     enable = true;
-    platformTheme = "gtk"; # gnome or gtk
+    platformTheme = "gtk";
   };
 
   home.packages = with pkgs; [
@@ -316,10 +336,6 @@
     qalculate-gtk
 
     # Theming
-    lxappearance
-    materia-theme
-    papirus-icon-theme
-    gtk-engine-murrine
     gsettings-desktop-schemas
     vanilla-dmz
 
