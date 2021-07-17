@@ -86,7 +86,7 @@ import XMonad.Hooks.InsertPosition
     Position (Master),
     insertPosition,
   )
-import XMonad.Hooks.ManageDocks (avoidStruts, docks)
+import XMonad.Hooks.ManageDocks (avoidStruts, docks, ToggleStruts(..))
 import XMonad.Hooks.ManageHelpers (doCenterFloat, doFullFloat, isDialog, isFullscreen)
 import XMonad.Hooks.RefocusLast (refocusLastLogHook)
 import XMonad.Hooks.SetWMName (setWMName)
@@ -98,6 +98,9 @@ import XMonad.Hooks.UrgencyHook
   )
 -- Layouts
 import XMonad.Layout.LayoutModifier (ModifiedLayout)
+import XMonad.Layout.MultiToggle (mkToggle, EOT(EOT), (??))
+import XMonad.Layout.MultiToggle.Instances (StdTransformers(NBFULL, NOBORDERS))
+import qualified XMonad.Layout.MultiToggle as MT (Toggle(..))
 import XMonad.Layout.NoBorders (noBorders, smartBorders)
 import XMonad.Layout.Renamed (Rename (Replace), renamed)
 import XMonad.Layout.ResizableTile
@@ -333,7 +336,8 @@ monocle =
 
 myLayoutHook =
   workspaceDir myHome $
-    smartBorders myDefaultLayout
+    smartBorders $
+      mkToggle (NBFULL ?? NOBORDERS ?? EOT) myDefaultLayout
   where
     myDefaultLayout =
       tall
@@ -387,7 +391,8 @@ myKeys =
     ("M-C-h", sendMessage Shrink), -- Shrink horiz window width
     ("M-C-l", sendMessage Expand), -- Expand horiz window width
     ("M-C-j", sendMessage MirrorShrink), -- Shrink vert window width
-    ("M-C-k", sendMessage MirrorExpand), -- Exoand vert window width
+    ("M-C-k", sendMessage MirrorExpand), -- Expand vert window width
+    ("M-a m", sendMessage (MT.Toggle NBFULL) >> sendMessage ToggleStruts), -- Toggles noborder/full
 
     -- Scratchpads
     ("M-s t", scratchTerm),
