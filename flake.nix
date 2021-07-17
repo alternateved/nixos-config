@@ -15,8 +15,8 @@
         inherit system;
         config = { allowUnfree = true; };
         overlays = [ emacs-overlay.overlay ];
-        # };
       };
+      # };
 
       nixosConfigurations = {
         nixos = nixpkgs.lib.nixosSystem {
