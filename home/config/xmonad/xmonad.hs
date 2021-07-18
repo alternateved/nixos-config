@@ -77,16 +77,12 @@ import XMonad.Hooks.DynamicLog
         ppUrgent,
         ppVisible
       ),
+    dynamicLogWithPP,
     shorten,
     statusBar,
     xmobarColor,
   )
 import XMonad.Hooks.EwmhDesktops (ewmh, fullscreenEventHook)
-import XMonad.Hooks.InsertPosition
-  ( Focus (Newer),
-    Position (Master),
-    insertPosition,
-  )
 import XMonad.Hooks.ManageDocks (avoidStruts, docks, ToggleStruts(..))
 import XMonad.Hooks.ManageHelpers (doCenterFloat, doFullFloat, isDialog, isFullscreen)
 import XMonad.Hooks.RefocusLast (refocusLastLogHook)
@@ -154,6 +150,9 @@ import XMonad.Util.NamedScratchpad
 import XMonad.Util.Run (unsafeSpawn)
 import XMonad.Util.SpawnOnce (spawnOnce)
 import XMonad.Util.Ungrab (unGrab)
+import qualified DBus as D
+import qualified DBus.Client as D
+import qualified Codec.Binary.UTF8.String as UTF8
 
 -------------------------------------------------------------------------
 -- VARIABLES
@@ -224,6 +223,7 @@ red = xmobarColor colorRed ""
 -------------------------------------------------------------------------
 myStartupHook :: X ()
 myStartupHook = do
+  spawnOnce "xsetroot -cursor_name left_ptr"
   spawnOnce "autorandr -c &"
   spawnOnce "lxpolkit &"
   spawnOnce "xfce4-power-manager &"
@@ -246,8 +246,7 @@ myManageHook =
       className =? "Signal" --> doShift (myWorkspaces !! 1),
       className =? "discord" --> doShift (myWorkspaces !! 1),
       isFullscreen --> doFullFloat,
-      isDialog --> doCenterFloat,
-      insertPosition Master Newer
+      isDialog --> doCenterFloat
     ]
     <+> namedScratchpadManageHook myScratchPads
 
@@ -503,10 +502,10 @@ myXPConfig' =
     }
 
 -------------------------------------------------------------------------
--- XMOBAR CONFIGURATION
+-- POLYBAR CONFIGURATION
 -------------------------------------------------------------------------
-myXmobarPP :: PP
-myXmobarPP =
+myPolybarPP :: D.Client -> PP
+myPolybarPP dbus =
   namedScratchpadFilterOutWorkspacePP $
     def
       { ppCurrent = hiWhite,
@@ -520,16 +519,32 @@ myXmobarPP =
         ppOrder = \(ws : l : t : _) -> [ws, l] ++ [t]
       }
 
+mkDbusClient :: IO D.Client
+mkDbusClient = D.connectSession >>= \dbus -> requestBus dbus >> pure dbus
+ where
+  requestBus dbus = D.requestName dbus ( D.busName_ "org.xmonad.log" ) opts
+  opts = [D.nameAllowReplacement, D.nameReplaceExisting, D.nameDoNotQueue]
+
+-- Emit a DBus signal on log updates
+dbusOutput :: D.Client -> String -> IO ()
+dbusOutput dbus str =
+  let opath  = D.objectPath_ "/org/xmonad/Log"
+      iname  = D.interfaceName_ "org.xmonad.Log"
+      mname  = D.memberName_ "Update"
+      signal = D.signal opath iname mname
+      body   = [D.toVariant $ UTF8.decodeString str]
+  in  D.emit dbus $ signal { D.signalBody = body }
+
 -------------------------------------------------------------------------
 -- MAIN CONFIG
 -------------------------------------------------------------------------
-myConfig =
+myConfig dbus =
   def
     { manageHook = myManageHook,
       modMask = myModMask,
       terminal = myTerminal,
       startupHook = myStartupHook,
-      logHook = myLogHook,
+      logHook = myLogHook <+> dynamicLogWithPP (myPolybarPP dbus),
       layoutHook = myLayoutHook,
       handleEventHook = fullscreenEventHook,
       workspaces = myWorkspaces,
@@ -548,7 +563,5 @@ main =
     . docks
     . ewmh
     . withUrgencyHook NoUrgencyHook
-    =<< statusBar "./.config/xmobar/xmobar" myXmobarPP toggleStrutsKey myConfig
-  where
-    toggleStrutsKey :: XConfig Layout -> (KeyMask, KeySym)
-    toggleStrutsKey XConfig {modMask = m} = (m, xK_b)
+    . myConfig
+    =<< mkDbusClient
