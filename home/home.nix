@@ -239,6 +239,13 @@
     emacs.package = pkgs.emacsUnstable;
     flameshot.enable = true;
 
+    polybar = {
+      enable = true;
+      package = pkgs.polybar.override { alsaSupport = true; };
+      config = ./config/polybar/polybar;
+      script = "polybar main &";
+    };
+
     picom = {
       enable = true;
       vSync = true;
