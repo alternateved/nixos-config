@@ -143,7 +143,6 @@ import XMonad.Prompt.Window
   )
 import qualified XMonad.StackSet as W
 -- Utilities
-import XMonad.Util.Cursor (setDefaultCursor)
 import XMonad.Util.EZConfig (additionalKeysP)
 import XMonad.Util.NamedScratchpad
   ( NamedScratchpad (NS),
@@ -225,11 +224,9 @@ red = xmobarColor colorRed ""
 -------------------------------------------------------------------------
 myStartupHook :: X ()
 myStartupHook = do
-  setDefaultCursor xC_left_ptr
-  -- spawnOnce "autorandr -c &"
+  spawnOnce "autorandr -c &"
   spawnOnce "lxpolkit &"
   spawnOnce "xfce4-power-manager &"
-  spawnOnce "dunst &"
   spawnOnce "bluetoothctl power on"
   spawnOnce "nitrogen --restore &"
   spawnOnce "emacs --daemon &"
