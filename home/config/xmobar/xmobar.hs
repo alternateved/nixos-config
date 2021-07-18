@@ -112,39 +112,19 @@ mainCommands =
           ("mostly cloudy", inIconFont "\xf0c2 "),
           ("considerable cloudiness", inIconFont "\xf740")
         ]
-        [ "-t",
-          "<fn=1><skyConditionS></fn> <tempC>°",
-          "-L",
-          "0",
-          "-H",
-          "25",
-          "--low",
-          colorBlue,
-          "--normal",
-          colorFg,
-          "--high",
-          colorRed
+        [ "-t", "<fn=1><skyConditionS></fn> <tempC>°",
+          "-L", "0",
+          "-H", "25",
+          "--low", colorBlue,
+          "--normal", colorFg,
+          "--high", colorRed
         ]
         36000,
     Run $ Com "bash" ["-c", "if [[ $(dunstctl is-paused) = false ]]; then echo '<fn=1>\xf0f3 </fn>'; else echo '<fn=1>\xf1f6 </fn>'; fi"] "notif" 1,
     Run $ Network "wlp2s0" ["-t", inIconFont "\xf063" ++ " <rx>kb " ++ inIconFont "\xf062" ++ " <tx>kb "] 20,
-    Run $
-      Cpu
-        [ "-L",
-          "3",
-          "-H",
-          "50",
-          "--high",
-          colorRed,
-          "-t",
-          "<total>%"
-        ]
-        20,
+    Run $ Cpu [ "-L", "3", "-H", "50", "--high", colorRed, "-t", "<total>%"] 20,
     Run $ Memory ["-t", " <used>M (<usedratio>%)"] 20,
-    Run $
-      Alsa
-        "default"
-        "Master"
+    Run $ Alsa "default" "Master"
         [ "--template",
           "<volumestatus>",
           "--suffix",
@@ -155,31 +135,21 @@ mainCommands =
           "--off",
           "—"
         ],
-    Run $
-      Battery
-        [ "--template",
-          "<acstatus>",
-          "--Low",
-          "20", -- units: %
-          "--High",
-          "95", -- units: %
-          "--low",
-          colorRed,
-          "--high",
-          colorFg,
+    Run $ Battery
+        [ "--template", "<acstatus>",
+          "--Low", "20", -- units: %
+          "--High", "95", -- units: %
+          "--low", colorRed,
+          "--high", colorFg,
           -- send message when low
-          "-a",
-          "dunstify -i 'dialog-warning' -u critical -t 3000 'Battery critically low'",
+          "-a", "dunstify -i 'dialog-warning' -u critical -t 3000 'Battery critically low'",
           "--", -- battery specific options
           -- discharging status
-          "-o",
-          inIconFont "\xf243" ++ " <left>% <timeleft>",
+          "-o", inIconFont "\xf243" ++ " <left>% <timeleft>",
           -- AC "on" status
-          "-O",
-          inIconFont "\xf242" ++ " <left>%",
+          "-O", inIconFont "\xf242" ++ " <left>%",
           -- charged status
-          "-i",
-          inIconFont "\xf240" ++ " 100%"
+          "-i", inIconFont "\xf240" ++ " 100%"
         ]
         150,
     Run $ Date "%H:%M" "date" 300
