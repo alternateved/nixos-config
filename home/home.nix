@@ -233,6 +233,51 @@
         };
       };
     };
+
+    zathura = {
+      enable = true;
+      options = {
+        font = "JetBrains Mono Nerd Font 10";
+        recolor = true;
+
+        default-bg = "#1d1f21";
+        default-fg = "#c4c8c5";
+        statusbar-bg = "#545B68";
+        statusbar-fg = "#c4c8c5";
+        inputbar-bg = "#1d1f21";
+        inputbar-fg = "#c4c8c5";
+        notification-error-bg = "#1d1f21";
+        notification-error-fg = "#cc6666";
+        notification-warning-bg = "#1d1f21";
+        notification-warning-fg = "#e7c787";
+        highlight-color = "#d5c4a1";
+        highlight-active-color = "#c4c8c5";
+        completion-highlight-bg = "#c4c8c5";
+        completion-highlight-fg = "#1d1f21";
+        completion-bg = "#1d1f21";
+        completion-fg = "#c4c8c5";
+        notification-fg = "#c4c8c5";
+        recolor-lightcolor = "#1d1f21";
+        recolor-darkcolor = "#c4c8c5";
+        selection-clipboard = "clipboard";
+        window-title-basename = true;
+        statusbar-h-padding = 10;
+        statusbar-v-padding = 4;
+
+      };
+
+      extraConfig = ''
+        map a adjust_window best-fit
+        map s adjust_window width
+        map f follow
+        map <Tab> toggle_index
+        map j scroll down
+        map k scroll up
+        map h navigate previous
+        map l navigate next
+        map <C-r> recolor
+      '';
+    };
   };
 
   services = {
@@ -375,10 +420,10 @@
     # Terminal
     alacritty
 
-    # temporary haskell stuff
+    # Panel
     xmobar
 
-    # utilities
+    # Utilities
     nitrogen
     xsecurelock
     lxsession
@@ -402,7 +447,6 @@
     # Media
     feh
     gimp
-    zathura
     calibre
     libreoffice
     neofetch
