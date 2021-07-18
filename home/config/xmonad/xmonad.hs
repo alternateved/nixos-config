@@ -77,7 +77,6 @@ import XMonad.Hooks.DynamicLog
         ppUrgent,
         ppVisible
       ),
-    dynamicLogWithPP,
     shorten,
     statusBar,
     xmobarColor,
@@ -150,9 +149,6 @@ import XMonad.Util.NamedScratchpad
 import XMonad.Util.Run (unsafeSpawn)
 import XMonad.Util.SpawnOnce (spawnOnce)
 import XMonad.Util.Ungrab (unGrab)
-import qualified DBus as D
-import qualified DBus.Client as D
-import qualified Codec.Binary.UTF8.String as UTF8
 
 -------------------------------------------------------------------------
 -- VARIABLES
@@ -502,10 +498,10 @@ myXPConfig' =
     }
 
 -------------------------------------------------------------------------
--- POLYBAR CONFIGURATION
+-- XMOBAR CONFIGURATION
 -------------------------------------------------------------------------
-myPolybarPP :: D.Client -> PP
-myPolybarPP dbus =
+myXmobarPP :: PP
+myXmobarPP =
   namedScratchpadFilterOutWorkspacePP $
     def
       { ppCurrent = hiWhite,
@@ -519,32 +515,16 @@ myPolybarPP dbus =
         ppOrder = \(ws : l : t : _) -> [ws, l] ++ [t]
       }
 
-mkDbusClient :: IO D.Client
-mkDbusClient = D.connectSession >>= \dbus -> requestBus dbus >> pure dbus
- where
-  requestBus dbus = D.requestName dbus ( D.busName_ "org.xmonad.log" ) opts
-  opts = [D.nameAllowReplacement, D.nameReplaceExisting, D.nameDoNotQueue]
-
--- Emit a DBus signal on log updates
-dbusOutput :: D.Client -> String -> IO ()
-dbusOutput dbus str =
-  let opath  = D.objectPath_ "/org/xmonad/Log"
-      iname  = D.interfaceName_ "org.xmonad.Log"
-      mname  = D.memberName_ "Update"
-      signal = D.signal opath iname mname
-      body   = [D.toVariant $ UTF8.decodeString str]
-  in  D.emit dbus $ signal { D.signalBody = body }
-
 -------------------------------------------------------------------------
 -- MAIN CONFIG
 -------------------------------------------------------------------------
-myConfig dbus =
+myConfig =
   def
     { manageHook = myManageHook,
       modMask = myModMask,
       terminal = myTerminal,
       startupHook = myStartupHook,
-      logHook = myLogHook <+> dynamicLogWithPP (myPolybarPP dbus),
+      logHook = myLogHook,
       layoutHook = myLayoutHook,
       handleEventHook = fullscreenEventHook,
       workspaces = myWorkspaces,
@@ -563,5 +543,7 @@ main =
     . docks
     . ewmh
     . withUrgencyHook NoUrgencyHook
-    . myConfig
-    =<< mkDbusClient
+    =<< statusBar "./.config/xmobar/xmobar" myXmobarPP toggleStrutsKey myConfig
+  where
+    toggleStrutsKey :: XConfig Layout -> (KeyMask, KeySym)
+    toggleStrutsKey XConfig {modMask = m} = (m, xK_b)
