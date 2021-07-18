@@ -88,7 +88,7 @@
       windowManager.xmonad = {
         enable = true;
         enableContribAndExtras = true;
-        # extraPackages = haskellPackages: [ haskellPackages.xmonad-contrib ];
+        extraPackages = haskellPackages: [ haskellPackages.dbus ];
         # haskellPackages = let
         #   compiler = "ghc884";
         #   src1 = pkgs.fetchFromGitHub {
