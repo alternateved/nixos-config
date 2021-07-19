@@ -239,7 +239,6 @@
       options = {
         font = "JetBrains Mono Nerd Font 10";
         recolor = true;
-
         default-bg = "#1d1f21";
         default-fg = "#c4c8c5";
         statusbar-bg = "#545B68";
