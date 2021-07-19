@@ -110,10 +110,12 @@ import XMonad.Layout.Spacing
   )
 import XMonad.Layout.Tabbed
   ( Theme (..),
+    addTabs,
     shrinkText,
-    tabbed,
   )
 import XMonad.Layout.ThreeColumns (ThreeCol (ThreeColMid))
+import XMonad.Layout.Simplest (Simplest (..))
+import XMonad.Layout.SubLayouts (GroupMsg (UnMerge), mergeDir, onGroup, subLayout)
 import XMonad.Layout.WorkspaceDir (changeDir, workspaceDir)
 -- Prompt
 import XMonad.Prompt
@@ -148,7 +150,6 @@ import XMonad.Util.NamedScratchpad
   )
 import XMonad.Util.Run (unsafeSpawn)
 import XMonad.Util.SpawnOnce (spawnOnce)
-import XMonad.Util.Ungrab (unGrab)
 
 -------------------------------------------------------------------------
 -- VARIABLES
@@ -237,23 +238,21 @@ myStartupHook = do
 myManageHook :: ManageHook
 myManageHook =
   composeAll
-    [ className =? "Firefox Developer Edition" --> doShift (head myWorkspaces),
-      className =? "Thunderbird" --> doShift (myWorkspaces !! 1),
-      className =? "Signal" --> doShift (myWorkspaces !! 1),
-      className =? "discord" --> doShift (myWorkspaces !! 1),
-      isFullscreen --> doFullFloat,
-      isDialog --> doCenterFloat
-    ]
-    <+> namedScratchpadManageHook myScratchPads
+    [ className =? "Firefox Developer Edition" --> doShift (head myWorkspaces)
+    , className =? "Thunderbird" --> doShift (myWorkspaces !! 1)
+    , className =? "Signal" --> doShift (myWorkspaces !! 1)
+    , className =? "discord" --> doShift (myWorkspaces !! 1)
+    , isFullscreen --> doFullFloat
+    , isDialog --> doCenterFloat
+    ] <+> namedScratchpadManageHook myScratchPads
 
 -------------------------------------------------------------------------
 -- LOGHOOK
 -------------------------------------------------------------------------
 myLogHook :: X ()
-myLogHook =
-  refocusLastLogHook
-    <> historyHook
-    <> updatePointer (0.5, 0.5) (0.5, 0.5)
+myLogHook = refocusLastLogHook
+            <> historyHook
+            <> updatePointer (0.5, 0.5) (0.5, 0.5)
 
 -------------------------------------------------------------------------
 -- WORKSPACES
@@ -275,64 +274,53 @@ clickable ws = "<action=xdotool key super+" ++ show i ++ ">" ++ ws ++ "</action>
 myTabConfig :: Theme
 myTabConfig =
   def
-    { fontName = myFont,
-      activeTextColor = colorHiWhite,
-      activeColor = colorBg,
-      activeBorderColor = colorFg,
-      inactiveTextColor = colorHiGrey,
-      inactiveColor = colorBg,
-      inactiveBorderColor = colorBg,
-      urgentTextColor = colorRed,
-      urgentColor = colorBg,
-      urgentBorderColor = colorBg,
-      decoHeight = 20
+    { fontName = myFont
+    , activeTextColor = colorBg
+    , activeColor = colorFg
+    , activeBorderColor = colorFg
+    , inactiveTextColor = colorFg
+    , inactiveColor = colorBg
+    , inactiveBorderColor = colorBg
+    , urgentTextColor = colorBg
+    , urgentColor = colorRed
+    , urgentBorderColor = colorRed
     }
 
 -------------------------------------------------------------------------
 -- LAYOUTS
 -------------------------------------------------------------------------
 mySpacing :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
-mySpacing i = spacingRaw False (Border i 0 i 0) True (Border 0 i 0 i) True
+mySpacing i = spacingRaw False (Border 0 i 0 i) True (Border i 0 i 0) True
 
 mySpacing' :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
 mySpacing' i = spacingRaw False (Border i i i i) True (Border 0 0 0 0) True
 
-tall =
-  renamed [Replace "tall"] $
-    avoidStruts $
-      mySpacing 5 $
-        ResizableTall 1 (3 / 100) (1 / 2) []
+tall    = renamed [Replace "tall"]
+          $ addTabs shrinkText myTabConfig . subLayout [] Simplest
+          $ avoidStruts
+          $ mySpacing 5
+          $ ResizableTall 1 (3 / 100) (1 / 2) []
 
-wide =
-  renamed [Replace "wide"] $
-    avoidStruts $
-      mySpacing 5 $
-        Mirror $
-          ResizableTall 1 (3 / 100) (3 / 4) []
+wide    = renamed [Replace "wide"]
+          $ addTabs shrinkText myTabConfig . subLayout [] Simplest
+          $ avoidStruts
+          $ mySpacing 5
+          $ Mirror
+          $ ResizableTall 1 (3 / 100) (3 / 4) []
 
-columns =
-  renamed [Replace "columns"] $
-    avoidStruts $
-      mySpacing 5 $
-        ThreeColMid 1 (3 / 100) (12 / 30)
+columns = renamed [Replace "columns"]
+          $ addTabs shrinkText myTabConfig . subLayout [] Simplest
+          $ avoidStruts
+          $ mySpacing 5
+          $ ThreeColMid 1 (3 / 100) (12 / 30)
 
-tabs =
-  renamed [Replace "tabs"] $
-    avoidStruts $
-      mySpacing' 5 $
-        noBorders $
-          tabbed shrinkText myTabConfig
-
-myLayoutHook =
-  workspaceDir myHome $
-    smartBorders $
-      mkToggle (NBFULL ?? NOBORDERS ?? EOT) myDefaultLayout
-  where
-    myDefaultLayout =
-      tall
-        ||| wide
-        ||| columns
-        ||| tabs
+myLayoutHook = workspaceDir myHome
+               $ smartBorders
+               $ mkToggle (NBFULL ?? NOBORDERS ?? EOT) myDefaultLayout
+             where
+               myDefaultLayout =      tall
+                                  ||| wide
+                                  ||| columns
 
 -------------------------------------------------------------------------
 -- KEYBINDINGS
@@ -340,72 +328,79 @@ myLayoutHook =
 myKeys :: [(String, X ())]
 myKeys =
   -- Xmonad
-  [ ("M-S-r", spawn "xmonad --recompile; xmonad --restart"), -- Recompile and restart xmonad
-    ("M-C-r", spawn $ myEditor ++ xmonadConfig), -- Modify configuration file
-    ("M-S-b", spawn $ "sh " ++ myDots ++ "/xmobar/xmobar_recompile.sh"), -- Modify configuration file
-    ("M-C-b", spawn $ myEditor ++ xmobarConfig), -- Modify configuration file
+  [ ("M-S-r", spawn "xmonad --recompile; xmonad --restart")
+  , ("M-C-r", spawn $ myEditor ++ xmonadConfig)
+  , ("M-S-b", spawn $ "sh " ++ myDots ++ "/xmobar/xmobar_recompile.sh")
+  , ("M-C-b", spawn $ myEditor ++ xmobarConfig)
 
     -- Open my preferred terminal
-    ("M-S-<Return>", spawn myTerminal),
+  , ("M-S-<Return>", spawn myTerminal)
 
     -- Run Prompt
-    ("M-p", shellPrompt myXPConfig),
-    ("M-S-p", myPrompt myTerminal myXPConfig),
-    ("M-S-q", dirExecPromptNamed myXPConfig' spawn (myDots ++ "/scripts/session") "Session: "),
-    ("M-S-d", changeDir myXPConfig'),
-    ("M-d b", windowPrompt myXPConfig Bring allWindows),
-    ("M-d g", windowPrompt myXPConfig Goto allWindows),
+  , ("M-p", shellPrompt myXPConfig)
+  , ("M-S-p", myPrompt myTerminal myXPConfig)
+  , ("M-S-q", dirExecPromptNamed myXPConfig' spawn (myDots ++ "/scripts/session") "Session: ")
+  , ("M-S-d", changeDir myXPConfig')
+  , ("M-d b", windowPrompt myXPConfig Bring allWindows)
+  , ("M-d g", windowPrompt myXPConfig Goto allWindows)
 
     -- Windows
-    ("M-S-c", kill1), -- Kill the currently focused client
-    ("M-S-a", killAll), -- Kill all windows on current workspace
+  , ("M-S-c", kill1)
+  , ("M-S-C-c", killAll)
 
     -- Floating windows
-    ("M-t", withFocused $ windows . W.sink), -- Push floating window back to tile
-    ("M-S-t", sinkAll), -- Push ALL floating windows to tile
+  , ("M-t", withFocused $ windows . W.sink)
+  , ("M-S-t", sinkAll)
 
     -- Windows navigation
-    ("M-m", windows W.focusMaster), -- Move focus to the master window
-    ("M-j", windows W.focusDown), -- Move focus to the next window
-    ("M-k", windows W.focusUp), -- Move focus to the prev window
-    ("M-S-m", windows W.swapMaster), -- Swap the focused window and the master window
-    ("M-S-j", windows W.swapDown), -- Swap focused window with next window
-    ("M-S-k", windows W.swapUp), -- Swap focused window with prev window
-    ("M-<Backspace>", promote), -- Moves focused window to master, others maintain order
-    ("M-g u", focusUrgent), -- Go to urgent window
-    ("M-S-g u", clearUrgents), -- Clear all urgent windows
-    ("M-<Tab>", rotSlavesDown),  -- Rotate all windows except master and keep focus in place
-    ("M-g p", nextMatch History (return True)), -- Go to previous window
+  , ("M-m", windows W.focusMaster)
+  , ("M-j", windows W.focusDown)
+  , ("M-k", windows W.focusUp)
+  , ("M-S-m", windows W.swapMaster)
+  , ("M-S-j", windows W.swapDown)
+  , ("M-S-k", windows W.swapUp)
+  , ("M-<Backspace>", promote)
+  , ("M-g u", focusUrgent)
+  , ("M-S-g u", clearUrgents)
+  , ("M-<Tab>", rotSlavesDown)
+  , ("M-g p", nextMatch History (return True))
 
     -- Layouts
-    ("M-<Space>", sendMessage NextLayout), -- Switch to next layout
-    ("M-C-h", sendMessage Shrink), -- Shrink horiz window width
-    ("M-C-l", sendMessage Expand), -- Expand horiz window width
-    ("M-C-j", sendMessage MirrorShrink), -- Shrink vert window width
-    ("M-C-k", sendMessage MirrorExpand), -- Expand vert window width
-    ("M-a m", sendMessage (MT.Toggle NBFULL) >> sendMessage ToggleStruts), -- Toggles noborder/full
+  , ("M-<Space>", sendMessage NextLayout)
+  , ("M-C-h", sendMessage Shrink)
+  , ("M-C-l", sendMessage Expand)
+  , ("M-C-j", sendMessage MirrorShrink)
+  , ("M-C-k", sendMessage MirrorExpand)
+  , ("M-a m", sendMessage (MT.Toggle NBFULL) >> sendMessage ToggleStruts)
+
+   -- SubLayouts
+  , ("M-S-.", withFocused (sendMessage . mergeDir id))
+  , ("M-S-,", withFocused (sendMessage . UnMerge))
+  , ("M-.", onGroup W.focusUp')
+  , ("M-,", onGroup W.focusDown')
 
     -- Scratchpads
-    ("M-s t", scratchTerm),
-    ("M-s c", scratchCalc),
-    ("M-s v", scratchMixer),
+  , ("M-s t", scratchTerm)
+  , ("M-s c", scratchCalc)
+  , ("M-s v", scratchMixer)
 
     -- Notifications
-    ("C-M1-\\", spawn "dunstctl set-paused toggle"), -- Toggle dunst notifications
+  , ("C-M1-\\", spawn "dunstctl set-paused toggle")
 
     --- My Applications (Super+Alt+Key)
-    ("M-M1-e", spawn myEditor),
-    ("M-M1-f", spawn myFileManager),
-    ("M-M1-b", spawn myBrowser),
+  , ("M-M1-e", spawn myEditor)
+  , ("M-M1-f", spawn myFileManager)
+  , ("M-M1-b", spawn myBrowser)
 
     -- Multimedia Keys
-    ("<XF86AudioMute>", spawn "amixer -q set Master toggle"),
-    ("<XF86AudioLowerVolume>", spawn "amixer -q set Master 5%-"),
-    ("<XF86AudioRaiseVolume>", spawn "amixer -q set Master 5%+"),
-    ("<XF86MonBrightnessUp>", spawn "xbacklight -inc 10"),
-    ("<XF86MonBrightnessDown>", spawn "xbacklight -dec 10"),
-    ("M-<Insert>", unGrab *> spawn "flameshot screen -p ~/Pictures/Screenshots"),
-    ("M-S-<Insert>", unGrab *> spawn "flameshot gui")
+  , ("<XF86AudioMute>", spawn "amixer -q set Master toggle")
+  , ("<XF86AudioLowerVolume>", spawn "amixer -q set Master 5%-")
+  , ("<XF86AudioRaiseVolume>", spawn "amixer -q set Master 5%+")
+  , ("<XF86MonBrightnessUp>", spawn "xbacklight -inc 10")
+  , ("<XF86MonBrightnessDown>", spawn "xbacklight -dec 10")
+  , ("M-<Insert>", spawn "flameshot screen -p ~/Pictures/Screenshots")
+  , ("M-S-<Insert>", spawn "flameshot gui")
+  , ("M-C-<KP_Equal>", spawn "autorandr -c")
   ]
     -- Reorder physical screens and make focus follow moved window
     -- "M-w" -- focus screen marked as 1
