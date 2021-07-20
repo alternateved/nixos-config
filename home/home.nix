@@ -168,6 +168,9 @@
         df = "df -h"; # Human-readable sizes
         free = "free -m"; # Show sizes in MB
         ls = "ls --color=auto"; # colored output
+        em = "devour emacsclient -c -a ''";
+        mpv = "devour mpv";
+        zathura = "devour zathura";
       };
     };
 
@@ -324,10 +327,8 @@
           alignment = "left";
           bounce_freq = 0;
           corner_radius = 2;
-          font = "Fira Sans Regular 11";
-          format = ''
-            <big>%s</big>\\n
-            %b'';
+          font = "Overpass 12";
+          format = "%b";
           frame_width = 0;
           history_length = 20;
           horizontal_padding = 16;
@@ -357,12 +358,12 @@
           context = "ctrl+shift+period";
         };
         urgency_low = {
-          background = "#313335";
+          background = "#27292b";
           foreground = "#ecf0ed";
           timeout = 8;
         };
         urgency_normal = {
-          background = "#313335";
+          background = "#27292b";
           foreground = "#ecf0ed";
           timeout = 14;
         };
@@ -399,8 +400,8 @@
     };
 
     font = {
-      package = pkgs.fira;
-      name = "Fira Sans Regular 11";
+      package = pkgs.overpass;
+      name = "Overpass Regular 12";
     };
   };
 
@@ -423,6 +424,7 @@
     xmobar
 
     # Utilities
+    devour
     nitrogen
     xsecurelock
     lxsession
