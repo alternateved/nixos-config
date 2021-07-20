@@ -12,6 +12,7 @@
     EDITOR = "emacs -t -a ''";
     VISUAL = "emacs -c -a ''";
     BROWSER = "firefox-devedition";
+    CALIBRE_USE_DARK_PALETTE = 1;
   };
 
   programs = {
@@ -323,13 +324,13 @@
         global = {
           monitor = 0;
           follow = "mouse";
-          geometry = "380x15-5+28";
+          geometry = "380x20-10+28";
           alignment = "left";
           bounce_freq = 0;
           corner_radius = 2;
-          font = "Overpass 12";
+          font = "Overpass 11";
           format = "%b";
-          frame_width = 0;
+          frame_width = 1;
           history_length = 20;
           horizontal_padding = 16;
           icon_position = "left";
@@ -360,16 +361,19 @@
         urgency_low = {
           background = "#27292b";
           foreground = "#ecf0ed";
+          frame_color = "#313335";
           timeout = 8;
         };
         urgency_normal = {
           background = "#27292b";
           foreground = "#ecf0ed";
+          frame_color = "#313335";
           timeout = 14;
         };
         urgency_critical = {
           background = "#cc6666";
           foreground = "#1E2029";
+          frame_color = "#313335";
           timeout = 0;
         };
       };
@@ -401,7 +405,7 @@
 
     font = {
       package = pkgs.overpass;
-      name = "Overpass Regular 12";
+      name = "Overpass Regular 11";
     };
   };
 
@@ -434,6 +438,7 @@
     qalculate-gtk
 
     # Theming
+    gnome.gnome-themes-extra
     gsettings-desktop-schemas
 
     # File managers
@@ -464,6 +469,7 @@
     cmake
     jq
     nixfmt
+    pandoc
     shellcheck
     html-tidy
     nodePackages.stylelint
