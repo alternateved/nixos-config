@@ -7,52 +7,7 @@ module Main (main) where
 import qualified Data.Map as M
 import Data.Maybe (fromJust)
 -- Base
-import XMonad
-  ( ChangeLayout (NextLayout),
-    Default (def),
-    Dimension,
-    Full (Full),
-    KeyMask,
-    KeySym,
-    Layout,
-    ManageHook,
-    Mirror (Mirror),
-    Resize (Expand, Shrink),
-    X,
-    XConfig
-      ( XConfig,
-        borderWidth,
-        focusedBorderColor,
-        handleEventHook,
-        layoutHook,
-        logHook,
-        manageHook,
-        modMask,
-        normalBorderColor,
-        startupHook,
-        terminal,
-        workspaces
-      ),
-    className,
-    composeAll,
-    doShift,
-    io,
-    mod4Mask,
-    screenWorkspace,
-    sendMessage,
-    spawn,
-    title,
-    whenJust,
-    windows,
-    withFocused,
-    xC_left_ptr,
-    xK_b,
-    xmonad,
-    (-->),
-    (<+>),
-    (=?),
-    (|||),
-  )
+import XMonad hiding ((|||))
 -- Actions
 import XMonad.Actions.CopyWindow (kill1)
 import XMonad.Actions.GroupNavigation
@@ -60,8 +15,12 @@ import XMonad.Actions.GroupNavigation
     historyHook,
     nextMatch,
   )
+import XMonad.Actions.Navigation2D
+  ( Direction2D(L, R),
+    windowGo,
+    windowSwap,
+  )
 import XMonad.Actions.Promote (promote)
-import XMonad.Actions.RotSlaves (rotSlavesDown)
 import XMonad.Actions.UpdatePointer (updatePointer)
 import XMonad.Actions.WithAll (killAll, sinkAll)
 -- Hooks
@@ -93,6 +52,7 @@ import XMonad.Hooks.UrgencyHook
     withUrgencyHook,
   )
 -- Layouts
+import XMonad.Layout.LayoutCombinators ((|||), JumpToLayout(JumpToLayout))
 import XMonad.Layout.LayoutModifier (ModifiedLayout)
 import XMonad.Layout.MultiToggle (mkToggle, EOT(EOT), (??))
 import XMonad.Layout.MultiToggle.Instances (StdTransformers(NBFULL, NOBORDERS))
@@ -185,7 +145,7 @@ myEditor :: String
 myEditor = "emacsclient -a '' -c "
 
 myBorderWidth :: Dimension
-myBorderWidth = 1
+myBorderWidth = 2
 
 -------------------------------------------------------------------------
 -- COLORS
@@ -356,13 +316,16 @@ myKeys =
   , ("M-m", windows W.focusMaster)
   , ("M-j", windows W.focusDown)
   , ("M-k", windows W.focusUp)
+  , ("M-h", windowGo L False)
+  , ("M-l", windowGo R False)
   , ("M-S-m", windows W.swapMaster)
   , ("M-S-j", windows W.swapDown)
   , ("M-S-k", windows W.swapUp)
+  , ("M-S-h", windowSwap L False)
+  , ("M-S-l", windowSwap R False)
   , ("M-<Backspace>", promote)
   , ("M-g u", focusUrgent)
   , ("M-S-g u", clearUrgents)
-  , ("M-<Tab>", rotSlavesDown)
   , ("M-g p", nextMatch History (return True))
 
     -- Layouts
@@ -371,6 +334,10 @@ myKeys =
   , ("M-C-l", sendMessage Expand)
   , ("M-C-j", sendMessage MirrorShrink)
   , ("M-C-k", sendMessage MirrorExpand)
+
+  , ("M-a t", sendMessage $ JumpToLayout "tall")
+  , ("M-a w", sendMessage $ JumpToLayout "wide")
+  , ("M-a c", sendMessage $ JumpToLayout "columns")
   , ("M-a m", sendMessage (MT.Toggle NBFULL) >> sendMessage ToggleStruts)
 
    -- SubLayouts
