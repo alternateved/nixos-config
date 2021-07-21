@@ -330,7 +330,7 @@
           corner_radius = 2;
           font = "Overpass 11";
           format = "%b";
-          frame_width = 1;
+          frame_width = 2;
           history_length = 20;
           horizontal_padding = 16;
           icon_position = "left";
@@ -465,6 +465,9 @@
     libvterm
 
     # Doom emacs module dependencies
+    mu
+    isync
+
     gnumake
     cmake
     jq
