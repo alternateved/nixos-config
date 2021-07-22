@@ -2,6 +2,9 @@
 
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; sync' after modifying this file!
+(setq auto-save-default t
+      make-backup-files t)
+
 (setq undo-limit 80000000                         ; Raise undo-limit to 80Mb
       evil-want-fine-undo t                       ; By default while in insert all changes are one big blob. Be more granular
       auto-save-default t                         ; Nobody likes to loose work, I certainly don't
@@ -41,6 +44,22 @@
 ;; Zen improvements
 (setq +zen-text-scale 0.8)
 
+(after! writeroom-mode
+  (add-hook 'writeroom-mode-enable-hook
+            (defun +zen-prose-org-h ()
+              "Reformat the current Org buffer appearance for prose."
+              (when (eq major-mode 'org-mode)
+                (setq display-line-numbers nil
+                      visual-fill-column-width 60
+                      org-adapt-indentation nil)
+                (setq +zen--original-org-indent-mode-p (org-indent-mode -1))))
+  (add-hook 'writeroom-mode-disable-hook
+            (defun +zen-nonprose-org-h ()
+              "Reverse the effect of `+zen-prose-org'."
+              (when (eq major-mode 'org-mode)
+                (when +zen--original-org-indent-mode-p (org-indent-mode 1))
+                )))))
+
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
 (setq user-full-name "Tomasz Hołubowicz"
@@ -54,6 +73,9 @@
 (setq doom-font (font-spec :family "JetBrains Mono Nerd Font" :size 15 :weight 'medium)
       doom-big-font (font-spec :family "JetBrains Mono Nerd Font" :size 20)
       doom-variable-pitch-font (font-spec :family "Overpass" :size 15))
+(after! doom-themes
+  (setq doom-themes-enable-bold t
+        doom-themes-enable-italic t))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
@@ -62,10 +84,8 @@
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(after! org
-  (setq org-directory "~/Documents/org/"
-        org-agenda-files '("~/Documents/org/agenda.org"))
-)
+(setq org-directory "~/Documents/org/")
+
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type 'relative)

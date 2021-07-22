@@ -169,7 +169,7 @@
         df = "df -h"; # Human-readable sizes
         free = "free -m"; # Show sizes in MB
         ls = "ls --color=auto"; # colored output
-        em = "devour emacsclient -c -a ''";
+        em = "devour emacsclient -c";
         mpv = "devour mpv";
         zathura = "devour zathura";
       };
@@ -465,9 +465,6 @@
     libvterm
 
     # Doom emacs module dependencies
-    mu
-    isync
-
     gnumake
     cmake
     jq
