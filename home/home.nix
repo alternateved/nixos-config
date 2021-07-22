@@ -470,6 +470,7 @@
     jq
     nixfmt
     pandoc
+    python3Minimal
     shellcheck
     html-tidy
     nodePackages.stylelint
