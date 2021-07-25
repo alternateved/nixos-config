@@ -196,8 +196,7 @@ myStartupHook = do
 -- MANAGEHOOK
 -------------------------------------------------------------------------
 myManageHook :: ManageHook
-myManageHook =
-  composeAll
+myManageHook = composeAll
     [ className =? "Firefox Developer Edition" --> doShift (head myWorkspaces)
     , className =? "Thunderbird" --> doShift (myWorkspaces !! 1)
     , className =? "Signal" --> doShift (myWorkspaces !! 1)
@@ -232,8 +231,7 @@ clickable ws = "<action=xdotool key super+" ++ show i ++ ">" ++ ws ++ "</action>
 -- TABS CONFIGURATION
 -------------------------------------------------------------------------
 myTabConfig :: Theme
-myTabConfig =
-  def
+myTabConfig = def
     { fontName = myFont
     , activeTextColor = colorBg
     , activeColor = colorFg
@@ -432,8 +430,7 @@ myPrompt c config = do
 -- PROMPT CONFIGURATION
 -------------------------------------------------------------------------
 myXPConfig :: XPConfig
-myXPConfig =
-  def
+myXPConfig = def
     { font = myFont,
       bgColor = colorBg,
       fgColor = colorFg,
@@ -454,8 +451,7 @@ myXPConfig =
     }
 
 myXPConfig' :: XPConfig
-myXPConfig' =
-  myXPConfig
+myXPConfig' = myXPConfig
     { autoComplete = Nothing
     }
 
@@ -463,9 +459,7 @@ myXPConfig' =
 -- XMOBAR CONFIGURATION
 -------------------------------------------------------------------------
 myXmobarPP :: PP
-myXmobarPP =
-  namedScratchpadFilterOutWorkspacePP $
-    def
+myXmobarPP = namedScratchpadFilterOutWorkspacePP $ def
       { ppCurrent = hiWhite,
         ppVisible = hiWhite . clickable,
         ppHidden = hiGrey . clickable,
@@ -480,8 +474,7 @@ myXmobarPP =
 -------------------------------------------------------------------------
 -- MAIN CONFIG
 -------------------------------------------------------------------------
-myConfig =
-  def
+myConfig = def
     { manageHook = myManageHook,
       modMask = myModMask,
       terminal = myTerminal,
@@ -493,19 +486,17 @@ myConfig =
       borderWidth = myBorderWidth,
       normalBorderColor = myNormColor,
       focusedBorderColor = myFocusColor
-    }
-    `additionalKeysP` myKeys
+    } `additionalKeysP` myKeys
 
 -------------------------------------------------------------------------
 -- MAIN
 -------------------------------------------------------------------------
 main :: IO ()
-main =
-  xmonad
-    . docks
-    . ewmh
-    . withUrgencyHook NoUrgencyHook
-    =<< statusBar "./.config/xmobar/xmobar" myXmobarPP toggleStrutsKey myConfig
-  where
-    toggleStrutsKey :: XConfig Layout -> (KeyMask, KeySym)
-    toggleStrutsKey XConfig {modMask = m} = (m, xK_b)
+main = xmonad
+     . docks
+     . ewmh
+     . withUrgencyHook NoUrgencyHook
+     =<< statusBar "./.config/xmobar/xmobar" myXmobarPP toggleStrutsKey myConfig
+    where
+      toggleStrutsKey :: XConfig Layout -> (KeyMask, KeySym)
+      toggleStrutsKey XConfig {modMask = m} = (m, xK_b)
