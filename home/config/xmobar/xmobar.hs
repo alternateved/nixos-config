@@ -22,7 +22,7 @@ import Xmobar
         template
       ),
     Date (Date),
-    Monitors (Alsa, Battery, Cpu, Memory, Network, WeatherX),
+    Monitors (Alsa, Battery, Cpu, Memory, Network, Weather),
     Runnable (..),
     StdinReader (UnsafeStdinReader),
     XMonadLog (UnsafeXPropertyLog),
@@ -66,14 +66,13 @@ mainConfig =
       position = OnScreen 0 (TopW L 100),
       template =
         lambdaIcon
-          -- <> withPipe "%xmobar0% }{"
           <> withPipe "%UnsafeStdinReader% }{"
           <> "%EPLL% "
           <> withPipe "%notif%"
           <> withPipe "%wlp2s0%"
           <> withPipe (inIconFont "\xf2db" ++ " %cpu% ")
           <> withPipe (inIconFont "\xf538" ++ "%memory% ")
-          <> withPipe (inIconFont "\xf028" ++ " %alsa:default:Master% ")
+          -- <> withPipe (inIconFont "\xf028" ++ " %alsa:default:Master% ")
           <> withPipe "%battery% "
           <> withPipe "%date% "
     }
@@ -94,47 +93,26 @@ auxConfig =
 -------------------------------------------------------------------------
 mainCommands :: [Runnable]
 mainCommands =
-  -- [ Run $ UnsafeXPropertyLog "xmobar0"
   [ Run UnsafeStdinReader,
-    Run $
-      WeatherX
-        "EPLL"
-        [ ("", inIconFont "\xf186"),
-          ("clear", inIconFont "\xf185"),
-          ("sunny", inIconFont "\xf185"),
-          ("mostly clear", inIconFont "\xf185"),
-          ("mostly sunny", inIconFont "\xf185"),
-          ("partly sunny", inIconFont "\xf6c4"),
-          ("fair", inIconFont "\xf186"),
-          ("cloudy", inIconFont "\xf0c2"),
-          ("overcast", inIconFont "\xf0c2"),
-          ("partly cloudy", inIconFont "\xf6c4"),
-          ("mostly cloudy", inIconFont "\xf0c2 "),
-          ("considerable cloudiness", inIconFont "\xf740")
-        ]
-        [ "-t", "<fn=1><skyConditionS></fn> <tempC>°",
+    Run $ Weather "EPLL"
+        [ "--template", "<weather> <tempC>°C",
           "-L", "0",
           "-H", "25",
-          "--low", colorBlue,
+          "--low"   , colorBlue,
           "--normal", colorFg,
-          "--high", colorRed
-        ]
-        36000,
+          "--high"  , colorRed
+        ] 36000,
     Run $ Com "bash" ["-c", "if [[ $(dunstctl is-paused) = false ]]; then echo '<fn=1>\xf0f3 </fn>'; else echo '<fn=1>\xf1f6 </fn>'; fi"] "notif" 1,
     Run $ Network "wlp2s0" ["-t", inIconFont "\xf063" ++ " <rx>kb " ++ inIconFont "\xf062" ++ " <tx>kb "] 20,
     Run $ Cpu [ "-L", "3", "-H", "50", "--high", colorRed, "-t", "<total>%"] 20,
     Run $ Memory ["-t", " <used>M (<usedratio>%)"] 20,
-    Run $ Alsa "default" "Master"
-        [ "--template",
-          "<volumestatus>",
-          "--suffix",
-          "True",
-          "--",
-          "--on",
-          "",
-          "--off",
-          "—"
-        ],
+    -- Run $ Alsa "default" "Master"
+    --     ["--template", "<volumestatus>",
+    --       "--suffix", "True",
+    --       "--",
+    --       "--on", "",
+    --       "--off", "—"
+    --     ],
     Run $ Battery
         [ "--template", "<acstatus>",
           "--Low", "20", -- units: %
@@ -150,8 +128,7 @@ mainCommands =
           "-O", inIconFont "\xf242" ++ " <left>%",
           -- charged status
           "-i", inIconFont "\xf240" ++ " 100%"
-        ]
-        150,
+        ] 150,
     Run $ Date "%H:%M" "date" 300
   ]
 
@@ -170,14 +147,6 @@ colorFg = "#c4c8c5"
 colorRed = "#cc6666"
 colorBlue = "#80a1bd"
 colorGreen = "#b5bd68"
-
--- OneDarker colors
--- colorBg, colorFg, colorRed, colorBlue, colorGreen :: String
--- colorBg     = "#1E222A"
--- colorFg     = "#C8CCD4"
--- colorRed    = "#D47D85"
--- colorBlue   = "#61afef"
--- colorGreen  = "#7eca9c"
 
 red, blue :: String -> String
 red = xmobarColor colorRed ""
