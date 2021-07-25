@@ -52,10 +52,7 @@
 
   sound.enable = true;
   hardware = {
-    pulseaudio = {
-      enable = true;
-      package = pkgs.pulseaudio;
-    };
+    pulseaudio = { enable = true; };
 
     bluetooth.enable = true;
   };
@@ -147,13 +144,20 @@
   ];
 
   nix = {
+    autoOptimiseStore = true;
+
     gc = {
+
       automatic = true;
       dates = "monthly";
-      options = "--delete-older-than 30d";
+      options = "--delete-older-than 8d";
     };
 
-    autoOptimiseStore = true;
+    optimise = {
+      automatic = true;
+      dates = [ "weekly" ];
+    };
+
     trustedUsers = [ "alternateved" "root" ];
     binaryCaches = [
       "https://nix-community.cachix.org/"
