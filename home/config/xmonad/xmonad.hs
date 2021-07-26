@@ -248,10 +248,7 @@ myTabConfig = def
 -- LAYOUTS
 -------------------------------------------------------------------------
 mySpacing :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
-mySpacing i = spacingRaw False (Border 0 i 0 i) True (Border i 0 i 0) True
-
-mySpacing' :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
-mySpacing' i = spacingRaw False (Border i i i i) True (Border 0 0 0 0) True
+mySpacing i = spacingRaw True (Border 0 i 0 i) True (Border i 0 i 0) True
 
 tall    = renamed [Replace "tall"]
           $ addTabs shrinkText myTabConfig . subLayout [] Simplest
