@@ -44,22 +44,6 @@
 ;; Zen improvements
 (setq +zen-text-scale 0.8)
 
-(after! writeroom-mode
-  (add-hook 'writeroom-mode-enable-hook
-            (defun +zen-prose-org-h ()
-              "Reformat the current Org buffer appearance for prose."
-              (when (eq major-mode 'org-mode)
-                (setq display-line-numbers nil
-                      visual-fill-column-width 60
-                      org-adapt-indentation nil)
-                (setq +zen--original-org-indent-mode-p (org-indent-mode -1))))
-  (add-hook 'writeroom-mode-disable-hook
-            (defun +zen-nonprose-org-h ()
-              "Reverse the effect of `+zen-prose-org'."
-              (when (eq major-mode 'org-mode)
-                (when +zen--original-org-indent-mode-p (org-indent-mode 1))
-                )))))
-
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
 (setq user-full-name "Tomasz Hołubowicz"
@@ -70,12 +54,41 @@
 ;; font string. You generally only need these two:
 ;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
-(setq doom-font (font-spec :family "JetBrains Mono Nerd Font" :size 15 :weight 'medium)
+(setq doom-font (font-spec :family "JetBrains Mono Nerd Font" :size 16)
       doom-big-font (font-spec :family "JetBrains Mono Nerd Font" :size 20)
-      doom-variable-pitch-font (font-spec :family "Overpass" :size 15))
+      doom-variable-pitch-font (font-spec :family "Overpass" :size 18))
+
 (after! doom-themes
   (setq doom-themes-enable-bold t
         doom-themes-enable-italic t))
+
+(use-package mixed-pitch
+  :hook (text-mode . mixed-pitch-mode)
+  :config
+  (pushnew! mixed-pitch-fixed-pitch-faces
+            'org-date
+            'org-special-keyword
+            'org-property-value
+            'org-drawer
+            'org-ref-cite-face
+            'org-tag
+            'org-todo-keyword-todo
+            'org-todo-keyword-habt
+            'org-todo-keyword-done
+            'org-todo-keyword-wait
+            'org-todo-keyword-kill
+            'org-todo-keyword-outd
+            'org-todo
+            'org-done
+            'font-lock-comment-face
+            'line-number
+            'line-number-current-line))
+
+(after! flyspell
+  (setq flyspell-lazy-idle-seconds 2))
+
+(after! ispell
+  (setq ispell-program-name "aspell"))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
@@ -85,11 +98,33 @@
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
 (setq calendar-week-start-day 1)
-(setq org-directory "~/Documents/org/")
+(setq org-directory "~/Documents/org/"
+      org-agenda-files (list org-directory))
+
+(setq org-hide-emphasis-markers t)
+(after! org
+  (add-hook 'org-mode-hook
+            (lambda ()
+              (variable-pitch-mode)
+              (visual-line-mode)
+              (org-indent-mode -1)))
+  (setq org-todo-keywords '((sequence
+                             "TODO(t)"
+                             "NEXT(n)"
+                             "WAIT(w)"
+                             "|"
+                             "DONE(d)"
+                             "CANCELLED(c)"
+                             "MOVED(m)"))))
+
+
+(setq org-journal-file-type 'daily
+      org-journal-date-format "%A, %d-%m-%Y"
+      org-journal-file-format "%d-%m-%Y.org")
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type 'relative)
+(setq display-line-numbers-type t)
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
