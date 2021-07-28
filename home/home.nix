@@ -12,7 +12,6 @@
     EDITOR = "emacs -t -a ''";
     VISUAL = "emacs -c -a ''";
     BROWSER = "firefox-devedition";
-    CALIBRE_USE_DARK_PALETTE = 1;
   };
 
   programs = {
@@ -172,6 +171,7 @@
         em = "devour emacsclient -nw";
         mpv = "devour mpv";
         zathura = "devour zathura";
+        calibre = "CALIBRE_USE_DARK_PALETTE=1 calibre";
       };
     };
 
@@ -328,9 +328,9 @@
           alignment = "left";
           bounce_freq = 0;
           corner_radius = 2;
-          font = "Overpass 12";
+          font = "Fira Sans Regular 12";
           format = "%b";
-          frame_width = 2;
+          frame_width = 1;
           history_length = 20;
           horizontal_padding = 16;
           icon_position = "left";
@@ -361,13 +361,13 @@
         urgency_low = {
           background = "#27292b";
           foreground = "#ecf0ed";
-          frame_color = "#313335";
+          frame_color = "#ecf0ed";
           timeout = 8;
         };
         urgency_normal = {
           background = "#27292b";
           foreground = "#ecf0ed";
-          frame_color = "#313335";
+          frame_color = "#ecf0ed";
           timeout = 14;
         };
         urgency_critical = {
@@ -404,8 +404,8 @@
     };
 
     font = {
-      package = pkgs.overpass;
-      name = "Overpass Regular 12";
+      package = pkgs.fira;
+      name = "Fira Sans Regular 12";
     };
   };
 

@@ -137,8 +137,7 @@
   ];
 
   fonts.fonts = with pkgs; [
-    dejavu_fonts
-    overpass
+    fira
     font-awesome_5
     (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
   ];
