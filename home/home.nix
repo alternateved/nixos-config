@@ -169,7 +169,7 @@
         df = "df -h"; # Human-readable sizes
         free = "free -m"; # Show sizes in MB
         ls = "ls --color=auto"; # colored output
-        em = "devour emacsclient -c";
+        em = "devour emacsclient -nw";
         mpv = "devour mpv";
         zathura = "devour zathura";
       };
@@ -328,7 +328,7 @@
           alignment = "left";
           bounce_freq = 0;
           corner_radius = 2;
-          font = "Overpass 11";
+          font = "Overpass 12";
           format = "%b";
           frame_width = 2;
           history_length = 20;
@@ -405,7 +405,7 @@
 
     font = {
       package = pkgs.overpass;
-      name = "Overpass Regular 11";
+      name = "Overpass Regular 12";
     };
   };
 
@@ -467,8 +467,11 @@
     # Doom emacs module dependencies
     gnumake
     cmake
+    gcc
     jq
     nixfmt
+    sqlite
+    graphviz
     pandoc
     python3Minimal
     shellcheck
