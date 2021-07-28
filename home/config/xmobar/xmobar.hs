@@ -129,7 +129,7 @@ mainCommands =
           -- charged status
           "-i", inIconFont "\xf240" ++ " 100%"
         ] 150,
-    Run $ Date "%H:%M" "date" 300
+    Run $ Date "%a %b %_d | %H:%M" "date" 300
   ]
 
 auxCommands :: [Runnable]
@@ -185,10 +185,10 @@ wrap l r m = l <> m <> r
 -- FONTS AND ICONS
 -------------------------------------------------------------------------
 mainFont :: String
-mainFont = "xft:JetBrainsMono Nerd Font:weight=regular:pixelsize=13:antialias=true:hinting=true"
+mainFont = "xft:JetBrainsMono Nerd Font:weight=regular:pixelsize=14:antialias=true:hinting=true"
 
 iconFont :: String
-iconFont = "xft:Font Awesome 5 Free Solid:pixelsize=13"
+iconFont = "xft:Font Awesome 5 Free Solid:pixelsize=14"
 
 -- Wrap stuff so it uses the icon font.
 inIconFont :: String -> String
