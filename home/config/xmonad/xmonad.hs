@@ -127,7 +127,7 @@ xmobarConfig :: String
 xmobarConfig = myDots ++ "/xmobar/xmobar.hs"
 
 myFont :: String
-myFont = "xft:JetBrainsMono Nerd Font:style=medium:size=10:antialias=true:hinting=true"
+myFont = "xft:JetBrainsMono Nerd Font:style=medium:size=11:antialias=true:hinting=true"
 
 myModMask :: KeyMask
 myModMask = mod4Mask
