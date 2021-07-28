@@ -1,18 +1,27 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
-;; Place your private configuration here! Remember, you do not need to run 'doom
-;; sync' after modifying this file!
+;; Enable autosave
 (setq auto-save-default t
       make-backup-files t)
 
+;; Saner defaults
 (setq undo-limit 80000000                         ; Raise undo-limit to 80Mb
       evil-want-fine-undo t                       ; By default while in insert all changes are one big blob. Be more granular
       auto-save-default t                         ; Nobody likes to loose work, I certainly don't
       truncate-string-ellipsis "…"                ; Unicode ellispis are nicer than "...", and also save /precious/ space
       password-cache-expiry nil                   ; I can trust my computers ... can't I?
-      scroll-margin 2)
+      scroll-margin 2
+      display-line-numbers-type t)
 
-(global-subword-mode 1)                           ; Iterate through CamelCase words
+
+;; Some sane settings in evil mode
+(after! evil
+  (setq evil-ex-substitute-global t     ; I like my s/../.. to by global by default
+        evil-move-cursor-back nil       ; Don't move the block cursor when toggling insert mode
+        evil-kill-on-visual-paste nil)) ; Don't put overwritten text in the kill ring
+
+;; Iterate through CamelCase words
+(global-subword-mode 1)
 
 ;; Lots of autocompletion
 (after! company
@@ -23,12 +32,6 @@
 
 (setq-default history-length 1000)
 (setq-default prescient-history-length 1000)
-
-;; Some sane settings in evil mode
-(after! evil
-  (setq evil-ex-substitute-global t     ; I like my s/../.. to by global by default
-        evil-move-cursor-back nil       ; Don't move the block cursor when toggling insert mode
-        evil-kill-on-visual-paste nil)) ; Don't put overwritten text in the kill ring
 
 ;; Which-key improvements
 (setq which-key-idle-delay 0.5)                   ; I need the help, I really do
@@ -44,59 +47,38 @@
 ;; Zen improvements
 (setq +zen-text-scale 0.8)
 
-;; Some functionality uses this to identify you, e.g. GPG configuration, email
-;; clients, file templates and snippets.
+;; About me
 (setq user-full-name "Tomasz Hołubowicz"
       user-mail-address "alternateved@gmail.com")
 
 ;; Font settings
-;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
-;; font string. You generally only need these two:
-;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
-;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
 (setq doom-font (font-spec :family "JetBrains Mono Nerd Font" :size 16)
       doom-big-font (font-spec :family "JetBrains Mono Nerd Font" :size 20)
-      doom-variable-pitch-font (font-spec :family "Overpass" :size 18))
+      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 18))
 
 (after! doom-themes
   (setq doom-themes-enable-bold t
         doom-themes-enable-italic t))
 
-(use-package mixed-pitch
-  :hook (text-mode . mixed-pitch-mode)
-  :config
-  (pushnew! mixed-pitch-fixed-pitch-faces
-            'org-date
-            'org-special-keyword
-            'org-property-value
-            'org-drawer
-            'org-ref-cite-face
-            'org-tag
-            'org-todo-keyword-todo
-            'org-todo-keyword-habt
-            'org-todo-keyword-done
-            'org-todo-keyword-wait
-            'org-todo-keyword-kill
-            'org-todo-keyword-outd
-            'org-todo
-            'org-done
-            'font-lock-comment-face
-            'line-number
-            'line-number-current-line))
+(custom-set-faces
+  '(org-level-1 ((t (:inherit outline-1 :height 1.2))))
+  '(org-level-2 ((t (:inherit outline-2 :height 1.0))))
+  '(org-level-3 ((t (:inherit outline-3 :height 1.0))))
+  '(org-level-4 ((t (:inherit outline-4 :height 1.0))))
+  '(org-level-5 ((t (:inherit outline-5 :height 1.0))))
+)
 
+;; Dictionary settings
 (after! flyspell
   (setq flyspell-lazy-idle-seconds 2))
 
 (after! ispell
   (setq ispell-program-name "aspell"))
 
-;; There are two ways to load a theme. Both assume the theme is installed and
-;; available. You can either set `doom-theme' or manually load a theme with the
-;; `load-theme' function. This is the default:
+;; Theme settings
 (setq doom-theme 'doom-tomorrow-night)
 
-;; If you use `org' and don't want your org files in the default location below,
-;; change `org-directory'. It must be set before org loads!
+;; Org-mode settings
 (setq calendar-week-start-day 1)
 (setq org-directory "~/Documents/org/"
       org-agenda-files (list org-directory)
@@ -106,7 +88,6 @@
 (after! org
   (add-hook 'org-mode-hook
             (lambda ()
-              (variable-pitch-mode)
               (doom/reload-font)
               (visual-line-mode)
               (org-indent-mode -1)))
@@ -125,10 +106,6 @@
 (setq org-journal-file-type 'daily
       org-journal-date-format "%A, %d-%m-%Y"
       org-journal-file-format "%d-%m-%Y.org")
-
-;; This determines the style of line numbers in effect. If set to `nil', line
-;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type t)
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
