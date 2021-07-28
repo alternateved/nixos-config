@@ -99,15 +99,20 @@
 ;; change `org-directory'. It must be set before org loads!
 (setq calendar-week-start-day 1)
 (setq org-directory "~/Documents/org/"
-      org-agenda-files (list org-directory))
+      org-agenda-files (list org-directory)
+      org-roam-directory "~/Documents/org/roam/")
 
 (setq org-hide-emphasis-markers t)
 (after! org
   (add-hook 'org-mode-hook
             (lambda ()
               (variable-pitch-mode)
+              (doom/reload-font)
               (visual-line-mode)
               (org-indent-mode -1)))
+  (add-hook 'org-journal-mode-hook
+            (lambda ()
+              (ispell-change-dictionary "polish")))
   (setq org-todo-keywords '((sequence
                              "TODO(t)"
                              "NEXT(n)"
@@ -116,7 +121,6 @@
                              "DONE(d)"
                              "CANCELLED(c)"
                              "MOVED(m)"))))
-
 
 (setq org-journal-file-type 'daily
       org-journal-date-format "%A, %d-%m-%Y"
