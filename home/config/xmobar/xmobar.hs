@@ -75,6 +75,7 @@ mainConfig =
           -- <> withPipe (inIconFont "\xf028" ++ " %alsa:default:Master% ")
           <> withPipe "%battery% "
           <> withPipe "%date% "
+          <> withPipe "%time% "
     }
 
 auxConfig :: Config
@@ -129,7 +130,8 @@ mainCommands =
           -- charged status
           "-i", inIconFont "\xf240" ++ " 100%"
         ] 150,
-    Run $ Date "%a %b %_d | %H:%M" "date" 300
+    Run $ Date "%a %b %_d" "date" 500,
+    Run $ Date "%H:%M" "time" 300
   ]
 
 auxCommands :: [Runnable]
