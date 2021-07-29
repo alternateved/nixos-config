@@ -444,6 +444,7 @@
     # File managers
     pcmanfm
     ranger
+    ueberzug
 
     # Dictionaries
     aspell
