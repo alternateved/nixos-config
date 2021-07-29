@@ -56,10 +56,6 @@
       doom-big-font (font-spec :family "JetBrains Mono Nerd Font" :size 20)
       doom-variable-pitch-font (font-spec :family "Fira Sans" :size 18))
 
-(after! doom-themes
-  (setq doom-themes-enable-bold t
-        doom-themes-enable-italic t))
-
 (custom-set-faces
   '(org-level-1 ((t (:inherit outline-1 :height 1.2))))
   '(org-level-2 ((t (:inherit outline-2 :height 1.0))))
@@ -77,6 +73,12 @@
 
 ;; Theme settings
 (setq doom-theme 'doom-tomorrow-night)
+
+(after! doom-themes
+  (setq doom-themes-enable-bold t
+        doom-themes-enable-italic t))
+
+(setq doom-modeline-icon t)
 
 ;; Org-mode settings
 (setq calendar-week-start-day 1)
