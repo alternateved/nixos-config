@@ -78,7 +78,7 @@
   (setq doom-themes-enable-bold t
         doom-themes-enable-italic t))
 
-(setq doom-modeline-icon t)
+(setq doom-modeline-major-mode-icon t)
 
 ;; Org-mode settings
 (setq calendar-week-start-day 1)
