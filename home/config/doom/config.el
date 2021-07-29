@@ -109,6 +109,16 @@
       org-journal-date-format "%A, %d-%m-%Y"
       org-journal-file-format "%d-%m-%Y.org")
 
+(setq org-capture-templates
+        '(("t" "Personal task" entry (file+headline "~/Documents/org/todo.org" "Tasks")
+        "* TODO %? \n%U" :empty-lines 1)
+        ("s" "Scheduled task" entry (file+headline "~/Documents/org/agenda.org" "Agenda")
+        "* TODO %? \nSCHEDULED: %^t\n%U" :empty-lines 1)
+        ("d" "Deadline" entry (file+headline "~/Documents/org/agenda.org" "Agenda")
+            "* TODO %? \n  DEADLINE: %^t" :empty-lines 1)
+        ("n" "Personal note" entry (file+headline "~/Documents/org/notes.org" "Notes")
+            "* %? \n%U" :empty-lines 1)))
+
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
 ;; - `load!' for loading external *.el files relative to this one
