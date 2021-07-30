@@ -81,21 +81,17 @@
 (setq doom-modeline-major-mode-icon t)
 
 ;; Org-mode settings
-(setq calendar-week-start-day 1)
 (setq org-directory "~/Documents/org/"
       org-agenda-files (list org-directory)
       org-roam-directory "~/Documents/org/roam/")
 
-(setq org-hide-emphasis-markers t)
 (after! org
   (add-hook 'org-mode-hook
             (lambda ()
               (doom/reload-font)
-              (visual-line-mode)
-              (org-indent-mode -1)))
-  (add-hook 'org-journal-mode-hook
-            (lambda ()
-              (ispell-change-dictionary "polish")))
+              (visual-line-mode)))
+  (setq calendar-week-start-day 1)
+  (setq org-hide-emphasis-markers t)
   (setq org-todo-keywords '((sequence
                              "TODO(t)"
                              "NEXT(n)"
@@ -105,21 +101,26 @@
                              "CANCELLED(c)"
                              "MOVED(m)"))))
 
-(setq org-journal-file-type 'daily
+(after! org-journal
+  (add-hook 'org-journal-mode-hook
+            (lambda ()
+              (ispell-change-dictionary "polish")))
+  (setq org-journal-file-type 'daily
       org-journal-date-format "%A, %d-%m-%Y"
-      org-journal-file-format "%d-%m-%Y.org")
+      org-journal-file-format "%d-%m-%Y.org"))
 
-(setq org-capture-templates
+(after! org-capture
+  (setq org-capture-templates
         '(("t" "Personal task" entry (file+headline "~/Documents/org/todo.org" "Tasks")
-        "* TODO %? \n%U" :empty-lines 1)
-        ("s" "Scheduled task" entry (file+headline "~/Documents/org/todo.org" "Tasks")
-        "* TODO %? \nSCHEDULED: %^t\n%U" :empty-lines 1)
-        ("d" "Deadline" entry (file+headline "~/Documents/org/todo.org" "Tasks")
-            "* TODO %? \n  DEADLINE: %^t" :empty-lines 1)
-        ("m" "Meeting" entry (file+headline "~/Documents/org/agenda.org" "Agenda")
-            "* %? \nSCHEDULED: %^t\n%U" :empty-lines 1)
-        ("n" "Personal note" entry (file+headline "~/Documents/org/notes.org" "Notes")
-            "* %? \n%U" :empty-lines 1)))
+           "* TODO %? \n%U" :empty-lines 1)
+          ("s" "Scheduled task" entry (file+headline "~/Documents/org/todo.org" "Tasks")
+           "* TODO %? \nSCHEDULED: %^t\n%U" :empty-lines 1)
+          ("d" "Deadline" entry (file+headline "~/Documents/org/todo.org" "Tasks")
+           "* TODO %? \n  DEADLINE: %^t" :empty-lines 1)
+          ("m" "Meeting" entry (file+headline "~/Documents/org/agenda.org" "Agenda")
+           "* %? \nSCHEDULED: %^t\n%U" :empty-lines 1)
+          ("n" "Personal note" entry (file+headline "~/Documents/org/notes.org" "Notes")
+           "* %? \n%U" :empty-lines 1))))
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
