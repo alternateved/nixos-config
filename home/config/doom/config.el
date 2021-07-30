@@ -54,7 +54,7 @@
 ;; Font settings
 (setq doom-font (font-spec :family "JetBrains Mono Nerd Font" :size 16)
       doom-big-font (font-spec :family "JetBrains Mono Nerd Font" :size 20)
-      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 18))
+      doom-variable-pitch-font (font-spec :family "Fira Sans" :weight 'light :size 18))
 
 (custom-set-faces
   '(org-level-1 ((t (:inherit outline-1 :height 1.2))))
@@ -112,10 +112,12 @@
 (setq org-capture-templates
         '(("t" "Personal task" entry (file+headline "~/Documents/org/todo.org" "Tasks")
         "* TODO %? \n%U" :empty-lines 1)
-        ("s" "Scheduled task" entry (file+headline "~/Documents/org/agenda.org" "Agenda")
+        ("s" "Scheduled task" entry (file+headline "~/Documents/org/todo.org" "Tasks")
         "* TODO %? \nSCHEDULED: %^t\n%U" :empty-lines 1)
-        ("d" "Deadline" entry (file+headline "~/Documents/org/agenda.org" "Agenda")
+        ("d" "Deadline" entry (file+headline "~/Documents/org/todo.org" "Tasks")
             "* TODO %? \n  DEADLINE: %^t" :empty-lines 1)
+        ("m" "Meeting" entry (file+headline "~/Documents/org/agenda.org" "Agenda")
+            "* %? \nSCHEDULED: %^t\n%U" :empty-lines 1)
         ("n" "Personal note" entry (file+headline "~/Documents/org/notes.org" "Notes")
             "* %? \n%U" :empty-lines 1)))
 
