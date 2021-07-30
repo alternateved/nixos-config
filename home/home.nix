@@ -47,27 +47,27 @@
           };
           cursor = {
             text = "#1d1f21";
-            cursor = "#ffffff";
+            cursor = "#c5c8c6";
           };
           normal = {
             black = "#1d1f21";
             red = "#cc6666";
             green = "#b5bd68";
-            yellow = "#e6c547";
+            yellow = "#f0c674";
             blue = "#81a2be";
             magenta = "#b294bb";
-            cyan = "#70c0ba";
-            white = "#373b41";
+            cyan = "#8abeb7";
+            white = "#c5c8c6";
           };
           bright = {
             black = "#666666";
-            red = "#ff3334";
-            green = "#9ec400";
-            yellow = "#f0c674";
-            blue = "#81a2be";
-            magenta = "#b77ee0";
-            cyan = "#54ced6";
-            white = "#282a2e";
+            red = "#d54e53";
+            green = "#b9ca4a";
+            yellow = "#e7c547";
+            blue = "#7aa6da";
+            magenta = "#c397d8";
+            cyan = "#70c0b1";
+            white = "#eaeaea";
           };
         };
 
@@ -192,7 +192,7 @@
         df = "df -h"; # Human-readable sizes
         free = "free -m"; # Show sizes in MB
         ls = "ls --color=auto"; # colored output
-        em = "devour emacsclient -nw";
+        em = "devour emacsclient -c";
         mpv = "devour mpv";
         zathura = "devour zathura";
         calibre = "CALIBRE_USE_DARK_PALETTE=1 calibre";
