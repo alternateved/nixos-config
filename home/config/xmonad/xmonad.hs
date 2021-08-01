@@ -110,6 +110,7 @@ import XMonad.Util.NamedScratchpad
   )
 import XMonad.Util.Run (unsafeSpawn)
 import XMonad.Util.SpawnOnce (spawnOnce)
+import XMonad.Util.Ungrab (unGrab)
 
 -------------------------------------------------------------------------
 -- VARIABLES
@@ -159,14 +160,15 @@ myFocusColor = colorFg
 
 -- Base colors
 colorBg, colorFg, colorHiWhite, colorLoGrey, colorHiGrey, colorRed, colorBlue, colorGreen :: String
-colorBg = "#1d1f21"
-colorFg = "#c4c8c5"
-colorHiWhite = "#ecf0ed"
-colorLoGrey = "#545B68"
-colorHiGrey = "#9fa1a3"
-colorRed = "#cc6666"
-colorBlue = "#80a1bd"
-colorGreen = "#b5bd68"
+colorBg = "#18181B"
+colorFg = "#E4E4E8"
+colorHiWhite = "#EFEFF1"
+colorLoGrey = "#4b5254"
+colorHiGrey = "#879193"
+colorRed = "#CD5C60"
+colorBlue = "#91B9C7"
+colorGreen = "#6FB593"
+
 
 hiWhite, loWhite, loGrey, hiGrey, red :: String -> String
 loWhite = xmobarColor colorFg ""
@@ -360,8 +362,8 @@ myKeys =
   , ("<XF86AudioRaiseVolume>", spawn "amixer -q set Master 5%+")
   , ("<XF86MonBrightnessUp>", spawn "xbacklight -inc 10")
   , ("<XF86MonBrightnessDown>", spawn "xbacklight -dec 10")
-  , ("M-<Insert>", spawn "flameshot screen -p ~/Pictures/Screenshots")
-  , ("M-S-<Insert>", spawn "flameshot gui")
+  , ("M-<Insert>", unGrab *> spawn "flameshot screen -p ~/Pictures/Screenshots")
+  , ("M-S-<Insert>", unGrab *> spawn "flameshot gui")
   , ("M-C-<KP_Equal>", spawn "autorandr -c")
   ]
     -- Reorder physical screens and make focus follow moved window

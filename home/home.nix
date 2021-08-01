@@ -42,32 +42,32 @@
 
         colors = {
           primary = {
-            background = "#1d1f21";
-            foreground = "#c5c8c6";
+            background = "#18181B";
+            foreground = "#E4E4E8";
           };
           cursor = {
-            text = "#1d1f21";
-            cursor = "#c5c8c6";
+            text = "#18181B";
+            cursor = "#E4E4E8";
           };
           normal = {
-            black = "#1d1f21";
-            red = "#cc6666";
-            green = "#b5bd68";
-            yellow = "#f0c674";
-            blue = "#81a2be";
-            magenta = "#b294bb";
-            cyan = "#8abeb7";
-            white = "#c5c8c6";
+            black = "#18181B";
+            red = "#CD5C60";
+            green = "#6FB593";
+            yellow = "#EED891";
+            blue = "#91B9C7";
+            magenta = "#845A84";
+            cyan = "#4D9391";
+            white = "#E4E4E8";
           };
           bright = {
-            black = "#666666";
-            red = "#d54e53";
-            green = "#b9ca4a";
-            yellow = "#e7c547";
-            blue = "#7aa6da";
-            magenta = "#c397d8";
-            cyan = "#70c0b1";
-            white = "#eaeaea";
+            black = "#161618";
+            red = "#C93237";
+            green = "#35BF88";
+            yellow = "#DBAC66";
+            blue = "#3B84CC";
+            magenta = "#D24B83";
+            cyan = "#68F3CA";
+            white = "#EFEFF1";
           };
         };
 
@@ -267,25 +267,25 @@
       options = {
         font = "JetBrains Mono Nerd Font 10";
         recolor = true;
-        default-bg = "#1d1f21";
-        default-fg = "#c4c8c5";
-        statusbar-bg = "#545B68";
-        statusbar-fg = "#c4c8c5";
-        inputbar-bg = "#1d1f21";
-        inputbar-fg = "#c4c8c5";
-        notification-error-bg = "#1d1f21";
-        notification-error-fg = "#cc6666";
-        notification-warning-bg = "#1d1f21";
-        notification-warning-fg = "#e7c787";
-        highlight-color = "#d5c4a1";
-        highlight-active-color = "#c4c8c5";
-        completion-highlight-bg = "#c4c8c5";
-        completion-highlight-fg = "#1d1f21";
-        completion-bg = "#1d1f21";
-        completion-fg = "#c4c8c5";
-        notification-fg = "#c4c8c5";
-        recolor-lightcolor = "#1d1f21";
-        recolor-darkcolor = "#c4c8c5";
+        default-bg = "#18181B";
+        default-fg = "#E4E4E8";
+        statusbar-bg = "#4b5254";
+        statusbar-fg = "#E4E4E8";
+        inputbar-bg = "#18181B";
+        inputbar-fg = "#E4E4E8";
+        notification-error-bg = "#18181B";
+        notification-error-fg = "#CD5C60";
+        notification-warning-bg = "#18181B";
+        notification-warning-fg = "#DBAC66";
+        highlight-color = "#EED891";
+        highlight-active-color = "#E4E4E8";
+        completion-highlight-bg = "#E4E4E8";
+        completion-highlight-fg = "#18181B";
+        completion-bg = "#18181B";
+        completion-fg = "#E4E4E8";
+        notification-fg = "#E4E4E8";
+        recolor-lightcolor = "#18181B";
+        recolor-darkcolor = "#E4E4E8";
         selection-clipboard = "clipboard";
         window-title-basename = true;
         statusbar-h-padding = 10;
@@ -383,20 +383,20 @@
           context = "ctrl+shift+period";
         };
         urgency_low = {
-          background = "#27292b";
-          foreground = "#ecf0ed";
-          frame_color = "#ecf0ed";
+          background = "#4b5254";
+          foreground = "#E4E4E8";
+          frame_color = "#E4E4E8";
           timeout = 8;
         };
         urgency_normal = {
-          background = "#27292b";
-          foreground = "#ecf0ed";
-          frame_color = "#ecf0ed";
+          background = "#4b5254";
+          foreground = "#E4E4E8";
+          frame_color = "#E4E4E8";
           timeout = 14;
         };
         urgency_critical = {
-          background = "#cc6666";
-          foreground = "#1E2029";
+          background = "#CD5C60";
+          foreground = "#18181B";
           frame_color = "#313335";
           timeout = 0;
         };
@@ -445,9 +445,6 @@
   };
 
   home.packages = with pkgs; [
-    # Terminal
-    alacritty
-
     # Panel
     xmobar
 

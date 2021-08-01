@@ -144,11 +144,11 @@ auxCommands =
 -- COLORS
 -------------------------------------------------------------------------
 colorBg, colorFg, colorRed, colorBlue, colorGreen :: String
-colorBg = "#1d1f21"
-colorFg = "#c4c8c5"
-colorRed = "#cc6666"
-colorBlue = "#80a1bd"
-colorGreen = "#b5bd68"
+colorBg = "#18181B"
+colorFg = "#E4E4E8"
+colorRed = "#CD5C60"
+colorBlue = "#91B9C7"
+colorGreen = "#6FB593"
 
 red, blue :: String -> String
 red = xmobarColor colorRed ""
