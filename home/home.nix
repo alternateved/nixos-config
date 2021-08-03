@@ -1,12 +1,12 @@
 { config, lib, pkgs, inputs, ... }:
 
-{
+let colors = import ./colors.nix;
+in {
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
   home.username = "alternateved";
   home.homeDirectory = "/home/alternateved";
-
   home.sessionVariables = {
     ALTERNATE_EDITOR = "";
     EDITOR = "emacs -t -a ''";
@@ -29,7 +29,7 @@
 
         window = { decorations = "none"; };
         font = {
-          size = 9.0;
+          size = 8.0;
           normal.family = "JetBrains Mono Nerd Font";
           bold.family = "JetBrains Mono Nerd Font";
           italic.family = "JetBrains Mono Nerd Font";
@@ -42,32 +42,32 @@
 
         colors = {
           primary = {
-            background = "#18181B";
-            foreground = "#E4E4E8";
+            background = colors.background;
+            foreground = colors.foreground;
           };
           cursor = {
-            text = "#18181B";
-            cursor = "#E4E4E8";
+            text = colors.black;
+            cursor = colors.white;
           };
           normal = {
-            black = "#18181B";
-            red = "#CD5C60";
-            green = "#6FB593";
-            yellow = "#EED891";
-            blue = "#91B9C7";
-            magenta = "#845A84";
-            cyan = "#4D9391";
-            white = "#E4E4E8";
+            black = colors.black;
+            red = colors.red;
+            green = colors.green;
+            yellow = colors.yellow;
+            blue = colors.blue;
+            magenta = colors.magenta;
+            cyan = colors.cyan;
+            white = colors.white;
           };
           bright = {
-            black = "#161618";
-            red = "#C93237";
-            green = "#35BF88";
-            yellow = "#DBAC66";
-            blue = "#3B84CC";
-            magenta = "#D24B83";
-            cyan = "#68F3CA";
-            white = "#EFEFF1";
+            black = colors.bright-black;
+            red = colors.bright-red;
+            green = colors.bright-green;
+            yellow = colors.bright-yellow;
+            blue = colors.bright-blue;
+            magenta = colors.bright-magenta;
+            cyan = colors.bright-cyan;
+            white = colors.bright-white;
           };
         };
 
@@ -267,25 +267,25 @@
       options = {
         font = "JetBrains Mono Nerd Font 10";
         recolor = true;
-        default-bg = "#18181B";
-        default-fg = "#E4E4E8";
-        statusbar-bg = "#4b5254";
-        statusbar-fg = "#E4E4E8";
-        inputbar-bg = "#18181B";
-        inputbar-fg = "#E4E4E8";
-        notification-error-bg = "#18181B";
-        notification-error-fg = "#CD5C60";
-        notification-warning-bg = "#18181B";
-        notification-warning-fg = "#DBAC66";
-        highlight-color = "#EED891";
-        highlight-active-color = "#E4E4E8";
-        completion-highlight-bg = "#E4E4E8";
-        completion-highlight-fg = "#18181B";
-        completion-bg = "#18181B";
-        completion-fg = "#E4E4E8";
-        notification-fg = "#E4E4E8";
-        recolor-lightcolor = "#18181B";
-        recolor-darkcolor = "#E4E4E8";
+        default-bg = colors.background;
+        default-fg = colors.foreground;
+        statusbar-bg = colors.gray;
+        statusbar-fg = colors.foreground;
+        inputbar-bg = colors.background;
+        inputbar-fg = colors.foreground;
+        notification-error-bg = colors.background;
+        notification-error-fg = colors.red;
+        notification-warning-bg = colors.background;
+        notification-warning-fg = colors.bright-yellow;
+        highlight-color = colors.yellow;
+        highlight-active-color = colors.white;
+        completion-highlight-bg = colors.foreground;
+        completion-highlight-fg = colors.background;
+        completion-bg = colors.background;
+        completion-fg = colors.foreground;
+        notification-fg = colors.foreground;
+        recolor-lightcolor = colors.background;
+        recolor-darkcolor = colors.foreground;
         selection-clipboard = "clipboard";
         window-title-basename = true;
         statusbar-h-padding = 10;
@@ -348,7 +348,7 @@
         global = {
           monitor = 0;
           follow = "mouse";
-          geometry = "380x20-10+28";
+          geometry = "380x25-15+28";
           alignment = "left";
           bounce_freq = 0;
           corner_radius = 2;
@@ -383,21 +383,21 @@
           context = "ctrl+shift+period";
         };
         urgency_low = {
-          background = "#4b5254";
-          foreground = "#E4E4E8";
-          frame_color = "#E4E4E8";
+          background = colors.background;
+          foreground = colors.foreground;
+          frame_color = colors.white;
           timeout = 8;
         };
         urgency_normal = {
-          background = "#4b5254";
-          foreground = "#E4E4E8";
-          frame_color = "#E4E4E8";
+          background = colors.background;
+          foreground = colors.foreground;
+          frame_color = colors.white;
           timeout = 14;
         };
         urgency_critical = {
-          background = "#CD5C60";
-          foreground = "#18181B";
-          frame_color = "#313335";
+          background = colors.red;
+          foreground = colors.black;
+          frame_color = colors.black;
           timeout = 0;
         };
       };
@@ -457,6 +457,7 @@
     xfce.xfce4-power-manager
     xarchiver
     qalculate-gtk
+    unzip
 
     # Theming
     gnome.gnome-themes-extra
