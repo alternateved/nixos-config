@@ -160,22 +160,22 @@ myFocusColor = colorFg
 
 -- Base colors
 colorBg, colorFg, colorHiWhite, colorLoGrey, colorHiGrey, colorRed, colorBlue, colorGreen :: String
-colorBg = "#18181B"
-colorFg = "#E4E4E8"
-colorHiWhite = "#EFEFF1"
-colorLoGrey = "#4b5254"
-colorHiGrey = "#879193"
-colorRed = "#CD5C60"
-colorBlue = "#91B9C7"
-colorGreen = "#6FB593"
+colorBg       = "#18181B"
+colorFg       = "#E4E4E8"
+colorHiWhite  = "#EFEFF1"
+colorLoGrey   = "#4b5254"
+colorHiGrey   = "#879193"
+colorRed      = "#CD5C60"
+colorBlue     = "#91B9C7"
+colorGreen    = "#6FB593"
 
 
 hiWhite, loWhite, loGrey, hiGrey, red :: String -> String
 loWhite = xmobarColor colorFg ""
 hiWhite = xmobarColor colorHiWhite ""
-loGrey = xmobarColor colorLoGrey ""
-hiGrey = xmobarColor colorHiGrey ""
-red = xmobarColor colorRed ""
+loGrey  = xmobarColor colorLoGrey ""
+hiGrey  = xmobarColor colorHiGrey ""
+red     = xmobarColor colorRed ""
 
 -------------------------------------------------------------------------
 -- STARTUPHOOK

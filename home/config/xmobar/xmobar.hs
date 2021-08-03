@@ -143,16 +143,19 @@ auxCommands =
 -------------------------------------------------------------------------
 -- COLORS
 -------------------------------------------------------------------------
-colorBg, colorFg, colorRed, colorBlue, colorGreen :: String
-colorBg = "#18181B"
-colorFg = "#E4E4E8"
-colorRed = "#CD5C60"
-colorBlue = "#91B9C7"
-colorGreen = "#6FB593"
+colorBg, colorFg, colorHiWhite, colorLoGrey, colorHiGrey, colorRed, colorBlue, colorGreen :: String
+colorBg       = "#18181B"
+colorFg       = "#E4E4E8"
+colorHiWhite  = "#EFEFF1"
+colorLoGrey   = "#4b5254"
+colorHiGrey   = "#879193"
+colorRed      = "#CD5C60"
+colorBlue     = "#91B9C7"
+colorGreen    = "#6FB593"
 
 red, blue :: String -> String
-red = xmobarColor colorRed ""
-blue = xmobarColor colorBlue ""
+red   = xmobarColor colorRed ""
+blue  = xmobarColor colorBlue ""
 
 -- Use xmobar escape codes to output a string with given foreground and background colors.
 -- Source: https://hackage.haskell.org/package/xmonad-contrib-0.15/docs/src/XMonad.Hooks.DynamicLog.html#xmobarColor
