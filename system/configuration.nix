@@ -65,6 +65,7 @@
       xkbOptions = "caps:escape_shifted_capslock";
 
       displayManager = {
+        # defaultSession = "none+stumpwm";
         defaultSession = "none+xmonad";
         autoLogin.enable = true;
         autoLogin.user = "alternateved";
@@ -82,6 +83,8 @@
           '';
         };
       };
+
+      # windowManager.stumpwm.enable = true;
 
       windowManager.xmonad = {
         enable = true;

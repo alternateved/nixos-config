@@ -494,6 +494,7 @@ in {
     cmake
     gcc
     jq
+    sbcl
     nixfmt
     sqlite
     graphviz
