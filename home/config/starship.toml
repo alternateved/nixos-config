@@ -10,17 +10,17 @@ error_symbol = "[λ](bold red)"
 vicmd_symbol = "[V](bold green)"
 
 [directory]
-style = "bold dimmed green"
+style = "bold green"
 truncation_length = 3
 truncation_symbol = "…/"
 truncate_to_repo = true
 read_only = " "
 
 [git_branch]
-style = "bold dimmed purple"
+style = "bold purple"
 
 [git_status]
-style = "bold dimmed purple"
+style = "bold purple"
 
 [package]
 disabled = true
