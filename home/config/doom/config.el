@@ -20,9 +20,6 @@
         evil-move-cursor-back nil       ; Don't move the block cursor when toggling insert mode
         evil-kill-on-visual-paste nil)) ; Don't put overwritten text in the kill ring
 
-;; Iterate through CamelCase words
-(global-subword-mode 1)
-
 ;; Lots of autocompletion
 (after! company
   (setq company-idle-delay 0.5
@@ -72,11 +69,16 @@
   (setq ispell-program-name "aspell"))
 
 ;; Theme settings
-(setq doom-theme 'doom-tomorrow-night)
+;; (setq doom-theme 'doom-tomorrow-night)
 
-(after! doom-themes
-  (setq doom-themes-enable-bold t
-        doom-themes-enable-italic t))
+;; (after! doom-themes
+;;   (setq doom-themes-enable-bold t
+;;         doom-themes-enable-italic t))
+
+(use-package! kaolin-themes
+  :config
+  (load-theme 'kaolin-dark t)
+  (kaolin-treemacs-theme))
 
 (setq doom-modeline-major-mode-icon t)
 
