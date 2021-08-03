@@ -31,6 +31,7 @@
       };
     };
     kernel.sysctl = { "vm.swappiness" = 10; };
+    kernelPackages = pkgs.linuxPackages_latest;
   };
 
   networking = {
