@@ -337,6 +337,7 @@ in {
         night = 3000;
       };
     };
+
     dunst = {
       enable = true;
       iconTheme = {
@@ -344,11 +345,12 @@ in {
         package = pkgs.papirus-icon-theme;
         size = "22x22";
       };
+
       settings = {
         global = {
           monitor = 0;
           follow = "mouse";
-          geometry = "380x25-15+28";
+          geometry = "380x30-15+28";
           alignment = "left";
           bounce_freq = 0;
           corner_radius = 2;
