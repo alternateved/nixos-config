@@ -2,7 +2,7 @@
 
 let colors = import ../colors.nix;
 in {
-  dunst = {
+  services.dunst = {
     enable = true;
     iconTheme = {
       name = "Papirus-Dark";
