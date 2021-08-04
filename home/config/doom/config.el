@@ -13,7 +13,6 @@
       scroll-margin 2
       display-line-numbers-type t)
 
-
 ;; Some sane settings in evil mode
 (after! evil
   (setq evil-ex-substitute-global t     ; I like my s/../.. to by global by default
@@ -101,7 +100,7 @@
                              "|"
                              "DONE(d)"
                              "CANCELLED(c)"
-                             "MOVED(m)"))))
+                             "MEETING(m)"))))
 
 (after! org-journal
   (add-hook 'org-journal-mode-hook
@@ -120,7 +119,7 @@
           ("d" "Deadline" entry (file+headline "~/Documents/org/todo.org" "Tasks")
            "* TODO %? \n  DEADLINE: %^t" :empty-lines 1)
           ("m" "Meeting" entry (file+headline "~/Documents/org/agenda.org" "Agenda")
-           "* %? \nSCHEDULED: %^t\n%U" :empty-lines 1)
+           "* MEETING: %? \nSCHEDULED: %^t\n%U" :empty-lines 1)
           ("n" "Personal note" entry (file+headline "~/Documents/org/notes.org" "Notes")
            "* %? \n%U" :empty-lines 1))))
 
