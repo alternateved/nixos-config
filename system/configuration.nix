@@ -1,6 +1,7 @@
 { config, pkgs, ... }:
 
-{
+let colors = import ../home/colors.nix;
+in {
   imports = [ # Include the results of the hardware scan.
     ./hardware-configuration.nix
   ];
@@ -75,17 +76,16 @@
           extraConfig = ''
             [greeter-theme]
             background-image = "";
-            background-color = "#1d1f21"
-            text-color = "#c4c8c5"
-            password-background-color = "#545B68"
-            window-color = "#181a23"
-            border-color = "#c4c8c5"
+            background-color = ${colors.background}
+            text-color = ${colors.foreground}
+            password-background-color = ${colors.gray}
+            window-color = ${colors.bright-black}
+            border-color = ${colors.foreground}
           '';
         };
       };
 
       # windowManager.stumpwm.enable = true;
-
       windowManager.xmonad = {
         enable = true;
         enableContribAndExtras = true;
