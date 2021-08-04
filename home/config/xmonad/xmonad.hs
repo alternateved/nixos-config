@@ -74,6 +74,7 @@ import XMonad.Layout.Tabbed
     shrinkText,
   )
 import XMonad.Layout.ThreeColumns (ThreeCol (ThreeColMid))
+import XMonad.Layout.PerWorkspace (onWorkspace)
 import XMonad.Layout.Simplest (Simplest (..))
 import XMonad.Layout.SubLayouts (GroupMsg (UnMerge), mergeDir, onGroup, subLayout)
 import XMonad.Layout.WorkspaceDir (changeDir, workspaceDir)
@@ -252,6 +253,10 @@ myTabConfig = def
 mySpacing :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
 mySpacing i = spacingRaw True (Border 0 i 0 i) True (Border i 0 i 0) True
 
+monocle = renamed [Replace "monocle"]
+          $ noBorders
+          $ Full
+
 tall    = renamed [Replace "tall"]
           $ addTabs shrinkText myTabConfig . subLayout [] Simplest
           $ avoidStruts
@@ -273,11 +278,16 @@ columns = renamed [Replace "columns"]
 
 myLayoutHook = workspaceDir myHome
                $ smartBorders
-               $ mkToggle (NBFULL ?? NOBORDERS ?? EOT) myDefaultLayout
+               $ mkToggle (NBFULL ?? NOBORDERS ?? EOT)
+               $ firstLayout . secondLayout . thirdLayout $ myDefaultLayout
              where
+               firstLayout  = onWorkspace "1" (monocle ||| tall ||| wide    ||| columns)
+               secondLayout = onWorkspace "2" (tall    ||| wide ||| columns ||| monocle)
+               thirdLayout  = onWorkspace "3" (tall    ||| wide ||| columns ||| monocle)
                myDefaultLayout =      tall
                                   ||| wide
                                   ||| columns
+                                  ||| monocle
 
 -------------------------------------------------------------------------
 -- KEYBINDINGS
@@ -335,7 +345,8 @@ myKeys =
   , ("M-a t", sendMessage $ JumpToLayout "tall")
   , ("M-a w", sendMessage $ JumpToLayout "wide")
   , ("M-a c", sendMessage $ JumpToLayout "columns")
-  , ("M-a m", sendMessage (MT.Toggle NBFULL) >> sendMessage ToggleStruts)
+  , ("M-a m", sendMessage $ JumpToLayout "monocle")
+  , ("M-f", sendMessage (MT.Toggle NBFULL) >> sendMessage ToggleStruts)
 
    -- SubLayouts
   , ("M-S-.", withFocused (sendMessage . mergeDir id))
