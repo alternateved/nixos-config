@@ -18,7 +18,10 @@ in {
 
     direnv = {
       enable = true;
-      nix-direnv.enable = true;
+      nix-direnv = {
+        enable = true;
+        enableFlakes = true;
+      };
     };
 
     alacritty = {
@@ -350,7 +353,7 @@ in {
         global = {
           monitor = 0;
           follow = "mouse";
-          geometry = "380x30-15+28";
+          geometry = "380x20-18+38";
           alignment = "left";
           bounce_freq = 0;
           corner_radius = 2;
