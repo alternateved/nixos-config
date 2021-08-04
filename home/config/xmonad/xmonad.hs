@@ -187,12 +187,12 @@ myStartupHook = do
   spawnOnce "autorandr -c &"
   spawnOnce "lxpolkit &"
   spawnOnce "xfce4-power-manager &"
-  spawnOnce "bluetoothctl power on"
+  -- spawnOnce "bluetoothctl power on"
   spawnOnce "nitrogen --restore &"
   spawnOnce "emacs --daemon &"
   spawnOnce "firefox-devedition &"
-  spawnOnce "signal-desktop &"
-  spawnOnce "thunderbird &"
+  -- spawnOnce "signal-desktop &"
+  -- spawnOnce "thunderbird &"
   setWMName "LG3D"
 
 -------------------------------------------------------------------------
