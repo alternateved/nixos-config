@@ -110,6 +110,7 @@ in {
     mesa
     htop
     killall
+    xorg.xmodmap
     xorg.xkill
   ];
 
