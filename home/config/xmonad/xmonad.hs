@@ -358,6 +358,7 @@ myKeys =
   , ("M-s t", scratchTerm)
   , ("M-s c", scratchCalc)
   , ("M-s v", scratchMixer)
+  , ("M-s m", scratchMonitor)
 
     -- Notifications
   , ("C-M1-\\", spawn "dunstctl set-paused toggle")
@@ -392,9 +393,10 @@ myKeys =
 -------------------------------------------------------------------------
 myScratchPads :: [NamedScratchpad]
 myScratchPads =
-  [ NS "terminal" spawnTerm findTerm medium,
-    NS "calculator" spawnCalc findCalc small,
-    NS "volumectl" spawnMixer findMixer small
+  [ NS "terminal"   spawnTerm    findTerm    medium
+  , NS "calculator" spawnCalc    findCalc    small
+  , NS "volumectl"  spawnMixer   findMixer   small
+  , NS "monitor"    spawnMonitor findMonitor medium
   ]
   where
     spawnTerm = myTerminal ++ " --title scratchpad"
@@ -406,14 +408,18 @@ myScratchPads =
     spawnMixer = myTerminal ++ " --title pulsemixer -e pulsemixer"
     findMixer = title =? "pulsemixer"
 
+    spawnMonitor = myTerminal ++ " --title htop -e htop"
+    findMonitor = title =? "htop"
+
     small = customFloating $ W.RationalRect (1 / 4) (1 / 4) (1 / 2) (1 / 2)
     medium = customFloating $ W.RationalRect (1 / 6) (1 / 6) (2 / 3) (2 / 3)
     large = customFloating $ W.RationalRect (1 / 10) (1 / 10) (4 / 5) (4 / 5)
 
-scratchTerm, scratchMixer, scratchCalc :: X ()
-scratchTerm = namedScratchpadAction myScratchPads "terminal"
-scratchMixer = namedScratchpadAction myScratchPads "volumectl"
-scratchCalc = namedScratchpadAction myScratchPads "calculator"
+scratchTerm, scratchMixer, scratchCalc, scratchMonitor :: X ()
+scratchTerm    = namedScratchpadAction myScratchPads "terminal"
+scratchMixer   = namedScratchpadAction myScratchPads "volumectl"
+scratchCalc    = namedScratchpadAction myScratchPads "calculator"
+scratchMonitor = namedScratchpadAction myScratchPads "monitor"
 
 -------------------------------------------------------------------------
 -- PROMPT
