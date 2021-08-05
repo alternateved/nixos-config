@@ -66,8 +66,7 @@ in {
       xkbOptions = "caps:escape_shifted_capslock";
 
       displayManager = {
-        defaultSession = "none+stumpwm";
-        # defaultSession = "none+xmonad";
+        defaultSession = "none+xmonad";
         autoLogin.enable = true;
         autoLogin.user = "alternateved";
         lightdm.greeters.mini = {
@@ -85,11 +84,10 @@ in {
         };
       };
 
-      windowManager.stumpwm.enable = true;
-      # windowManager.xmonad = {
-      #   enable = true;
-      #   enableContribAndExtras = true;
-      # };
+      windowManager.xmonad = {
+        enable = true;
+        enableContribAndExtras = true;
+      };
 
       libinput = {
         enable = true;
@@ -110,7 +108,6 @@ in {
     mesa
     htop
     killall
-    xorg.xmodmap
     xorg.xkill
   ];
 
