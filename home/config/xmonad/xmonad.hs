@@ -97,7 +97,8 @@ import XMonad.Prompt.Shell
 import XMonad.Prompt.Window
   ( WindowPrompt (Bring, Goto),
     allWindows,
-    windowPrompt,
+    wsWindows,
+    windowMultiPrompt,
   )
 import qualified XMonad.StackSet as W
 -- Utilities
@@ -308,8 +309,7 @@ myKeys =
   , ("M-S-p", myPrompt myTerminal myXPConfig)
   , ("M-S-q", dirExecPromptNamed myXPConfig' spawn (myDots ++ "/scripts/session") "Session: ")
   , ("M-S-d", changeDir myXPConfig')
-  , ("M-d b", windowPrompt myXPConfig Bring allWindows)
-  , ("M-d g", windowPrompt myXPConfig Goto allWindows)
+  , ("M-'", windowMultiPrompt myXPConfig [(Goto, wsWindows), (Bring, allWindows)])
 
     -- Windows
   , ("M-S-c", kill1)
@@ -463,7 +463,8 @@ myXPConfig = def
       showCompletionOnTab = False,
       searchPredicate = fuzzyMatch,
       alwaysHighlight = True,
-      maxComplRows = Nothing
+      maxComplRows = Nothing,
+      changeModeKey = xK_Super_L
     }
 
 myXPConfig' :: XPConfig
