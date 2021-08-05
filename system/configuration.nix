@@ -110,8 +110,8 @@ in {
     mesa
     htop
     killall
-    xorg.xkill
     xorg.xmodmap
+    xorg.xkill
   ];
 
   fonts.fonts = with pkgs; [
