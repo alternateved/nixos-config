@@ -67,8 +67,8 @@ mainConfig =
       template =
         lambdaIcon
           <> withPipe "%UnsafeStdinReader% }{"
-          <> "%EPLL% "
-          <> withPipe "%notif%"
+          <> "%notif% "
+          <> withPipe "%EPLL% "
           <> withPipe (inIconFont "\xf2db" ++ " %cpu% ")
           <> withPipe (inIconFont "\xf538" ++ "%memory% ")
           <> withPipe "%battery% "
@@ -93,6 +93,7 @@ auxConfig =
 mainCommands :: [Runnable]
 mainCommands =
   [ Run UnsafeStdinReader,
+    Run $ Com "bash" ["-c", "if [[ $(dunstctl is-paused) = false ]]; then echo '<fn=1>\xf0f3</fn>'; else echo '<fn=1>\xf1f6</fn>'; fi"] "notif" 1,
     Run $ Weather "EPLL"
         [ "--template", "<weather> <tempC>°C",
           "-L", "0",
@@ -101,7 +102,6 @@ mainCommands =
           "--normal", colorFg,
           "--high"  , colorRed
         ] 36000,
-    Run $ Com "bash" ["-c", "if [[ $(dunstctl is-paused) = false ]]; then echo '<fn=1>\xf0f3 </fn>'; else echo '<fn=1>\xf1f6 </fn>'; fi"] "notif" 1,
     Run $ Cpu [ "-L", "3", "-H", "50", "--high", colorRed, "-t", "<total>%"] 20,
     Run $ Memory ["-t", " <used>M (<usedratio>%)"] 20,
     Run $ Battery
