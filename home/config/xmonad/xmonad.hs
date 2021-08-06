@@ -254,8 +254,8 @@ myProjects =
       , projectDirectory = "~/.nixos-config"
       , projectStartHook =
           Just $
-          spawn myEditor >>
-          spawn myTerminal
+          spawn myTerminal >>
+          spawn myEditor
       }
   , Project
       { projectName = "Other"
@@ -350,7 +350,7 @@ myKeys =
 
     -- Windows
   , ("M-S-c", kill1)
-  , ("M-S-C-c", killAll)
+  , ("M-C-c", killAll)
 
     -- Floating windows
   , ("M-t", withFocused $ windows . W.sink)
