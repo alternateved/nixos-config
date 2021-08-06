@@ -11,7 +11,13 @@ import XMonad hiding ((|||))
 -- Actions
 import XMonad.Actions.CopyWindow (kill1)
 import XMonad.Actions.DynamicProjects
-import XMonad.Actions.DynamicWorkspaces
+  ( Project (..),
+    changeProjectDirPrompt,
+    dynamicProjects,
+    switchProjectPrompt,
+    renameProjectPrompt,
+  )
+import XMonad.Actions.DynamicWorkspaces (removeWorkspace, withNthWorkspace)
 import XMonad.Actions.GroupNavigation
   ( Direction (History),
     historyHook,
@@ -80,7 +86,6 @@ import XMonad.Layout.ThreeColumns (ThreeCol (ThreeColMid))
 import XMonad.Layout.PerWorkspace (onWorkspace)
 import XMonad.Layout.Simplest (Simplest (..))
 import XMonad.Layout.SubLayouts (GroupMsg (UnMerge), mergeDir, onGroup, subLayout)
-import XMonad.Layout.WorkspaceDir (changeDir, workspaceDir)
 -- Prompt
 import XMonad.Prompt
   ( XPConfig (..),
@@ -200,9 +205,9 @@ myStartupHook = do
 -------------------------------------------------------------------------
 myManageHook :: ManageHook
 myManageHook = composeAll
-    [ className =? "Thunderbird" --> doShift (myWorkspaces !! 1)
-    , className =? "Signal" --> doShift (myWorkspaces !! 1)
-    , className =? "discord" --> doShift (myWorkspaces !! 1)
+    [ className =? "Thunderbird" --> doShift (myWorkspaces !! 2)
+    , className =? "Signal" --> doShift (myWorkspaces !! 2)
+    , className =? "discord" --> doShift (myWorkspaces !! 2)
     , isFullscreen --> doFullFloat
     , isDialog --> doCenterFloat
     ] <+> namedScratchpadManageHook myScratchPads
@@ -282,31 +287,30 @@ myTabConfig = def
 mySpacing :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
 mySpacing i = spacingRaw True (Border 0 i 0 i) True (Border i 0 i 0) True
 
-monocle = renamed [Replace "Monocle"]
+monocle = renamed [Replace "monocle"]
           $ noBorders
           $ Full
 
-tall    = renamed [Replace "Tall"]
+tall    = renamed [Replace "tall"]
           $ addTabs shrinkText myTabConfig . subLayout [] Simplest
           $ avoidStruts
           $ mySpacing 5
           $ ResizableTall 1 (3 / 100) (1 / 2) []
 
-wide    = renamed [Replace "Wide"]
+wide    = renamed [Replace "wide"]
           $ addTabs shrinkText myTabConfig . subLayout [] Simplest
           $ avoidStruts
           $ mySpacing 5
           $ Mirror
           $ ResizableTall 1 (3 / 100) (3 / 4) []
 
-columns = renamed [Replace "Columns"]
+columns = renamed [Replace "columns"]
           $ addTabs shrinkText myTabConfig . subLayout [] Simplest
           $ avoidStruts
           $ mySpacing 5
           $ ThreeColMid 1 (3 / 100) (12 / 30)
 
-myLayoutHook = workspaceDir myHome
-               $ smartBorders
+myLayoutHook = smartBorders
                $ mkToggle (NBFULL ?? NOBORDERS ?? EOT)
                $ firstLayout . secondLayout . thirdLayout $ myDefaultLayout
              where
@@ -381,10 +385,10 @@ myKeys =
   , ("M-d", sendMessage (IncMasterN (-1)))
 
 
-  , ("M-a m", sendMessage $ JumpToLayout "Monocle")
-  , ("M-a t", sendMessage $ JumpToLayout "Tall")
-  , ("M-a w", sendMessage $ JumpToLayout "Wide")
-  , ("M-a c", sendMessage $ JumpToLayout "Columns")
+  , ("M-a m", sendMessage $ JumpToLayout "monocle")
+  , ("M-a t", sendMessage $ JumpToLayout "tall")
+  , ("M-a w", sendMessage $ JumpToLayout "wide")
+  , ("M-a c", sendMessage $ JumpToLayout "columns")
   , ("M-f", sendMessage (MT.Toggle NBFULL) >> sendMessage ToggleStruts)
 
    -- SubLayouts
