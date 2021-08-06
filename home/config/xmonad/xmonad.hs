@@ -10,6 +10,7 @@ import Data.Maybe (fromJust)
 import XMonad hiding ((|||))
 -- Actions
 import XMonad.Actions.CopyWindow (kill1)
+import XMonad.Actions.DynamicProjects
 import XMonad.Actions.GroupNavigation
   ( Direction (History),
     historyHook,
@@ -219,15 +220,7 @@ myLogHook = refocusLastLogHook
 -- WORKSPACES
 -------------------------------------------------------------------------
 myWorkspaces :: [String]
-myWorkspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
-
-myWorkspaceIndices :: M.Map String Integer
-myWorkspaceIndices = M.fromList $ zip myWorkspaces [1 ..] -- (,) == \x y -> (x,y)
-
-clickable :: [Char] -> [Char]
-clickable ws = "<action=xdotool key super+" ++ show i ++ ">" ++ ws ++ "</action>"
-  where
-    i = fromJust $ M.lookup ws myWorkspaceIndices
+myWorkspaces = ["Normal", "Communication", "Development", "System", "Other"]
 
 -------------------------------------------------------------------------
 -- TABS CONFIGURATION
@@ -476,10 +469,10 @@ myXPConfig' = myXPConfig
 myXmobarPP :: PP
 myXmobarPP = namedScratchpadFilterOutWorkspacePP $ def
       { ppCurrent = hiWhite,
-        ppVisible = hiWhite . clickable,
-        ppHidden = hiGrey . clickable,
-        ppHiddenNoWindows = loGrey . clickable,
-        ppUrgent = red . clickable,
+        ppVisible = hiWhite,
+        ppHidden = hiGrey,
+        ppHiddenNoWindows = loGrey,
+        ppUrgent = red,
         ppTitle = loWhite . shorten 60,
         ppSep = loWhite " | ",
         ppExtras = [],
