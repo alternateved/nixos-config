@@ -7,9 +7,9 @@ in {
       window = { decorations = "none"; };
       font = {
         size = 8.0;
-        normal.family = "JetBrains Mono Nerd Font";
-        bold.family = "JetBrains Mono Nerd Font";
-        italic.family = "JetBrains Mono Nerd Font";
+        normal.family = "Iosevka Nerd Font Mono";
+        bold.family = "Iosevka Nerd Font Mono";
+        italic.family = "Iosevka Nerd Font Mono";
       };
       cursor.style = {
         shape = "Underline";

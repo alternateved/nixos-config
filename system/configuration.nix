@@ -114,7 +114,7 @@ in {
   fonts.fonts = with pkgs; [
     fira
     font-awesome_5
-    (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+    (nerdfonts.override { fonts = [ "Iosevka" ]; })
   ];
 
   nix = {
