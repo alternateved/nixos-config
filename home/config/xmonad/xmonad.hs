@@ -219,8 +219,40 @@ myLogHook = refocusLastLogHook
 -------------------------------------------------------------------------
 -- WORKSPACES
 -------------------------------------------------------------------------
-myWorkspaces :: [String]
-myWorkspaces = ["Normal", "Communication", "Development", "System", "Other"]
+myWorkspaces :: [WorkspaceId]
+myWorkspaces = ["Highway", "Communication", "Development", "System", "Other"]
+
+-------------------------------------------------------------------------
+-- PROJECTS
+-------------------------------------------------------------------------
+myProjects :: [Project]
+myProjects =
+  [ Project
+      { projectName = "Highway"
+      , projectDirectory = "~/"
+      , projectStartHook = Nothing
+      }
+  , Project
+      { projectName = "Communication"
+      , projectDirectory = "~/"
+      , projectStartHook = Nothing
+      }
+  , Project
+      { projectName = "Development"
+      , projectDirectory = "~/"
+      , projectStartHook = Nothing
+      }
+  , Project
+      { projectName = "System"
+      , projectDirectory = "~/"
+      , projectStartHook = Nothing
+      }
+  , Project
+      { projectName = "Other"
+      , projectDirectory = "~/"
+      , projectStartHook = Nothing
+      }
+  ]
 
 -------------------------------------------------------------------------
 -- TABS CONFIGURATION
@@ -245,24 +277,24 @@ myTabConfig = def
 mySpacing :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
 mySpacing i = spacingRaw True (Border 0 i 0 i) True (Border i 0 i 0) True
 
-monocle = renamed [Replace "monocle"]
+monocle = renamed [Replace "Monocle"]
           $ noBorders
           $ Full
 
-tall    = renamed [Replace "tall"]
+tall    = renamed [Replace "Tall"]
           $ addTabs shrinkText myTabConfig . subLayout [] Simplest
           $ avoidStruts
           $ mySpacing 5
           $ ResizableTall 1 (3 / 100) (1 / 2) []
 
-wide    = renamed [Replace "wide"]
+wide    = renamed [Replace "Wide"]
           $ addTabs shrinkText myTabConfig . subLayout [] Simplest
           $ avoidStruts
           $ mySpacing 5
           $ Mirror
           $ ResizableTall 1 (3 / 100) (3 / 4) []
 
-columns = renamed [Replace "columns"]
+columns = renamed [Replace "Columns"]
           $ addTabs shrinkText myTabConfig . subLayout [] Simplest
           $ avoidStruts
           $ mySpacing 5
@@ -273,9 +305,9 @@ myLayoutHook = workspaceDir myHome
                $ mkToggle (NBFULL ?? NOBORDERS ?? EOT)
                $ firstLayout . secondLayout . thirdLayout $ myDefaultLayout
              where
-               firstLayout  = onWorkspace "1" (monocle ||| tall ||| wide    ||| columns)
-               secondLayout = onWorkspace "2" (tall    ||| wide ||| columns ||| monocle)
-               thirdLayout  = onWorkspace "3" (tall    ||| wide ||| columns ||| monocle)
+               firstLayout  = onWorkspace "Highway"       (monocle ||| tall ||| wide    ||| columns)
+               secondLayout = onWorkspace "Communication" (tall    ||| wide ||| columns ||| monocle)
+               thirdLayout  = onWorkspace "Development"   (columns ||| tall ||| wide    ||| monocle)
                myDefaultLayout =      tall
                                   ||| wide
                                   ||| columns
@@ -501,6 +533,7 @@ myConfig = def
 -------------------------------------------------------------------------
 main :: IO ()
 main = xmonad
+     . dynamicProjects myProjects
      . docks
      . ewmh
      . withUrgencyHook NoUrgencyHook
