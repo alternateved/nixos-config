@@ -130,7 +130,7 @@ xmobarConfig :: String
 xmobarConfig = myDots ++ "/xmobar/xmobar.hs"
 
 myFont :: String
-myFont = "xft:JetBrainsMono Nerd Font:style=medium:size=11:antialias=true:hinting=true"
+myFont = "xft:Iosevka Nerd Font Mono:style=regular:size=11:antialias=true:hinting=true"
 
 myModMask :: KeyMask
 myModMask = mod4Mask
@@ -186,12 +186,11 @@ myStartupHook :: X ()
 myStartupHook = do
   spawnOnce "xsetroot -cursor_name left_ptr"
   spawnOnce "autorandr -c &"
-  spawnOnce "lxpolkit &"
   spawnOnce "xfce4-power-manager &"
-  -- spawnOnce "bluetoothctl power on"
+  spawnOnce "bluetoothctl power on"
   spawnOnce "nitrogen --restore &"
   spawnOnce "emacs --daemon &"
-  spawnOnce "firefox-devedition &"
+  -- spawnOnce "firefox-devedition &"
   -- spawnOnce "signal-desktop &"
   -- spawnOnce "thunderbird &"
   setWMName "LG3D"
@@ -201,8 +200,7 @@ myStartupHook = do
 -------------------------------------------------------------------------
 myManageHook :: ManageHook
 myManageHook = composeAll
-    [ className =? "Firefox Developer Edition" --> doShift (head myWorkspaces)
-    , className =? "Thunderbird" --> doShift (myWorkspaces !! 1)
+    [ className =? "Thunderbird" --> doShift (myWorkspaces !! 1)
     , className =? "Signal" --> doShift (myWorkspaces !! 1)
     , className =? "discord" --> doShift (myWorkspaces !! 1)
     , isFullscreen --> doFullFloat
@@ -463,7 +461,7 @@ myXPConfig = def
       showCompletionOnTab = False,
       searchPredicate = fuzzyMatch,
       alwaysHighlight = True,
-      maxComplRows = Nothing,
+      maxComplRows = Just 3,
       changeModeKey = xK_Super_L
     }
 

@@ -48,8 +48,8 @@
       user-mail-address "alternateved@gmail.com")
 
 ;; Font settings
-(setq doom-font (font-spec :family "JetBrains Mono Nerd Font" :size 16)
-      doom-big-font (font-spec :family "JetBrains Mono Nerd Font" :size 20)
+(setq doom-font (font-spec :family "Iosevka Nerd Font Mono" :size 17)
+      doom-big-font (font-spec :family "Iosevka Nerd Font Mono" :size 23)
       doom-variable-pitch-font (font-spec :family "Fira Sans" :weight 'light :size 18))
 
 (custom-set-faces
