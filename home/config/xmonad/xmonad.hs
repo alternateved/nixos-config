@@ -11,6 +11,7 @@ import XMonad hiding ((|||))
 -- Actions
 import XMonad.Actions.CopyWindow (kill1)
 import XMonad.Actions.DynamicProjects
+import XMonad.Actions.DynamicWorkspaces
 import XMonad.Actions.GroupNavigation
   ( Direction (History),
     historyHook,
@@ -192,9 +193,6 @@ myStartupHook = do
   spawnOnce "bluetoothctl power on"
   spawnOnce "nitrogen --restore &"
   spawnOnce "emacs --daemon &"
-  -- spawnOnce "firefox-devedition &"
-  -- spawnOnce "signal-desktop &"
-  -- spawnOnce "thunderbird &"
   setWMName "LG3D"
 
 -------------------------------------------------------------------------
@@ -221,7 +219,7 @@ myLogHook = refocusLastLogHook
 -- WORKSPACES
 -------------------------------------------------------------------------
 myWorkspaces :: [WorkspaceId]
-myWorkspaces = ["Highway", "Communication", "Development", "System", "Other"]
+myWorkspaces = ["NSP", "Highway", "Communication", "Development", "System", "Other"]
 
 -------------------------------------------------------------------------
 -- PROJECTS
@@ -231,22 +229,28 @@ myProjects =
   [ Project
       { projectName = "Highway"
       , projectDirectory = "~/"
-      , projectStartHook = Nothing
+      , projectStartHook = Just $ spawn "firefox-devedition"
       }
   , Project
       { projectName = "Communication"
       , projectDirectory = "~/"
-      , projectStartHook = Nothing
+      , projectStartHook =
+          Just $
+          spawn "signal-desktop" >>
+          spawn "thunderbird"
       }
   , Project
       { projectName = "Development"
-      , projectDirectory = "~/"
-      , projectStartHook = Nothing
+      , projectDirectory = "~/Documents/Programming"
+      , projectStartHook = Just $ spawn myEditor
       }
   , Project
       { projectName = "System"
-      , projectDirectory = "~/"
-      , projectStartHook = Nothing
+      , projectDirectory = "~/.nixos-config"
+      , projectStartHook =
+          Just $
+          spawn myEditor >>
+          spawn myTerminal
       }
   , Project
       { projectName = "Other"
@@ -328,12 +332,17 @@ myKeys =
     -- Open my preferred terminal
   , ("M-S-<Return>", spawn myTerminal)
 
-    -- Run Prompt
+    -- Prompts
   , ("M-p", shellPrompt myXPConfig)
   , ("M-S-p", myPrompt myTerminal myXPConfig)
   , ("M-S-q", dirExecPromptNamed myXPConfig' spawn (myDots ++ "/scripts/session") "Session: ")
-  , ("M-S-d", changeDir myXPConfig')
   , ("M-'", windowMultiPrompt myXPConfig [(Goto, wsWindows), (Bring, allWindows)])
+
+  -- Project management
+  , ("M-y s", switchProjectPrompt myXPConfig')
+  , ("M-y r", renameProjectPrompt myXPConfig')
+  , ("M-y c", changeProjectDirPrompt myXPConfig')
+  , ("M-y d", removeWorkspace)
 
     -- Windows
   , ("M-S-c", kill1)
@@ -368,14 +377,14 @@ myKeys =
   , ("M-C-l", sendMessage Expand)
   , ("M-C-j", sendMessage MirrorShrink)
   , ("M-C-k", sendMessage MirrorExpand)
-  , ("M-C-i", sendMessage (IncMasterN 1))
-  , ("M-C-d", sendMessage (IncMasterN (-1)))
+  , ("M-i", sendMessage (IncMasterN 1))
+  , ("M-d", sendMessage (IncMasterN (-1)))
 
 
-  , ("M-a t", sendMessage $ JumpToLayout "tall")
-  , ("M-a w", sendMessage $ JumpToLayout "wide")
-  , ("M-a c", sendMessage $ JumpToLayout "columns")
-  , ("M-a m", sendMessage $ JumpToLayout "monocle")
+  , ("M-a m", sendMessage $ JumpToLayout "Monocle")
+  , ("M-a t", sendMessage $ JumpToLayout "Tall")
+  , ("M-a w", sendMessage $ JumpToLayout "Wide")
+  , ("M-a c", sendMessage $ JumpToLayout "Columns")
   , ("M-f", sendMessage (MT.Toggle NBFULL) >> sendMessage ToggleStruts)
 
    -- SubLayouts
@@ -408,16 +417,20 @@ myKeys =
   , ("M-S-<Insert>", unGrab *> spawn "flameshot gui")
   , ("M-C-<KP_Equal>", spawn "autorandr -c")
   ]
-    -- Reorder physical screens and make focus follow moved window
-    -- "M-w" -- focus screen marked as 1
-    -- "M-e" -- focus screen marked as 0
-    -- M-S-[screenKeybind] -- move and focus window on particulart screen
-  ++
-  [ (mask ++ "M-" ++ [key], screenWorkspace scr >>= flip whenJust (windows . action))
-       | let shiftAndView i = W.view i . W.shift i,
-         (key, scr) <- zip "we" [0, 1],
-         (action, mask) <- [(W.view, ""), (shiftAndView, "S-")]
-  ]
+  ++ workspaceKeys
+  ++ screenKeys
+ where
+  workspaceNumbers = [0] <> [1 :: Int .. 9]
+  workspaceKeys =
+    [ ("M-" <> m <> show k, withNthWorkspace f i)
+    | (k, i) <- zip workspaceNumbers [0 ..]
+    , (m, f) <- [("", W.view), ("C-", W.greedyView), ("S-", W.shift)]
+    ]
+  screenKeys =
+    [ ("M-" <> m <> show k, screenWorkspace s >>= flip whenJust (windows . f))
+    | (k, s) <- zip "we" [0 ..]
+    , (m, f) <- zip ["", "S-"] [W.view, W.shift]
+    ]
 
 -------------------------------------------------------------------------
 -- SCRATCHPADS
