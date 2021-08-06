@@ -22,6 +22,7 @@ import XMonad.Actions.Navigation2D
     windowSwap,
   )
 import XMonad.Actions.Promote (promote)
+import XMonad.Actions.RotSlaves (rotSlavesDown)
 import XMonad.Actions.UpdatePointer (updatePointer)
 import XMonad.Actions.WithAll (killAll, sinkAll)
 -- Hooks
@@ -354,6 +355,9 @@ myKeys =
   , ("M-S-h", windowSwap L False)
   , ("M-S-l", windowSwap R False)
   , ("M-<Backspace>", promote)
+  , ("M-S-<Tab>", rotSlavesDown)
+
+    -- Urgent windows
   , ("M-g u", focusUrgent)
   , ("M-S-g u", clearUrgents)
   , ("M-g p", nextMatch History (return True))
@@ -364,6 +368,9 @@ myKeys =
   , ("M-C-l", sendMessage Expand)
   , ("M-C-j", sendMessage MirrorShrink)
   , ("M-C-k", sendMessage MirrorExpand)
+  , ("M-C-i", sendMessage (IncMasterN 1))
+  , ("M-C-d", sendMessage (IncMasterN (-1)))
+
 
   , ("M-a t", sendMessage $ JumpToLayout "tall")
   , ("M-a w", sendMessage $ JumpToLayout "wide")
@@ -405,11 +412,12 @@ myKeys =
     -- "M-w" -- focus screen marked as 1
     -- "M-e" -- focus screen marked as 0
     -- M-S-[screenKeybind] -- move and focus window on particulart screen
-    ++ [ (mask ++ "M-" ++ [key], screenWorkspace scr >>= flip whenJust (windows . action))
-         | let shiftAndView i = W.view i . W.shift i,
-           (key, scr) <- zip "we" [0, 1],
-           (action, mask) <- [(W.view, ""), (shiftAndView, "S-")]
-       ]
+  ++
+  [ (mask ++ "M-" ++ [key], screenWorkspace scr >>= flip whenJust (windows . action))
+       | let shiftAndView i = W.view i . W.shift i,
+         (key, scr) <- zip "we" [0, 1],
+         (action, mask) <- [(W.view, ""), (shiftAndView, "S-")]
+  ]
 
 -------------------------------------------------------------------------
 -- SCRATCHPADS
