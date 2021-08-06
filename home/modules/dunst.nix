@@ -1,6 +1,6 @@
 { pkgs, ... }:
 
-let colors = import ../colors.nix;
+let colors = import ./colors.nix;
 in {
   services.dunst = {
     enable = true;
@@ -13,7 +13,7 @@ in {
       global = {
         monitor = 0;
         follow = "mouse";
-        geometry = "380x20-18+38";
+        geometry = "380x20-18+34";
         alignment = "left";
         bounce_freq = 0;
         corner_radius = 2;

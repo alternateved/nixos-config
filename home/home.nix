@@ -12,18 +12,18 @@
   };
 
   imports = [
-    ./programs/alacritty.nix
-    ./programs/direnv.nix
-    ./programs/emacs.nix
-    ./programs/fish.nix
-    ./programs/git.nix
-    ./programs/autorandr.nix
-    ./programs/zathura.nix
-    ./services/picom.nix
-    ./services/redshift.nix
-    ./services/dunst.nix
-    ./services/misc.nix
-    ./theme.nix
+    ./modules/alacritty.nix
+    ./modules/direnv.nix
+    ./modules/emacs.nix
+    ./modules/fish.nix
+    ./modules/git.nix
+    ./modules/autorandr.nix
+    ./modules/zathura.nix
+    ./modules/picom.nix
+    ./modules/redshift.nix
+    ./modules/dunst.nix
+    ./modules/misc.nix
+    ./modules/theme.nix
   ];
 
   home.packages = with pkgs; [
