@@ -130,7 +130,7 @@ xmobarConfig :: String
 xmobarConfig = myDots ++ "/xmobar/xmobar.hs"
 
 myFont :: String
-myFont = "xft:Iosevka Nerd Font Mono:style=regular:size=11:antialias=true:hinting=true"
+myFont = "xft:Iosevka Nerd Font Mono:style=regular:size=12:antialias=true:hinting=true"
 
 myModMask :: KeyMask
 myModMask = mod4Mask
@@ -359,7 +359,7 @@ myKeys =
   , ("M-s m", scratchMonitor)
 
     -- Notifications
-  , ("C-M1-\\", spawn "dunstctl set-paused toggle")
+  , ("C-S-\\", spawn "dunstctl set-paused toggle")
 
     --- My Applications (Super+Alt+Key)
   , ("M-M1-e", spawn myEditor)
