@@ -19,7 +19,7 @@ in {
         corner_radius = 2;
         font = "Iosevka Aile Regular 11";
         format = "%b";
-        frame_width = 1;
+        frame_width = 0;
         history_length = 20;
         horizontal_padding = 16;
         icon_position = "left";
