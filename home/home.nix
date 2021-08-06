@@ -34,7 +34,6 @@
     devour
     nitrogen
     xsecurelock
-    lxsession
     xdotool
     xfce.xfce4-power-manager
     xarchiver
