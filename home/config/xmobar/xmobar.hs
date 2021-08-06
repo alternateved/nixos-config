@@ -65,8 +65,7 @@ mainConfig =
     { commands = mainCommands,
       position = OnScreen 0 (TopW L 100),
       template =
-        lambdaIcon
-          <> withPipe "%UnsafeStdinReader% }{"
+        " %UnsafeStdinReader% }{"
           <> "%notif% "
           <> withPipe "%EPLL% "
           <> withPipe (inIconFont "\xf2db" ++ " %cpu% ")
@@ -82,8 +81,7 @@ auxConfig =
     { commands = auxCommands,
       position = OnScreen 1 (TopW L 100),
       template =
-        lambdaIcon
-          <> withPipe "%xmobar1% }"
+        "%xmobar1% }"
           <> "{ %date% "
     }
 
@@ -187,9 +185,6 @@ iconFont = "xft:Font Awesome 5 Free Solid:pixelsize=14"
 -- Wrap stuff so it uses the icon font.
 inIconFont :: String -> String
 inIconFont = wrap "<fn=1>" "</fn>"
-
-lambdaIcon :: String
-lambdaIcon = " λ "
 
 withPipe :: String -> String
 withPipe = (++) "| "
