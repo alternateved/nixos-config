@@ -16,7 +16,7 @@
       name = "Papirus-Dark";
     };
     font = {
-      package = pkgs.fira;
+      package = null;
       name = "Iosevka Aile Regular 11";
     };
   };
@@ -29,4 +29,5 @@
     name = "Vanilla-DMZ";
     size = 16;
   };
+  home.packages = with pkgs; [ libsForQt5.qtstyleplugins ];
 }
