@@ -17,7 +17,7 @@
     };
     font = {
       package = pkgs.fira;
-      name = "Fira Sans Regular 12";
+      name = "Iosevka Aile Regular 11";
     };
   };
   qt = {

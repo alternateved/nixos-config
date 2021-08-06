@@ -17,7 +17,7 @@ in {
         alignment = "left";
         bounce_freq = 0;
         corner_radius = 2;
-        font = "Fira Sans Regular 12";
+        font = "Iosevka Aile Regular 11";
         format = "%b";
         frame_width = 1;
         history_length = 20;

@@ -112,7 +112,8 @@ in {
   ];
 
   fonts.fonts = with pkgs; [
-    fira
+    (iosevka-bin.override { variant = "aile"; })
+    (iosevka-bin.override { variant = "etoile"; })
     font-awesome_5
     (nerdfonts.override { fonts = [ "Iosevka" ]; })
   ];

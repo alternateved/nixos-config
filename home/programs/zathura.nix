@@ -3,7 +3,7 @@ in {
   programs.zathura = {
     enable = true;
     options = {
-      font = "JetBrains Mono Nerd Font 10";
+      font = "Iosevka Nerd Font Mono 10";
       recolor = true;
       default-bg = colors.background;
       default-fg = colors.foreground;
