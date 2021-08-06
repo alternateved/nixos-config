@@ -260,7 +260,7 @@ tall    = renamed [Replace "tall"]
           $ addTabs shrinkText myTabConfig . subLayout [] Simplest
           $ avoidStruts
           $ mySpacing 5
-          $ ResizableTall 1 (3 / 100) (3 / 5) []
+          $ ResizableTall 1 (3 / 100) (1 / 2) []
 
 wide    = renamed [Replace "wide"]
           $ addTabs shrinkText myTabConfig . subLayout [] Simplest

@@ -69,10 +69,8 @@ mainConfig =
           <> withPipe "%UnsafeStdinReader% }{"
           <> "%EPLL% "
           <> withPipe "%notif%"
-          <> withPipe "%wlp2s0%"
           <> withPipe (inIconFont "\xf2db" ++ " %cpu% ")
           <> withPipe (inIconFont "\xf538" ++ "%memory% ")
-          -- <> withPipe (inIconFont "\xf028" ++ " %alsa:default:Master% ")
           <> withPipe "%battery% "
           <> withPipe "%date% "
           <> withPipe "%time% "
@@ -104,16 +102,8 @@ mainCommands =
           "--high"  , colorRed
         ] 36000,
     Run $ Com "bash" ["-c", "if [[ $(dunstctl is-paused) = false ]]; then echo '<fn=1>\xf0f3 </fn>'; else echo '<fn=1>\xf1f6 </fn>'; fi"] "notif" 1,
-    Run $ Network "wlp2s0" ["-t", inIconFont "\xf063" ++ " <rx>kb " ++ inIconFont "\xf062" ++ " <tx>kb "] 20,
     Run $ Cpu [ "-L", "3", "-H", "50", "--high", colorRed, "-t", "<total>%"] 20,
     Run $ Memory ["-t", " <used>M (<usedratio>%)"] 20,
-    -- Run $ Alsa "default" "Master"
-    --     ["--template", "<volumestatus>",
-    --       "--suffix", "True",
-    --       "--",
-    --       "--on", "",
-    --       "--off", "—"
-    --     ],
     Run $ Battery
         [ "--template", "<acstatus>",
           "--Low", "20", -- units: %
@@ -121,7 +111,6 @@ mainCommands =
           "--low", colorRed,
           "--high", colorFg,
           -- send message when low
-          "-a", "dunstify -i 'dialog-warning' -u critical -t 3000 'Battery critically low'",
           "--", -- battery specific options
           -- discharging status
           "-o", inIconFont "\xf243" ++ " <left>% <timeleft>",
