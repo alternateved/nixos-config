@@ -50,7 +50,7 @@
 ;; Font settings
 (setq doom-font (font-spec :family "Iosevka Nerd Font Mono" :size 17)
       doom-big-font (font-spec :family "Iosevka Nerd Font Mono" :size 23)
-      doom-variable-pitch-font (font-spec :family "Fira Sans" :weight 'light :size 18))
+      doom-variable-pitch-font (font-spec :family "Iosevka Etoile" :size 18))
 
 (custom-set-faces
   '(org-level-1 ((t (:inherit outline-1 :height 1.2))))
