@@ -10,7 +10,8 @@
         em = "devour emacsclient -c";
         mpv = "devour mpv";
         zathura = "devour zathura";
-        calibre = "CALIBRE_USE_DARK_PALETTE=1 calibre";
+        sxiv = "devour sxiv";
+        vifm = "~/.config/vifm/scripts/vifmrun";
       };
     };
     starship = {

@@ -46,7 +46,7 @@
 
     # File managers
     pcmanfm
-    ranger
+    vifm
     ueberzug
 
     # Dictionaries
@@ -55,7 +55,7 @@
     aspellDicts.pl
 
     # Media
-    feh
+    sxiv
     gimp
     calibre
     libreoffice
