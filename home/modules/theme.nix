@@ -1,4 +1,7 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+
+let colors = import ./colors.nix;
+in {
   dconf.enable = false;
   xdg = {
     enable = true;
@@ -24,6 +27,11 @@
     enable = true;
     platformTheme = "gtk";
   };
+  xresources.extraConfig = ''
+    Sxiv.background: ${colors.background}
+    Sxiv.foreground: ${colors.foreground}
+    Sxiv.font: Iosevka Nerd Font Mono:style=regular:size=11
+  '';
   xsession.pointerCursor = {
     package = pkgs.vanilla-dmz;
     name = "Vanilla-DMZ";
