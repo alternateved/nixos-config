@@ -13,17 +13,18 @@
 
   imports = [
     ./modules/alacritty.nix
+    ./modules/autorandr.nix
     ./modules/direnv.nix
+    ./modules/dunst.nix
     ./modules/emacs.nix
     ./modules/fish.nix
     ./modules/git.nix
-    ./modules/autorandr.nix
-    ./modules/zathura.nix
+    ./modules/misc.nix
     ./modules/picom.nix
     ./modules/redshift.nix
-    ./modules/dunst.nix
-    ./modules/misc.nix
+    ./modules/starship.nix
     ./modules/theme.nix
+    ./modules/zathura.nix
   ];
 
   home.packages = with pkgs; [
