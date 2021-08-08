@@ -17,7 +17,7 @@
     };
     font = {
       package = null;
-      name = "Iosevka Aile Regular 11";
+      name = "Iosevka Aile Semibold 11";
     };
   };
   qt = {
