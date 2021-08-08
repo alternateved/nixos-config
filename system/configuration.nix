@@ -95,10 +95,8 @@ in {
         touchpad.middleEmulation = true;
       };
     };
-
     tlp.enable = true;
     gvfs.enable = true;
-
   };
 
   environment.systemPackages = with pkgs; [
