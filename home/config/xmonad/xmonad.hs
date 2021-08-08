@@ -150,7 +150,7 @@ myBrowser :: String
 myBrowser = "firefox-devedition"
 
 myFileManager :: String
-myFileManager = myTerminal ++ " -e ranger"
+myFileManager = myTerminal ++ " -e vifm"
 
 myEditor :: String
 myEditor = "emacsclient -a '' -c "
@@ -247,15 +247,12 @@ myProjects =
   , Project
       { projectName = "Development"
       , projectDirectory = "~/Documents/Programming"
-      , projectStartHook = Just $ spawn myEditor
+      , projectStartHook = Nothing
       }
   , Project
       { projectName = "System"
       , projectDirectory = "~/.nixos-config"
-      , projectStartHook =
-          Just $
-          spawn myTerminal >>
-          spawn myEditor
+      , projectStartHook = Just $ spawn myTerminal >> spawn myEditor
       }
   , Project
       { projectName = "Other"
