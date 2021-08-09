@@ -95,6 +95,13 @@ in {
         enable = true;
         enableContribAndExtras = true;
       };
+      # windowManager.session = [{
+      #   name = "xmonad";
+      #   start = ''
+      #     /usr/bin/env alternateved-xmonad &
+      #     waitPID=$!
+      #   '';
+      # }];
 
       libinput = {
         enable = true;
@@ -114,12 +121,14 @@ in {
     mesa
     killall
     xorg.xkill
+    # haskellPackages.xmonad
+    # haskellPackages.alternateved-xmonad
   ];
 
   fonts.fonts = with pkgs; [
+    font-awesome_5
     (iosevka-bin.override { variant = "aile"; })
     (iosevka-bin.override { variant = "etoile"; })
-    font-awesome_5
     (nerdfonts.override { fonts = [ "Iosevka" ]; })
   ];
 
