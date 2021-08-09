@@ -14,10 +14,5 @@
         vifm = "~/.config/vifm/scripts/vifmrun";
       };
     };
-    starship = {
-      enable = true;
-      enableBashIntegration = true;
-      enableFishIntegration = true;
-    };
   };
 }
