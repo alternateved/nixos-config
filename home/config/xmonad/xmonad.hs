@@ -4,8 +4,13 @@
 module Main (main) where
 
 -- Data
+import Data.Bifunctor (bimap)
+import Data.Char (isSpace)
+import Data.List (dropWhileEnd, elemIndex, find)
+import Data.Maybe (catMaybes, fromJust, fromMaybe)
 import qualified Data.Map as M
-import Data.Maybe (fromJust)
+-- System
+import System.IO.Unsafe (unsafeDupablePerformIO)
 -- Base
 import XMonad hiding ((|||))
 -- Actions
@@ -118,7 +123,7 @@ import XMonad.Util.NamedScratchpad
     namedScratchpadFilterOutWorkspacePP,
     namedScratchpadManageHook,
   )
-import XMonad.Util.Run (unsafeSpawn)
+import XMonad.Util.Run (runProcessWithInput, unsafeSpawn)
 import XMonad.Util.SpawnOnce (spawnOnce)
 import XMonad.Util.Ungrab (unGrab)
 
@@ -170,14 +175,14 @@ myFocusColor = colorFg
 
 -- Base colors
 colorBg, colorFg, colorHiWhite, colorLoGrey, colorHiGrey, colorRed, colorBlue, colorGreen :: String
-colorBg       = "#18181B"
-colorFg       = "#E4E4E8"
-colorHiWhite  = "#EFEFF1"
-colorLoGrey   = "#4b5254"
-colorHiGrey   = "#879193"
-colorRed      = "#CD5C60"
-colorBlue     = "#91B9C7"
-colorGreen    = "#6FB593"
+colorBg       = basebg
+colorFg       = basefg
+colorHiWhite  = base15
+colorLoGrey   = base16
+colorHiGrey   = base17
+colorRed      = base01
+colorBlue     = base04
+colorGreen    = base02
 
 
 hiWhite, loWhite, loGrey, hiGrey, red :: String -> String
@@ -525,6 +530,35 @@ myXmobarPP = namedScratchpadFilterOutWorkspacePP $ def
         ppExtras = [],
         ppOrder = \(ws : l : t : _) -> [ws, l] ++ [t]
       }
+
+-------------------------------------------------------------------------
+-- HELPER FUNCTIONS
+-------------------------------------------------------------------------
+xProperty :: String -> IO String
+xProperty key = fromMaybe "" . findValue key <$> runProcessWithInput "xrdb" ["-query"] ""
+
+findValue :: String -> String -> Maybe String
+findValue xresKey xres = snd <$> find ((== xresKey) . fst) (catMaybes $ splitAtColon <$> lines xres)
+
+splitAtColon :: String -> Maybe (String, String)
+splitAtColon str = splitAtTrimming str <$> elemIndex ':' str
+
+splitAtTrimming :: String -> Int -> (String, String)
+splitAtTrimming str idx = bimap trim (trim . tail) $ splitAt idx str
+
+trim, xprop :: ShowS
+trim = dropWhileEnd isSpace . dropWhile isSpace
+xprop = unsafeDupablePerformIO . xProperty
+
+basebg, basefg, base01, base02, base04, base15, base16, base17 :: String
+basebg = xprop "*.background"
+basefg = xprop "*.foreground"
+base01 = xprop "*.color0"
+base02 = xprop "*.color8"
+base04 = xprop "*.color1"
+base15 = xprop "*.color15"
+base16 = xprop "*.color16"
+base17 = xprop "*.color17"
 
 -------------------------------------------------------------------------
 -- MAIN CONFIG
