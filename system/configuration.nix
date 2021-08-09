@@ -69,6 +69,12 @@ in {
         defaultSession = "none+xmonad";
         autoLogin.enable = true;
         autoLogin.user = "alternateved";
+        sessionCommands = ''
+          xsetroot -cursor_name left_ptr &
+          autorandr -c &
+          bluetoothctl power on
+          nitrogen --restore &
+        '';
         lightdm.greeters.mini = {
           enable = true;
           user = "alternateved";
@@ -82,6 +88,7 @@ in {
             border-color = ${colors.foreground}
           '';
         };
+
       };
 
       windowManager.xmonad = {
@@ -100,11 +107,11 @@ in {
   };
 
   environment.systemPackages = with pkgs; [
+    coreutils
     vim
     wget
     git
     mesa
-    htop
     killall
     xorg.xkill
   ];
