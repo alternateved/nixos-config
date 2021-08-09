@@ -191,14 +191,7 @@ red     = xmobarColor colorRed ""
 -- STARTUPHOOK
 -------------------------------------------------------------------------
 myStartupHook :: X ()
-myStartupHook = do
-  spawnOnce "xsetroot -cursor_name left_ptr"
-  spawnOnce "autorandr -c &"
-  spawnOnce "xfce4-power-manager &"
-  spawnOnce "bluetoothctl power on"
-  spawnOnce "nitrogen --restore &"
-  spawnOnce "emacs --daemon &"
-  setWMName "LG3D"
+myStartupHook = setWMName "LG3D"
 
 -------------------------------------------------------------------------
 -- MANAGEHOOK
