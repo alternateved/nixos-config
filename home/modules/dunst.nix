@@ -65,6 +65,8 @@ in {
         frame_color = colors.black;
         timeout = 0;
       };
+
+      fullscreen_pushback_everything = { fullscreen = "pushback"; };
     };
   };
 }
