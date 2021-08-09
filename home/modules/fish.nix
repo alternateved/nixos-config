@@ -7,7 +7,7 @@
         df = "df -h"; # Human-readable sizes
         free = "free -m"; # Show sizes in MB
         ls = "ls --color=auto"; # colored output
-        emacs = "devour emacsclient -c -a";
+        emacs = "devour emacsclient -c";
         mpv = "devour mpv";
         zathura = "devour zathura";
         sxiv = "devour sxiv";
