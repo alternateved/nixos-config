@@ -12,7 +12,7 @@
   home = {
     sessionVariables = { DOOMDIR = "home/alternateved/.config/doom"; };
 
-    file.".doom.d" = {
+    file.".config/doom" = {
       source = ../config/doom;
       recursive = true;
       onChange = "doom -y sync -u";
