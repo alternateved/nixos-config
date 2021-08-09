@@ -7,7 +7,7 @@
         df = "df -h"; # Human-readable sizes
         free = "free -m"; # Show sizes in MB
         ls = "ls --color=auto"; # colored output
-        em = "devour emacsclient -c";
+        emacs = "devour emacsclient -c -a";
         mpv = "devour mpv";
         zathura = "devour zathura";
         sxiv = "devour sxiv";
@@ -16,6 +16,7 @@
     };
     starship = {
       enable = true;
+      enableBashIntegration = true;
       enableFishIntegration = true;
     };
   };
