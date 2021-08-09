@@ -32,14 +32,14 @@
     # Panel
     xmobar
 
-    # Utilities
+    # Utility
     devour
     nitrogen
     xsecurelock
     xdotool
-    xfce.xfce4-power-manager
     xarchiver
     qalculate-gtk
+    unrar
     unzip
 
     # Theming
@@ -68,7 +68,6 @@
     # Doom emacs dependencies
     fd
     ripgrep
-    libvterm
 
     # Doom emacs module dependencies
     gnumake
