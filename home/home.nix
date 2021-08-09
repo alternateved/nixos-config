@@ -19,6 +19,7 @@
     ./modules/emacs.nix
     ./modules/fish.nix
     ./modules/git.nix
+    ./modules/htop.nix
     ./modules/misc.nix
     ./modules/picom.nix
     ./modules/redshift.nix
