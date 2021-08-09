@@ -245,7 +245,7 @@ myProjects =
   , Project
       { projectName = "System"
       , projectDirectory = "~/.nixos-config"
-      , projectStartHook = Just $ spawn myTerminal >> spawn myEditor
+      , projectStartHook = Nothing
       }
   , Project
       { projectName = "Other"
@@ -494,7 +494,7 @@ myXPConfig = def
       promptBorderWidth = 0,
       position = Top,
       height = 18,
-      historySize = 256,
+      historySize = 100,
       historyFilter = id,
       defaultText = [],
       autoComplete = Just 100000,
