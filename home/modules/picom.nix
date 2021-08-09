@@ -31,16 +31,6 @@
       "_NET_WM_STATE@:32a *= '_NET_WM_STATE_HIDDEN'"
     ];
     extraOptions = ''
-      blur: {
-        method = "dual_kawase";
-        strength = 6.9;
-      }
-
-      frame-opacity = 1.0;
-      inactive-opacity-override = false;
-      active-opacity = 1.0;
-      focus-exclude = [ "class_g ?= 'rofi'" "class_g ?= 'Steam'" ];
-
       mark-wmwin-focused = true;
       mark-ovredir-focused = true;
       detect-rounded-corners = true;
