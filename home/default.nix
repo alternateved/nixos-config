@@ -21,6 +21,7 @@
     ./modules/git.nix
     ./modules/htop.nix
     ./modules/misc.nix
+    ./modules/neovim.nix
     ./modules/picom.nix
     ./modules/redshift.nix
     ./modules/starship.nix

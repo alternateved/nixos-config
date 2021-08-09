@@ -93,6 +93,9 @@ in {
 
       windowManager.xmonad = {
         enable = true;
+        # extraPackages = haskellPackages: [
+        #   haskellPackages.xmonad-contrib
+        # ];
         enableContribAndExtras = true;
       };
       # windowManager.session = [{
@@ -115,14 +118,11 @@ in {
 
   environment.systemPackages = with pkgs; [
     coreutils
-    vim
     wget
     git
     mesa
     killall
     xorg.xkill
-    # haskellPackages.xmonad
-    # haskellPackages.alternateved-xmonad
   ];
 
   fonts.fonts = with pkgs; [
