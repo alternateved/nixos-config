@@ -6,16 +6,5 @@
       extraPackages = (epkgs: [ epkgs.vterm ]);
     };
   };
-
   services = { emacs.enable = true; };
-
-  home = {
-    sessionVariables = { DOOMDIR = "home/alternateved/.config/doom"; };
-
-    file.".config/doom" = {
-      source = ../config/doom;
-      recursive = true;
-      onChange = "doom -y sync -u";
-    };
-  };
 }
