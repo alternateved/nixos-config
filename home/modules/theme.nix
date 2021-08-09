@@ -28,14 +28,26 @@ in {
     platformTheme = "gtk";
   };
   xresources.extraConfig = ''
+    Xft.antialias: 1
+    Xft.hinting: 1
+    Xft.autohint: 0
+    Xft.hintstyle: hintslight
+    Xft.rgba: rgb
+    Xft.lcdfilter: lcddefault
+
     Sxiv.background: ${colors.background}
     Sxiv.foreground: ${colors.foreground}
     Sxiv.font: Iosevka Nerd Font Mono:style=regular:size=11
+
+    !Xmessage.font: Iosevka Nerd Font Mono:pixelsize=12
+    *.foreground: ${colors.background}
+    *.background: ${colors.foreground}
   '';
   xsession.pointerCursor = {
     package = pkgs.vanilla-dmz;
     name = "Vanilla-DMZ";
     size = 16;
   };
+  fonts.fontconfig.enable = true;
   home.packages = with pkgs; [ libsForQt5.qtstyleplugins ];
 }
