@@ -140,7 +140,7 @@ xmonadConfig :: String
 xmonadConfig = myDots ++ "/xmonad/xmonad.hs"
 
 xmobarConfig :: String
-xmobarConfig = myDots ++ "/xmobar/xmobar.hs"
+xmobarConfig = myDots ++ "/xmonad/xmobar.hs"
 
 myFont :: String
 myFont = "xft:Iosevka Nerd Font Mono:style=regular:size=12:antialias=true:hinting=true"
@@ -183,7 +183,6 @@ colorHiGrey   = base17
 colorRed      = base01
 colorBlue     = base04
 colorGreen    = base02
-
 
 hiWhite, loWhite, loGrey, hiGrey, red :: String -> String
 loWhite = xmobarColor colorFg ""
@@ -553,9 +552,9 @@ xprop = unsafeDupablePerformIO . xProperty
 basebg, basefg, base01, base02, base04, base15, base16, base17 :: String
 basebg = xprop "*.background"
 basefg = xprop "*.foreground"
-base01 = xprop "*.color0"
+base01 = xprop "*.color1"
 base02 = xprop "*.color8"
-base04 = xprop "*.color1"
+base04 = xprop "*.color4"
 base15 = xprop "*.color15"
 base16 = xprop "*.color16"
 base17 = xprop "*.color17"
