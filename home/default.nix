@@ -30,8 +30,8 @@
   ];
 
   home.packages = with pkgs; [
-    # Panel
-    xmobar
+    # xmonad dependencies
+     xmobar
 
     # Utility
     devour
@@ -75,7 +75,6 @@
     cmake
     gcc
     jq
-    sbcl
     nixfmt
     sqlite
     graphviz
