@@ -73,7 +73,7 @@ in {
           xsetroot -cursor_name left_ptr &
           autorandr -c &
           bluetoothctl power on
-          nitrogen --restore &
+          nitrogen --restore
         '';
         lightdm.greeters.mini = {
           enable = true;
@@ -91,25 +91,16 @@ in {
 
       };
 
-      windowManager.xmonad = {
-        enable = true;
-        # extraPackages = haskellPackages: [
-        #   haskellPackages.xmonad-contrib
-        # ];
-        enableContribAndExtras = true;
-      };
-      # windowManager.session = [{
-      #   name = "xmonad";
-      #   start = ''
-      #     /usr/bin/env alternateved-xmonad &
-      #     waitPID=$!
-      #   '';
-      # }];
+       windowManager.xmonad = {
+         enable = true;
+         enableContribAndExtras = true;
+       };
 
       libinput = {
         enable = true;
         touchpad.disableWhileTyping = true;
         touchpad.middleEmulation = true;
+        touchpad.naturalScrolling = true;
       };
     };
     tlp.enable = true;
@@ -122,6 +113,7 @@ in {
     git
     mesa
     killall
+    xorg.xwininfo
     xorg.xkill
   ];
 
