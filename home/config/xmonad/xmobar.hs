@@ -89,6 +89,7 @@ auxConfig =
       template =
         "%xmobar1% }"
           <> "{ %date% "
+          <> withPipe "%time% "
     }
 
 -------------------------------------------------------------------------
@@ -123,14 +124,15 @@ mainCommands =
           -- charged status
           "-i", inIconFont "\xf240" ++ " 100%"
         ] 150,
-    Run $ Date "%a %b %_d" "date" 500,
+    Run $ Date "%A, %b %_d" "date" 500,
     Run $ Date "%H:%M" "time" 300
   ]
 
 auxCommands :: [Runnable]
 auxCommands =
   [ Run $ UnsafeXPropertyLog "xmobar1",
-    Run $ Date "%H:%M" "date" 300
+    Run $ Date "%A, %b %_d" "date" 500,
+    Run $ Date "%H:%M" "time" 300
   ]
 
 -------------------------------------------------------------------------
@@ -200,9 +202,9 @@ xprop = unsafeDupablePerformIO . xProperty
 basebg, basefg, base01, base02, base04, base15, base16, base17 :: String
 basebg = xprop "*.background"
 basefg = xprop "*.foreground"
-base01 = xprop "*.color0"
+base01 = xprop "*.color1"
 base02 = xprop "*.color8"
-base04 = xprop "*.color1"
+base04 = xprop "*.color4"
 base15 = xprop "*.color15"
 base16 = xprop "*.color16"
 base17 = xprop "*.color17"
