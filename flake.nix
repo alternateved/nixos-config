@@ -14,7 +14,10 @@
       pkgs = import nixpkgs {
         inherit system;
         config = { allowUnfree = true; };
-        overlays = [ emacs-overlay.overlay ];
+        overlays = [
+          emacs-overlay.overlay
+          # (import ./overlays)
+        ];
       };
       # };
 
@@ -23,13 +26,21 @@
           inherit system;
 
           modules = [
-            ./system/configuration.nix
+            ./system
             home-manager.nixosModules.home-manager
-            { nixpkgs.overlays = [ emacs-overlay.overlay ]; }
+            {
+              nixpkgs.overlays = [
+                emacs-overlay.overlay
+                # xmonad.overlay
+                # xmonad-contrib.overlay
+                # xmonad-extras.overlay
+                # (import ./overlays)
+              ];
+            }
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.users.alternateved = import ./home/home.nix;
+              home-manager.users.alternateved = import ./home;
             }
           ];
         };
