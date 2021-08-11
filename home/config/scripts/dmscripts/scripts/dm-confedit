@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+#
+# Script name: dm-confedit
+# Description: Choose from a list of configuration files to edit.
+# Dependencies: dmenu, emacsclient
+# GitLab: https://www.gitlab.com/dwt1/dmscripts
+# License: https://www.gitlab.com/dwt1/dmscripts/LICENSE
+# Contributors: Derek Taylor
+#               Simon Ingelsson
+#               HostGrady
+
+# Set with the flags "-e", "-u","-o pipefail" cause the script to fail
+# if certain things happen, which is a good thing.  Otherwise, we can
+# get hidden bugs that are hard to discover.
+set -euo pipefail
+_path="$(cd "$(dirname "${BASH_SOURCE[0]}")" && cd "$(dirname "$(readlink "${BASH_SOURCE[0]}" || echo ".")")" && pwd)"
+if [[  -f "${_path}/_dm-helper.sh" ]]; then
+  # shellcheck disable=SC1090,SC1091
+  source "${_path}/_dm-helper.sh"
+else
+  # shellcheck disable=SC1090
+  echo "No helper-script found"
+fi
+
+# script will not hit this if there is no config-file to load
+# shellcheck disable=SC1090
+source "$(get_config)"
+
+main() {
+  # Clean options array making sure that the files exist
+  declare -A _clean_list
+  # As this is loaded from other file it is technically not defined
+  # shellcheck disable=SC2154
+  for i in "${!confedit_list[@]}"; do
+    [[ -f ${confedit_list["${i}"]} ]] && _clean_list["${i}"]=${confedit_list["${i}"]}
+  done
+
+  # Piping the above array (cleaned) into dmenu.
+  # We use "printf '%s\n'" to format the array one item to a line.
+  choice=$(printf '%s\n' "${!_clean_list[@]}" | sort | ${DMENU} -i -l 20 -p 'Edit config:' "$@")
+
+  # What to do when/if we choose a file to edit.
+  if [ "$choice" ]; then
+    cfg=$(printf '%s\n' "${_clean_list["${choice}"]}")
+    # shellcheck disable=SC2154
+    $confedit_editor "$cfg"
+  # What to do if we just escape without choosing anything.
+  else
+      echo "Program terminated." && exit 0
+  fi
+}
+
+[[ "${BASH_SOURCE[0]}" == "${0}" ]] && main "$@"

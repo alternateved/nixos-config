@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC2034
+# This issue is ignored because it is part of a larger file that calls upon all variables listed
+
+# To edit this file copy it to `${HOME}/.config/dmscripts/config`
+# `cp /etc/dmscripts/config ${HOME}/.config/dmscripts/config`
+
+# Defined variables, modify anything in quotes to your prefered software
+
+DMENU="dmenu -nb #18181B -nf #E4E4E8 -sf #18181B -sb #E4E4E8 -fn Iosevka"
+
+DMBROWSER="firefox-devedition"
+
+DMTERM="alacritty -e"
+
+DMEDITOR="emacsclient -c -a emacs"
+
+# dm-logout
+logout_locker="xsecurelock"
+
+# dm-setbg
+setbg_dir="${HOME}/Pictures/Wallpapers"
+
+# dm-confedit
+confedit_editor="$DMEDITOR"
+declare -A confedit_list
+confedit_list[confedit]="$HOME/.nixos-config/home/config/scripts/dmscripts/config"
+confedit_list[colors]="$HOME/.nixos-config/home/modules/colors.nix"
+confedit_list[gtk]="$HOME/.nixos-config/home/modules/theme.nix"
+confedit_list[home]="$HOME/.nixos-config/home/default.nix"
+confedit_list[alacritty]="$HOME/.nixos-config/home/modules/alacritty.nix"
+confedit_list[doom emacs config.el]="$HOME/.doom.d/config.el"
+confedit_list[doom emacs init.el]="$HOME/.doom.d/init.el"
+confedit_list[doom emacs packages.el]="$HOME/.doom.d/packages.el"
+confedit_list[dunst]="$HOME/.nixos-config/home/modules/dunst.nix"
+confedit_list[herbstluftwm]="$HOME/.nixos-config/home/config/herbstluftwm/autostart"
+confedit_list[neovim]="$HOME/.config/home/config/nvim/init.lua"
+confedit_list[picom]="$HOME/.nixos-config/home/modules/picom.nix"
+confedit_list[polybar]="$HOME/.nixos-config/home/config/polybar/config.ini"
+confedit_list[system]="$HOME/.nixos-config/system/default.nix"
+confedit_list[vifm]="$HOME/.nixos-config/home/config/vifm/vifmrc"
+confedit_list[xmobar]="$HOME/.nixos-config/home/config/xmonad/xmobar.hs"
+confedit_list[xmonad]="$HOME/.nixos-config/home/config/xmonad/xmonad.hs"
+confedit_list[zathura]="$HOME/.nixos-config/home/modules/zathura.nix"
+
+# Search engine config
+websearch_browser="$DMBROWSER"
+declare -A websearch
+#
+# Search Engines
+websearch[duckduckgo]="https://duckduckgo.com/?q="
+websearch[google]="https://www.google.com/search?q="
+# Information/News
+websearch[wikipedia]="https://en.wikipedia.org/w/index.php?search="
+# Social Media
+websearch[reddit]="https://www.reddit.com/search/?q="
+websearch[youtube]="https://www.youtube.com/results?search_query="
+# Development
+websearch[github]="https://github.com/search?q="
+
+_revision=17

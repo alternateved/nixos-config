@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+#
+# Script name: dm-hub
+# Description: a hub that you can execute all the other scripts from
+# Dependencies: dmenu, executable dmscripts, all the dependancies from dmscripts
+# GitLab: https://www.gitlab.com/dwt1/hub
+# License: https://www.gitlab.com/dwt1/dmscripts/LICENSE
+# Contributors: n-e0
+#               Simon Ingelsson
+
+set -euo pipefail
+
+_path=$(dirname "$(realpath "$0")")
+[[ ! -f "${_path}/_dm-helper.sh" ]] && echo "No helper-script found"
+# shellcheck disable=SC1090,SC1091
+source "${_path}/_dm-helper.sh"
+# shellcheck disable=SC1090
+source "$(get_config)"
+
+check_updated_config
+
+function main() {
+    local _self
+    declare -A _scripts
+
+    _self=$(basename "$0")
+
+    while IFS= read -r -d '' script; do
+        script_name="$(basename "${script}")"
+        [[ "${script_name}" == "${_self}" ]] && continue
+        _scripts[${script_name}]="${script}"
+    done< <(find "${_path}" -type f -regex ".*/dm-.*" -print0)
+
+    choice=$(printf '%s\n' "${!_scripts[@]}" | sort | ${DMENU} -i -l 20 -p 'Run Script:' "$@")
+
+    if [ "${choice}" ]; then
+        bash "$(printf '%s\n' "${_scripts["${choice}"]}")" "$@"
+    else
+        echo "Program terminated." && exit 0
+    fi
+}
+
+[[ "${BASH_SOURCE[0]}" == "${0}" ]] && main "$@"
