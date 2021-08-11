@@ -6,8 +6,8 @@
   home.homeDirectory = "/home/alternateved";
   home.sessionVariables = {
     ALTERNATE_EDITOR = "";
-    EDITOR = "emacs -t -a ''";
-    VISUAL = "emacs -c -a ''";
+    EDITOR = "vim";
+    VISUAL = "emacsclient -c -a ''";
     BROWSER = "firefox-devedition";
   };
 
@@ -23,6 +23,7 @@
     ./modules/misc.nix
     ./modules/neovim.nix
     ./modules/picom.nix
+    ./modules/polybar.nix
     ./modules/redshift.nix
     ./modules/starship.nix
     ./modules/theme.nix
@@ -30,12 +31,10 @@
   ];
 
   home.packages = with pkgs; [
-    # xmonad dependencies
-     xmobar
-
     # Utility
+    dmenu
     devour
-    nitrogen
+    xwallpaper
     xsecurelock
     xdotool
     xarchiver
