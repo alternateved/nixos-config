@@ -413,7 +413,7 @@ myKeys =
   , ("<XF86MonBrightnessDown>", spawn "xbacklight -dec 10")
   , ("M-<Insert>", unGrab *> spawn "flameshot screen -p ~/Pictures/Screenshots")
   , ("M-S-<Insert>", unGrab *> spawn "flameshot gui")
-  , ("M-C-<KP_Equal>", spawn "autorandr -c")
+  , ("M-C-<KP_Equal>", spawn "autorandr -cf")
   ]
   ++ workspaceKeys
   ++ screenKeys
