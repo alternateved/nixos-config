@@ -8,11 +8,8 @@
 # Defined variables, modify anything in quotes to your prefered software
 
 DMENU="dmenu -nb #18181B -nf #E4E4E8 -sf #18181B -sb #E4E4E8 -fn Iosevka"
-
 DMBROWSER="firefox-devedition"
-
 DMTERM="alacritty -e"
-
 DMEDITOR="emacsclient -c -a emacs"
 
 # dm-logout

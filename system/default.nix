@@ -73,6 +73,7 @@ in {
           xsetroot -cursor_name left_ptr &
           autorandr -c &
           bluetoothctl power on
+          xargs xwallpaper --stretch < ~/.cache/wall
         '';
         lightdm.greeters.mini = {
           enable = true;

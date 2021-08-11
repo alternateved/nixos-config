@@ -7,6 +7,12 @@
 # License: https://www.gitlab.com/dwt1/dmscripts/LICENSE
 # Contributors: Simon Ingelsson
 
+config_dirs+=(
+"${HOME}/.nixos-config/home/config/dmscripts/config"
+"${HOME}/.config/dmscripts/config"
+"/etc/dmscripts/config"
+)
+
 set -euo pipefail
 
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
