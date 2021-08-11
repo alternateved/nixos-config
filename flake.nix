@@ -31,9 +31,6 @@
             {
               nixpkgs.overlays = [
                 emacs-overlay.overlay
-                # xmonad.overlay
-                # xmonad-contrib.overlay
-                # xmonad-extras.overlay
                 # (import ./overlays)
               ];
             }
