@@ -7,7 +7,7 @@ in {
       recolor = true;
       default-bg = colors.background;
       default-fg = colors.foreground;
-      statusbar-bg = colors.gray;
+      statusbar-bg = colors.black;
       statusbar-fg = colors.foreground;
       inputbar-bg = colors.background;
       inputbar-fg = colors.foreground;

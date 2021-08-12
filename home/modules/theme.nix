@@ -77,11 +77,6 @@ in {
      ! White
      *.color7: ${colors.white}
      *.color15: ${colors.bright-white}
-
-     ! Gray
-     *.color16: ${colors.gray}
-     *.color17: ${colors.bright-gray}
-
   '';
   xsession.pointerCursor = {
     package = pkgs.vanilla-dmz;
