@@ -7,7 +7,7 @@ in {
   ];
 
   users = {
-    defaultUserShell = pkgs.fish;
+    defaultUserShell = pkgs.zsh;
     users.alternateved = {
       isNormalUser = true;
       extraGroups = [ "wheel" "networkmanager" "audio" "video" ];
@@ -73,7 +73,6 @@ in {
           xsetroot -cursor_name left_ptr &
           autorandr -c &
           bluetoothctl power on
-          xargs xwallpaper --stretch < ~/.cache/wall
         '';
         lightdm.greeters.mini = {
           enable = true;
@@ -83,7 +82,7 @@ in {
             background-image = "";
             background-color = ${colors.background}
             text-color = ${colors.foreground}
-            password-background-color = ${colors.gray}
+            password-background-color = ${colors.black}
             window-color = ${colors.bright-black}
             border-color = ${colors.foreground}
           '';
