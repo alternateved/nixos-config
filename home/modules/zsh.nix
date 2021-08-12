@@ -14,11 +14,18 @@
         share = true;
         path = "$HOME/.cache/zsh_history";
       };
+      initExtra = ''
+        bindkey "^[[1;5C" forward-word
+        bindkey "^[[1;5D" backward-word
+      '';
       shellAliases = {
         cp = "cp -i"; # Confirm before overwriting something
         df = "df -h"; # Human-readable sizes
         free = "free -m"; # Show sizes in MB
-        ls = "ls --color=auto"; # colored output
+        grep = "grep --color=auto";
+        exa = "exa --color=auto --icons --binary --git";
+        ls = "exa";
+
         hc = "herbstclient";
         em = "devour emacsclient -c";
         mpv = "devour mpv";
