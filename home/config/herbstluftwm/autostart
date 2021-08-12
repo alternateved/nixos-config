@@ -8,7 +8,7 @@ hc() {
 
 hc emit_hook reload
 
-xsetroot -solid '#5A8E3A'
+xsetroot -solid '#18181B'
 
 # remove all existing keybindings
 hc keyunbind --all
@@ -18,11 +18,16 @@ hc keyunbind --all
 # Mod=Mod1    # Use alt as the main modifier
 Mod=Mod4   # Use the super key as the main modifier
 
-hc keybind $Mod-Shift-q quit
+hc keybind $Mod-Shift-q spawn sh ~/.nixos-config/home/config/scripts/logout
 hc keybind $Mod-Shift-r reload
 hc keybind $Mod-Shift-c close
-hc keybind $Mod-Shift-Return spawn "${TERMINAL:-alacritty}" # use your $TERMINAL with xterm as fallback
+hc keybind $Mod-Shift-Return spawn "${TERMINAL:-alacritty}"
+
+# Prompts
 hc keybind $Mod-p spawn dmenu_run -i -p "Run:" -fn "Iosevka Nerd Font Mono:regular:pixelsize=13" -nb "#18181B" -nf "#E4E4E8" -sf "#18181B" -sb "#E4E4E8"
+hc keybind $Mod-Control-p spawn bash ~/.nixos-config/home/config/scripts/hub
+hc keybind $Mod-Control-q spawn bash ~/.nixos-config/home/config/scripts/kill
+hc keybind $Mod-Control-r spawn sh ~/.nixos-config/home/config/scripts/confedit
 
 # basic movement in tiling and floating mode
 # focusing clients
@@ -46,10 +51,16 @@ hc keybind $Mod-Shift-k     shift up
 hc keybind $Mod-Shift-l     shift right
 
 # splitting frames
-# create an empty frame at the specified direction
+hc keybind $Mod-Shift-s  chain , cycle_layout +1 horizontal vertical , split bottom  0.5 , focus -e down
+hc keybind $Mod-Shift-v  chain , split right   0.5 , focus -e right
+hc keybind $Mod-Control-s  chain , split top  0.5 , focus -e up
+hc keybind $Mod-Control-v  chain , split left   0.5 , focus -e left
+
+# split but no focus
 hc keybind $Mod-s       split   bottom  0.5
 hc keybind $Mod-v       split   right   0.5
-# let the current frame explode into subframes
+
+# split by half from the longest side
 hc keybind $Mod-Control-space split explode
 
 # resizing frames and floating clients
@@ -77,19 +88,29 @@ for i in "${!tag_names[@]}" ; do
     fi
 done
 
-# cycle through tags
-hc keybind $Mod-period use_index +1 --skip-visible
-hc keybind $Mod-comma  use_index -1 --skip-visible
+hc set default_frame_layout horizontal
+
+# cycle through monitors
+hc keybind $Mod-comma   cycle_monitor +1
+hc keybind $Mod-period  cycle_monitor -1
+
+# move client to othe MONITOR
+hc keybind $Mod-Shift-comma shift_to_monitor +1
+hc keybind $Mod-Shift-period shift_to_monitor -1
+
+hc keybind $Mod-Tab cycle_all +1
+hc keybind $Mod-Shift-Tab cycle_all -1
 
 # layouting
-hc keybind $Mod-r remove
-hc keybind $Mod-Shift-t floating toggle
-hc keybind $Mod-f fullscreen toggle
+hc keybind $Mod-Shift-x remove
+hc keybind $Mod-r rotate
 hc keybind $Mod-t set_attr clients.focus.floating toggle
-hc keybind $Mod-Shift-m set_attr clients.focus.minimized true
-hc keybind $Mod-Control-m jumpto last-minimized
-hc keybind $Mod-Shift-t pseudotile toggle
-# hc keybind $Mod-c cycle_layout 1 vertical horizontal
+hc keybind $Mod-Shift-t floating toggle
+hc keybind $Mod-Control-t pseudotile toggle
+hc keybind $Mod-f fullscreen toggle
+hc keybind $Mod-m cycle_layout +1 max vertical #monocle, but inside the frame
+hc keybind $Mod-g set_layout grid #change direction of clients
+
 # The following cycles through the available layouts within a frame, but skips
 # layouts, if the layout change wouldn't affect the actual window positions.
 # I.e. if there are two windows within a frame, the grid layout is skipped.
@@ -114,8 +135,10 @@ hc keybind $Mod-u jumpto urgent
 
 # applications
 hc keybind $Mod-Mod1-e spawn emacsclient -a '' -c
-hc keybind $Mod-Mod1-b spawn firefox-devedition
+hc keybind $Mod-Mod1-b spawn qutebrowser
 hc keybind $Mod-Mod1-f spawn alacritty -e vifm
+
+hc keybind $Mod-Control-e spawn emacsclient --eval "(emacs-everywhere)"
 
 # audio
 hc keybind XF86AudioRaiseVolume spawn amixer -q set Master 5%+ unmute
@@ -135,49 +158,84 @@ hc keybind XF86MonBrightnessUp spawn xbacklight -inc 10
 hc keybind XF86MonBrightnessDown spawn xbacklight -dec 10
 
 # theme
+# grab colors from .Xresources
+back=$(xrdb -query | grep background | cut -f2- -d'#')
+forg=$(xrdb -query | grep foreground | cut -f2- -d'#')
+color0=$(xrdb -query | grep color0 | cut -f2- -d'#') # black
+color8=$(xrdb -query | grep color8 | cut -f2- -d'#') # bright-black
+color1=$(xrdb -query | grep color1 | cut -f2- -d'#') # red
+color2=$(xrdb -query | grep color2 | cut -f2- -d'#') # green
+color3=$(xrdb -query | grep color3 | cut -f2- -d'#') # yellow
+color4=$(xrdb -query | grep color4 | cut -f2- -d'#') # blue
+color5=$(xrdb -query | grep color5 | cut -f2- -d'#') # magenta
+color6=$(xrdb -query | grep color6 | cut -f2- -d'#') # cyan
+color7=$(xrdb -query | grep color7 | cut -f2- -d'#') # white
+
 hc attr theme.tiling.reset 1
 hc attr theme.floating.reset 1
-hc set frame_border_active_color '#222222cc'
-hc set frame_border_normal_color '#101010cc'
-hc set frame_bg_normal_color '#565656aa'
-hc set frame_bg_active_color '#345F0Caa'
-hc set frame_border_width 1
+
+# Frames
+hc set frame_border_active_color "#$forg" #Focused frame color
+hc set frame_border_normal_color "#0000004D" #Unfocused frame color
+hc set frame_border_width 1  #border size
+
+hc set frame_bg_active_color "#00000000" #Fill of focused frame
+hc set frame_bg_normal_color "#000000aa" #Fill of unfocused frame (needs always show frame)
+hc set frame_bg_transparent on #Removes the filler color of frame
+hc set frame_transparent_width 0 # What part of the filler color should remain?
+
+hc set frame_active_opacity 100 #Focused frame opacity
+hc set frame_normal_opacity 100 # Unfocused frame opacity
+
+hc set frame_border_inner_width 0
 hc set always_show_frame on
-hc set frame_bg_transparent on
-hc set frame_transparent_width 5
-hc set frame_gap 4
+hc set frame_gap 8
 
-hc attr theme.title_height 0
-hc attr theme.title_font 'Iosevka Nerd Font Mono:pixelsize=12'  # example using Xft
-hc attr theme.padding_top 2  # space below the title's baseline (i.e. text depth)
-hc attr theme.active.color '#345F0Cef'
-hc attr theme.title_color '#ffffff'
-hc attr theme.normal.color '#323232dd'
-hc attr theme.urgent.color '#7811A1dd'
-hc attr theme.normal.title_color '#898989'
-hc attr theme.inner_width 1
-hc attr theme.inner_color black
-hc attr theme.border_width 3
-hc attr theme.floating.border_width 4
-hc attr theme.floating.outer_width 1
-hc attr theme.floating.outer_color black
-hc attr theme.active.inner_color '#789161'
-hc attr theme.urgent.inner_color '#9A65B0'
-hc attr theme.normal.inner_color '#606060'
-# copy inner color to outer_color
-for state in active urgent normal ; do
-    hc substitute C theme.${state}.inner_color \
-        attr theme.${state}.outer_color C
-done
-hc attr theme.active.outer_width 1
-hc attr theme.background_color '#141414'
+# Clients
+hc attr theme.padding_top 0 #Padding at the top of the windows
+hc attr theme.padding_right 0 #Padding
+hc attr theme.padding_left 0 #Padding
+hc attr theme.padding_bottom 0 #Padding
 
-hc set window_gap 0
-hc set frame_padding 0
-hc set smart_window_surroundings off
+hc attr theme.border_width 3 # Windows borders
+hc attr theme.active.color "#$back" #Window border color
+hc attr theme.normal.color "#$back" # Window border color unfocused
+hc attr theme.urgent.color "#$color1"
+
+# Color for the inner frame
+hc attr theme.inner_width 3
+hc attr theme.normal.inner_width 0
+hc attr theme.active.inner_color "#$color1"
+hc attr theme.normal.inner_color "#4b5263"
+
+# Color for the outer frame (3 color4s,too much)
+hc attr theme.outer_width 3
+hc attr theme.active.outer_color "#$color1"
+hc attr theme.normal.outer_color "#$back"
+
+# Colors for floating
+hc attr theme.floating.active.color "#$back"
+hc attr theme.floating.normal.color "#$color5"
+hc attr theme.floating.normal.title_color "#$color5"
+hc attr theme.floating.active.title_color "#$color1"
+
+hc attr theme.floating.outer_width 3
+hc attr theme.floating.normal.outer_color "#$color5"
+hc attr theme.floating.title_height 15
+hc attr theme.floating.border.width 3
+hc attr theme.background_color "#$back"
+
+# Color for the inner frame
+hc attr theme.floating.inner_width 15
+hc attr theme.floating.active.inner_color "#$color1"
+hc attr theme.floating.normal.inner_color "#$color5"
+
+hc set window_gap 2 #Gap between windows
+hc set frame_padding -2 # Gapp between windows and frames
+hc set smart_window_surroundings on
 hc set smart_frame_surroundings on
 hc set mouse_recenter_gap 0
-
+hc set hide_covered_windows off
 
 hc set focus_follows_mouse 1
 
@@ -185,7 +243,7 @@ hc set focus_follows_mouse 1
 hc unrule -F
 
 hc rule focus=on # normally focus new clients
-hc rule floatplacement=smart
+hc rule floatplacement=center
 
 hc rule class=Signal tag=Communication
 hc rule class=Thunderbird tag=Communication
@@ -206,6 +264,8 @@ hc unlock
 hc detect_monitors
 hc spawn autorandr --change
 
+xsetroot -cursor_name left_ptr
+xargs xwallpaper --stretch < ~/.cache/wall
 hc spawn sh "$HOME/.nixos-config/home/config/polybar/launch.sh"
 
 # find the panel
