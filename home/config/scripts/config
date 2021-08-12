@@ -8,12 +8,9 @@
 # Defined variables, modify anything in quotes to your prefered software
 
 DMENU="dmenu -nb #18181B -nf #E4E4E8 -sf #18181B -sb #E4E4E8 -fn Iosevka"
-DMBROWSER="firefox-devedition"
+DMBROWSER="qutebrowser"
 DMTERM="alacritty -e"
 DMEDITOR="emacsclient -c -a emacs"
-
-# dm-logout
-logout_locker="xsecurelock"
 
 # dm-setbg
 setbg_dir="${HOME}/Pictures/Wallpapers"
@@ -21,7 +18,7 @@ setbg_dir="${HOME}/Pictures/Wallpapers"
 # dm-confedit
 confedit_editor="$DMEDITOR"
 declare -A confedit_list
-confedit_list[confedit]="$HOME/.nixos-config/home/config/scripts/dmscripts/config"
+confedit_list[confedit]="$HOME/.nixos-config/home/config/dmscripts/config"
 confedit_list[colors]="$HOME/.nixos-config/home/modules/colors.nix"
 confedit_list[gtk]="$HOME/.nixos-config/home/modules/theme.nix"
 confedit_list[home]="$HOME/.nixos-config/home/default.nix"
@@ -35,6 +32,7 @@ confedit_list[neovim]="$HOME/.config/home/config/nvim/init.lua"
 confedit_list[picom]="$HOME/.nixos-config/home/modules/picom.nix"
 confedit_list[polybar]="$HOME/.nixos-config/home/config/polybar/config.ini"
 confedit_list[system]="$HOME/.nixos-config/system/default.nix"
+confedit_list[qutebrowser]="$HOME/.nixos-config/home/config/qutebrowser/config.py"
 confedit_list[vifm]="$HOME/.nixos-config/home/config/vifm/vifmrc"
 confedit_list[xmobar]="$HOME/.nixos-config/home/config/xmonad/xmobar.hs"
 confedit_list[xmonad]="$HOME/.nixos-config/home/config/xmonad/xmonad.hs"
@@ -54,5 +52,19 @@ websearch[reddit]="https://www.reddit.com/search/?q="
 websearch[youtube]="https://www.youtube.com/results?search_query="
 # Development
 websearch[github]="https://github.com/search?q="
+
+# dm-youtube config
+youtube_browser="$DMBROWSER"
+# Think of these as your "subscribed channels", name the channel in the square brackets then put the channel URL in the quotation marks
+# Syntax: youtube_channels[name]="https://www.youtube.com/link/to/channel"
+
+declare -A youtube_channels
+youtube_channels[DistroTube]="https://www.youtube.com/c/DistroTube/featured"
+youtube_channels[System Crafters]="https://www.youtube.com/c/SystemCrafters/videos"
+youtube_channels[Academy of Ideas]="https://www.youtube.com/c/academyofideas/videos"
+youtube_channels[Gab Smolders]="https://www.youtube.com/c/GabSmolders/videos"
+youtube_channels[Tim Ferriss]="https://www.youtube.com/c/timferriss/videos"
+youtube_channels[Nathaniel Drew]="https://www.youtube.com/c/nathanieldrewofficial/videos"
+youtube_channels[Nick Cave]="https://www.youtube.com/c/nickcave/videos"
 
 _revision=17

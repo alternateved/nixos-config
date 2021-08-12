@@ -1,46 +1,7 @@
 #!/usr/bin/env bash
 
-# Script name: dm-wall
-# Description: A wallpaper setting utility using dmenu, xwallpaper and sxiv
-# Also has the following features
-# 1. set a random walllpaper
-# 2. draw your last wallpaper at startx
-# 3. Change wallpaper after every second(go insane)
-
-# Dependencies: dmenu, xwallpaper, sxiv
-
-# Contributors: Murtaza Udaipurwala
-#               HostGrady
-#               Simon Ingelsson
-
-## Usage
-# run dmwall without any argument to get a dmenu prompt
-# dmwall [optional arguments]
-# -h    Displays this help menu
-# -d    draws the wallpaper at startx. Add 'dmwall -d' in your xinitrc
-# -r    randomly selects a wallpaper
-# -i    Go insane
-
-# Note this script is posix compliant
-
-# Set with the flags "-e", "-u","-o pipefail" cause the script to fail
-# if certain things happen, which is a good thing.  Otherwise, we can
-# get hidden bugs that are hard to discover.
 set -euo pipefail
-
-_path="$(cd "$(dirname "${BASH_SOURCE[0]}")" && cd "$(dirname "$(readlink "${BASH_SOURCE[0]}" || echo ".")")" && pwd)"
-if [[  -f "${_path}/_dm-helper.sh" ]]; then
-  # shellcheck disable=SC1090,SC1091
-  source "${_path}/_dm-helper.sh"
-else
-  # shellcheck disable=SC1090
-  echo "No helper-script found"
-fi
-
-# script will not hit this if there is no config-file to load
-# shellcheck disable=SC1090
-source "$(get_config)"
-
+source "/home/alternateved/.nixos-config/home/config/scripts/config"
 
 help() {
     # shellcheck disable=SC2154

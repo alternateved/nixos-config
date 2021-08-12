@@ -10,14 +10,7 @@
 
 set -euo pipefail
 
-_path=$(dirname "$(realpath "$0")")
-[[ ! -f "${_path}/_dm-helper.sh" ]] && echo "No helper-script found"
-# shellcheck disable=SC1090,SC1091
-source "${_path}/_dm-helper.sh"
-# shellcheck disable=SC1090
-source "$(get_config)"
-
-check_updated_config
+source "/home/alternateved/.nixos-config/home/config/scripts/config"
 
 function main() {
     local _self
@@ -28,8 +21,9 @@ function main() {
     while IFS= read -r -d '' script; do
         script_name="$(basename "${script}")"
         [[ "${script_name}" == "${_self}" ]] && continue
+        [[ "${script_name}" == "config" ]] && continue
         _scripts[${script_name}]="${script}"
-    done< <(find "${_path}" -type f -regex ".*/dm-.*" -print0)
+    done< <(find "/home/alternateved/.nixos-config/home/config/scripts" -maxdepth 1 -type f -print0)
 
     choice=$(printf '%s\n' "${!_scripts[@]}" | sort | ${DMENU} -i -l 20 -p 'Run Script:' "$@")
 

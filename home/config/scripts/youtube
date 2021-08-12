@@ -1,0 +1,63 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+source "/home/alternateved/.nixos-config/home/config/scripts/config"
+
+xmlgetnext () {
+  local IFS='>'
+  # we need to mangle backslashes for this to work
+  # shellcheck disable=SC2162
+  read -d '<' TAG VALUE
+}
+
+parse_rss() {
+  echo "$1" | while xmlgetnext ; do
+    case $TAG in
+        'entry')
+          title=''
+          link=''
+          published=''
+          ;;
+        'media:title')
+          title="$VALUE"
+          ;;
+        'yt:videoId')
+          link="$VALUE"
+          ;;
+        'published')
+          published="$(date --date="${VALUE}" "+%Y-%m-%d %H:%M")"
+            ;;
+        '/entry')
+          echo " ${published} | ${link} | ${title}"
+          ;;
+        esac
+  done
+}
+
+main() {
+  local _feed_url _channel _video
+  local _channel_id _video_id _video_list
+
+  # Sorts the array and lets you select a channel with dmenu
+  # As this is loaded from other file it is technically not defined
+  # shellcheck disable=SC2154
+  _channel=$(printf '%s\n' "${!youtube_channels[@]}" | sort | ${DMENU} -i -l 20 -p 'Select Channel:' "$@")
+
+  # get channel id to be able to get rss
+  _channel_id=$(curl -s -f -L "${youtube_channels[${_channel}]}" | grep -o "channel_id=.*" | sed 's/".*//g' | awk -F"=" '{print $2}')
+  _feed_url="https://www.youtube.com/feeds/videos.xml?channel_id=${_channel_id}"
+
+  # parse rss
+  _video_list=$(parse_rss "$(curl -s "${_feed_url}")" )
+
+  _video=$(printf '%s\n' "${_video_list}" | sort -r | ${DMENU} -i -l 20 -p 'Select Video' "$@")
+  _video_id=$(echo "${_video}" | awk -F'|' '{print $2}' | sed -e 's/^[ \t]*//')
+
+  if [[ -n ${_video_id} ]]; then
+    # After the video is chosen, run it in your web browser
+    # shellcheck disable=SC2154
+    $youtube_browser "https://www.youtube.com/watch?v=${_video_id}"
+  fi
+}
+
+[[ "${BASH_SOURCE[0]}" == "${0}" ]] && main "$@"
