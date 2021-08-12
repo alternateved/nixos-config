@@ -25,19 +25,9 @@
       nixosConfigurations = {
         nixos = nixpkgs.lib.nixosSystem {
           inherit system;
-
           modules = [
             ./system
             home-manager.nixosModules.home-manager
-            # {
-            #   nixpkgs.overlays = [
-            #     emacs-overlay.overlay
-            #     # xmonad.overlay
-            #     # xmonad-contrib.overlay
-            #     # xmonad-extras.overlay
-            #     # (import ./overlays)
-            #   ];
-            # }
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
