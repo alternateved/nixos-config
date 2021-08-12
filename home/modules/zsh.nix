@@ -27,6 +27,7 @@
         ls = "exa";
 
         hc = "herbstclient";
+        bw = "bw --pretty";
         em = "devour emacsclient -c";
         mpv = "devour mpv";
         zathura = "devour zathura";
