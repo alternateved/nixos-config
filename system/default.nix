@@ -70,8 +70,6 @@ in {
         autoLogin.enable = true;
         autoLogin.user = "alternateved";
         sessionCommands = ''
-          xsetroot -cursor_name left_ptr &
-          autorandr -c &
           bluetoothctl power on
         '';
         lightdm.greeters.mini = {
@@ -109,6 +107,8 @@ in {
     git
     mesa
     killall
+    xclip
+    xdotool
     xorg.xwininfo
     xorg.xkill
   ];
