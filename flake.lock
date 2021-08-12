@@ -1,5 +1,24 @@
 {
   "nodes": {
+    "bitwarden-dmenu": {
+      "inputs": {
+        "flake-utils": "flake-utils",
+        "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "lastModified": 1626345697,
+        "narHash": "sha256-7SEO+mgIePu8U/JtNYA/TLm31EwdbW9opskNne1Z48g=",
+        "owner": "pltanton",
+        "repo": "bitwarden-dmenu",
+        "rev": "928663af71a491c85ae0602bd7700cf5d6788bea",
+        "type": "github"
+      },
+      "original": {
+        "owner": "pltanton",
+        "repo": "bitwarden-dmenu",
+        "type": "github"
+      }
+    },
     "emacs-overlay": {
       "locked": {
         "lastModified": 1628760643,
@@ -15,9 +34,24 @@
         "type": "github"
       }
     },
+    "flake-utils": {
+      "locked": {
+        "lastModified": 1623875721,
+        "narHash": "sha256-A8BU7bjS5GirpAUv4QA+QnJ4CceLHkcXdRp4xITDB0s=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "f7e004a55b120c02ecb6219596820fcd32ca8772",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs_2"
       },
       "locked": {
         "lastModified": 1628717424,
@@ -36,6 +70,20 @@
     },
     "nixpkgs": {
       "locked": {
+        "lastModified": 1625522950,
+        "narHash": "sha256-101L0cQyYYmC0TP2PvukJkkzp4qnbo8AAjw879OTKXw=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "976791a768ae57b66718e1ba52c86d2e66462187",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "type": "indirect"
+      }
+    },
+    "nixpkgs_2": {
+      "locked": {
         "lastModified": 1628766937,
         "narHash": "sha256-GJ4YhaNPPBcJa5nnqaXV8b3TRXrlGZmWtLAT9XKXBGg=",
         "owner": "NixOS",
@@ -48,7 +96,7 @@
         "type": "indirect"
       }
     },
-    "nixpkgs_2": {
+    "nixpkgs_3": {
       "locked": {
         "lastModified": 1628693817,
         "narHash": "sha256-WtlM8ptjcUUWRvbpkToKJHzLlGCEXZKGh+SfwUYHobA=",
@@ -66,9 +114,10 @@
     },
     "root": {
       "inputs": {
+        "bitwarden-dmenu": "bitwarden-dmenu",
         "emacs-overlay": "emacs-overlay",
         "home-manager": "home-manager",
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": "nixpkgs_3"
       }
     }
   },
