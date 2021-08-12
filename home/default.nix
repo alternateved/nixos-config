@@ -32,6 +32,7 @@
 
   home.packages = with pkgs; [
     # Utility
+    bitwarden-cli
     dmenu
     devour
     xwallpaper
@@ -41,6 +42,7 @@
     qalculate-gtk
     unrar
     unzip
+    exa
 
     # Theming
     gnome.gnome-themes-extra
@@ -84,11 +86,15 @@
     nodePackages.stylelint
     nodePackages.js-beautify
 
+    # Surfing
+    firefox-devedition-bin
+    google-chrome-beta
+    qutebrowser
+    youtube-dl
+
     # Communication
     discord
     skypeforlinux
-    firefox-devedition-bin
-    google-chrome-beta
     thunderbird
     signal-desktop
   ];
