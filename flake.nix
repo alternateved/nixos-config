@@ -8,9 +8,8 @@
   };
 
   outputs = { nixpkgs, home-manager, emacs-overlay, ... }:
-    let system = "x86_64-linux";
-    in {
-      # devShell.${system} = import ./shell.nix {
+    let
+      system = "x86_64-linux";
       pkgs = import nixpkgs {
         inherit system;
         config = { allowUnfree = true; };
@@ -19,6 +18,8 @@
           # (import ./overlays)
         ];
       };
+    in {
+      # devShell.${system} = import ./shell.nix {
       # };
 
       nixosConfigurations = {
@@ -28,15 +29,19 @@
           modules = [
             ./system
             home-manager.nixosModules.home-manager
-            {
-              nixpkgs.overlays = [
-                emacs-overlay.overlay
-                # (import ./overlays)
-              ];
-            }
+            # {
+            #   nixpkgs.overlays = [
+            #     emacs-overlay.overlay
+            #     # xmonad.overlay
+            #     # xmonad-contrib.overlay
+            #     # xmonad-extras.overlay
+            #     # (import ./overlays)
+            #   ];
+            # }
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs = { inherit pkgs; };
               home-manager.users.alternateved = import ./home;
             }
           ];

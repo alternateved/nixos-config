@@ -2,9 +2,7 @@
   programs = {
     starship = {
       enable = true;
-      enableBashIntegration = true;
-      enableFishIntegration = true;
-
+      enableZshIntegration = true;
       settings = {
         command_timeout = 1000;
         add_newline = false;

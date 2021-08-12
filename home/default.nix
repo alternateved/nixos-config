@@ -17,7 +17,6 @@
     ./modules/direnv.nix
     ./modules/dunst.nix
     ./modules/emacs.nix
-    ./modules/fish.nix
     ./modules/git.nix
     ./modules/htop.nix
     ./modules/misc.nix
@@ -28,6 +27,7 @@
     ./modules/starship.nix
     ./modules/theme.nix
     ./modules/zathura.nix
+    ./modules/zsh.nix
   ];
 
   home.packages = with pkgs; [
