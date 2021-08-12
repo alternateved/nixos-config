@@ -37,7 +37,6 @@
     devour
     xwallpaper
     xsecurelock
-    xdotool
     xarchiver
     qalculate-gtk
     unrar
