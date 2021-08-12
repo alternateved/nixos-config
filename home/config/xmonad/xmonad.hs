@@ -9,27 +9,6 @@ import Data.Char (isSpace)
 import Data.List (dropWhileEnd, elemIndex, find)
 import Data.Maybe (catMaybes, fromJust, fromMaybe)
 import qualified Data.Map as M
--- System
-import System.IO.Unsafe (unsafeDupablePerformIO)
--- Base
-import XMonad hiding ((|||))
--- Actions
-import XMonad.Actions.CopyWindow (kill1)
-import XMonad.Actions.DynamicProjects
-  ( Project (..),
-    changeProjectDirPrompt,
-    dynamicProjects,
-    switchProjectPrompt,
-    renameProjectPrompt,
-  )
-import XMonad.Actions.DynamicWorkspaces (removeWorkspace, withNthWorkspace)
-import XMonad.Actions.GroupNavigation
-  ( Direction (History),
-    historyHook,
-    nextMatch,
-  )
-import XMonad.Actions.Navigation2D
-  ( Direction2D(L, R),
     windowGo,
     windowSwap,
   )
@@ -552,12 +531,12 @@ xprop = unsafeDupablePerformIO . xProperty
 basebg, basefg, base01, base02, base04, base15, base16, base17 :: String
 basebg = xprop "*.background"
 basefg = xprop "*.foreground"
+base00 = xprop "*.color0"
+base08 = xprop "*.color8"
 base01 = xprop "*.color1"
-base02 = xprop "*.color8"
+base02 = xprop "*.color2"
 base04 = xprop "*.color4"
 base15 = xprop "*.color15"
-base16 = xprop "*.color16"
-base17 = xprop "*.color17"
 
 -------------------------------------------------------------------------
 -- MAIN CONFIG
