@@ -20,6 +20,7 @@
     ./modules/git.nix
     ./modules/htop.nix
     ./modules/misc.nix
+    ./modules/mpv.nix
     ./modules/neovim.nix
     ./modules/picom.nix
     ./modules/polybar.nix
@@ -64,7 +65,6 @@
     libreoffice
     neofetch
     pulsemixer
-    mpv
 
     # Doom emacs dependencies
     fd
