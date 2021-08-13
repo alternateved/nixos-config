@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+source "$SCRIPT_DIR/config"
+
+main() {
+  # If $translate_list is not set to "manual", automatically get languages
+  if [[ "${translate_list:-auto}" != "manual" ]]; then
+    declare -A lang_map
+    # shellcheck disable=SC2086
+    mapfile -t data < <(curl -Ss https://raw.githubusercontent.com/TheDavidDelta/lingva-translate/main/utils/languages.json | \
+      jq -cr ".languages | to_entries[] | [.key,.value] | @sh")
+
+    for ((i=0; i < ${#data[@]}; ++i)); do
+      # shellcheck disable=SC2086
+      lang_map[$(echo ${data[$i]} | awk -F"'" '{print $4}')]="$(echo ${data[$i]} | awk -F"'" '{print $2}')"
+    done
+    unset data
+  fi
+
+  # Warn user and exit if "lang_map" has no elements (errors on unbound)
+  if [[ ${lang_map@a} != A ]]; then
+    echo "The 'lang_map' array must be set to manually set languages!"
+    exit 1
+  fi
+
+  # Get the languages to translate from and to
+  from_name=$(printf '%s\n' "${!lang_map[@]}" | sort | ${DMENU} -i -l 20 -p 'Translate from:') "$@" || exit 1
+  to_name=$(printf '%s\n' "${!lang_map[@]}" | sort | ${DMENU} -i -l 20 -p 'Translate to:') "$@" || exit 1
+
+  from_code=${lang_map[$from_name]}
+  to_code=${lang_map[$to_name]}
+
+  # Get text to translate
+  query=$(echo "" | ${DMENU} -p "Translate (${from_code} -> ${to_code}):")
+
+  # Encode to url encoding
+  query="$(echo "${query}" | jq -s -R -r @uri)"
+
+  # Get the translation
+  translation=$(curl -Ss https://lingva.ml/api/v1/"${from_code}"/"${to_code}"/"${query}" | jq ".translation" | tr -d '"')
+
+  # Copy translation to clipboard and send notification
+  echo "$translation" | xclip -r -selection clipboard
+  notify-send "Translation (in clipboard)" "$translation"
+}
+
+[[ "${BASH_SOURCE[0]}" == "${0}" ]] && main "$@"

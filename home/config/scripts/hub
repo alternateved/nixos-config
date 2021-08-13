@@ -10,7 +10,8 @@
 
 set -euo pipefail
 
-source "/home/alternateved/.nixos-config/home/config/scripts/config"
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+source "$SCRIPT_DIR/config"
 
 function main() {
     local _self
@@ -23,7 +24,7 @@ function main() {
         [[ "${script_name}" == "${_self}" ]] && continue
         [[ "${script_name}" == "config" ]] && continue
         _scripts[${script_name}]="${script}"
-    done< <(find "/home/alternateved/.nixos-config/home/config/scripts" -maxdepth 1 -type f -print0)
+    done< <(find $SCRIPT_DIR -maxdepth 1 -type f -print0)
 
     choice=$(printf '%s\n' "${!_scripts[@]}" | sort | ${DMENU} -i -l 20 -p 'Run Script:' "$@")
 

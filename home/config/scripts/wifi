@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
 set -euo pipefail
-source "/home/alternateved/.nixos-config/home/config/scripts/config"
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+source "$SCRIPT_DIR/config"
 
 main() {
   bssid=$(nmcli device wifi list | sed -n '1!p' | cut -b 9- | ${DMENU} -p "Select Wifi  :" -l 20 | cut -d' ' -f1)

@@ -67,4 +67,14 @@ youtube_channels[Tim Ferriss]="https://www.youtube.com/c/timferriss/videos"
 youtube_channels[Nathaniel Drew]="https://www.youtube.com/c/nathanieldrewofficial/videos"
 youtube_channels[Nick Cave]="https://www.youtube.com/c/nickcave/videos"
 
+# dm-translate config
+# Uncomment to manually set the languages dm-translate will show
+# Get language codes from here: https://github.com/TheDavidDelta/lingva-translate/blob/main/utils/languages.json
+
+#translate_list="manual"
+#declare -A lang_map
+# lang_map[English]=en
+# lang_map[Swedish]=sv
+# lang_map[Automatic]=auto
+
 _revision=17

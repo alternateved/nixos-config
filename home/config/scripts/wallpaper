@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
 set -euo pipefail
-source "/home/alternateved/.nixos-config/home/config/scripts/config"
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+source "$SCRIPT_DIR/config"
 
 help() {
     # shellcheck disable=SC2154
@@ -53,9 +54,9 @@ goInsane() {
 # dmenu menu
 menu() {
     # options="set background\nrandom\ngo insane"
-    input=$(printf "set background\nrandom\ngo insane" | ${DMENU} -i -l 3) || exit 1
+    input=$(printf "set wallpaper\nrandom\ngo insane" | ${DMENU} -i -l 3) || exit 1
     case "$input" in
-        "set background") setbg ;;
+        "set wallpaper") setbg ;;
         "random") random ;;
         "go insane") goInsane ;;
     esac
