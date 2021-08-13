@@ -102,17 +102,7 @@ in {
     gvfs.enable = true;
   };
 
-  environment.systemPackages = with pkgs; [
-    coreutils
-    wget
-    git
-    mesa
-    killall
-    xclip
-    xdotool
-    xorg.xwininfo
-    xorg.xkill
-  ];
+  environment.systemPackages = with pkgs; [ coreutils wget git mesa ];
 
   fonts.fonts = with pkgs; [
     font-awesome_5
