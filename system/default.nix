@@ -33,6 +33,7 @@ in {
     };
     kernel.sysctl = { "vm.swappiness" = 10; };
     kernelPackages = pkgs.linuxPackages_latest;
+    cleanTmpDir = true;
   };
 
   networking = {
