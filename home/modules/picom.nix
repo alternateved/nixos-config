@@ -21,7 +21,7 @@
     ### SHADOW ###
     shadow = false;
     shadowOffsets = [ (-7) (-7) ];
-    shadowOpacity = 0.75;
+    shadowOpacity = "0.75";
     shadowExclude = [
       "class_g = 'Firefox Developer Edition' && argb"
       "fullscreen"
