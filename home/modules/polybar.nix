@@ -1,7 +1,10 @@
 { pkgs, ... }: {
   services.polybar = {
     enable = true;
-    package = pkgs.polybar.override { alsaSupport = true; };
+    package = pkgs.polybar.override {
+      alsaSupport = true;
+      githubSupport = true;
+    };
     config = ../config/polybar/config.ini;
     script = ''
       for m in $(polybar --list-monitors | cut -d":" -f1); do
