@@ -43,6 +43,12 @@
     unrar
     unzip
     exa
+    wmctrl
+    xclip
+    xdotool
+    killall
+    xorg.xkill
+    xorg.xwininfo
 
     # Theming
     gnome.gnome-themes-extra
