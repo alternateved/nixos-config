@@ -18,7 +18,7 @@ hc keyunbind --all
 # Mod=Mod1    # Use alt as the main modifier
 Mod=Mod4   # Use the super key as the main modifier
 
-hc keybind $Mod-Shift-q spawn sh ~/.nixos-config/home/config/scripts/logout
+hc keybind $Mod-Shift-q spawn bash ~/.nixos-config/home/config/scripts/logout
 hc keybind $Mod-Shift-r reload
 hc keybind $Mod-Shift-c close
 hc keybind $Mod-Shift-Return spawn "${TERMINAL:-alacritty}"
@@ -27,7 +27,7 @@ hc keybind $Mod-Shift-Return spawn "${TERMINAL:-alacritty}"
 hc keybind $Mod-p spawn dmenu_run -i -p "Run:" -fn "Iosevka Nerd Font Mono:regular:pixelsize=13" -nb "#18181B" -nf "#E4E4E8" -sf "#18181B" -sb "#E4E4E8"
 hc keybind $Mod-Control-p spawn bash ~/.nixos-config/home/config/scripts/hub
 hc keybind $Mod-Control-q spawn bash ~/.nixos-config/home/config/scripts/kill
-hc keybind $Mod-Control-r spawn sh ~/.nixos-config/home/config/scripts/confedit
+hc keybind $Mod-Control-r spawn bash ~/.nixos-config/home/config/scripts/confedit
 
 # basic movement in tiling and floating mode
 # focusing clients
@@ -160,7 +160,6 @@ hc keybind XF86MonBrightnessDown spawn xbacklight -dec 10
 # theme
 # grab colors from .Xresources
 back=$(xrdb -query | grep background | cut -f2- -d'#')
-forg=$(xrdb -query | grep foreground | cut -f2- -d'#')
 color0=$(xrdb -query | grep color0 | cut -f2- -d'#') # black
 color8=$(xrdb -query | grep color8 | cut -f2- -d'#') # bright-black
 color1=$(xrdb -query | grep color1 | cut -f2- -d'#') # red
@@ -175,9 +174,9 @@ hc attr theme.tiling.reset 1
 hc attr theme.floating.reset 1
 
 # Frames
-hc set frame_border_active_color "#$forg" #Focused frame color
+hc set frame_border_active_color "#$color7" #Focused frame color
 hc set frame_border_normal_color "#0000004D" #Unfocused frame color
-hc set frame_border_width 1  #border size
+hc set frame_border_width 2  #border size
 
 hc set frame_bg_active_color "#00000000" #Fill of focused frame
 hc set frame_bg_normal_color "#000000aa" #Fill of unfocused frame (needs always show frame)
