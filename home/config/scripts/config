@@ -1,21 +1,15 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC2034
-# This issue is ignored because it is part of a larger file that calls upon all variables listed
-
-# To edit this file copy it to `${HOME}/.config/dmscripts/config`
-# `cp /etc/dmscripts/config ${HOME}/.config/dmscripts/config`
-
 # Defined variables, modify anything in quotes to your prefered software
-
 DMENU="dmenu -nb #18181B -nf #E4E4E8 -sf #18181B -sb #E4E4E8 -fn Iosevka"
 DMBROWSER="qutebrowser"
 DMTERM="alacritty -e"
 DMEDITOR="emacsclient -c -a emacs"
 
-# dm-setbg
+# wallpaper
 setbg_dir="${HOME}/Pictures/Wallpapers"
 
-# dm-confedit
+# confedit
 confedit_editor="$DMEDITOR"
 declare -A confedit_list
 confedit_list[confedit]="$HOME/.nixos-config/home/config/dmscripts/config"
@@ -41,7 +35,7 @@ confedit_list[zathura]="$HOME/.nixos-config/home/modules/zathura.nix"
 # Search engine config
 websearch_browser="$DMBROWSER"
 declare -A websearch
-#
+
 # Search Engines
 websearch[duckduckgo]="https://duckduckgo.com/?q="
 websearch[google]="https://www.google.com/search?q="
@@ -53,11 +47,7 @@ websearch[youtube]="https://www.youtube.com/results?search_query="
 # Development
 websearch[github]="https://github.com/search?q="
 
-# dm-youtube config
-youtube_browser="$DMBROWSER"
-# Think of these as your "subscribed channels", name the channel in the square brackets then put the channel URL in the quotation marks
-# Syntax: youtube_channels[name]="https://www.youtube.com/link/to/channel"
-
+# youtube config
 declare -A youtube_channels
 youtube_channels[DistroTube]="https://www.youtube.com/c/DistroTube/featured"
 youtube_channels[System Crafters]="https://www.youtube.com/c/SystemCrafters/videos"
@@ -67,10 +57,9 @@ youtube_channels[Tim Ferriss]="https://www.youtube.com/c/timferriss/videos"
 youtube_channels[Nathaniel Drew]="https://www.youtube.com/c/nathanieldrewofficial/videos"
 youtube_channels[Nick Cave]="https://www.youtube.com/c/nickcave/videos"
 
-# dm-translate config
+# translate config
 # Uncomment to manually set the languages dm-translate will show
 # Get language codes from here: https://github.com/TheDavidDelta/lingva-translate/blob/main/utils/languages.json
-
 #translate_list="manual"
 #declare -A lang_map
 # lang_map[English]=en

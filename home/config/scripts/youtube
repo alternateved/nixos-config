@@ -55,9 +55,7 @@ main() {
   _video_id=$(echo "${_video}" | awk -F'|' '{print $2}' | sed -e 's/^[ \t]*//')
 
   if [[ -n ${_video_id} ]]; then
-    # After the video is chosen, run it in your web browser
-    # shellcheck disable=SC2154
-    $youtube_browser "https://www.youtube.com/watch?v=${_video_id}"
+    mpv "https://www.youtube.com/watch?v=${_video_id}"
   fi
 }
 
