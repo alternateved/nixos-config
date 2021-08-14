@@ -7,7 +7,7 @@
     emacs-overlay.url = "github:nix-community/emacs-overlay";
 
     xmonad.url = "github:ivanmalison/xmonad";
-    xmonad-contrib.url = "github:ivanmalison/xmonad";
+    xmonad-contrib.url = "github:ivanmalison/xmonad-contrib";
   };
 
   outputs =
