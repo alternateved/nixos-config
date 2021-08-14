@@ -82,7 +82,7 @@ in {
             background-color = ${colors.background}
             text-color = ${colors.foreground}
             password-background-color = ${colors.black}
-            window-color = ${colors.bright-black}
+            window-color = ${colors.background}
             border-color = ${colors.foreground}
           '';
         };
