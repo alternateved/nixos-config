@@ -27,6 +27,7 @@
     ./modules/redshift.nix
     ./modules/starship.nix
     ./modules/theme.nix
+    ./modules/xresources.nix
     ./modules/zathura.nix
     ./modules/zsh.nix
   ];
