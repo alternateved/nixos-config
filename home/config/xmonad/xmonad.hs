@@ -9,6 +9,18 @@ import Data.Char (isSpace)
 import Data.List (dropWhileEnd, elemIndex, find)
 import Data.Maybe (catMaybes, fromJust, fromMaybe)
 import qualified Data.Map as M
+-- Base
+import XMonad hiding ((|||))
+-- Actions
+import XMonad.Actions.CopyWindow (kill1)
+import XMonad.Actions.DynamicProjects
+import XMonad.Actions.GroupNavigation
+  ( Direction (History),
+    historyHook,
+    nextMatch,
+  )
+import XMonad.Actions.Navigation2D
+  ( Direction2D(L, R),
     windowGo,
     windowSwap,
   )
