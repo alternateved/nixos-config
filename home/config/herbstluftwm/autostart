@@ -5,8 +5,8 @@ hc() {
 }
 
 hc emit_hook reload
-xsetroot -solid '#18181B'
 hc keyunbind --all
+xsetroot -solid '#18181B'
 
 ### Keybindings ###
 Mod=Mod4
@@ -94,9 +94,6 @@ hc keybind $Mod-period  cycle_monitor -1
 hc keybind $Mod-Shift-comma shift_to_monitor +1
 hc keybind $Mod-Shift-period shift_to_monitor -1
 
-hc keybind $Mod-Tab cycle_all +1
-hc keybind $Mod-Shift-Tab cycle_all -1
-
 # Layouting
 hc keybind $Mod-Shift-x remove
 hc keybind $Mod-r rotate
@@ -110,9 +107,9 @@ hc keybind $Mod-g set_layout grid #change direction of clients
 # The following cycles through the available layouts within a frame, but skips
 # layouts, if the layout change wouldn't affect the actual window positions.
 # I.e. if there are two windows within a frame, the grid layout is skipped.
-hc keybind $Mod-space                                                  \
-            or , and . compare tags.focus.curframe_wcount = 2          \
-                     . cycle_layout +1 vertical horizontal grid max    \
+hc keybind $Mod-space                                               \
+            or , and . compare tags.focus.curframe_wcount =         \
+                     . cycle_layout +1 max vertical horizontal grid \
                , cycle_layout +1
 
 # Mouse
@@ -122,9 +119,9 @@ hc mousebind $Mod-Button2 zoom
 hc mousebind $Mod-Button3 resize
 
 # Additional focus commands
+hc keybind Mod1-Tab cycle_all +1
+hc keybind Mod1-Shift-Tab cycle_all -1
 hc keybind $Mod-BackSpace   cycle_monitor
-hc keybind $Mod-Tab         cycle_all +1
-hc keybind $Mod-Shift-Tab   cycle_all -1
 hc keybind $Mod-n cycle
 hc keybind $Mod-Shift-n cycle -1
 hc keybind $Mod-u jumpto urgent
