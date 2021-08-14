@@ -67,11 +67,13 @@ in {
       xkbOptions = "caps:escape_shifted_capslock";
 
       displayManager = {
-        defaultSession = "none+herbstluftwm";
+        defaultSession = "none+xmonad";
         autoLogin.enable = true;
         autoLogin.user = "alternateved";
         sessionCommands = ''
           bluetoothctl power on
+          xsetroot -cursor_name left_ptr
+          xargs xwallpaper --stretch < ~/.cache/wall
         '';
         lightdm.greeters.mini = {
           enable = true;
@@ -89,7 +91,10 @@ in {
 
       };
 
-      windowManager.herbstluftwm.enable = true;
+      windowManager.xmonad = {
+        enable = true;
+        extraPackages = haskellPackages: [ haskellPackages.xmonad-contrib ];
+      };
 
       libinput = {
         enable = true;
