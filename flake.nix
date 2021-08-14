@@ -5,9 +5,13 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager.url = "github:rycee/home-manager/master";
     emacs-overlay.url = "github:nix-community/emacs-overlay";
+
+    xmonad.url = "github:ivanmalison/xmonad";
+    xmonad-contrib.url = "github:ivanmalison/xmonad";
   };
 
-  outputs = { nixpkgs, home-manager, emacs-overlay, ... }:
+  outputs =
+    { nixpkgs, home-manager, emacs-overlay, xmonad, xmonad-contrib, ... }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -15,7 +19,9 @@
         config = { allowUnfree = true; };
         overlays = [
           emacs-overlay.overlay
-          # (import ./overlays)
+          xmonad.overlay
+          xmonad-contrib.overlay
+          (import ./overlays)
         ];
       };
     in {
@@ -24,7 +30,7 @@
 
       nixosConfigurations = {
         nixos = nixpkgs.lib.nixosSystem {
-          inherit system;
+          inherit pkgs system;
           modules = [
             ./system
             home-manager.nixosModules.home-manager
