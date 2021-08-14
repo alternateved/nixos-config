@@ -12,7 +12,7 @@ case "$1" in
 
     *)
         # bring the selected window to the current tag and focus it
-        name='Bring Window │ '
+        name='Bring:'
         action() { hc bring "$@" ; }
         ;;
 
