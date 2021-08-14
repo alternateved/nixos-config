@@ -1,9 +1,5 @@
 { pkgs, ... }: {
   dconf.enable = false;
-  xdg = {
-    enable = true;
-    userDirs.enable = true;
-  };
   gtk = {
     enable = true;
     theme = {
