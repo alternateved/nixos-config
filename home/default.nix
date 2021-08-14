@@ -66,6 +66,7 @@
     aspellDicts.pl
 
     # Media
+    anime-downloader
     sxiv
     gimp
     calibre
