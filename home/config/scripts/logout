@@ -8,11 +8,11 @@ source "$SCRIPT_DIR/config"
 # TODO: add abillity to control from config.
 _out="echo"
 if [[ ${TERM} == 'dumb' ]]; then
-    _out="notify-send"
+    _out="dunstify"
 fi
 
 output(){
-    ${_out} "dm-logout" "$@"
+    ${_out} "logout" "$@"
 }
 
 main() {
