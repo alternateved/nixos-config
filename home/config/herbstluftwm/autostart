@@ -154,8 +154,8 @@ hc attr theme.tiling.reset 1
 hc attr theme.floating.reset 1
 
 hc set frame_gap 8
-hc set frame_padding -2 # Gapp between windows and frames
-hc set window_gap 2
+hc set frame_padding -3 # Gapp between windows and frames
+hc set window_gap 0
 hc set snap_distance 0
 hc set snap_gap 0
 
@@ -186,8 +186,8 @@ magenta=$(xrdb -query | grep color5 | cut -f2- -d'#')
 cyan=$(xrdb -query | grep color6 | cut -f2- -d'#')
 white=$(xrdb -query | grep color7 | cut -f2- -d'#')
 
-hc set frame_border_active_color "#$gray"
-hc set frame_border_normal_color "#$bg"
+hc set frame_border_active_color "#$light_gray"
+hc set frame_border_normal_color "#$gray"
 hc set frame_border_width 3
 hc set frame_border_inner_width 0
 hc set frame_bg_active_color "#18181B00" #Fill of focused frame
@@ -197,12 +197,12 @@ hc set frame_transparent_width 0
 
 hc attr theme.title_height 0
 hc attr theme.padding_top 0
-hc attr theme.padding_bottom 20
+hc attr theme.padding_bottom 0
 hc attr theme.border_width 0
 
 for s in floating tiling; do
-    hc attr theme.$s.active.color "#$gray"
-    hc attr theme.$s.normal.color "#$bg"
+    hc attr theme.$s.active.color "#$light_gray"
+    hc attr theme.$s.normal.color "#$gray"
     hc attr theme.$s.urgent.color "#$red"
 done
 
@@ -212,7 +212,7 @@ for state in active urgent normal ; do
         attr theme.${state}.outer_color C
 done
 
-hc attr theme.border_width 0
+hc attr theme.border_width 3
 hc attr theme.floating.border_width 0
 hc attr theme.floating.outer_width 0
 hc attr theme.floating.padding_bottom 0
@@ -240,6 +240,9 @@ hc set tree_style '╾│ ├└╼─┐'
 
 # unlock, just to be sure
 hc unlock
+
+# wmname spoof
+wmname LG3D
 
 ### Autostart ###
 hc detect_monitors
