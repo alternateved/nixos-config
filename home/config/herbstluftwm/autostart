@@ -228,6 +228,7 @@ hc rule floatplacement=center
 hc rule class=Signal tag=Communication
 hc rule class=Thunderbird tag=Communication
 hc rule class=discord tag=Communication
+hc rule class="Firefox Developer Edition" tag=Media
 hc rule class=mpv tag=Media
 hc rule class=Sxiv floating=on
 
