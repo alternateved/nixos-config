@@ -68,7 +68,7 @@ in {
 
       displayManager = {
         defaultSession = "none+myxmonad";
-        # defaultSession = "none+xmonad";
+        # defaultSession = "none+herbstluftwm";
         autoLogin.enable = true;
         autoLogin.user = "alternateved";
         sessionCommands = ''
@@ -92,6 +92,8 @@ in {
 
       };
 
+      # windowManager.herbstluftwm.enable = true;
+
       windowManager = {
         session = [{
           name = "myxmonad";
@@ -101,11 +103,6 @@ in {
           '';
         }];
       };
-
-      # windowManager.xmonad = {
-      #   enable = true;
-      #   extraPackages = haskellPackages: [ haskellPackages.xmonad-contrib ];
-      # };
 
       libinput = {
         enable = true;
@@ -119,8 +116,8 @@ in {
   };
 
   environment.systemPackages = with pkgs; [
-    haskellPackages.xmonad
-    haskellPackages.alternateved-xmonad
+    # haskellPackages.xmonad
+    # haskellPackages.alternateved-xmonad
     coreutils
     wget
     git
