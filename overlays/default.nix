@@ -1,4 +1,12 @@
-(final: prev: {
-  anime-downloader =
-    prev.callPackage ./anime-downloader.nix { inherit (prev) ; };
-})
+_: pkgs: rec {
+  haskellPackages = pkgs.haskellPackages.override (old: {
+    overrides = pkgs.lib.composeExtensions (old.overrides or (_: _: { }))
+      (self: super: rec {
+        alternateved-xmonad = self.callCabal2nix "alternateved-xmonad"
+          (pkgs.lib.sourceByRegex ../home/config/xmonad [
+            "xmonad.hs"
+            "alternateved-xmonad.cabal"
+          ]) { };
+      });
+  });
+}
