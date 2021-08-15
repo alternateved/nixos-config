@@ -23,7 +23,7 @@
     ./modules/mpv.nix
     ./modules/neovim.nix
     ./modules/picom.nix
-    # ./modules/polybar.nix
+    ./modules/polybar.nix
     ./modules/redshift.nix
     ./modules/starship.nix
     ./modules/theme.nix
@@ -33,10 +33,18 @@
   ];
 
   home.packages = with pkgs; [
-    xmobar
+    # xmobar
     # Utility
     bitwarden-cli
-    dmenu
+    (dmenu.overrideAttrs (old: rec {
+      patches = [
+        (fetchpatch {
+          url =
+            "https://tools.suckless.org/dmenu/patches/password/dmenu-password-5.0.diff";
+          sha256 = "1dqxiwwwbya9slm3xbbal564rnigfbr497kac9pxlikjqgpz9a1q";
+        })
+      ];
+    }))
     devour
     xwallpaper
     xsecurelock
