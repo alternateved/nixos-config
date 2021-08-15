@@ -8,7 +8,7 @@
     ALTERNATE_EDITOR = "";
     EDITOR = "vim";
     VISUAL = "emacsclient -c -a ''";
-    BROWSER = "firefox-devedition";
+    BROWSER = "qutebrowser";
   };
 
   imports = [
@@ -23,7 +23,7 @@
     ./modules/mpv.nix
     ./modules/neovim.nix
     ./modules/picom.nix
-    ./modules/polybar.nix
+    # ./modules/polybar.nix
     ./modules/redshift.nix
     ./modules/starship.nix
     ./modules/theme.nix
@@ -33,6 +33,7 @@
   ];
 
   home.packages = with pkgs; [
+    xmobar
     # Utility
     bitwarden-cli
     dmenu
@@ -66,7 +67,6 @@
     aspellDicts.pl
 
     # Media
-    anime-downloader
     sxiv
     gimp
     calibre
