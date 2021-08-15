@@ -67,7 +67,8 @@ in {
       xkbOptions = "caps:escape_shifted_capslock";
 
       displayManager = {
-        defaultSession = "none+xmonad";
+        defaultSession = "none+myxmonad";
+        # defaultSession = "none+xmonad";
         autoLogin.enable = true;
         autoLogin.user = "alternateved";
         sessionCommands = ''
@@ -91,10 +92,20 @@ in {
 
       };
 
-      windowManager.xmonad = {
-        enable = true;
-        extraPackages = haskellPackages: [ haskellPackages.xmonad-contrib ];
+      windowManager = {
+        session = [{
+          name = "myxmonad";
+          start = ''
+            /usr/bin/env alternateved-xmonad &
+            waitPID=$!
+          '';
+        }];
       };
+
+      # windowManager.xmonad = {
+      #   enable = true;
+      #   extraPackages = haskellPackages: [ haskellPackages.xmonad-contrib ];
+      # };
 
       libinput = {
         enable = true;
@@ -107,7 +118,14 @@ in {
     gvfs.enable = true;
   };
 
-  environment.systemPackages = with pkgs; [ coreutils wget git mesa ];
+  environment.systemPackages = with pkgs; [
+    haskellPackages.xmonad
+    haskellPackages.alternateved-xmonad
+    coreutils
+    wget
+    git
+    mesa
+  ];
 
   fonts.fonts = with pkgs; [
     font-awesome_5
