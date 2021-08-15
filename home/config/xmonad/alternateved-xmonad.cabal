@@ -3,7 +3,7 @@ name:               alternateved-xmonad
 version:            0.1.0.0
 extra-source-files: CHANGELOG.md
 
-executable alternateved_64-linux
+executable alternateved-xmonad
     main-is:          xmonad.hs
     build-depends:
         base,
