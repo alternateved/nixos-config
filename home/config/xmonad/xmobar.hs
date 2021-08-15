@@ -199,7 +199,7 @@ trim, xprop :: ShowS
 trim = dropWhileEnd isSpace . dropWhile isSpace
 xprop = unsafeDupablePerformIO . xProperty
 
-basebg, basefg, base01, base02, base04, base15, base16, base17 :: String
+basebg, basefg, base00, base08, base01, base02, base04, base15 :: String
 basebg = xprop "*.background"
 basefg = xprop "*.foreground"
 base00 = xprop "*.color0"

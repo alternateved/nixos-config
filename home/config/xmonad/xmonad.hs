@@ -9,11 +9,20 @@ import Data.Char (isSpace)
 import Data.List (dropWhileEnd, elemIndex, find)
 import Data.Maybe (catMaybes, fromJust, fromMaybe)
 import qualified Data.Map as M
+-- System
+import System.IO.Unsafe (unsafeDupablePerformIO)
 -- Base
 import XMonad hiding ((|||))
 -- Actions
 import XMonad.Actions.CopyWindow (kill1)
 import XMonad.Actions.DynamicProjects
+  ( Project (..),
+    changeProjectDirPrompt,
+    dynamicProjects,
+    switchProjectPrompt,
+    renameProjectPrompt,
+  )
+import XMonad.Actions.DynamicWorkspaces (removeWorkspace, withNthWorkspace)
 import XMonad.Actions.GroupNavigation
   ( Direction (History),
     historyHook,
@@ -143,7 +152,7 @@ myTerminal :: String
 myTerminal = "alacritty"
 
 myBrowser :: String
-myBrowser = "firefox-devedition"
+myBrowser = "qutebrowser"
 
 myFileManager :: String
 myFileManager = myTerminal ++ " -e vifm"
@@ -169,8 +178,8 @@ colorBg, colorFg, colorHiWhite, colorLoGrey, colorHiGrey, colorRed, colorBlue, c
 colorBg       = basebg
 colorFg       = basefg
 colorHiWhite  = base15
-colorLoGrey   = base16
-colorHiGrey   = base17
+colorLoGrey   = base00
+colorHiGrey   = base08
 colorRed      = base01
 colorBlue     = base04
 colorGreen    = base02
@@ -196,6 +205,8 @@ myManageHook = composeAll
     [ className =? "Thunderbird" --> doShift (myWorkspaces !! 2)
     , className =? "Signal" --> doShift (myWorkspaces !! 2)
     , className =? "discord" --> doShift (myWorkspaces !! 2)
+    , className =? "mpv" --> doShift (myWorkspaces !! 5)
+    , className =? "Firefox Developer Edition" --> doShift (myWorkspaces !! 5)
     , isFullscreen --> doFullFloat
     , isDialog --> doCenterFloat
     ] <+> namedScratchpadManageHook myScratchPads
@@ -212,7 +223,7 @@ myLogHook = refocusLastLogHook
 -- WORKSPACES
 -------------------------------------------------------------------------
 myWorkspaces :: [WorkspaceId]
-myWorkspaces = ["NSP", "Highway", "Communication", "Development", "System", "Other"]
+myWorkspaces = ["NSP", "Highway", "Communication", "Development", "System", "Media", "Other"]
 
 -------------------------------------------------------------------------
 -- PROJECTS
@@ -222,7 +233,7 @@ myProjects =
   [ Project
       { projectName = "Highway"
       , projectDirectory = "~/"
-      , projectStartHook = Just $ spawn "firefox-devedition"
+      , projectStartHook = Just $ spawn "qutebrowser"
       }
   , Project
       { projectName = "Communication"
@@ -240,6 +251,11 @@ myProjects =
   , Project
       { projectName = "System"
       , projectDirectory = "~/.nixos-config"
+      , projectStartHook = Nothing
+      }
+  , Project
+      { projectName = "Media"
+      , projectDirectory = "~/"
       , projectStartHook = Nothing
       }
   , Project
@@ -540,7 +556,7 @@ trim, xprop :: ShowS
 trim = dropWhileEnd isSpace . dropWhile isSpace
 xprop = unsafeDupablePerformIO . xProperty
 
-basebg, basefg, base01, base02, base04, base15, base16, base17 :: String
+basebg, basefg, base00, base08, base01, base02, base04, base15 :: String
 basebg = xprop "*.background"
 basefg = xprop "*.foreground"
 base00 = xprop "*.color0"
