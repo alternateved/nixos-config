@@ -6,6 +6,7 @@ module Main (main) where
 -- Data
 import Data.Bifunctor (bimap)
 import Data.Char (isSpace)
+import Data.Monoid (All(..))
 import Data.List (dropWhileEnd, elemIndex, find)
 import Data.Maybe (catMaybes, fromJust, fromMaybe)
 import qualified Data.Map as M
@@ -15,14 +16,12 @@ import System.IO.Unsafe (unsafeDupablePerformIO)
 import XMonad hiding ((|||))
 -- Actions
 import XMonad.Actions.CopyWindow (kill1)
-import XMonad.Actions.DynamicProjects
-  ( Project (..),
-    changeProjectDirPrompt,
-    dynamicProjects,
-    switchProjectPrompt,
-    renameProjectPrompt,
+import XMonad.Actions.DynamicWorkspaces
+  (addWorkspacePrompt,
+   renameWorkspace,
+   removeWorkspace,
+   withNthWorkspace
   )
-import XMonad.Actions.DynamicWorkspaces (removeWorkspace, withNthWorkspace)
 import XMonad.Actions.GroupNavigation
   ( Direction (History),
     historyHook,
@@ -38,27 +37,18 @@ import XMonad.Actions.RotSlaves (rotSlavesDown)
 import XMonad.Actions.UpdatePointer (updatePointer)
 import XMonad.Actions.WithAll (killAll, sinkAll)
 -- Hooks
-import XMonad.Hooks.DynamicLog
-  ( PP
-      ( ppCurrent,
-        ppExtras,
-        ppHidden,
-        ppHiddenNoWindows,
-        ppOrder,
-        ppSep,
-        ppTitle,
-        ppUrgent,
-        ppVisible
-      ),
-    shorten,
-    statusBar,
-    xmobarColor,
+import XMonad.Hooks.EwmhDesktops (ewmh, ewmhFullscreen)
+import XMonad.Hooks.InsertPosition
+  ( Focus (Newer),
+    Position (Below),
+    insertPosition,
   )
-import XMonad.Hooks.EwmhDesktops (ewmh, fullscreenEventHook)
 import XMonad.Hooks.ManageDocks (avoidStruts, docks, ToggleStruts(..))
-import XMonad.Hooks.ManageHelpers (doCenterFloat, doFullFloat, isDialog, isFullscreen)
+import XMonad.Hooks.ManageHelpers (doCenterFloat, doFullFloat, isDialog)
 import XMonad.Hooks.RefocusLast (refocusLastLogHook)
 import XMonad.Hooks.SetWMName (setWMName)
+import XMonad.Hooks.StatusBar (StatusBarConfig, dynamicSBs, statusBarPropTo)
+import XMonad.Hooks.StatusBar.PP hiding (trim)
 import XMonad.Hooks.UrgencyHook
   ( NoUrgencyHook (NoUrgencyHook),
     clearUrgents,
@@ -91,6 +81,8 @@ import XMonad.Layout.ThreeColumns (ThreeCol (ThreeColMid))
 import XMonad.Layout.PerWorkspace (onWorkspace)
 import XMonad.Layout.Simplest (Simplest (..))
 import XMonad.Layout.SubLayouts (GroupMsg (UnMerge), mergeDir, onGroup, subLayout)
+import XMonad.Layout.WorkspaceDir (changeDir, workspaceDir)
+import XMonad.Operations
 -- Prompt
 import XMonad.Prompt
   ( XPConfig (..),
@@ -99,6 +91,7 @@ import XMonad.Prompt
     completionToCommand,
     mkXPrompt,
     showXPrompt,
+    vimLikeXPKeymap,
   )
 import XMonad.Prompt.DirExec (dirExecPromptNamed)
 import XMonad.Prompt.FuzzyMatch (fuzzyMatch)
@@ -113,9 +106,19 @@ import XMonad.Prompt.Window
     wsWindows,
     windowMultiPrompt,
   )
+import XMonad.Prompt.XMonad (xmonadPrompt)
 import qualified XMonad.StackSet as W
 -- Utilities
+import XMonad.Util.ClickableWorkspaces (clickablePP)
 import XMonad.Util.EZConfig (additionalKeysP)
+import XMonad.Util.Loggers
+  ( Logger,
+    logCurrentOnScreen,
+    logLayoutOnScreen,
+    logTitleOnScreen,
+    shortenL,
+    xmobarColorL
+  )
 import XMonad.Util.NamedScratchpad
   ( NamedScratchpad (NS),
     customFloating,
@@ -191,6 +194,9 @@ loGrey  = xmobarColor colorLoGrey ""
 hiGrey  = xmobarColor colorHiGrey ""
 red     = xmobarColor colorRed ""
 
+hiWhiteL :: Logger -> Logger
+hiWhiteL     = xmobarColorL colorHiWhite ""
+
 -------------------------------------------------------------------------
 -- STARTUPHOOK
 -------------------------------------------------------------------------
@@ -207,8 +213,8 @@ myManageHook = composeAll
     , className =? "discord" --> doShift (myWorkspaces !! 2)
     , className =? "mpv" --> doShift (myWorkspaces !! 5)
     , className =? "Firefox Developer Edition" --> doShift (myWorkspaces !! 5)
-    , isFullscreen --> doFullFloat
     , isDialog --> doCenterFloat
+    , insertPosition Below Newer
     ] <+> namedScratchpadManageHook myScratchPads
 
 -------------------------------------------------------------------------
@@ -223,47 +229,7 @@ myLogHook = refocusLastLogHook
 -- WORKSPACES
 -------------------------------------------------------------------------
 myWorkspaces :: [WorkspaceId]
-myWorkspaces = ["NSP", "Highway", "Communication", "Development", "System", "Media", "Other"]
-
--------------------------------------------------------------------------
--- PROJECTS
--------------------------------------------------------------------------
-myProjects :: [Project]
-myProjects =
-  [ Project
-      { projectName = "Highway"
-      , projectDirectory = "~/"
-      , projectStartHook = Just $ spawn "qutebrowser"
-      }
-  , Project
-      { projectName = "Communication"
-      , projectDirectory = "~/"
-      , projectStartHook =
-          Just $
-          spawn "signal-desktop" >>
-          spawn "thunderbird"
-      }
-  , Project
-      { projectName = "Development"
-      , projectDirectory = "~/Documents/Programming"
-      , projectStartHook = Nothing
-      }
-  , Project
-      { projectName = "System"
-      , projectDirectory = "~/.nixos-config"
-      , projectStartHook = Nothing
-      }
-  , Project
-      { projectName = "Media"
-      , projectDirectory = "~/"
-      , projectStartHook = Nothing
-      }
-  , Project
-      { projectName = "Other"
-      , projectDirectory = "~/"
-      , projectStartHook = Nothing
-      }
-  ]
+myWorkspaces = ["Highway", "Communication", "Development", "System", "Media", "Other"]
 
 -------------------------------------------------------------------------
 -- TABS CONFIGURATION
@@ -311,7 +277,8 @@ columns = renamed [Replace "columns"]
           $ mySpacing 5
           $ ThreeColMid 1 (3 / 100) (12 / 30)
 
-myLayoutHook = smartBorders
+myLayoutHook = workspaceDir myHome
+               $ smartBorders
                $ mkToggle (NBFULL ?? NOBORDERS ?? EOT)
                $ firstLayout . secondLayout . thirdLayout $ myDefaultLayout
              where
@@ -329,7 +296,7 @@ myLayoutHook = smartBorders
 myKeys :: [(String, X ())]
 myKeys =
   -- Xmonad
-  [ ("M-S-r", spawn "xmonad --recompile; xmonad --restart")
+  [ ("M-S-r", spawn "xmonad --restart")
   , ("M-C-r", spawn $ myEditor ++ xmonadConfig)
   , ("M-S-b", spawn $ "sh " ++ myDots ++ "/xmobar/xmobar_recompile.sh")
   , ("M-C-b", spawn $ myEditor ++ xmobarConfig)
@@ -342,11 +309,12 @@ myKeys =
   , ("M-S-p", myPrompt myTerminal myXPConfig)
   , ("M-S-q", dirExecPromptNamed myXPConfig' spawn (myDots ++ "/scripts/session") "Session: ")
   , ("M-'", windowMultiPrompt myXPConfig [(Goto, wsWindows), (Bring, allWindows)])
+  , ("M-S-;", xmonadPrompt myXPConfig)
 
   -- Project management
-  , ("M-y s", switchProjectPrompt myXPConfig')
-  , ("M-y r", renameProjectPrompt myXPConfig')
-  , ("M-y c", changeProjectDirPrompt myXPConfig')
+  , ("M-y s", addWorkspacePrompt myXPConfig')
+  , ("M-y r", renameWorkspace myXPConfig')
+  , ("M-y c", changeDir myXPConfig')
   , ("M-y d", removeWorkspace)
 
     -- Windows
@@ -425,7 +393,7 @@ myKeys =
   ++ workspaceKeys
   ++ screenKeys
  where
-  workspaceNumbers = [0] <> [1 :: Int .. 9]
+  workspaceNumbers = [1 :: Int .. 9] <> [0]
   workspaceKeys =
     [ ("M-" <> m <> show k, withNthWorkspace f i)
     | (k, i) <- zip workspaceNumbers [0 ..]
@@ -496,24 +464,25 @@ myPrompt c config = do
 -------------------------------------------------------------------------
 myXPConfig :: XPConfig
 myXPConfig = def
-    { font = myFont,
-      bgColor = colorBg,
-      fgColor = colorFg,
-      bgHLight = colorFg,
-      fgHLight = colorBg,
-      borderColor = colorBg,
-      promptBorderWidth = 0,
-      position = Top,
-      height = 18,
-      historySize = 100,
-      historyFilter = id,
-      defaultText = [],
-      autoComplete = Just 100000,
-      showCompletionOnTab = False,
-      searchPredicate = fuzzyMatch,
-      alwaysHighlight = True,
-      maxComplRows = Just 3,
-      changeModeKey = xK_Super_L
+    { font = myFont
+    , bgColor = colorBg
+    , fgColor = colorFg
+    , bgHLight = colorFg
+    , fgHLight = colorBg
+    , borderColor = colorBg
+    , promptBorderWidth = 0
+    , position = Top
+    , height = 18
+    , historySize = 100
+    , historyFilter = id
+    , defaultText = []
+    , autoComplete = Just 100000
+    , showCompletionOnTab = False
+    , promptKeymap = vimLikeXPKeymap
+    , searchPredicate = fuzzyMatch
+    , alwaysHighlight = True
+    , maxComplRows = Just 3
+    , changeModeKey = xK_Super_L
     }
 
 myXPConfig' :: XPConfig
@@ -524,8 +493,8 @@ myXPConfig' = myXPConfig
 -------------------------------------------------------------------------
 -- XMOBAR CONFIGURATION
 -------------------------------------------------------------------------
-myXmobarPP :: PP
-myXmobarPP = namedScratchpadFilterOutWorkspacePP $ def
+mainXmobarPP :: ScreenId -> X PP
+mainXmobarPP s = clickablePP . namedScratchpadFilterOutWorkspacePP $ def
       { ppCurrent = hiWhite,
         ppVisible = hiWhite,
         ppHidden = hiGrey,
@@ -536,6 +505,31 @@ myXmobarPP = namedScratchpadFilterOutWorkspacePP $ def
         ppExtras = [],
         ppOrder = \(ws : l : t : _) -> [ws, l] ++ [t]
       }
+
+auxXmobarPP :: ScreenId -> X PP
+auxXmobarPP s = pure $ def
+    { ppOrder  = \(_ : _ : _ : extras) -> extras
+    , ppSep = loWhite " | "
+    , ppExtras = [ hiWhiteL $ logCurrentOnScreen s
+                 , logLayoutOnScreen s
+                 , shortenL 70 $ logTitleOnScreen s
+                 ]
+    }
+
+-------------------------------------------------------------------------
+-- XMOBAR INSTANCES
+-------------------------------------------------------------------------
+xmobarExec :: String
+xmobarExec = myHome ++ "/.config/xmobar/xmobar"
+
+xmobar0, xmobar1 :: StatusBarConfig
+xmobar0 = statusBarPropTo "xmobar0" (xmobarExec)           (mainXmobarPP 0)
+xmobar1 = statusBarPropTo "xmobar1" (xmobarExec ++ " aux") (auxXmobarPP  1)
+
+barSpawner :: ScreenId -> IO StatusBarConfig
+barSpawner 0 = pure xmobar0
+barSpawner 1 = pure xmobar1
+barSpawner _ = mempty
 
 -------------------------------------------------------------------------
 -- HELPER FUNCTIONS
@@ -566,21 +560,32 @@ base02 = xprop "*.color2"
 base04 = xprop "*.color4"
 base15 = xprop "*.color15"
 
+
+-------------------------------------------------------------------------
+-- NIXOS RESTART HOOK
+-------------------------------------------------------------------------
+restartEventHook e@ClientMessageEvent { ev_message_type = mt } = do
+  a <- getAtom "XMONAD_RESTART"
+  if mt == a
+    then XMonad.Operations.restart "alternateved-xmonad" True >> return (All True)
+    else return $ All True
+restartEventHook _ = return $ All True
+
 -------------------------------------------------------------------------
 -- MAIN CONFIG
 -------------------------------------------------------------------------
 myConfig = def
-    { manageHook = myManageHook,
-      modMask = myModMask,
-      terminal = myTerminal,
-      startupHook = myStartupHook,
-      logHook = myLogHook,
-      layoutHook = myLayoutHook,
-      handleEventHook = fullscreenEventHook,
-      workspaces = myWorkspaces,
-      borderWidth = myBorderWidth,
-      normalBorderColor = myNormColor,
-      focusedBorderColor = myFocusColor
+    { manageHook = myManageHook
+    , modMask = myModMask
+    , terminal = myTerminal
+    , startupHook = myStartupHook
+    , logHook = myLogHook
+    , layoutHook = myLayoutHook
+    , handleEventHook = restartEventHook
+    , workspaces = myWorkspaces
+    , borderWidth = myBorderWidth
+    , normalBorderColor = myNormColor
+    , focusedBorderColor = myFocusColor
     } `additionalKeysP` myKeys
 
 -------------------------------------------------------------------------
@@ -588,11 +593,8 @@ myConfig = def
 -------------------------------------------------------------------------
 main :: IO ()
 main = xmonad
-     . dynamicProjects myProjects
      . docks
      . ewmh
      . withUrgencyHook NoUrgencyHook
-     =<< statusBar "./.config/xmobar/xmobar" myXmobarPP toggleStrutsKey myConfig
-    where
-      toggleStrutsKey :: XConfig Layout -> (KeyMask, KeySym)
-      toggleStrutsKey XConfig {modMask = m} = (m, xK_b)
+     . dynamicSBs barSpawner
+     $ myConfig
