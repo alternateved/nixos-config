@@ -6,7 +6,7 @@ in {
       background_opacity = 1.0;
       window = { decorations = "none"; };
       font = {
-        size = 9.0;
+        size = 12.0;
         normal.family = "Iosevka Nerd Font Mono";
         bold.family = "Iosevka Nerd Font Mono";
         italic.family = "Iosevka Nerd Font Mono";

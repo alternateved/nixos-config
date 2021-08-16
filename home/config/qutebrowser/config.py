@@ -15,7 +15,7 @@ config.set('content.cookies.accept', 'all', 'chrome-devtools://*')
 config.set('content.javascript.can_access_clipboard', True)
 config.set("editor.command", ["emacsclient", "-a", "''", "-c", "{file}"])
 config.set("scrolling.smooth", True)
-config.set("zoom.default", "120%")
+config.set("zoom.default", "115%")
 
 c.downloads.location.directory = '~/Downloads'
 c.tabs.show = 'always'

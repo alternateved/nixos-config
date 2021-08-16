@@ -48,9 +48,9 @@
       user-mail-address "alternateved@gmail.com")
 
 ;; Font settings
-(setq doom-font (font-spec :family "Iosevka Nerd Font Mono" :size 17)
+(setq doom-font (font-spec :family "Iosevka Nerd Font Mono" :size 16)
       doom-big-font (font-spec :family "Iosevka Nerd Font Mono" :size 23)
-      doom-variable-pitch-font (font-spec :family "Iosevka Etoile" :size 18))
+      doom-variable-pitch-font (font-spec :family "Iosevka Etoile" :size 17))
 
 (custom-set-faces
   '(org-level-1 ((t (:inherit outline-1 :height 1.2))))
