@@ -67,12 +67,13 @@ in {
       xkbOptions = "caps:escape_shifted_capslock";
 
       displayManager = {
-        defaultSession = "none+myxmonad";
-        # defaultSession = "none+herbstluftwm";
+        # defaultSession = "none+myxmonad";
+        defaultSession = "none+herbstluftwm";
         autoLogin.enable = true;
         autoLogin.user = "alternateved";
         sessionCommands = ''
           bluetoothctl power on
+          autorandr -cf
           xsetroot -cursor_name left_ptr
           xargs xwallpaper --stretch < ~/.cache/wall
         '';
@@ -92,17 +93,17 @@ in {
 
       };
 
-      # windowManager.herbstluftwm.enable = true;
+      windowManager.herbstluftwm.enable = true;
 
-      windowManager = {
-        session = [{
-          name = "myxmonad";
-          start = ''
-            /usr/bin/env alternateved-xmonad &
-            waitPID=$!
-          '';
-        }];
-      };
+      # windowManager = {
+      #   session = [{
+      #     name = "myxmonad";
+      #     start = ''
+      #       /usr/bin/env alternateved-xmonad &
+      #       waitPID=$!
+      #     '';
+      #   }];
+      # };
 
       libinput = {
         enable = true;
