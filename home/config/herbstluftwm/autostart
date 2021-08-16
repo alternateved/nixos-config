@@ -22,8 +22,10 @@ hc keybind $Mod-p spawn dmenu_run -i -p "Run:" -fn "Iosevka" -nb "#18181B" -nf "
 hc keybind $Mod-Control-p spawn bash ~/.nixos-config/home/config/scripts/hub
 hc keybind $Mod-Control-q spawn bash ~/.nixos-config/home/config/scripts/kill
 hc keybind $Mod-Control-r spawn bash ~/.nixos-config/home/config/scripts/confedit
+hc keybind $Mod-Control-grave spawn bash ~/.nixos-config/home/config/scripts/password
 
 # Herbst prompts
+hc keybind $Mod-semicolon spawn bash ~/.nixos-config/home/config/herbstluftwm/herbstutils/herbstutils
 hc keybind $Mod-Shift-semicolon spawn bash ~/.nixos-config/home/config/herbstluftwm/scripts/herbstcommander
 hc keybind $Mod-apostrophe spawn bash ~/.nixos-config/home/config/herbstluftwm/scripts/bringwselect
 hc keybind $Mod-Shift-apostrophe spawn bash ~/.nixos-config/home/config/herbstluftwm/scripts/wselect
@@ -73,7 +75,7 @@ hc keybind $Mod-Control-Right   resize right +$resizestep
 
 # Tags
 tag_names=("Highway" "Communication" "Development" "System" "Media" "Other")
-tag_keys=( {1..6} 0 )
+tag_keys=( {1..9} 0 )
 
 hc rename default "${tag_names[0]}" || true
 for i in "${!tag_names[@]}" ; do
@@ -87,12 +89,10 @@ done
 
 # Monitors
 # cycle through monitors
-hc keybind $Mod-comma   cycle_monitor +1
-hc keybind $Mod-period  cycle_monitor -1
-
-# move client to othe MONITOR
-hc keybind $Mod-Shift-comma shift_to_monitor +1
-hc keybind $Mod-Shift-period shift_to_monitor -1
+hc keybind $Mod-w   focus_monitor 0
+hc keybind $Mod-e   focus_monitor 1
+hc keybind $Mod-Shift-w   shift_to_monitor 0
+hc keybind $Mod-Shift-e   shift_to_monitor 1
 
 # Layouting
 hc keybind $Mod-Shift-x remove
@@ -108,7 +108,7 @@ hc keybind $Mod-g set_layout grid #change direction of clients
 # layouts, if the layout change wouldn't affect the actual window positions.
 # I.e. if there are two windows within a frame, the grid layout is skipped.
 hc keybind $Mod-space                                               \
-            or , and . compare tags.focus.curframe_wcount =         \
+            or , and . compare tags.focus.curframe_wcount = 2       \
                      . cycle_layout +1 max vertical horizontal grid \
                , cycle_layout +1
 
@@ -131,6 +131,9 @@ hc keybind $Mod-Mod1-e spawn emacsclient -a '' -c
 hc keybind $Mod-Mod1-b spawn qutebrowser
 hc keybind $Mod-Mod1-f spawn alacritty -e vifm
 hc keybind $Mod-Control-e spawn emacsclient --eval "(emacs-everywhere)"
+hc keybind $Mod-Mod1-t spawn alacritty --title "terrm"
+hc keybind $Mod-Mod1-v spawn alacritty --title "mixerr" -e pulsemixer
+hc keybind $Mod-Mod1-m spawn alacritty --title "monitorr" -e htop
 
 # Audio
 hc keybind XF86AudioRaiseVolume spawn amixer -q set Master 5%+ unmute
@@ -153,9 +156,9 @@ hc keybind XF86MonBrightnessDown spawn xbacklight -dec 10
 hc attr theme.tiling.reset 1
 hc attr theme.floating.reset 1
 
-hc set frame_gap 8
+hc set frame_gap 5
 hc set frame_padding -3 # Gapp between windows and frames
-hc set window_gap 0
+hc set window_gap -2
 hc set snap_distance 0
 hc set snap_gap 0
 
@@ -195,29 +198,25 @@ hc set frame_bg_normal_color "#18181Baa" #Fill of unfocused frame (needs always 
 hc set frame_bg_transparent on
 hc set frame_transparent_width 0
 
+hc attr theme.active.color "#$light_gray"
+hc attr theme.normal.color "#$gray"
+hc attr theme.urgent.color "#$red"
+hc attr theme.border_width 2
 hc attr theme.title_height 0
-hc attr theme.padding_top 0
-hc attr theme.padding_bottom 0
-hc attr theme.border_width 0
 
-for s in floating tiling; do
-    hc attr theme.$s.active.color "#$light_gray"
-    hc attr theme.$s.normal.color "#$gray"
-    hc attr theme.$s.urgent.color "#$red"
-done
-
-# copy inner color to outer_color
+# tiling windows
 for state in active urgent normal ; do
-    hc substitute C theme.${state}.inner_color \
-        attr theme.${state}.outer_color C
+    hc substitute C theme.tiling.${state}.inner_color \
+        attr theme.tiling.${state}.outer_color C
 done
 
-hc attr theme.border_width 3
-hc attr theme.floating.border_width 0
-hc attr theme.floating.outer_width 0
-hc attr theme.floating.padding_bottom 0
-hc attr theme.floating.padding_left 20
-hc attr theme.active.outer_width 0
+# floating windows
+hc attr theme.floating.border_width 12
+hc attr theme.floating.inner_width 2
+hc attr theme.floating.outer_width 10
+hc attr theme.floating.active.inner_color "#$light_gray"
+hc attr theme.floating.normal.inner_color "#$gray"
+hc attr theme.floating.outer_color "#$bg"
 
 ### Rules ###
 hc unrule -F
@@ -231,6 +230,12 @@ hc rule class=discord tag=Communication
 hc rule class="Firefox Developer Edition" tag=Media
 hc rule class=mpv tag=Media
 hc rule class=Sxiv floating=on
+
+# Floaters
+hc rule title=terrm floating=on floatplacement=center focus=on floating_geometry=600x450 hook=always_focus
+hc rule title=mixerr floating=on floatplacement=center focus=on floating_geometry=700x250 hook=always_focus
+hc rule title=monitorr floating=on floatplacement=center focus=on floating_geometry=900x650 hook=always_focus
+
 
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' floating=on
 hc rule windowtype='_NET_WM_WINDOW_TYPE_DIALOG' focus=on
