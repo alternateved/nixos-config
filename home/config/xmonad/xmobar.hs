@@ -45,7 +45,7 @@ main = do
   xs <- getArgs
   case xs of
     ["aux"] -> xmobar auxConfig
-    _ -> xmobar mainConfig
+    _       -> xmobar mainConfig
 
 -------------------------------------------------------------------------
 -- CONFIG
@@ -71,7 +71,7 @@ mainConfig =
     { commands = mainCommands,
       position = OnScreen 0 (TopW L 100),
       template =
-        " %UnsafeStdinReader% }{"
+        " %xmobar0% }{"
           <> "%notif% "
           <> withPipe "%EPLL% "
           <> withPipe (inIconFont "\xf2db" ++ " %cpu% ")
@@ -97,7 +97,7 @@ auxConfig =
 -------------------------------------------------------------------------
 mainCommands :: [Runnable]
 mainCommands =
-  [ Run UnsafeStdinReader,
+  [ Run $ UnsafeXPropertyLog "xmobar0",
     Run $ Com "bash" ["-c", "if [[ $(dunstctl is-paused) = false ]]; then echo '<fn=1>\xf0f3</fn>'; else echo '<fn=1>\xf1f6</fn>'; fi"] "notif" 1,
     Run $ Weather "EPLL"
         [ "--template", "<weather> <tempC>°C",

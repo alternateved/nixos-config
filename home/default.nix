@@ -22,7 +22,7 @@
     ./modules/misc.nix
     ./modules/mpv.nix
     ./modules/neovim.nix
-    # ./modules/picom.nix
+    ./modules/picom.nix
     ./modules/polybar.nix
     ./modules/redshift.nix
     ./modules/starship.nix
@@ -33,7 +33,7 @@
   ];
 
   home.packages = with pkgs; [
-    xmobar
+    # xmobar
     # Utility
     bitwarden-cli
     (dmenu.overrideAttrs (old: rec {
