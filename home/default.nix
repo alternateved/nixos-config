@@ -34,8 +34,7 @@
 
   home.packages = with pkgs; [
     # xmobar
-    # Utility
-    bitwarden-cli
+    # Launcher
     (dmenu.overrideAttrs (old: rec {
       patches = [
         (fetchpatch {
@@ -45,6 +44,9 @@
         })
       ];
     }))
+
+    # Utility
+    bitwarden-cli
     devour
     xwallpaper
     xsecurelock
@@ -53,6 +55,8 @@
     unrar
     unzip
     exa
+
+    # Xorg
     wmctrl
     xclip
     xdotool
