@@ -16,67 +16,34 @@ import System.IO.Unsafe (unsafeDupablePerformIO)
 import XMonad hiding ((|||))
 -- Actions
 import XMonad.Actions.CopyWindow (kill1)
-import XMonad.Actions.DynamicWorkspaces
-  (addWorkspacePrompt,
-   renameWorkspace,
-   removeWorkspace,
-   withNthWorkspace
-  )
-import XMonad.Actions.GroupNavigation
-  ( Direction (History),
-    historyHook,
-    nextMatch,
-  )
-import XMonad.Actions.Navigation2D
-  ( Direction2D(L, R),
-    windowGo,
-    windowSwap,
-  )
+import XMonad.Actions.DynamicWorkspaces (addWorkspacePrompt, renameWorkspace, removeWorkspace, withNthWorkspace)
+import XMonad.Actions.GroupNavigation (Direction (History), historyHook, nextMatch,)
+import XMonad.Actions.Navigation2D (Direction2D(U, D, L, R), windowGo, windowSwap)
 import XMonad.Actions.Promote (promote)
 import XMonad.Actions.RotSlaves (rotSlavesDown)
 import XMonad.Actions.UpdatePointer (updatePointer)
 import XMonad.Actions.WithAll (killAll, sinkAll)
 -- Hooks
 import XMonad.Hooks.EwmhDesktops (ewmh, ewmhFullscreen)
-import XMonad.Hooks.InsertPosition
-  ( Focus (Newer),
-    Position (Below),
-    insertPosition,
-  )
+import XMonad.Hooks.InsertPosition (Focus (Newer), Position (Below), insertPosition)
 import XMonad.Hooks.ManageDocks (avoidStruts, docks, ToggleStruts(..))
 import XMonad.Hooks.ManageHelpers (doCenterFloat, doFullFloat, isDialog)
 import XMonad.Hooks.RefocusLast (refocusLastLogHook)
 import XMonad.Hooks.SetWMName (setWMName)
 import XMonad.Hooks.StatusBar (StatusBarConfig, dynamicSBs, statusBarPropTo)
 import XMonad.Hooks.StatusBar.PP hiding (trim)
-import XMonad.Hooks.UrgencyHook
-  ( NoUrgencyHook (NoUrgencyHook),
-    clearUrgents,
-    focusUrgent,
-    withUrgencyHook,
-  )
+import XMonad.Hooks.UrgencyHook (NoUrgencyHook (NoUrgencyHook), clearUrgents, focusUrgent, withUrgencyHook)
 -- Layouts
-import XMonad.Layout.LayoutCombinators ((|||), JumpToLayout(JumpToLayout))
+import XMonad.Layout.LayoutCombinators ((|||), JumpToLayout (JumpToLayout))
 import XMonad.Layout.LayoutModifier (ModifiedLayout)
 import XMonad.Layout.MultiToggle (mkToggle, EOT(EOT), (??))
-import XMonad.Layout.MultiToggle.Instances (StdTransformers(NBFULL, NOBORDERS))
-import qualified XMonad.Layout.MultiToggle as MT (Toggle(..))
+import XMonad.Layout.MultiToggle.Instances (StdTransformers (NBFULL, NOBORDERS))
+import qualified XMonad.Layout.MultiToggle as MT (Toggle (..))
 import XMonad.Layout.NoBorders (noBorders, smartBorders)
 import XMonad.Layout.Renamed (Rename (Replace), renamed)
-import XMonad.Layout.ResizableTile
-  ( MirrorResize (..),
-    ResizableTall (ResizableTall),
-  )
-import XMonad.Layout.Spacing
-  ( Border (Border),
-    Spacing,
-    spacingRaw,
-  )
-import XMonad.Layout.Tabbed
-  ( Theme (..),
-    addTabs,
-    shrinkText,
-  )
+import XMonad.Layout.ResizableTile (MirrorResize (..), ResizableTall (ResizableTall))
+import XMonad.Layout.Spacing (Border (Border), Spacing, spacingRaw)
+import XMonad.Layout.Tabbed (Theme (..), addTabs, shrinkText)
 import XMonad.Layout.ThreeColumns (ThreeCol (ThreeColMid))
 import XMonad.Layout.PerWorkspace (onWorkspace)
 import XMonad.Layout.Simplest (Simplest (..))
@@ -84,48 +51,18 @@ import XMonad.Layout.SubLayouts (GroupMsg (UnMerge), mergeDir, onGroup, subLayou
 import XMonad.Layout.WorkspaceDir (changeDir, workspaceDir)
 import XMonad.Operations
 -- Prompt
-import XMonad.Prompt
-  ( XPConfig (..),
-    XPPosition (Top),
-    XPrompt,
-    completionToCommand,
-    mkXPrompt,
-    showXPrompt,
-    vimLikeXPKeymap,
-  )
+import XMonad.Prompt (XPConfig (..), XPPosition (Top), XPrompt, completionToCommand, mkXPrompt, showXPrompt, vimLikeXPKeymap)
 import XMonad.Prompt.DirExec (dirExecPromptNamed)
 import XMonad.Prompt.FuzzyMatch (fuzzyMatch)
-import XMonad.Prompt.Shell
-  ( getCommands,
-    getShellCompl,
-    shellPrompt,
-  )
-import XMonad.Prompt.Window
-  ( WindowPrompt (Bring, Goto),
-    allWindows,
-    wsWindows,
-    windowMultiPrompt,
-  )
+import XMonad.Prompt.Shell (getCommands, getShellCompl, shellPrompt)
+import XMonad.Prompt.Window (WindowPrompt (Bring, Goto), windowPrompt, allWindows)
 import XMonad.Prompt.XMonad (xmonadPrompt)
 import qualified XMonad.StackSet as W
 -- Utilities
 import XMonad.Util.ClickableWorkspaces (clickablePP)
 import XMonad.Util.EZConfig (additionalKeysP)
-import XMonad.Util.Loggers
-  ( Logger,
-    logCurrentOnScreen,
-    logLayoutOnScreen,
-    logTitleOnScreen,
-    shortenL,
-    xmobarColorL
-  )
-import XMonad.Util.NamedScratchpad
-  ( NamedScratchpad (NS),
-    customFloating,
-    namedScratchpadAction,
-    namedScratchpadFilterOutWorkspacePP,
-    namedScratchpadManageHook,
-  )
+import XMonad.Util.Loggers (Logger, logCurrentOnScreen, logLayoutOnScreen, logTitleOnScreen, shortenL, xmobarColorL)
+import XMonad.Util.NamedScratchpad (NamedScratchpad (NS), customFloating, namedScratchpadAction, namedScratchpadFilterOutWorkspacePP, namedScratchpadManageHook)
 import XMonad.Util.Run (runProcessWithInput, unsafeSpawn)
 import XMonad.Util.SpawnOnce (spawnOnce)
 import XMonad.Util.Ungrab (unGrab)
@@ -255,6 +192,7 @@ mySpacing :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spaci
 mySpacing i = spacingRaw True (Border 0 i 0 i) True (Border i 0 i 0) True
 
 monocle = renamed [Replace "monocle"]
+          $ avoidStruts
           $ noBorders
           $ Full
 
@@ -298,7 +236,7 @@ myKeys =
   -- Xmonad
   [ ("M-S-r", spawn "xmonad --restart")
   , ("M-C-r", spawn $ myEditor ++ xmonadConfig)
-  , ("M-S-b", spawn $ "sh " ++ myDots ++ "/xmobar/xmobar_recompile.sh")
+  , ("M-S-b", spawn $ "sh " ++ myDots ++ "/xmonad/xmobar_recompile.sh")
   , ("M-C-b", spawn $ myEditor ++ xmobarConfig)
 
     -- Open my preferred terminal
@@ -308,7 +246,8 @@ myKeys =
   , ("M-p", shellPrompt myXPConfig)
   , ("M-S-p", myPrompt myTerminal myXPConfig)
   , ("M-S-q", dirExecPromptNamed myXPConfig' spawn (myDots ++ "/scripts/session") "Session: ")
-  , ("M-'", windowMultiPrompt myXPConfig [(Goto, wsWindows), (Bring, allWindows)])
+  , ("M-'", windowPrompt myXPConfig Bring allWindows)
+  , ("M-S-'", windowPrompt myXPConfig Goto allWindows)
   , ("M-S-;", xmonadPrompt myXPConfig)
 
   -- Project management
@@ -327,22 +266,24 @@ myKeys =
 
     -- Windows navigation
   , ("M-m", windows W.focusMaster)
-  , ("M-j", windows W.focusDown)
-  , ("M-k", windows W.focusUp)
+  , ("M-j", windowGo D False)
+  , ("M-k", windowGo U False)
   , ("M-h", windowGo L False)
   , ("M-l", windowGo R False)
   , ("M-S-m", windows W.swapMaster)
-  , ("M-S-j", windows W.swapDown)
-  , ("M-S-k", windows W.swapUp)
+  , ("M-S-j", windowSwap D False)
+  , ("M-S-k", windowSwap U False)
   , ("M-S-h", windowSwap L False)
   , ("M-S-l", windowSwap R False)
+  , ("M1-<Tab>", windows W.focusDown)
+  , ("M1-S-<Tab>", windows W.focusUp)
   , ("M-<Backspace>", promote)
   , ("M-S-<Tab>", rotSlavesDown)
 
     -- Urgent windows
-  , ("M-g u", focusUrgent)
-  , ("M-S-g u", clearUrgents)
-  , ("M-g p", nextMatch History (return True))
+  , ("M-u", focusUrgent)
+  , ("M-S-u", clearUrgents)
+  , ("M-S-n", nextMatch History (return True))
 
     -- Layouts
   , ("M-<Space>", sendMessage NextLayout)
@@ -352,7 +293,7 @@ myKeys =
   , ("M-C-k", sendMessage MirrorExpand)
   , ("M-i", sendMessage (IncMasterN 1))
   , ("M-d", sendMessage (IncMasterN (-1)))
-
+  , ("M-b", sendMessage ToggleStruts)
 
   , ("M-a m", sendMessage $ JumpToLayout "monocle")
   , ("M-a t", sendMessage $ JumpToLayout "tall")
@@ -495,15 +436,17 @@ myXPConfig' = myXPConfig
 -------------------------------------------------------------------------
 mainXmobarPP :: ScreenId -> X PP
 mainXmobarPP s = clickablePP . namedScratchpadFilterOutWorkspacePP $ def
-      { ppCurrent = hiWhite,
-        ppVisible = hiWhite,
-        ppHidden = hiGrey,
-        ppHiddenNoWindows = loGrey,
-        ppUrgent = red,
-        ppTitle = loWhite . shorten 60,
-        ppSep = loWhite " | ",
-        ppExtras = [],
-        ppOrder = \(ws : l : t : _) -> [ws, l] ++ [t]
+      { ppCurrent = hiWhite . xmobarBorder "Bottom" myFocusColor 1
+      , ppVisible = hiWhite
+      , ppHidden = hiGrey
+      , ppHiddenNoWindows = loGrey
+      , ppUrgent = red
+      , ppTitle = loWhite . shorten 60
+      , ppSep = loWhite " | "
+      , ppExtras  = [ logLayoutOnScreen s
+                    , shortenL 70 $ logTitleOnScreen s
+                    ]
+      , ppOrder = \(ws : _ : _ : extras) -> ws : extras
       }
 
 auxXmobarPP :: ScreenId -> X PP
@@ -595,6 +538,7 @@ main :: IO ()
 main = xmonad
      . docks
      . ewmh
+     . ewmhFullscreen
      . withUrgencyHook NoUrgencyHook
      . dynamicSBs barSpawner
      $ myConfig
