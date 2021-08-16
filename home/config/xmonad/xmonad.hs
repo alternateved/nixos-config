@@ -250,8 +250,8 @@ myKeys =
   , ("M-S-'", windowPrompt myXPConfig Goto allWindows)
   , ("M-S-;", xmonadPrompt myXPConfig)
 
-  -- Project management
-  , ("M-y s", addWorkspacePrompt myXPConfig')
+  -- Workspace management
+  , ("M-y a", addWorkspacePrompt myXPConfig')
   , ("M-y r", renameWorkspace myXPConfig')
   , ("M-y c", changeDir myXPConfig')
   , ("M-y d", removeWorkspace)
@@ -275,15 +275,15 @@ myKeys =
   , ("M-S-k", windowSwap U False)
   , ("M-S-h", windowSwap L False)
   , ("M-S-l", windowSwap R False)
-  , ("M1-<Tab>", windows W.focusDown)
-  , ("M1-S-<Tab>", windows W.focusUp)
+  , ("M-n", windows W.focusDown)
+  , ("M-S-n", windows W.focusUp)
   , ("M-<Backspace>", promote)
   , ("M-S-<Tab>", rotSlavesDown)
 
     -- Urgent windows
   , ("M-u", focusUrgent)
   , ("M-S-u", clearUrgents)
-  , ("M-S-n", nextMatch History (return True))
+  , ("M-C-u", nextMatch History (return True))
 
     -- Layouts
   , ("M-<Space>", sendMessage NextLayout)
