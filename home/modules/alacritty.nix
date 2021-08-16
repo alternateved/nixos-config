@@ -4,7 +4,13 @@ in {
     enable = true;
     settings = {
       background_opacity = 1.0;
-      window = { decorations = "none"; };
+      window = {
+        padding = {
+          x = 10;
+          y = 10;
+        };
+        decorations = "none";
+      };
       font = {
         size = 12.0;
         normal.family = "Iosevka Nerd Font Mono";
