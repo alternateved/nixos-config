@@ -60,7 +60,7 @@ baseConfig =
       lowerOnStart = True,
       hideOnStart = False,
       allDesktops = True,
-      persistent = True,
+      persistent = False,
       sepChar = "%",
       alignSep = "}{"
     }
