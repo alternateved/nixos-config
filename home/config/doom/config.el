@@ -41,7 +41,7 @@
    ))
 
 ;; Zen improvements
-(setq +zen-text-scale 0.8)
+(setq +zen-text-scale 0.7)
 
 ;; About me
 (setq user-full-name "Tomasz Hołubowicz"
