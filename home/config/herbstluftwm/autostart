@@ -8,6 +8,19 @@ hc emit_hook reload
 hc keyunbind --all
 xsetroot -solid '#18181B'
 
+# Colors
+bg=$(xrdb -query | grep '*.background' | cut -f2- -d'#')
+fg=$(xrdb -query | grep '*.foreground' | cut -f2- -d'#')
+gray=$(xrdb -query | grep color0 | cut -f2- -d'#')
+light_gray=$(xrdb -query | grep color8 | cut -f2- -d'#')
+red=$(xrdb -query | grep color1 | cut -f2- -d'#')
+green=$(xrdb -query | grep color2 | cut -f2- -d'#')
+yellow=$(xrdb -query | grep color3 | cut -f2- -d'#')
+blue=$(xrdb -query | grep color4 | cut -f2- -d'#')
+magenta=$(xrdb -query | grep color5 | cut -f2- -d'#')
+cyan=$(xrdb -query | grep color6 | cut -f2- -d'#')
+white=$(xrdb -query | grep color7 | cut -f2- -d'#')
+
 ### Keybindings ###
 Mod=Mod4
 
@@ -18,7 +31,7 @@ hc keybind $Mod-Shift-c close
 hc keybind $Mod-Shift-Return spawn "${TERMINAL:-alacritty}"
 
 # Prompts
-hc keybind $Mod-p spawn dmenu_run -i -p "Run:" -fn "Iosevka" -nb "#18181B" -nf "#E4E4E8" -sf "#18181B" -sb "#E4E4E8"
+hc keybind $Mod-p spawn dmenu_run -i -p "Run:" -fn "Iosevka" -nb "#${bg}" -nf "#${fg}" -sf "#${bg}" -sb "#${fg}"
 hc keybind $Mod-Control-p spawn bash ~/.nixos-config/home/config/scripts/hub
 hc keybind $Mod-Control-q spawn bash ~/.nixos-config/home/config/scripts/kill
 hc keybind $Mod-Control-r spawn bash ~/.nixos-config/home/config/scripts/confedit
@@ -101,8 +114,8 @@ hc keybind $Mod-t set_attr clients.focus.floating toggle
 hc keybind $Mod-Shift-t floating toggle
 hc keybind $Mod-Control-t pseudotile toggle
 hc keybind $Mod-f fullscreen toggle
-hc keybind $Mod-m cycle_layout +1 max vertical #monocle, but inside the frame
-hc keybind $Mod-g set_layout grid #change direction of clients
+hc keybind $Mod-m cycle_layout +1 max vertical
+hc keybind $Mod-g set_layout grid
 
 # The following cycles through the available layouts within a frame, but skips
 # layouts, if the layout change wouldn't affect the actual window positions.
@@ -176,18 +189,6 @@ hc set mouse_recenter_gap 0
 hc set auto_detect_monitors on
 
 ### Theme ###
-# Colors
-bg=$(xrdb -query | grep '*.background' | cut -f2- -d'#')
-fg=$(xrdb -query | grep '*.foreground' | cut -f2- -d'#')
-gray=$(xrdb -query | grep color0 | cut -f2- -d'#')
-light_gray=$(xrdb -query | grep color8 | cut -f2- -d'#')
-red=$(xrdb -query | grep color1 | cut -f2- -d'#')
-green=$(xrdb -query | grep color2 | cut -f2- -d'#')
-yellow=$(xrdb -query | grep color3 | cut -f2- -d'#')
-blue=$(xrdb -query | grep color4 | cut -f2- -d'#')
-magenta=$(xrdb -query | grep color5 | cut -f2- -d'#')
-cyan=$(xrdb -query | grep color6 | cut -f2- -d'#')
-white=$(xrdb -query | grep color7 | cut -f2- -d'#')
 
 hc set frame_border_active_color "#$light_gray"
 hc set frame_border_normal_color "#$gray"
@@ -233,7 +234,7 @@ hc rule class=Sxiv floating=on
 
 # Floaters
 hc rule title=terrm floating=on floatplacement=center focus=on floating_geometry=600x450 hook=always_focus
-hc rule title=mixerr floating=on floatplacement=center focus=on floating_geometry=700x250 hook=always_focus
+hc rule title=mixerr floating=on floatplacement=center focus=on floating_geometry=750x250 hook=always_focus
 hc rule title=monitorr floating=on floatplacement=center focus=on floating_geometry=900x650 hook=always_focus
 
 

@@ -3,10 +3,11 @@
 # a window selection utility
 # dependencies: wmctrl, awk,
 #               dmenu with multiline support (command line flag -l)
+bg=$(xrdb -query | grep '*.background' | cut -f2- -d'#')
+fg=$(xrdb -query | grep '*.foreground' | cut -f2- -d'#')
 
 hc() { ${herbstclient_command:-herbstclient} "$@" ;}
-dm() { ${dmenu_command:-dmenu -nb '#18181B' -nf '#E4E4E8' -sf '#18181B' -sb '#E4E4E8' -fn 'Iosevka' "$@"
-} "$@" ;}
+dm() { ${dmenu_command:-dmenu -nb "#${bg}" -nf "#${fg}" -sf "#${bg}" -sb "#${fg}" -fn 'Iosevka' "$@"} "$@" ;}
 dmenu_lines=${dmenu_lines:-10}
 
 case "$1" in

@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC2034
 # Defined variables, modify anything in quotes to your prefered software
-DMENU="dmenu -nb #18181B -nf #E4E4E8 -sf #18181B -sb #E4E4E8 -fn Iosevka"
+bg=$(xrdb -query | grep '*.background' | cut -f2- -d'#')
+fg=$(xrdb -query | grep '*.foreground' | cut -f2- -d'#')
+
+DMENU="dmenu -nb #${bg} -nf #${fg} -sf #${bg} -sb #${fg} -fn Iosevka"
 DMBROWSER="qutebrowser"
 DMTERM="alacritty -e"
 DMEDITOR="emacsclient -c -a emacs"
