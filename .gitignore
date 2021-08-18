@@ -1,6 +1,5 @@
 result
-**/home/config/vifm/vifminfo.json
-**/home/config/qutebrowser/qsettings/
-**/home/config/qutebrowser/bookmarks/
-**/home/config/qutebrowser/autoconfig.yml
-**/home/config/qutebrowser/quickmarks
+**/config/qutebrowser/qsettings/
+**/config/qutebrowser/bookmarks/
+**/config/qutebrowser/autoconfig.yml
+**/config/qutebrowser/quickmarks
