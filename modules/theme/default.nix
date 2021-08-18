@@ -20,8 +20,9 @@ in {
   };
   qt = {
     enable = true;
-    platformTheme = "Materia-dark-compact";
+    platformTheme = "gtk";
   };
+  home.packages = with pkgs; [ libsForQt5.qtstyleplugins ];
   xsession.pointerCursor = {
     package = pkgs.vanilla-dmz;
     name = "Vanilla-DMZ";
