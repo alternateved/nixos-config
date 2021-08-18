@@ -4,12 +4,6 @@
   programs.home-manager.enable = true;
   home.username = "alternateved";
   home.homeDirectory = "/home/alternateved";
-  home.sessionVariables = {
-    ALTERNATE_EDITOR = "";
-    EDITOR = "vim";
-    VISUAL = "emacsclient -c -a ''";
-    BROWSER = "qutebrowser";
-  };
 
   imports = [
     ./modules/alacritty.nix
@@ -70,6 +64,7 @@
 
     # File managers
     pcmanfm
+    nnn
     vifm
     ueberzug
 
@@ -82,6 +77,7 @@
     sxiv
     gimp
     calibre
+    spotify
     libreoffice
     neofetch
     pulsemixer
