@@ -65,7 +65,6 @@
     # File managers
     pcmanfm
     nnn
-    vifm
     ueberzug
 
     # Dictionaries
