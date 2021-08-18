@@ -142,8 +142,7 @@ hc keybind $Mod-u jumpto urgent
 # Applications
 hc keybind $Mod-Mod1-e spawn emacsclient -a '' -c
 hc keybind $Mod-Mod1-b spawn qutebrowser
-hc keybind $Mod-Mod1-f spawn alacritty -e vifm
-hc keybind $Mod-Control-e spawn emacsclient --eval "(emacs-everywhere)"
+hc keybind $Mod-Mod1-f spawn alacritty -e nnn
 hc keybind $Mod-Mod1-t spawn alacritty --title "terrm"
 hc keybind $Mod-Mod1-v spawn alacritty --title "mixerr" -e pulsemixer
 hc keybind $Mod-Mod1-m spawn alacritty --title "monitorr" -e htop
@@ -255,7 +254,7 @@ hc detect_monitors
 hc spawn autorandr --change
 xsetroot -cursor_name left_ptr
 xargs xwallpaper --stretch < ~/.cache/wall
-hc spawn bash "$HOME/.nixos-config/home/config/polybar/launch.sh"
+# hc spawn bash "$HOME/.nixos-config/home/config/polybar/launch.sh"
 
 # find the panel
 panel=~/.config/herbstluftwm/panel.sh

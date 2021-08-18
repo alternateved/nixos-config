@@ -95,7 +95,7 @@ myBrowser :: String
 myBrowser = "qutebrowser"
 
 myFileManager :: String
-myFileManager = myTerminal ++ " -e vifm"
+myFileManager = myTerminal ++ " -e nnn"
 
 myEditor :: String
 myEditor = "emacsclient -a '' -c "
