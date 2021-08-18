@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 
-let colors = import ../home/modules/colors.nix;
+let colors = import ../../modules/theme/colors.nix;
 in {
   imports = [ # Include the results of the hardware scan.
     ./hardware-configuration.nix

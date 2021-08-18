@@ -17,9 +17,11 @@ require "paq" {
     "neovim/nvim-lspconfig";
     "kabouzeid/nvim-lspinstall";
     "windwp/nvim-autopairs";
-    "tpope/vim-fugitive";
+    "vijaymarupudi/nvim-fzf";
     "nekonako/xresources-nvim";
+    "hoob3rt/lualine.nvim";
     "b3nj5m1n/kommentary";
+    "tpope/vim-fugitive";
 }
 
 -- Options

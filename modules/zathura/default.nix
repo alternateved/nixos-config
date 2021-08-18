@@ -1,4 +1,4 @@
-let colors = import ./colors.nix;
+let colors = import ../theme/colors.nix;
 in {
   programs.zathura = {
     enable = true;

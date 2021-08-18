@@ -1,4 +1,4 @@
-let colors = import ./colors.nix;
+let colors = import ../theme/colors.nix;
 in {
   programs.alacritty = {
     enable = true;
@@ -12,7 +12,8 @@ in {
         decorations = "none";
       };
       font = {
-        size = 12.0;
+        size = 11.0;
+        # size = 10.0;
         normal.family = "Iosevka Nerd Font Mono";
         bold.family = "Iosevka Nerd Font Mono";
         italic.family = "Iosevka Nerd Font Mono";

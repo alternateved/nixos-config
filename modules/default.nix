@@ -6,24 +6,23 @@
   home.homeDirectory = "/home/alternateved";
 
   imports = [
-    ./modules/alacritty.nix
-    ./modules/autorandr.nix
-    ./modules/direnv.nix
-    ./modules/dunst.nix
-    ./modules/emacs.nix
-    ./modules/git.nix
-    ./modules/htop.nix
-    ./modules/misc.nix
-    ./modules/mpv.nix
-    ./modules/neovim.nix
-    ./modules/picom.nix
-    ./modules/polybar.nix
-    ./modules/redshift.nix
-    ./modules/starship.nix
-    ./modules/theme.nix
-    ./modules/xresources.nix
-    ./modules/zathura.nix
-    ./modules/zsh.nix
+    ./alacritty
+    ./autorandr
+    ./direnv
+    ./dunst
+    ./emacs
+    ./git
+    ./htop
+    ./misc
+    ./mpv
+    ./neovim
+    ./picom
+    ./polybar
+    ./redshift
+    ./starship
+    ./theme
+    ./zathura
+    ./zsh
   ];
 
   home.packages = with pkgs; [
@@ -90,6 +89,7 @@
     cmake
     gcc
     jq
+    rnix-lsp
     nixfmt
     sqlite
     graphviz

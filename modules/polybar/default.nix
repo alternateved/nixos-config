@@ -5,7 +5,7 @@
       alsaSupport = true;
       githubSupport = true;
     };
-    config = ../config/polybar/config.ini;
+    config = ../../config/polybar/config.ini;
     extraConfig = ''
       [module/spotify]
       type = custom/script

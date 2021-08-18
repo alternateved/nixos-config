@@ -1,6 +1,6 @@
 { pkgs, ... }:
 
-let colors = import ./colors.nix;
+let colors = import ../theme/colors.nix;
 in {
   services.dunst = {
     enable = true;

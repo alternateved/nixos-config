@@ -54,13 +54,8 @@ websearch[github]="https://github.com/search?q="
 declare -A youtube_channels
 youtube_channels[DistroTube]="https://www.youtube.com/c/DistroTube/featured"
 youtube_channels[System Crafters]="https://www.youtube.com/c/SystemCrafters/videos"
-youtube_channels[Gab Smolders]="https://www.youtube.com/c/GabSmolders/videos"
 youtube_channels[Tim Ferriss]="https://www.youtube.com/c/timferriss/videos"
 youtube_channels[Nick Cave]="https://www.youtube.com/c/nickcave/videos"
-youtube_channels[KEXP]="https://www.youtube.com/c/kexp/videos"
-youtube_channels[NPR Music]="https://www.youtube.com/c/nprmusic/videos"
-youtube_channels[Boiler Room]="https://www.youtube.com/c/boilerroom/videos"
-youtube_channels[La Blogothèque]="https://www.youtube.com/theswitch/videos"
 
 # translate config
 # Uncomment to manually set the languages dm-translate will show
