@@ -34,6 +34,29 @@
         sxiv = "devour sxiv";
         vifm = "~/.config/vifm/scripts/vifmrun";
       };
+      sessionVariables = {
+        ALTERNATE_EDITOR = "";
+        EDITOR = "vim";
+        VISUAL = "emacsclient -c -a ''";
+        BROWSER = "qutebrowser";
+        CALIBRE_USE_SYSTEM_THEME = "1";
+
+        # nnn theme from dircolors
+        BLK = "04";
+        CHR = "04";
+        DIR = "04";
+        EXE = "00";
+        REG = "00";
+        HARDLINK = "00";
+        SYMLINK = "06";
+        MISSING = "00";
+        ORPHAN = "01";
+        FIFO = "0F";
+        SOCK = "0F";
+        OTHER = "02";
+        NNN_FCOLORS =
+          "$BLK$CHR$DIR$EXE$REG$HARDLINK$SYMLINK$MISSING$ORPHAN$FIFO$SOCK$OTHER";
+      };
       plugins = [
         {
           name = "zsh-nix-shell";
