@@ -37,7 +37,7 @@ in {
   };
 
   networking = {
-    hostName = "nixos";
+    hostName = "teishi";
     firewall.enable = true;
     networkmanager.enable = true;
     useDHCP = false;
