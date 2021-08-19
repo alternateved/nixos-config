@@ -25,23 +25,23 @@ white=$(xrdb -query | grep color7 | cut -f2- -d'#')
 Mod=Mod4
 
 # Core
-hc keybind $Mod-Shift-q spawn bash ~/.nixos-config/home/config/scripts/logout
+hc keybind $Mod-Shift-q spawn bash ~/.nixos-config/config/scripts/logout
 hc keybind $Mod-Shift-r reload
 hc keybind $Mod-Shift-c close
-hc keybind $Mod-Shift-Return spawn "${TERMINAL:-alacritty}"
+hc keybind $Mod-Shift-Return spawn kitty -1
 
 # Prompts
 hc keybind $Mod-p spawn dmenu_run -i -p "Run:" -fn "Iosevka" -nb "#${bg}" -nf "#${fg}" -sf "#${bg}" -sb "#${fg}"
-hc keybind $Mod-Control-p spawn bash ~/.nixos-config/home/config/scripts/hub
-hc keybind $Mod-Control-q spawn bash ~/.nixos-config/home/config/scripts/kill
-hc keybind $Mod-Control-r spawn bash ~/.nixos-config/home/config/scripts/confedit
-hc keybind $Mod-Control-grave spawn bash ~/.nixos-config/home/config/scripts/password
+hc keybind $Mod-Control-p spawn bash ~/.nixos-config/config/scripts/hub
+hc keybind $Mod-Control-q spawn bash ~/.nixos-config/config/scripts/kill
+hc keybind $Mod-Control-r spawn bash ~/.nixos-config/config/scripts/confedit
+hc keybind $Mod-Control-grave spawn bash ~/.nixos-config/config/scripts/password
 
 # Herbst prompts
-hc keybind $Mod-semicolon spawn bash ~/.nixos-config/home/config/herbstluftwm/herbstutils/herbstutils
-hc keybind $Mod-Shift-semicolon spawn bash ~/.nixos-config/home/config/herbstluftwm/scripts/herbstcommander
-hc keybind $Mod-apostrophe spawn bash ~/.nixos-config/home/config/herbstluftwm/scripts/bringwselect
-hc keybind $Mod-Shift-apostrophe spawn bash ~/.nixos-config/home/config/herbstluftwm/scripts/wselect
+hc keybind $Mod-semicolon spawn bash ~/.nixos-config/config/herbstluftwm/herbstutils/herbstutils
+hc keybind $Mod-Shift-semicolon spawn bash ~/.nixos-config/config/herbstluftwm/scripts/herbstcommander
+hc keybind $Mod-apostrophe spawn bash ~/.nixos-config/config/herbstluftwm/scripts/bringwselect
+hc keybind $Mod-Shift-apostrophe spawn bash ~/.nixos-config/config/herbstluftwm/scripts/wselect
 
 # Movement
 hc keybind $Mod-Left  focus left
@@ -142,10 +142,10 @@ hc keybind $Mod-u jumpto urgent
 # Applications
 hc keybind $Mod-Mod1-e spawn emacsclient -a '' -c
 hc keybind $Mod-Mod1-b spawn qutebrowser
-hc keybind $Mod-Mod1-f spawn alacritty -e nnn
-hc keybind $Mod-Mod1-t spawn alacritty --title "terrm"
-hc keybind $Mod-Mod1-v spawn alacritty --title "mixerr" -e pulsemixer
-hc keybind $Mod-Mod1-m spawn alacritty --title "monitorr" -e htop
+hc keybind $Mod-Mod1-f spawn kitty nnn
+hc keybind $Mod-Mod1-t spawn kitty --title "terrm"
+hc keybind $Mod-Mod1-v spawn kitty --title "mixerr" pulsemixer
+hc keybind $Mod-Mod1-m spawn kitty --title "monitorr" htop
 
 # Audio
 hc keybind XF86AudioRaiseVolume spawn amixer -q set Master 5%+ unmute
@@ -228,6 +228,7 @@ hc rule class=Signal tag=Communication
 hc rule class=Thunderbird tag=Communication
 hc rule class=discord tag=Communication
 hc rule class="Firefox Developer Edition" tag=Media
+hc rule class=Spotify tag=Media
 hc rule class=mpv tag=Media
 hc rule class=Sxiv floating=on
 
@@ -254,7 +255,7 @@ hc detect_monitors
 hc spawn autorandr --change
 xsetroot -cursor_name left_ptr
 xargs xwallpaper --stretch < ~/.cache/wall
-# hc spawn bash "$HOME/.nixos-config/home/config/polybar/launch.sh"
+hc spawn bash "$HOME/.nixos-config/config/polybar/launch.sh"
 
 # find the panel
 panel=~/.config/herbstluftwm/panel.sh
