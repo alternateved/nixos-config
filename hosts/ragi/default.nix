@@ -37,8 +37,9 @@
       defaultUserShell = pkgs.zsh;
       users.alternateved = {
         isNormalUser = true;
-        openssh.authorizedKeys.keyFiles =
-          [ /home/alternateved/.ssh/authorized_keys ];
+        openssh.authorizedKeys.keys = [
+          "ssh-dss AAAAB3NzaC1kc3MAAACBAKQuH68mhwVo6jC92clfc/nUpqpi98Q0MZxpbCWOhk/kdXFMgfuq8WBJtdPnXAz8OiShll9BCyabblkN6o13gbn24NUdeXYr7yDDh8fzDVxrRsv+LM5KcANMkfnAnWg5iyQcglfL4R5qlIJoahOuiNIHrCr6Q61vqWPDGSGTXO2dAAAAFQCqfrTEX0wnoYpwm8zCi5IepS1IxwAAAIEAlWWflYgROzjgx0OJ+BbMX6qz4MLv3trFCs2JQ+uAwMaNmw+Cgp4zZKEmQ4pLS6C0SwhLILAnWumRWG82ghWyvbNCwirislqkNykcb7CaSoMOreEmoZWLvH25VYTa6/Au7carIYmNPFHk7HnnqpX0iyAWtg8NY+v6Yn0Np0Z+7KoAAACBAJQf6guV6q73O3bZwFw1sM9179WV+XAb6x3tiI80L05iEHiFyqnImuLoCrRoGwOQ4gE0ckMYf5r9gIn3q0a8NPm5aRGV6prpfCw2eMYStjtxPoAA7gNRx0ZkE8ppRoefcT0w4GhAJgmGP8JQCgoAu5QBStCgq53pnT6wZc3TYyzB"
+        ];
         passwordFile = "/home/alternateved/.secrets/pass";
         extraGroups = [ "wheel" "networkmanager" "audio" ];
       };
