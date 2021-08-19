@@ -7,16 +7,7 @@
 
   imports = [ ./direnv ./fzf ./git ./htop ./neovim ./starship/pi.nix ./zsh ];
 
-  home.packages = with pkgs; [
-    xarchiver
-    unrar
-    unzip
-    exa
-    xclip
-    killall
-    nnn
-    neofetch
-  ];
+  home.packages = with pkgs; [ xarchiver unzip exa xclip killall nnn neofetch ];
 
   home.stateVersion = "21.05";
 }
