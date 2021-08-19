@@ -6,13 +6,13 @@
   home.homeDirectory = "/home/alternateved";
 
   imports = [
-    ./alacritty
     ./autorandr
     ./direnv
     ./dunst
     ./emacs
     ./git
     ./htop
+    ./kitty
     ./misc
     ./mpv
     ./neovim
@@ -89,7 +89,6 @@
     cmake
     gcc
     jq
-    rnix-lsp
     nixfmt
     sqlite
     graphviz
