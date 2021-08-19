@@ -126,7 +126,7 @@
            "** %? \n %^T\n%U" :empty-lines 1))))
 
 ;; ebn's hacks
-(use-package evil-collection
+(use-package! evil-collection
   :config
   (defun ebn/evil-collection-vterm-setup ()
     (advice-add 'evil-collection-vterm-append-line :before #'vterm-reset-cursor-point))

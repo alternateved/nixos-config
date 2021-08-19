@@ -28,7 +28,6 @@
 
         hc = "herbstclient";
         bw = "bw --pretty";
-        ssh = "kitty +kitten ssh";
         em = "devour emacsclient -c";
         mpv = "devour mpv";
         zathura = "devour zathura";

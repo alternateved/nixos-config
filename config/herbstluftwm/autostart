@@ -28,7 +28,7 @@ Mod=Mod4
 hc keybind $Mod-Shift-q spawn bash ~/.nixos-config/config/scripts/logout
 hc keybind $Mod-Shift-r reload
 hc keybind $Mod-Shift-c close
-hc keybind $Mod-Shift-Return spawn kitty -1
+hc keybind $Mod-Shift-Return spawn "${TERMINAL:-alacritty}"
 
 # Prompts
 hc keybind $Mod-p spawn dmenu_run -i -p "Run:" -fn "Iosevka" -nb "#${bg}" -nf "#${fg}" -sf "#${bg}" -sb "#${fg}"
@@ -142,10 +142,10 @@ hc keybind $Mod-u jumpto urgent
 # Applications
 hc keybind $Mod-Mod1-e spawn emacsclient -a '' -c
 hc keybind $Mod-Mod1-b spawn qutebrowser
-hc keybind $Mod-Mod1-f spawn kitty nnn
-hc keybind $Mod-Mod1-t spawn kitty --title "terrm"
-hc keybind $Mod-Mod1-v spawn kitty --title "mixerr" pulsemixer
-hc keybind $Mod-Mod1-m spawn kitty --title "monitorr" htop
+hc keybind $Mod-Mod1-f spawn alacritty -e nnn
+hc keybind $Mod-Mod1-t spawn alacritty --title "terrm"
+hc keybind $Mod-Mod1-v spawn alacritty --title "mixerr" -e pulsemixer
+hc keybind $Mod-Mod1-m spawn alacritty --title "monitorr" -e htop
 
 # Audio
 hc keybind XF86AudioRaiseVolume spawn amixer -q set Master 5%+ unmute

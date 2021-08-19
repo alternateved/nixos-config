@@ -6,6 +6,7 @@
   home.homeDirectory = "/home/alternateved";
 
   imports = [
+    ./alacritty
     ./autorandr
     ./direnv
     ./dunst
@@ -13,7 +14,6 @@
     ./fzf
     ./git
     ./htop
-    ./kitty
     ./misc
     ./mpv
     ./neovim
@@ -84,6 +84,7 @@
     # Doom dependencies
     fd
     ripgrep
+    wezterm
 
     # Doom emacs module dependencies
     gnumake

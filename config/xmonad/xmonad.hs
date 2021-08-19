@@ -89,13 +89,13 @@ myModMask :: KeyMask
 myModMask = mod4Mask
 
 myTerminal :: String
-myTerminal = "kitty"
+myTerminal = "alacritty"
 
 myBrowser :: String
 myBrowser = "qutebrowser"
 
 myFileManager :: String
-myFileManager = myTerminal ++ " nnn"
+myFileManager = myTerminal ++ " -e nnn"
 
 myEditor :: String
 myEditor = "emacsclient -a '' -c "
@@ -240,7 +240,7 @@ myKeys =
   , ("M-C-b", spawn $ myEditor ++ xmobarConfig)
 
     -- Open my preferred terminal
-  , ("M-S-<Return>", spawn "kitty -1")
+  , ("M-S-<Return>", spawn myTerminal)
 
     -- Prompts
   , ("M-p", shellPrompt myXPConfig)
