@@ -23,7 +23,7 @@ require "paq" {
 }
 
 -- Options
-cmd 'colorscheme xresources'            -- Put your favorite colorscheme here
+-- cmd 'colorscheme xresources'            -- Put your favorite colorscheme here
 opt.expandtab = true                -- Use spaces instead of tabs
 opt.hidden = true                   -- Enable background buffers
 opt.hlsearch = true                 -- Highlight search terms
