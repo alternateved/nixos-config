@@ -18,6 +18,7 @@
     ./neovim
     ./picom
     ./polybar
+    ./qutebrowser
     ./redshift
     ./starship
     ./theme
@@ -102,7 +103,6 @@
     # Surfing
     firefox-devedition-bin
     google-chrome-beta
-    qutebrowser
     youtube-dl
 
     # Communication
