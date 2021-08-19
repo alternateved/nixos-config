@@ -19,9 +19,7 @@ require "paq" {
     "windwp/nvim-autopairs";
     "vijaymarupudi/nvim-fzf";
     "nekonako/xresources-nvim";
-    "hoob3rt/lualine.nvim";
     "b3nj5m1n/kommentary";
-    "tpope/vim-fugitive";
 }
 
 -- Options
