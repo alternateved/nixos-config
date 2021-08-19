@@ -1,5 +1,5 @@
 { pkgs, ... }: {
-  imports = [ ./xresources ];
+  imports = [ ./xresources.nix ];
   dconf.enable = false;
   gtk = {
     enable = true;
