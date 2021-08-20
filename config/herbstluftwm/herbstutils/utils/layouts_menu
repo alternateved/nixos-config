@@ -21,7 +21,7 @@ tall)
 	choice="$SCRIPT_DIR/layouts/tall"
 	;;
 columns)
-	choice="$SCRIPT_DIR/layouts/vertical"
+	choice="$SCRIPT_DIR/layouts/columns"
 	;;
 reset)
 	choice="$SCRIPT_DIR/layouts/reset"
