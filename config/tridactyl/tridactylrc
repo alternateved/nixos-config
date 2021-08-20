@@ -1,0 +1,70 @@
+" vim: filetype=vim
+
+" This wipes all existing settings. This means that if a setting in this file
+" is removed, then it will return to default. In other words, this file serves
+" as an enforced single point of truth for Tridactyl's configuration.
+sanitize tridactyllocal tridactylsync
+
+" Just use a blank page for new tab. It would be nicer to use the standard
+" Firefox homepage, but Tridactyl doesn't support this yet.
+set newtab about:blank
+
+" Use vim in tmux for editor.
+set editorcmd emacsclient -c
+
+" Ctrl-F should use the browser's native 'find' functionality.
+unbind <C-f>
+
+" But also support Tridactyl search too.
+bind / fillcmdline find
+bind ? fillcmdline find -?
+bind n findnext 1
+bind N findnext -1
+
+" Use sensitive case. Smart case would be nice here, but it doesn't work.
+set findcase insensitive
+
+" Smooth scrolling, yes please. This is still a bit janky in Tridactyl.
+set smoothscroll true
+
+" Keybindings
+bind j scrollline 5
+bind k scrollline -5
+bind J tabprev
+bind K tabnext
+bind d tabclose
+bind gC tabduplicate
+bind gd tabdetach
+bind gD composite tabduplicate; tabdetach
+bind M hint -W mpvsafe
+
+" Don't run Tridactyl on some web sites because it doesn't work well, or
+" because the web site has its own keybindings.
+autocmd DocStart mail.google.com mode ignore
+
+set hintfiltermode vimperator-reflow
+set hintuppercase false
+set hintdelay 100
+
+set searchengine duckduckgo
+set searchurls.goog https://www.google.com/search?q=
+set searchurls.hoog https://hoogle.haskell.org/?hoogle=
+set searchurls.re https://www.reddit.com/r/
+set searchurls.wiki https://en.wikipedia.org/wiki/
+set searchurls.git https://www.github.com/search?q=
+set searchurls.yt https://www.youtube.com/results?search_query=
+
+" Containers
+autocontain facebook\.com Facebook
+autocontain reddit\.com Reddit
+autocontain google\.com Google
+autocontain youtube\.com YouTube
+
+" Sometimes the status bar in the bottom left corner overlaps the Tridactyl
+" command line, so set an option to move the status bar to the right.
+guiset_quiet tabs count
+guiset_quiet tabs always
+guiset_quiet navbarnoheight show
+guiset_quiet hoverlink right
+
+colourscheme dark
