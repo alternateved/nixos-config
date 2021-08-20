@@ -9,8 +9,8 @@
     };
     gtk3.extraConfig = { gtk-application-prefer-dark-theme = 1; };
     iconTheme = {
-      package = pkgs.papirus-icon-theme;
-      name = "Papirus-Dark";
+      package = pkgs.tela-icon-theme;
+      name = "Tela black dark";
     };
     font = {
       package = null;
