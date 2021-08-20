@@ -25,22 +25,22 @@ white=$(xrdb -query | grep color7 | cut -f2- -d'#')
 Mod=Mod4
 
 # Core
-hc keybind $Mod-Shift-q spawn bash ~/.nixos-config/config/scripts/logout
+hc keybind $Mod-Shift-q spawn bash ~/.nixos-config/config/scripts/exit
 hc keybind $Mod-Shift-r reload
 hc keybind $Mod-Shift-c close
 hc keybind $Mod-Shift-Return spawn "${TERMINAL:-alacritty}"
 
 # Prompts
-hc keybind $Mod-p spawn dmenu_run -i -p "Run:" -fn "Iosevka" -nb "#${bg}" -nf "#${fg}" -sf "#${bg}" -sb "#${fg}"
+hc keybind $Mod-p spawn rofi -show drun
 hc keybind $Mod-Control-p spawn bash ~/.nixos-config/config/scripts/hub
 hc keybind $Mod-Control-q spawn bash ~/.nixos-config/config/scripts/kill
-hc keybind $Mod-Control-r spawn bash ~/.nixos-config/config/scripts/confedit
+hc keybind $Mod-Control-r spawn bash ~/.nixos-config/config/scripts/configurations
 
 # Herbst prompts
 hc keybind $Mod-semicolon spawn bash ~/.nixos-config/config/herbstluftwm/herbstutils/herbstutils
 hc keybind $Mod-Shift-semicolon spawn bash ~/.nixos-config/config/herbstluftwm/scripts/herbstcommander
-hc keybind $Mod-apostrophe spawn bash ~/.nixos-config/config/herbstluftwm/scripts/bringwselect
-hc keybind $Mod-Shift-apostrophe spawn bash ~/.nixos-config/config/herbstluftwm/scripts/wselect
+hc keybind $Mod-apostrophe spawn rofi -show windowcd
+hc keybind $Mod-Shift-apostrophe spawn rofi -show window
 
 # Movement
 hc keybind $Mod-Left  focus left
