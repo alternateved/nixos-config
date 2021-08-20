@@ -11,6 +11,7 @@
     ./direnv
     ./dunst
     ./emacs
+    ./firefox
     ./fzf
     ./git
     ./htop
@@ -19,7 +20,6 @@
     ./neovim
     ./picom
     ./polybar
-    ./qutebrowser
     ./redshift
     ./starship/lambda.nix
     ./theme
@@ -30,18 +30,8 @@
   home.packages = with pkgs; [
     # xmobar
     # Launcher
-    (dmenu.overrideAttrs (old: rec {
-      patches = [
-        (fetchpatch {
-          url =
-            "https://tools.suckless.org/dmenu/patches/password/dmenu-password-5.0.diff";
-          sha256 = "1dqxiwwwbya9slm3xbbal564rnigfbr497kac9pxlikjqgpz9a1q";
-        })
-      ];
-    }))
-
+    dmenu
     # Utility
-    bitwarden-cli
     devour
     exa
     neofetch
@@ -68,23 +58,23 @@
     pcmanfm
     nnn
 
-    # Dictionaries
+    # Office
     aspell
     aspellDicts.en
     aspellDicts.pl
+    libreoffice
 
     # Media
     sxiv
     gimp
     calibre
     spotify
-    libreoffice
     pulsemixer
+    youtube-dl
 
     # Doom dependencies
     fd
     ripgrep
-    wezterm
 
     # Doom emacs module dependencies
     gnumake
@@ -100,11 +90,6 @@
     html-tidy
     nodePackages.stylelint
     nodePackages.js-beautify
-
-    # Surfing
-    firefox-devedition-bin
-    google-chrome-beta
-    youtube-dl
 
     # Communication
     discord
