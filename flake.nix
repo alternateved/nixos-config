@@ -5,13 +5,14 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     home-manager.url = "github:rycee/home-manager/master";
+    nur.url = "github:nix-community/NUR";
 
     emacs-overlay.url = "github:nix-community/emacs-overlay";
     xmonad.url = "github:xmonad/xmonad";
     xmonad-contrib.url = "github:xmonad/xmonad-contrib";
   };
 
-  outputs = { nixpkgs, nixos-hardware, home-manager, emacs-overlay, xmonad
+  outputs = { nixpkgs, nixos-hardware, home-manager, nur, emacs-overlay, xmonad
     , xmonad-contrib, ... }: {
       nixosConfigurations = {
         teishi = nixpkgs.lib.nixosSystem {
@@ -23,6 +24,7 @@
               nixpkgs = {
                 config = { allowUnfree = true; };
                 overlays = [
+                  nur.overlay
                   emacs-overlay.overlay
                   xmonad.overlay
                   xmonad-contrib.overlay
