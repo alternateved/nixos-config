@@ -22,6 +22,7 @@
     ./picom
     ./polybar
     ./redshift
+    ./rofi
     ./starship/lambda.nix
     ./theme
     ./zathura
@@ -29,8 +30,6 @@
   ];
 
   home.packages = with pkgs; [
-    # Launcher
-    dmenu
     # Utility
     devour
     exa
