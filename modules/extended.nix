@@ -17,6 +17,7 @@
     ./htop
     ./misc
     ./mpv
+    ./nnn
     ./neovim
     ./picom
     ./polybar
@@ -28,7 +29,6 @@
   ];
 
   home.packages = with pkgs; [
-    # xmobar
     # Launcher
     dmenu
     # Utility
@@ -56,7 +56,6 @@
 
     # File managers
     pcmanfm
-    nnn
 
     # Office
     aspell
@@ -66,7 +65,6 @@
 
     # Media
     sxiv
-    gimp
     calibre
     spotify
     pulsemixer
@@ -76,7 +74,6 @@
     fd
     ripgrep
 
-    # Doom emacs module dependencies
     gnumake
     cmake
     gcc
