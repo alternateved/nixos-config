@@ -231,9 +231,9 @@ hc rule class=mpv tag=Media
 hc rule class=Sxiv floating=on
 
 # Floaters
-hc rule title=terrm floating=on floatplacement=center focus=on floating_geometry=600x450 hook=always_focus
-hc rule title=mixerr floating=on floatplacement=center focus=on floating_geometry=750x250 hook=always_focus
-hc rule title=monitorr floating=on floatplacement=center focus=on floating_geometry=900x650 hook=always_focus
+hc rule title=terrm floating=on floatplacement=center focus=on floating_geometry=700x550 hook=always_focus
+hc rule title=mixerr floating=on floatplacement=center focus=on floating_geometry=900x300 hook=always_focus
+hc rule title=monitorr floating=on floatplacement=center focus=on floating_geometry=1200x650 hook=always_focus
 
 
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' floating=on

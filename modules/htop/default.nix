@@ -9,11 +9,6 @@
       sort_key = 2;
       tree_view = true;
       vim_mode = true;
-
-      left_meters = [ "AllCPUs" ];
-      left_meter_modes = [ 1 ];
-      right_meters = [ "Memory" "Swap" "Tasks" "LoadAverage" "Uptime" ];
-      left_emter_modes = [ 2 2 2 2 2 ];
     };
   };
 }
