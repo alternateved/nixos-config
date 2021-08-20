@@ -35,7 +35,6 @@ hc keybind $Mod-p spawn dmenu_run -i -p "Run:" -fn "Iosevka" -nb "#${bg}" -nf "#
 hc keybind $Mod-Control-p spawn bash ~/.nixos-config/config/scripts/hub
 hc keybind $Mod-Control-q spawn bash ~/.nixos-config/config/scripts/kill
 hc keybind $Mod-Control-r spawn bash ~/.nixos-config/config/scripts/confedit
-hc keybind $Mod-Control-grave spawn bash ~/.nixos-config/config/scripts/password
 
 # Herbst prompts
 hc keybind $Mod-semicolon spawn bash ~/.nixos-config/config/herbstluftwm/herbstutils/herbstutils
@@ -141,7 +140,7 @@ hc keybind $Mod-u jumpto urgent
 
 # Applications
 hc keybind $Mod-Mod1-e spawn emacsclient -a '' -c
-hc keybind $Mod-Mod1-b spawn qutebrowser
+hc keybind $Mod-Mod1-b spawn firefox
 hc keybind $Mod-Mod1-f spawn alacritty -e nnn
 hc keybind $Mod-Mod1-t spawn alacritty --title "terrm"
 hc keybind $Mod-Mod1-v spawn alacritty --title "mixerr" -e pulsemixer
@@ -227,7 +226,6 @@ hc rule floatplacement=center
 hc rule class=Signal tag=Communication
 hc rule class=Thunderbird tag=Communication
 hc rule class=discord tag=Communication
-hc rule class="Firefox Developer Edition" tag=Media
 hc rule class=Spotify tag=Media
 hc rule class=mpv tag=Media
 hc rule class=Sxiv floating=on
