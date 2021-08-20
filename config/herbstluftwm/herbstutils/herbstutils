@@ -8,7 +8,7 @@ source "$SCRIPT_DIR/utils/config"
 declare options=("layouts
 frames")
 
-choice=$(echo -e "${options[@]}" | ${DMENU} -i -p ' herbstutils: ')
+choice=$(echo -e "${options[@]}" | ${DMENU} -i -p 'Herbstutils')
 
 case "$choice" in
 layouts)

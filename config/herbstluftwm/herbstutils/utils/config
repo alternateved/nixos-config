@@ -1,5 +1,2 @@
 #!/usr/bin/env bash
-bg=$(xrdb -query | grep '*.background' | cut -f2- -d'#')
-fg=$(xrdb -query | grep '*.foreground' | cut -f2- -d'#')
-
-DMENU="dmenu -nb #${bg} -nf #${fg} -sf #${bg} -sb #${fg} -fn Iosevka"
+DMENU="rofi -dmenu"

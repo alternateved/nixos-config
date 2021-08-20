@@ -8,10 +8,9 @@ source "$SCRIPT_DIR/config"
 declare options=("tall
 dwindle
 columns
-|
-reset")
+none")
 
-choice=$(echo -e "${options[@]}" | ${DMENU} -i -p ' Select layput: ')
+choice=$(echo -e "${options[@]}" | ${DMENU} -i -p ' Select layout: ')
 
 case "$choice" in
 dwindle)
@@ -24,7 +23,7 @@ columns)
 	choice="$SCRIPT_DIR/layouts/columns"
 	;;
 reset)
-	choice="$SCRIPT_DIR/layouts/reset"
+	choice="$SCRIPT_DIR/layouts/none"
 	;;
 esac
 sh "$choice"

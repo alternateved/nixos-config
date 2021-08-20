@@ -27,14 +27,14 @@ main() {
   fi
 
   # Get the languages to translate from and to
-  from_name=$(printf '%s\n' "${!lang_map[@]}" | sort | ${DMENU} -i -l 20 -p 'Translate from:') "$@" || exit 1
-  to_name=$(printf '%s\n' "${!lang_map[@]}" | sort | ${DMENU} -i -l 20 -p 'Translate to:') "$@" || exit 1
+  from_name=$(printf '%s\n' "${!lang_map[@]}" | sort | ${DMENU} -i -l 20 -p 'Translate from') "$@" || exit 1
+  to_name=$(printf '%s\n' "${!lang_map[@]}" | sort | ${DMENU} -i -l 20 -p 'Translate to') "$@" || exit 1
 
   from_code=${lang_map[$from_name]}
   to_code=${lang_map[$to_name]}
 
   # Get text to translate
-  query=$(echo "" | ${DMENU} -p "Translate (${from_code} -> ${to_code}):")
+  query=$(echo "" | ${DMENU} -p "Translate (${from_code} -> ${to_code})")
 
   # Encode to url encoding
   query="$(echo "${query}" | jq -s -R -r @uri)"

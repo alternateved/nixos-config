@@ -7,15 +7,12 @@
 # herbstluftwm config-directory, with something like this in it:
 #
 #
-bg=$(xrdb -query | grep '*.background' | cut -f2- -d'#')
-fg=$(xrdb -query | grep '*.foreground' | cut -f2- -d'#')
-
 dm() {
-    dmenu -nb "#${bg}" -nf "#${fg}" -sf "#${bg}" -sb "#${fg}" -fn 'Iosevka' "$@"
+    rofi -dmenu "$@"
 }
 
 hc() { "${herbstclient_command[@]:-herbstclient}" "$@" ;}
-prompt=${prompt:-herbstluft: }
+prompt=${prompt:-Herbsclient}
 display_reply=${display_reply:-true}
 
 cmd=( "$@" )

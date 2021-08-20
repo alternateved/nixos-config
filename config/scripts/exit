@@ -18,18 +18,17 @@ output(){
 main() {
     # An array of options to choose.
     declare -a options=(
-    "lock"
-    "logout"
-    "reboot"
-    "shutdown"
-    "hibernate"
-    "suspend"
-    "quit"
+    "  lock"
+    " logout"
+    "  reboot"
+    "  poweroff"
+    "  hibernate"
+    "⏾  suspend"
     )
 
     # Piping the above array into dmenu.
     # We use "printf '%s\n'" to format the array one item to a line.
-    choice=$(printf '%s\n' "${options[@]}" | ${DMENU} -i -p 'Shutdown menu:' "${@}")
+    choice=$(printf '%s\n' "${options[@]}" | ${DMENU} -i -l 6 -p 'Shutdown menu' "${@}")
 
     # What to do when/if we choose one of the options.
     case $choice in
@@ -71,9 +70,6 @@ main() {
             else
                 output "User chose not to suspend." && exit 0
             fi
-            ;;
-        'quit')
-            output "Program terminated." && exit 0
         ;;
         # It is a common practice to use the wildcard asterisk symbol (*) as a final
         # pattern to define the default case. This pattern will always match.
