@@ -74,7 +74,7 @@ myHome :: String
 myHome = "/home/alternateved"
 
 myDots :: String
-myDots = myHome ++ "/.nixos-config/home/config"
+myDots = myHome ++ "/.nixos-config/config"
 
 xmonadConfig :: String
 xmonadConfig = myDots ++ "/xmonad/xmonad.hs"
@@ -92,7 +92,7 @@ myTerminal :: String
 myTerminal = "alacritty"
 
 myBrowser :: String
-myBrowser = "qutebrowser"
+myBrowser = "firefox"
 
 myFileManager :: String
 myFileManager = myTerminal ++ " -e nnn"
@@ -145,11 +145,12 @@ myStartupHook = setWMName "LG3D"
 -------------------------------------------------------------------------
 myManageHook :: ManageHook
 myManageHook = composeAll
-    [ className =? "Thunderbird" --> doShift (myWorkspaces !! 2)
-    , className =? "Signal" --> doShift (myWorkspaces !! 2)
-    , className =? "discord" --> doShift (myWorkspaces !! 2)
-    , className =? "mpv" --> doShift (myWorkspaces !! 5)
-    , className =? "Firefox Developer Edition" --> doShift (myWorkspaces !! 5)
+    [ className =? "Thunderbird" --> doShift (myWorkspaces !! 1)
+    , className =? "Signal" --> doShift (myWorkspaces !! 1)
+    , className =? "discord" --> doShift (myWorkspaces !! 1)
+    , className =? "mpv" --> doShift (myWorkspaces !! 4)
+    , className =? "Spotify" --> doShift (myWorkspaces !! 4)
+    , className =? "Firefox Developer Edition" --> doShift (myWorkspaces !! 4)
     , isDialog --> doCenterFloat
     , insertPosition Below Newer
     ] <+> namedScratchpadManageHook myScratchPads
@@ -218,15 +219,15 @@ columns = renamed [Replace "columns"]
 myLayoutHook = workspaceDir myHome
                $ smartBorders
                $ mkToggle (NBFULL ?? NOBORDERS ?? EOT)
-               $ firstLayout . secondLayout . thirdLayout $ myDefaultLayout
+               $ secondLayout . thirdLayout . fourthLayout $ myDefaultLayout
              where
-               firstLayout  = onWorkspace "Highway"       (monocle ||| tall ||| wide    ||| columns)
                secondLayout = onWorkspace "Communication" (tall    ||| wide ||| columns ||| monocle)
                thirdLayout  = onWorkspace "Development"   (columns ||| tall ||| wide    ||| monocle)
-               myDefaultLayout =      tall
+               fourthLayout  = onWorkspace "System"       (tall    ||| wide ||| columns ||| monocle)
+               myDefaultLayout =      monocle
+                                  ||| tall
                                   ||| wide
                                   ||| columns
-                                  ||| monocle
 
 -------------------------------------------------------------------------
 -- KEYBINDINGS
@@ -282,8 +283,7 @@ myKeys =
 
     -- Urgent windows
   , ("M-u", focusUrgent)
-  , ("M-S-u", clearUrgents)
-  , ("M-C-u", nextMatch History (return True))
+  , ("M-S-u", nextMatch History (return True))
 
     -- Layouts
   , ("M-<Space>", sendMessage NextLayout)
@@ -299,7 +299,7 @@ myKeys =
   , ("M-a t", sendMessage $ JumpToLayout "tall")
   , ("M-a w", sendMessage $ JumpToLayout "wide")
   , ("M-a c", sendMessage $ JumpToLayout "columns")
-  , ("M-f", sendMessage (MT.Toggle NBFULL) >> sendMessage ToggleStruts)
+  , ("M-f", sendMessage $ MT.Toggle NBFULL)
 
    -- SubLayouts
   , ("M-S-.", withFocused (sendMessage . mergeDir id))
@@ -338,7 +338,7 @@ myKeys =
   workspaceKeys =
     [ ("M-" <> m <> show k, withNthWorkspace f i)
     | (k, i) <- zip workspaceNumbers [0 ..]
-    , (m, f) <- [("", W.view), ("C-", W.greedyView), ("S-", W.shift)]
+    , (m, f) <- [("", W.greedyView), ("C-", W.view), ("S-", W.shift)]
     ]
   screenKeys =
     [ ("M-" <> m <> show k, screenWorkspace s >>= flip whenJust (windows . f))

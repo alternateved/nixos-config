@@ -56,7 +56,8 @@ baseConfig =
     { font = mainFont,
       additionalFonts = [iconFont],
       bgColor = colorBg,
-      fgColor = colorFg,
+      fgColor = colorFg
+,
       lowerOnStart = True,
       hideOnStart = False,
       allDesktops = True,
@@ -87,9 +88,8 @@ auxConfig =
     { commands = auxCommands,
       position = OnScreen 1 (TopW L 100),
       template =
-        "%xmobar1% }"
-          <> "{ %date% "
-          <> withPipe "%time% "
+        "%xmobar1% }{"
+          <> "%time% "
     }
 
 -------------------------------------------------------------------------
@@ -98,7 +98,7 @@ auxConfig =
 mainCommands :: [Runnable]
 mainCommands =
   [ Run $ UnsafeXPropertyLog "xmobar0",
-    Run $ Com "bash" ["-c", "if [[ $(dunstctl is-paused) = false ]]; then echo '<fn=1>\xf0f3</fn>'; else echo '<fn=1>\xf1f6</fn>'; fi"] "notif" 1,
+    Run $ Com "bash" ["-c", "if [[ $(dunstctl is-paused) = false ]]; then echo '<fn=1>\xf0f3</fn>'; else echo '<fn=1>\xf1f6</fn>'; fi"] "notif" 20,
     Run $ Weather "EPLL"
         [ "--template", "<weather> <tempC>°C",
           "-L", "0",
@@ -127,11 +127,9 @@ mainCommands =
     Run $ Date "%A, %b %_d" "date" 500,
     Run $ Date "%H:%M" "time" 300
   ]
-
 auxCommands :: [Runnable]
 auxCommands =
   [ Run $ UnsafeXPropertyLog "xmobar1",
-    Run $ Date "%A, %b %_d" "date" 500,
     Run $ Date "%H:%M" "time" 300
   ]
 
