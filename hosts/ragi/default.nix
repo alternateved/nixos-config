@@ -25,6 +25,7 @@
 
     networking = {
       hostName = "ragi";
+      firewall.enable = true;
       networkmanager.enable = true;
     };
 
