@@ -17,6 +17,7 @@
     ./htop
     ./misc
     ./mpv
+    ./ncspot
     ./nnn
     ./neovim
     ./picom
@@ -42,7 +43,6 @@
     xsecurelock
 
     # Xorg
-    wmctrl
     xdotool
     xclip
     killall
@@ -66,6 +66,7 @@
     sxiv
     calibre
     spotify
+    playerctl
     pulsemixer
     youtube-dl
 
