@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+scratchpad=/tmp/herbstluftwm:scratchpad
+if xdotool search --onlyvisible --name "spotiff"; then
+  if [[ $(herbstclient list_monitors | grep "[FOCUS]" | cut -d ” -f2) = $(herbstclient attr clients.$(cat $scratchpad) | grep ‘s - tag’ | awk ‘{ print $5 }’) ]]; then
+    xdotool search –onlyvisible –name "spotiff" windowunmap
+    exit
+  fi
+fi
+if [[ -f $scratchpad ]]; then
+  if ! herbstclient bring "$(cat $scratchpad)"; then
+    xdotool search –name "spotiff" windowmap && exit
+  fi
+fi
+if ! xdotool search --name "spotiff" windowmap; then
+  alacritty --title "spotiff" -e ncspot &
+  xdotool search –sync –onlyvisible –name "spotiff"
+  herbstclient attr clients.focus.winid > $scratchpad
+fi
