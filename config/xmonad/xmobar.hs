@@ -211,7 +211,7 @@ base15 = xprop "*.color15"
 -- FONTS AND ICONS
 -------------------------------------------------------------------------
 mainFont :: String
-mainFont = "xft:Iosevka Nerd Font Mono:style=medium:pixelsize=15:antialias=true:hinting=true"
+mainFont = "xft:Iosevka Nerd Font Mono:style=medium:pixelsize=14:antialias=true:hinting=true"
 
 iconFont :: String
 iconFont = "xft:Font Awesome 5 Free Solid:pixelsize=14"
