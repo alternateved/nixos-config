@@ -56,7 +56,6 @@ in {
   sound.enable = true;
   hardware = {
     pulseaudio = { enable = true; };
-
     bluetooth.enable = true;
   };
 
@@ -67,14 +66,15 @@ in {
       xkbOptions = "caps:escape_shifted_capslock";
 
       displayManager = {
-        # defaultSession = "none+myxmonad";
-        defaultSession = "none+herbstluftwm";
+        defaultSession = "none+myxmonad";
+        # defaultSession = "none+herbstluftwm";
         autoLogin.enable = true;
         autoLogin.user = "alternateved";
         sessionCommands = ''
           bluetoothctl power on
           autorandr -cf
           xsetroot -cursor_name left_ptr
+          xrdb ~/.Xresources
           xargs xwallpaper --stretch < ~/.cache/wall
         '';
         lightdm.greeters.mini = {
@@ -93,17 +93,17 @@ in {
 
       };
 
-      windowManager.herbstluftwm.enable = true;
+      # windowManager.herbstluftwm.enable = true;
 
-      # windowManager = {
-      #   session = [{
-      #     name = "myxmonad";
-      #     start = ''
-      #       /usr/bin/env alternateved-xmonad &
-      #       waitPID=$!
-      #     '';
-      #   }];
-      # };
+      windowManager = {
+        session = [{
+          name = "myxmonad";
+          start = ''
+            /usr/bin/env alternateved-xmonad &
+            waitPID=$!
+          '';
+        }];
+      };
 
       libinput = {
         enable = true;
@@ -117,8 +117,9 @@ in {
   };
 
   environment.systemPackages = with pkgs; [
-    # haskellPackages.xmonad
-    # haskellPackages.alternateved-xmonad
+    haskellPackages.xmobar
+    haskellPackages.xmonad
+    haskellPackages.alternateved-xmonad
     coreutils
     wget
     git
