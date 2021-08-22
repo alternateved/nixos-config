@@ -34,7 +34,8 @@ main() {
     case $choice in
         ' logout')
             if [[ "$(echo -e "No\nYes" | ${DMENU} -i -p "${choice}" "${@}" )" == "Yes" ]]; then
-                herbstclient quit
+                pkill -u $USER
+                # herbstclient quit
             else
                 output "User chose not to logout." && exit 1
             fi
