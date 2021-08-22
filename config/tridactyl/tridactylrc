@@ -7,7 +7,7 @@ sanitize tridactyllocal tridactylsync
 
 " Just use a blank page for new tab. It would be nicer to use the standard
 " Firefox homepage, but Tridactyl doesn't support this yet.
-set newtab about:blank
+set newtab www.duckduckgo.com
 
 " Use vim in tmux for editor.
 set editorcmd emacsclient -c
@@ -23,6 +23,9 @@ bind N findnext -1
 
 " Use sensitive case. Smart case would be nice here, but it doesn't work.
 set findcase insensitive
+
+" Remove search highlighting.
+bind <Esc> nohlsearch
 
 " Smooth scrolling, yes please. This is still a bit janky in Tridactyl.
 set smoothscroll true
@@ -55,7 +58,6 @@ set searchurls.git https://www.github.com/search?q=
 set searchurls.yt https://www.youtube.com/results?search_query=
 
 " Containers
-autocontain facebook\.com Facebook
 autocontain reddit\.com Reddit
 autocontain google\.com Google
 autocontain youtube\.com YouTube
