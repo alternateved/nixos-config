@@ -6,7 +6,7 @@ fg=$(xrdb -query | grep '*.foreground' | cut -f2- -d'#')
 
 # DMENU="dmenu -nb #${bg} -nf #${fg} -sf #${bg} -sb #${fg} -fn Iosevka"
 DMENU="rofi -dmenu"
-DMBROWSER="qutebrowser"
+DMBROWSER="firefox"
 DMTERM="alacritty -e"
 DMEDITOR="emacsclient -c -a emacs"
 
