@@ -136,12 +136,12 @@ auxCommands =
 -------------------------------------------------------------------------
 -- COLORS
 -------------------------------------------------------------------------
-colorBg, colorFg, colorHiWhite, colorLoGrey, colorHiGrey, colorRed, colorBlue, colorGreen :: String
+colorBg, colorFg, colorHiWhite, colorLoGray, colorHiGray, colorRed, colorBlue, colorGreen :: String
 colorBg       = basebg
 colorFg       = basefg
 colorHiWhite  = base15
-colorLoGrey   = base00
-colorHiGrey   = base08
+colorLoGray   = base00
+colorHiGray   = base08
 colorRed      = base01
 colorBlue     = base04
 colorGreen    = base02

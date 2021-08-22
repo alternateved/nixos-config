@@ -107,24 +107,24 @@ myNormColor :: String
 myNormColor = colorBg
 
 myFocusColor :: String
-myFocusColor = colorFg
+myFocusColor = colorHiGray
 
 -- Base colors
-colorBg, colorFg, colorHiWhite, colorLoGrey, colorHiGrey, colorRed, colorBlue, colorGreen :: String
+colorBg, colorFg, colorHiWhite, colorLoGray, colorHiGray, colorRed, colorBlue, colorGreen :: String
 colorBg       = basebg
 colorFg       = basefg
 colorHiWhite  = base15
-colorLoGrey   = base00
-colorHiGrey   = base08
+colorLoGray   = base00
+colorHiGray   = base08
 colorRed      = base01
 colorBlue     = base04
 colorGreen    = base02
 
-hiWhite, loWhite, loGrey, hiGrey, red :: String -> String
+hiWhite, loWhite, loGray, hiGray, red :: String -> String
 loWhite = xmobarColor colorFg ""
 hiWhite = xmobarColor colorHiWhite ""
-loGrey  = xmobarColor colorLoGrey ""
-hiGrey  = xmobarColor colorHiGrey ""
+loGray  = xmobarColor colorLoGray ""
+hiGray  = xmobarColor colorHiGray ""
 red     = xmobarColor colorRed ""
 
 hiWhiteL :: Logger -> Logger
@@ -146,6 +146,7 @@ myManageHook = composeAll
     , className =? "discord" --> doShift (myWorkspaces !! 1)
     , className =? "mpv" --> doShift (myWorkspaces !! 4)
     , className =? "Spotify" --> doShift (myWorkspaces !! 4)
+    , className =? "Sxiv" --> doCenterFloat
     , isDialog --> doCenterFloat
     , insertPosition Below Newer
     ] <+> namedScratchpadManageHook myScratchPads
@@ -171,9 +172,9 @@ myTabConfig :: Theme
 myTabConfig = def
     { fontName = myFont
     , activeTextColor = colorBg
-    , activeColor = colorFg
-    , activeBorderColor = colorFg
-    , inactiveTextColor = colorFg
+    , activeColor = colorHiGray
+    , activeBorderColor = colorHiGray
+    , inactiveTextColor = colorHiGray
     , inactiveColor = colorBg
     , inactiveBorderColor = colorBg
     , urgentTextColor = colorBg
@@ -292,7 +293,6 @@ myKeys =
 
     -- Scratchpads
   , ("M-s t", scratchTerm)
-  , ("M-s c", scratchCalc)
   , ("M-s v", scratchMixer)
   , ("M-s m", scratchMonitor)
   , ("M-s s", scratchPlayer)
@@ -339,7 +339,6 @@ myKeys =
 myScratchPads :: [NamedScratchpad]
 myScratchPads =
   [ NS "terminal"   spawnTerm    findTerm    medium
-  , NS "calculator" spawnCalc    findCalc    small
   , NS "volumectl"  spawnMixer   findMixer   small
   , NS "monitor"    spawnMonitor findMonitor medium
   , NS "player"     spawnPlayer  findPlayer  medium
@@ -347,9 +346,6 @@ myScratchPads =
   where
     spawnTerm = myTerminal ++ " --title scratchpad"
     findTerm = title =? "scratchpad"
-
-    spawnCalc = "qalculate-gtk"
-    findCalc = className =? "Qalculate-gtk"
 
     spawnMixer = myTerminal ++ " --title pulsemixer -e pulsemixer"
     findMixer = title =? "pulsemixer"
@@ -364,10 +360,9 @@ myScratchPads =
     medium = customFloating $ W.RationalRect (1 / 6) (1 / 6) (2 / 3) (2 / 3)
     large = customFloating $ W.RationalRect (1 / 10) (1 / 10) (4 / 5) (4 / 5)
 
-scratchTerm, scratchMixer, scratchCalc, scratchMonitor :: X ()
+scratchTerm, scratchMixer, scratchMonitor :: X ()
 scratchTerm    = namedScratchpadAction myScratchPads "terminal"
 scratchMixer   = namedScratchpadAction myScratchPads "volumectl"
-scratchCalc    = namedScratchpadAction myScratchPads "calculator"
 scratchMonitor = namedScratchpadAction myScratchPads "monitor"
 scratchPlayer  = namedScratchpadAction myScratchPads "player"
 
@@ -394,14 +389,12 @@ myXPConfig = def
     , searchPredicate = fuzzyMatch
     , alwaysHighlight = True
     , maxComplRows = Just 3
-    , changeModeKey = xK_Super_L
     }
 
 myXPConfig' :: XPConfig
 myXPConfig' = myXPConfig
     { autoComplete = Nothing
     }
-
 
 -------------------------------------------------------------------------
 -- 2D NAVIGATION
@@ -418,8 +411,8 @@ mainXmobarPP :: ScreenId -> X PP
 mainXmobarPP s = clickablePP . namedScratchpadFilterOutWorkspacePP $ def
       { ppCurrent = hiWhite . xmobarBorder "Bottom" myFocusColor 1
       , ppVisible = hiWhite
-      , ppHidden = hiGrey
-      , ppHiddenNoWindows = loGrey
+      , ppHidden = hiGray
+      , ppHiddenNoWindows = loGray
       , ppUrgent = red
       , ppTitle = loWhite . shorten 60
       , ppSep = loWhite " | "
