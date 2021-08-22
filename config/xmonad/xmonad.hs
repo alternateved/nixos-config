@@ -56,7 +56,6 @@ import XMonad.Prompt.DirExec (dirExecPromptNamed)
 import XMonad.Prompt.FuzzyMatch (fuzzyMatch)
 import XMonad.Prompt.Shell (getCommands, getShellCompl, shellPrompt)
 import XMonad.Prompt.Window (WindowPrompt (Bring, Goto), windowPrompt, allWindows)
-import XMonad.Prompt.XMonad (xmonadPrompt)
 import qualified XMonad.StackSet as W
 -- Utilities
 import XMonad.Util.ClickableWorkspaces (clickablePP)
@@ -249,7 +248,6 @@ myKeys =
   , ("M-S-q", dirExecPromptNamed myXPConfig' spawn (myDots ++ "/scripts/session") "Session: ")
   , ("M-'", windowPrompt myXPConfig Bring allWindows)
   , ("M-S-'", windowPrompt myXPConfig Goto allWindows)
-  , ("M-S-;", xmonadPrompt myXPConfig)
 
   -- Workspace management
   , ("M-y a", addWorkspacePrompt myXPConfig')
