@@ -57,11 +57,6 @@ set searchurls.wiki https://en.wikipedia.org/wiki/
 set searchurls.git https://www.github.com/search?q=
 set searchurls.yt https://www.youtube.com/results?search_query=
 
-" Containers
-autocontain reddit\.com Reddit
-autocontain google\.com Google
-autocontain youtube\.com YouTube
-
 " Sometimes the status bar in the bottom left corner overlaps the Tridactyl
 " command line, so set an option to move the status bar to the right.
 guiset_quiet tabs count
