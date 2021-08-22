@@ -18,7 +18,7 @@ import XMonad hiding ((|||))
 import XMonad.Actions.CopyWindow (kill1)
 import XMonad.Actions.DynamicWorkspaces (addWorkspacePrompt, renameWorkspace, removeWorkspace, withNthWorkspace)
 import XMonad.Actions.GroupNavigation (Direction (History), historyHook, nextMatch,)
-import XMonad.Actions.Navigation2D (Direction2D(U, D, L, R), windowGo, windowSwap)
+import XMonad.Actions.Navigation2D (Direction2D(U, D, L, R), defaultTiledNavigation, centerNavigation, layoutNavigation, sideNavigation, singleWindowRect, unmappedWindowRect, windowGo, windowSwap, withNavigation2DConfig)
 import XMonad.Actions.Promote (promote)
 import XMonad.Actions.RotSlaves (rotSlavesDown)
 import XMonad.Actions.UpdatePointer (updatePointer)
@@ -45,16 +45,14 @@ import XMonad.Layout.ResizableTile (MirrorResize (..), ResizableTall (ResizableT
 import XMonad.Layout.Spacing (Border (Border), Spacing, spacingRaw)
 import XMonad.Layout.Tabbed (Theme (..), addTabs, shrinkText)
 import XMonad.Layout.ThreeColumns (ThreeCol (ThreeColMid))
-import XMonad.Layout.PerWorkspace (onWorkspace)
 import XMonad.Layout.Simplest (Simplest (..))
 import XMonad.Layout.SubLayouts (GroupMsg (UnMerge), mergeDir, onGroup, subLayout)
 import XMonad.Layout.WorkspaceDir (changeDir, workspaceDir)
 import XMonad.Operations
 -- Prompt
-import XMonad.Prompt (XPConfig (..), XPPosition (Top), XPrompt, completionToCommand, mkXPrompt, showXPrompt, vimLikeXPKeymap)
+import XMonad.Prompt (XPConfig (..), XPPosition (Top), vimLikeXPKeymap)
 import XMonad.Prompt.DirExec (dirExecPromptNamed)
 import XMonad.Prompt.FuzzyMatch (fuzzyMatch)
-import XMonad.Prompt.Shell (getCommands, getShellCompl, shellPrompt)
 import XMonad.Prompt.Window (WindowPrompt (Bring, Goto), windowPrompt, allWindows)
 import qualified XMonad.StackSet as W
 -- Utilities
@@ -62,8 +60,7 @@ import XMonad.Util.ClickableWorkspaces (clickablePP)
 import XMonad.Util.EZConfig (additionalKeysP)
 import XMonad.Util.Loggers (Logger, logCurrentOnScreen, logLayoutOnScreen, logTitleOnScreen, shortenL, xmobarColorL)
 import XMonad.Util.NamedScratchpad (NamedScratchpad (NS), customFloating, namedScratchpadAction, namedScratchpadFilterOutWorkspacePP, namedScratchpadManageHook)
-import XMonad.Util.Run (runProcessWithInput, unsafeSpawn)
-import XMonad.Util.SpawnOnce (spawnOnce)
+import XMonad.Util.Run (runProcessWithInput)
 import XMonad.Util.Ungrab (unGrab)
 
 -------------------------------------------------------------------------
@@ -131,7 +128,7 @@ hiGrey  = xmobarColor colorHiGrey ""
 red     = xmobarColor colorRed ""
 
 hiWhiteL :: Logger -> Logger
-hiWhiteL     = xmobarColorL colorHiWhite ""
+hiWhiteL = xmobarColorL colorHiWhite ""
 
 -------------------------------------------------------------------------
 -- STARTUPHOOK
@@ -149,7 +146,6 @@ myManageHook = composeAll
     , className =? "discord" --> doShift (myWorkspaces !! 1)
     , className =? "mpv" --> doShift (myWorkspaces !! 4)
     , className =? "Spotify" --> doShift (myWorkspaces !! 4)
-    , className =? "Firefox Developer Edition" --> doShift (myWorkspaces !! 4)
     , isDialog --> doCenterFloat
     , insertPosition Below Newer
     ] <+> namedScratchpadManageHook myScratchPads
@@ -192,8 +188,8 @@ mySpacing :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spaci
 mySpacing i = spacingRaw True (Border 0 i 0 i) True (Border i 0 i 0) True
 
 monocle = renamed [Replace "monocle"]
+          $ addTabs shrinkText myTabConfig . subLayout [] Simplest
           $ avoidStruts
-          $ noBorders
           $ Full
 
 tall    = renamed [Replace "tall"]
@@ -201,13 +197,6 @@ tall    = renamed [Replace "tall"]
           $ avoidStruts
           $ mySpacing 5
           $ ResizableTall 1 (3 / 100) (1 / 2) []
-
-wide    = renamed [Replace "wide"]
-          $ addTabs shrinkText myTabConfig . subLayout [] Simplest
-          $ avoidStruts
-          $ mySpacing 5
-          $ Mirror
-          $ ResizableTall 1 (3 / 100) (3 / 4) []
 
 columns = renamed [Replace "columns"]
           $ addTabs shrinkText myTabConfig . subLayout [] Simplest
@@ -218,15 +207,11 @@ columns = renamed [Replace "columns"]
 myLayoutHook = workspaceDir myHome
                $ smartBorders
                $ mkToggle (NBFULL ?? NOBORDERS ?? EOT)
-               $ secondLayout . thirdLayout . fourthLayout $ myDefaultLayout
-             where
-               secondLayout = onWorkspace "Communication" (tall    ||| wide ||| columns ||| monocle)
-               thirdLayout  = onWorkspace "Development"   (columns ||| tall ||| wide    ||| monocle)
-               fourthLayout  = onWorkspace "System"       (tall    ||| wide ||| columns ||| monocle)
-               myDefaultLayout =      monocle
-                                  ||| tall
-                                  ||| wide
+               $ myDefaultLayout
+            where
+               myDefaultLayout =      tall
                                   ||| columns
+                                  ||| monocle
 
 -------------------------------------------------------------------------
 -- KEYBINDINGS
@@ -243,11 +228,12 @@ myKeys =
   , ("M-S-<Return>", spawn myTerminal)
 
     -- Prompts
-  , ("M-p", shellPrompt myXPConfig)
-  , ("M-S-p", myPrompt myTerminal myXPConfig)
-  , ("M-S-q", dirExecPromptNamed myXPConfig' spawn (myDots ++ "/scripts/session") "Session: ")
-  , ("M-'", windowPrompt myXPConfig Bring allWindows)
-  , ("M-S-'", windowPrompt myXPConfig Goto allWindows)
+  , ("M-p", spawn "rofi -show drun")
+  , ("M-C-p", spawn ("bash " ++ myDots ++ "/scripts/hub"))
+  , ("M-S-q", spawn ("bash " ++ myDots ++ "/scripts/exit"))
+  , ("M-C-q", spawn ("bash " ++ myDots ++ "/scripts/kill"))
+  , ("M-'", spawn "rofi -show windowcd")
+  , ("M-S-'", spawn "rofi -show window")
 
   -- Workspace management
   , ("M-y a", addWorkspacePrompt myXPConfig')
@@ -293,10 +279,9 @@ myKeys =
   , ("M-d", sendMessage (IncMasterN (-1)))
   , ("M-b", sendMessage ToggleStruts)
 
-  , ("M-a m", sendMessage $ JumpToLayout "monocle")
   , ("M-a t", sendMessage $ JumpToLayout "tall")
-  , ("M-a w", sendMessage $ JumpToLayout "wide")
   , ("M-a c", sendMessage $ JumpToLayout "columns")
+  , ("M-a m", sendMessage $ JumpToLayout "monocle")
   , ("M-f", sendMessage $ MT.Toggle NBFULL)
 
    -- SubLayouts
@@ -310,6 +295,7 @@ myKeys =
   , ("M-s c", scratchCalc)
   , ("M-s v", scratchMixer)
   , ("M-s m", scratchMonitor)
+  , ("M-s s", scratchPlayer)
 
     -- Notifications
   , ("C-S-\\", spawn "dunstctl set-paused toggle")
@@ -323,6 +309,9 @@ myKeys =
   , ("<XF86AudioMute>", spawn "amixer -q set Master toggle")
   , ("<XF86AudioLowerVolume>", spawn "amixer -q set Master 5%-")
   , ("<XF86AudioRaiseVolume>", spawn "amixer -q set Master 5%+")
+  , ("<XF86AudioPlay>", spawn "playerctl --player=spotify play-pause")
+  , ("<XF86AudioNext>", spawn "playerctl --player=spotify next")
+  , ("<XF86AudioPrev>", spawn "playerctl --player=spotify previous")
   , ("<XF86MonBrightnessUp>", spawn "xbacklight -inc 10")
   , ("<XF86MonBrightnessDown>", spawn "xbacklight -dec 10")
   , ("M-<Insert>", unGrab *> spawn "flameshot screen -p ~/Pictures/Screenshots")
@@ -353,6 +342,7 @@ myScratchPads =
   , NS "calculator" spawnCalc    findCalc    small
   , NS "volumectl"  spawnMixer   findMixer   small
   , NS "monitor"    spawnMonitor findMonitor medium
+  , NS "player"     spawnPlayer  findPlayer  medium
   ]
   where
     spawnTerm = myTerminal ++ " --title scratchpad"
@@ -367,6 +357,9 @@ myScratchPads =
     spawnMonitor = myTerminal ++ " --title htop -e htop"
     findMonitor = title =? "htop"
 
+    spawnPlayer = myTerminal ++ " --title ncspot -e ncspot"
+    findPlayer = title =? "ncspot"
+
     small = customFloating $ W.RationalRect (1 / 4) (1 / 4) (1 / 2) (1 / 2)
     medium = customFloating $ W.RationalRect (1 / 6) (1 / 6) (2 / 3) (2 / 3)
     large = customFloating $ W.RationalRect (1 / 10) (1 / 10) (4 / 5) (4 / 5)
@@ -376,27 +369,7 @@ scratchTerm    = namedScratchpadAction myScratchPads "terminal"
 scratchMixer   = namedScratchpadAction myScratchPads "volumectl"
 scratchCalc    = namedScratchpadAction myScratchPads "calculator"
 scratchMonitor = namedScratchpadAction myScratchPads "monitor"
-
--------------------------------------------------------------------------
--- PROMPT
--------------------------------------------------------------------------
-data TShell = TShell
-
-instance XPrompt TShell where
-  showXPrompt TShell = "Run in terminal: "
-  completionToCommand _ = escape
-    where
-      escape (x : xs)
-        | isSpecialChar x = '\\' : x : escape xs
-        | otherwise = x : escape xs
-      isSpecialChar = flip elem " &\\@\"'#?$*()[]{};"
-
-myPrompt :: FilePath -> XPConfig -> X ()
-myPrompt c config = do
-  cmds <- io getCommands
-  mkXPrompt TShell config (getShellCompl cmds $ searchPredicate config) run
-  where
-    run a = unsafeSpawn $ c ++ " -e " ++ a
+scratchPlayer  = namedScratchpadAction myScratchPads "player"
 
 -------------------------------------------------------------------------
 -- PROMPT CONFIGURATION
@@ -428,6 +401,15 @@ myXPConfig' :: XPConfig
 myXPConfig' = myXPConfig
     { autoComplete = Nothing
     }
+
+
+-------------------------------------------------------------------------
+-- 2D NAVIGATION
+-------------------------------------------------------------------------
+myNavigation2DConfig = def { defaultTiledNavigation = sideNavigation
+                           , layoutNavigation       = [("monocle", centerNavigation)]
+                           , unmappedWindowRect     = [("monocle", singleWindowRect)]
+                           }
 
 -------------------------------------------------------------------------
 -- XMOBAR CONFIGURATION
@@ -501,7 +483,6 @@ base02 = xprop "*.color2"
 base04 = xprop "*.color4"
 base15 = xprop "*.color15"
 
-
 -------------------------------------------------------------------------
 -- NIXOS RESTART HOOK
 -------------------------------------------------------------------------
@@ -537,6 +518,7 @@ main = xmonad
      . docks
      . ewmh
      . ewmhFullscreen
+     . withNavigation2DConfig myNavigation2DConfig
      . withUrgencyHook NoUrgencyHook
      . dynamicSBs barSpawner
      $ myConfig
