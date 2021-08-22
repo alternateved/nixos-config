@@ -13,24 +13,28 @@
   };
 
   outputs = { nixpkgs, nixos-hardware, home-manager, nur, emacs-overlay, xmonad
-    , xmonad-contrib, ... }: {
+    , xmonad-contrib, ... }:
+    let
+      system = "x86_64-linux";
+      pkgs = import nixpkgs {
+        inherit system;
+        config = { allowUnfree = true; };
+        overlays = [
+          nur.overlay
+          emacs-overlay.overlay
+          xmonad.overlay
+          xmonad-contrib.overlay
+          (import ./overlays)
+        ];
+      };
+    in {
       nixosConfigurations = {
         teishi = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
+          inherit pkgs system;
           modules = [
             ./hosts/teishi
             home-manager.nixosModules.home-manager
             {
-              nixpkgs = {
-                config = { allowUnfree = true; };
-                overlays = [
-                  nur.overlay
-                  emacs-overlay.overlay
-                  xmonad.overlay
-                  xmonad-contrib.overlay
-                  (import ./overlays)
-                ];
-              };
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users.alternateved = import ./modules/extended.nix;
