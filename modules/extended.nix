@@ -37,7 +37,6 @@
     neofetch
     unrar
     unzip
-    qalculate-gtk
     xarchiver
     xwallpaper
     xsecurelock
@@ -47,7 +46,6 @@
     xclip
     killall
     xorg.xkill
-    xorg.xwininfo
 
     # Theming
     gnome.gnome-themes-extra
@@ -74,6 +72,7 @@
     fd
     ripgrep
 
+    # Doom module dependencies
     gnumake
     cmake
     gcc
