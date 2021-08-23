@@ -154,9 +154,9 @@ hc keybind XF86AudioRaiseVolume spawn amixer -q set Master 5%+ unmute
 hc keybind XF86AudioLowerVolume spawn amixer -q set Master 5%- unmute
 hc keybind XF86AudioMute spawn amixer -q set Master toggle
 
-hc keybind XF86AudioPlay chain , spawn playerctl --player=spotify play-pause , spawn playerctl --player=ncspot play-pause
-hc keybind XF86AudioNext chain , spawn playerctl --player=spotify next , spawn playerctl --player=ncspot next
-hc keybind XF86AudioPrev chain , spawn playerctl --player=spotify previous , spawn playerctl --player=ncspot previous
+hc keybind XF86AudioPlay chain , spawn playerctl --player=spotify,ncspot play-pause
+hc keybind XF86AudioNext chain , spawn playerctl --player=spotify,ncspot next
+hc keybind XF86AudioPrev chain , spawn playerctl --player=spotify,ncspot previous
 
 # Notifications
 hc keybind Control-Shift-backslash spawn dunstctl set-paused toggle
