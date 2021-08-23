@@ -61,6 +61,7 @@ import XMonad.Util.EZConfig (additionalKeysP)
 import XMonad.Util.Loggers (Logger, logCurrentOnScreen, logLayoutOnScreen, logTitleOnScreen, shortenL, xmobarColorL)
 import XMonad.Util.NamedScratchpad (NamedScratchpad (NS), customFloating, namedScratchpadAction, namedScratchpadFilterOutWorkspacePP, namedScratchpadManageHook)
 import XMonad.Util.Run (runProcessWithInput)
+import XMonad.Util.SpawnOnce (spawnOnce)
 import XMonad.Util.Ungrab (unGrab)
 
 -------------------------------------------------------------------------
@@ -134,7 +135,11 @@ hiWhiteL = xmobarColorL colorHiWhite ""
 -- STARTUPHOOK
 -------------------------------------------------------------------------
 myStartupHook :: X ()
-myStartupHook = setWMName "LG3D"
+myStartupHook = do
+  spawnOnce "xsetroot -cursor_name left_ptr"
+  spawnOnce "xargs xwallpaper --stretch < ~/.cache/wall"
+  spawnOnce "autorandr -cf"
+  setWMName "LG3D"
 
 -------------------------------------------------------------------------
 -- MANAGEHOOK
@@ -309,9 +314,9 @@ myKeys =
   , ("<XF86AudioMute>", spawn "amixer -q set Master toggle")
   , ("<XF86AudioLowerVolume>", spawn "amixer -q set Master 5%-")
   , ("<XF86AudioRaiseVolume>", spawn "amixer -q set Master 5%+")
-  , ("<XF86AudioPlay>", spawn "playerctl --player=spotify play-pause")
-  , ("<XF86AudioNext>", spawn "playerctl --player=spotify next")
-  , ("<XF86AudioPrev>", spawn "playerctl --player=spotify previous")
+  , ("<XF86AudioPlay>", spawn "playerctl --player=spotify,ncspot play-pause")
+  , ("<XF86AudioNext>", spawn "playerctl --player=spotify,ncspot next")
+  , ("<XF86AudioPrev>", spawn "playerctl --player=spotify,ncspot previous")
   , ("<XF86MonBrightnessUp>", spawn "xbacklight -inc 10")
   , ("<XF86MonBrightnessDown>", spawn "xbacklight -dec 10")
   , ("M-<Insert>", unGrab *> spawn "flameshot screen -p ~/Pictures/Screenshots")
@@ -409,7 +414,7 @@ myNavigation2DConfig = def { defaultTiledNavigation = sideNavigation
 -------------------------------------------------------------------------
 mainXmobarPP :: ScreenId -> X PP
 mainXmobarPP s = clickablePP . namedScratchpadFilterOutWorkspacePP $ def
-      { ppCurrent = hiWhite . xmobarBorder "Bottom" myFocusColor 1
+      { ppCurrent = hiWhite . xmobarBorder "Bottom" colorFg 1
       , ppVisible = hiWhite
       , ppHidden = hiGray
       , ppHiddenNoWindows = loGray
