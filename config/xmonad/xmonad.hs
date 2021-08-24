@@ -16,11 +16,11 @@ import System.IO.Unsafe (unsafeDupablePerformIO)
 import XMonad hiding ((|||))
 -- Actions
 import XMonad.Actions.CopyWindow (kill1)
+import XMonad.Actions.CycleWS (prevWS, nextWS)
 import XMonad.Actions.DynamicWorkspaces (addWorkspacePrompt, renameWorkspace, removeWorkspace, withNthWorkspace)
 import XMonad.Actions.GroupNavigation (Direction (History), historyHook, nextMatch,)
 import XMonad.Actions.Navigation2D (Direction2D (..), defaultTiledNavigation, centerNavigation, layoutNavigation, sideNavigation, singleWindowRect, unmappedWindowRect, windowGo, windowSwap, withNavigation2DConfig)
 import XMonad.Actions.Promote (promote)
-import XMonad.Actions.RotSlaves (rotSlavesDown)
 import XMonad.Actions.UpdatePointer (updatePointer)
 import XMonad.Actions.WithAll (killAll, sinkAll)
 -- Hooks
@@ -36,10 +36,11 @@ import XMonad.Hooks.UrgencyHook (NoUrgencyHook (NoUrgencyHook), clearUrgents, fo
 -- Layouts
 import XMonad.Layout.LayoutCombinators ((|||), JumpToLayout (JumpToLayout))
 import XMonad.Layout.LayoutModifier (ModifiedLayout)
-import XMonad.Layout.MultiToggle (mkToggle, EOT(EOT), (??))
+import XMonad.Layout.MultiToggle (mkToggle, single, EOT(EOT), (??))
 import XMonad.Layout.MultiToggle.Instances (StdTransformers (NBFULL, NOBORDERS))
 import qualified XMonad.Layout.MultiToggle as MT (Toggle (..))
 import XMonad.Layout.NoBorders (noBorders, smartBorders)
+import XMonad.Layout.Reflect (REFLECTX (..))
 import XMonad.Layout.Renamed (Rename (Replace), renamed)
 import XMonad.Layout.ResizableTile (MirrorResize (..), ResizableTall (ResizableTall))
 import XMonad.Layout.Spacing (Border (Border), Spacing, spacingRaw)
@@ -193,11 +194,6 @@ myTabConfig = def
 mySpacing :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
 mySpacing i = spacingRaw True (Border 0 i 0 i) True (Border i 0 i 0) True
 
-monocle = renamed [Replace "monocle"]
-          $ addTabs shrinkText myTabConfig . subLayout [] Simplest
-          $ avoidStruts
-          $ Full
-
 tall    = renamed [Replace "tall"]
           $ addTabs shrinkText myTabConfig . subLayout [] Simplest
           $ avoidStruts
@@ -210,8 +206,14 @@ columns = renamed [Replace "columns"]
           $ mySpacing 5
           $ ThreeColMid 1 (3 / 100) (12 / 30)
 
+monocle = renamed [Replace "monocle"]
+          $ addTabs shrinkText myTabConfig . subLayout [] Simplest
+          $ avoidStruts
+          $ Full
+
 myLayoutHook = workspaceDir myHome
                $ smartBorders
+               $ mkToggle (single REFLECTX)
                $ mkToggle (NBFULL ?? NOBORDERS ?? EOT)
                $ myDefaultLayout
             where
@@ -268,8 +270,11 @@ myKeys =
   , ("M-S-l", windowSwap R False)
   , ("M-n", windows W.focusDown)
   , ("M-S-n", windows W.focusUp)
+  , ("M1-<Tab>", windows W.focusDown)
+  , ("M1-S-<Tab>", windows W.focusUp)
+  , ("M-<Tab>", nextWS)
+  , ("M-S-<Tab>", prevWS)
   , ("M-<Backspace>", promote)
-  , ("M-S-<Tab>", rotSlavesDown)
 
     -- Urgent windows
   , ("M-u", focusUrgent)
@@ -283,6 +288,7 @@ myKeys =
   , ("M-C-k", sendMessage MirrorExpand)
   , ("M-i", sendMessage (IncMasterN 1))
   , ("M-d", sendMessage (IncMasterN (-1)))
+  , ("M-r", sendMessage (MT.Toggle REFLECTX))
   , ("M-b", sendMessage ToggleStruts)
 
   , ("M-a t", sendMessage $ JumpToLayout "tall")
