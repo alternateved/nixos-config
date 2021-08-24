@@ -67,7 +67,6 @@ in {
 
       displayManager = {
         defaultSession = "none+myxmonad";
-        # defaultSession = "none+herbstluftwm";
         autoLogin.enable = true;
         autoLogin.user = "alternateved";
         sessionCommands = ''
@@ -89,8 +88,6 @@ in {
         };
 
       };
-
-      # windowManager.herbstluftwm.enable = true;
 
       windowManager = {
         session = [{
