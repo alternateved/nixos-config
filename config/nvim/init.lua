@@ -45,6 +45,7 @@ opt.termguicolors = true            -- True color support
 opt.wildmode = {'list', 'longest'}  -- Command-line completion mode
 opt.wrap = false                    -- Disable line wrap
 opt.mouse = 'a'
+opt.undofile = true                 -- persistent undo
 opt.clipboard = "unnamedplus"
 g.mapleader = " "
 
