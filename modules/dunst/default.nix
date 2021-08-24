@@ -5,7 +5,7 @@ in {
   services.dunst = {
     enable = true;
     iconTheme = {
-      name = "Tela black dark";
+      name = "Tela";
       package = pkgs.tela-icon-theme;
       size = "22x22";
     };

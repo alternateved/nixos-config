@@ -48,7 +48,7 @@ in {
     };
     extraConfig = {
       modi = "drun,run,window,windowcd";
-      icon-theme = "Tela black dark";
+      icon-theme = "Tela";
       cycle = true;
       disable-history = false;
       kb-accept-entry = "Return,Control+m,KP_Enter";
