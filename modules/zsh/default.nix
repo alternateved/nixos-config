@@ -10,13 +10,16 @@
       history = {
         ignoreDups = true;
         ignoreSpace = false;
-        size = 500;
+        expireDuplicatesFirst = true;
+        size = 1000;
         share = true;
         path = "$HOME/.cache/zsh_history";
       };
       initExtra = ''
         bindkey "^[[1;5C" forward-word
         bindkey "^[[1;5D" backward-word
+        bindkey '^[[A' history-substring-search-up
+        bindkey '^[[B' history-substring-search-down
       '';
       shellAliases = {
         cp = "cp -i"; # Confirm before overwriting something
