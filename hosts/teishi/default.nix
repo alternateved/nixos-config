@@ -72,10 +72,7 @@ in {
         autoLogin.user = "alternateved";
         sessionCommands = ''
           bluetoothctl power on
-          autorandr -cf
-          xsetroot -cursor_name left_ptr
           xrdb ~/.Xresources
-          xargs xwallpaper --stretch < ~/.cache/wall
         '';
         lightdm.greeters.mini = {
           enable = true;
