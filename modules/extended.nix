@@ -21,7 +21,6 @@
     ./nnn
     ./neovim
     ./picom
-    # ./polybar
     ./redshift
     ./rofi
     ./starship/lambda.nix
@@ -46,7 +45,6 @@
     xclip
     killall
     xorg.xkill
-    xorg.xwininfo
 
     # Theming
     gnome.gnome-themes-extra
