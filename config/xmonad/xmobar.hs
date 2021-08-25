@@ -27,7 +27,7 @@ import Xmobar
         template
       ),
     Date (Date),
-    Monitors (Alsa, Battery, Cpu, Memory, Network, Weather),
+    Monitors (Battery, Cpu, Memory, Network, Weather),
     Runnable (..),
     StdinReader (UnsafeStdinReader),
     XMonadLog (UnsafeXPropertyLog),
