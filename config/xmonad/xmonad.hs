@@ -51,10 +51,11 @@ import XMonad.Layout.SubLayouts (GroupMsg (UnMerge), mergeDir, onGroup, subLayou
 import XMonad.Layout.WorkspaceDir (changeDir, workspaceDir)
 import XMonad.Operations
 -- Prompt
-import XMonad.Prompt (XPConfig (..), XPPosition (Top), vimLikeXPKeymap)
+import XMonad.Prompt (XPConfig (..), XPPosition (CenteredAt), vimLikeXPKeymap)
 import XMonad.Prompt.DirExec (dirExecPromptNamed)
 import XMonad.Prompt.FuzzyMatch (fuzzyMatch)
-import XMonad.Prompt.Window (WindowPrompt (Bring, Goto), windowPrompt, allWindows)
+import XMonad.Prompt.Shell (shellPrompt)
+import XMonad.Prompt.Window (WindowPrompt (Bring, Goto), windowPrompt, allWindows, wsWindows)
 import qualified XMonad.StackSet as W
 -- Utilities
 import XMonad.Util.ClickableWorkspaces (clickablePP)
@@ -152,6 +153,7 @@ myManageHook = composeAll
     , className =? "discord" --> doShift (myWorkspaces !! 1)
     , className =? "mpv" --> doShift (myWorkspaces !! 4)
     , className =? "Spotify" --> doShift (myWorkspaces !! 4)
+    , className =? "Peek" --> doCenterFloat
     , className =? "Sxiv" --> doCenterFloat
     , isDialog --> doCenterFloat
     , insertPosition Below Newer
@@ -236,12 +238,10 @@ myKeys =
   , ("M-S-<Return>", spawn myTerminal)
 
     -- Prompts
-  , ("M-p", spawn "rofi -show drun")
-  , ("M-C-p", spawn ("bash " ++ myDots ++ "/scripts/hub"))
-  , ("M-S-q", spawn ("bash " ++ myDots ++ "/scripts/exit"))
-  , ("M-C-q", spawn ("bash " ++ myDots ++ "/scripts/kill"))
-  , ("M-'", spawn "rofi -show windowcd")
-  , ("M-S-'", spawn "rofi -show window")
+  , ("M-p", shellPrompt myXPConfig)
+  , ("M-S-q", dirExecPromptNamed myXPConfig' spawn (myDots ++ "/xmonad/scripts") "Session: ")
+  , ("M-'", windowPrompt myXPConfig Goto wsWindows)
+  , ("M-S-'", windowPrompt myXPConfig Bring allWindows)
 
   -- Workspace management
   , ("M-y a", addWorkspacePrompt myXPConfig')
@@ -328,6 +328,8 @@ myKeys =
   , ("M-<Insert>", unGrab *> spawn "flameshot screen -p ~/Pictures/Screenshots")
   , ("M-S-<Insert>", unGrab *> spawn "flameshot gui")
   , ("M-C-<KP_Equal>", spawn "autorandr -cf")
+  , ("M-<F2>", spawn "echo $(sxiv -t -o ~/Pictures/Wallpapers) > /home/alternateved/.cache/wall; xargs xwallpaper --stretch < ~/.cache/wall")
+
   ]
   ++ workspaceKeys
   ++ screenKeys
@@ -387,19 +389,18 @@ myXPConfig = def
     , fgColor = colorFg
     , bgHLight = colorFg
     , fgHLight = colorBg
-    , borderColor = colorBg
-    , promptBorderWidth = 0
-    , position = Top
-    , height = 18
+    , borderColor = colorHiGray
+    , promptBorderWidth = 2
+    , position        = CenteredAt (2 / 4) (2 / 4)
+    , height = 38
     , historySize = 100
     , historyFilter = id
     , defaultText = []
     , autoComplete = Just 100000
     , showCompletionOnTab = False
-    , promptKeymap = vimLikeXPKeymap
     , searchPredicate = fuzzyMatch
     , alwaysHighlight = True
-    , maxComplRows = Just 3
+    , maxComplRows = Just 5
     }
 
 myXPConfig' :: XPConfig
@@ -410,10 +411,7 @@ myXPConfig' = myXPConfig
 -------------------------------------------------------------------------
 -- 2D NAVIGATION
 -------------------------------------------------------------------------
-myNavigation2DConfig = def { defaultTiledNavigation = sideNavigation
-                           , layoutNavigation       = [("monocle", centerNavigation)]
-                           , unmappedWindowRect     = [("monocle", singleWindowRect)]
-                           }
+myNavigation2DConfig = def { defaultTiledNavigation = sideNavigation }
 
 -------------------------------------------------------------------------
 -- XMOBAR CONFIGURATION
