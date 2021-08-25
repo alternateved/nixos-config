@@ -22,7 +22,6 @@
     ./neovim
     ./picom
     ./redshift
-    ./rofi
     ./starship/lambda.nix
     ./theme
     ./zathura
