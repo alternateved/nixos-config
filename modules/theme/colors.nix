@@ -12,12 +12,12 @@
   white = "#E4E4E8";
 
   bright-black = "#879193";
-  bright-red = "#C93237";
-  bright-green = "#35BF88";
+  bright-red = "#c86d6d";
+  bright-green = "#90aea1";
   bright-yellow = "#EED891";
-  bright-blue = "#3B84CC";
-  bright-magenta = "#D24B83";
-  bright-cyan = "#68F3CA";
+  bright-blue = "#C6D5E8";
+  bright-magenta = "#ab98b5";
+  bright-cyan = "#65a0a1";
   bright-white = "#EFEFF1";
 }
 

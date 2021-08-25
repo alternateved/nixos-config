@@ -21,6 +21,7 @@ in {
         shape = "Underline";
         blinking = "On";
       };
+      draw_bold_text_with_bright_colors = true;
       colors = {
         primary = {
           background = colors.background;
