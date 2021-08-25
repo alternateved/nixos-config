@@ -51,9 +51,10 @@ import XMonad.Layout.SubLayouts (GroupMsg (UnMerge), mergeDir, onGroup, subLayou
 import XMonad.Layout.WorkspaceDir (changeDir, workspaceDir)
 import XMonad.Operations
 -- Prompt
-import XMonad.Prompt (XPConfig (..), XPPosition (CenteredAt), vimLikeXPKeymap)
+import XMonad.Prompt (XPConfig (..), XPPosition (CenteredAt))
 import XMonad.Prompt.DirExec (dirExecPromptNamed)
 import XMonad.Prompt.FuzzyMatch (fuzzyMatch)
+import XMonad.Prompt.Man (manPrompt)
 import XMonad.Prompt.Shell (shellPrompt)
 import XMonad.Prompt.Window (WindowPrompt (Bring, Goto), windowPrompt, allWindows, wsWindows)
 import qualified XMonad.StackSet as W
@@ -240,6 +241,7 @@ myKeys =
     -- Prompts
   , ("M-p", shellPrompt myXPConfig)
   , ("M-S-q", dirExecPromptNamed myXPConfig' spawn (myDots ++ "/xmonad/scripts") "Session: ")
+  , ("M-<F1>", manPrompt myXPConfig)
   , ("M-'", windowPrompt myXPConfig Goto wsWindows)
   , ("M-S-'", windowPrompt myXPConfig Bring allWindows)
 
@@ -391,7 +393,7 @@ myXPConfig = def
     , fgHLight = colorBg
     , borderColor = colorHiGray
     , promptBorderWidth = 2
-    , position        = CenteredAt (2 / 4) (2 / 4)
+    , position = CenteredAt (2 / 4) (2 / 4)
     , height = 38
     , historySize = 100
     , historyFilter = id
