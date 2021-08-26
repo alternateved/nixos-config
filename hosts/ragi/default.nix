@@ -1,7 +1,7 @@
   { config, pkgs, lib, ... }:
 
   {
-    imports = [ ../../modules/nextcloud ];
+    # imports = [ ../../modules/nextcloud ];
 
     fileSystems = {
       "/" = {
