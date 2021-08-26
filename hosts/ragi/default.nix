@@ -36,6 +36,7 @@
       nextcloud = {
         enable = true;
         hostName = "testing";
+        adminpassFile = "/home/alternateved/.secrets/next_pass";
       };
     };
 
