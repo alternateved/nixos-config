@@ -20,7 +20,7 @@
         ## Force HTTP redirect to HTTPS
         forceSSL = true;
         ## LetsEncrypt
-        enableACME = true;
+        # enableACME = true;
       };
     };
   };

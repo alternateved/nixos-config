@@ -36,10 +36,10 @@
 
     environment.systemPackages = with pkgs; [ coreutils wget git ];
 
-    security.acme = {
-      acceptTerms = true;
-      email = "alternateved@gmail.com";
-    };
+    # security.acme = {
+    #   acceptTerms = true;
+    #   email = "alternateved@gmail.com";
+    # };
 
     services.openssh.enable = true;
 
