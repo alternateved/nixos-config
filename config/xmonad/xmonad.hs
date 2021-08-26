@@ -243,6 +243,7 @@ myKeys =
   , ("M-S-q", dirExecPromptNamed myXPConfig' spawn (myDots ++ "/xmonad/scripts") "Session: ")
   , ("M-<F1>", manPrompt myXPConfig)
   , ("M-'", windowPrompt myXPConfig Goto wsWindows)
+  , ("M-C-'", windowPrompt myXPConfig Goto allWindows)
   , ("M-S-'", windowPrompt myXPConfig Bring allWindows)
 
   -- Workspace management
