@@ -18,12 +18,13 @@ require "paq" {
     "kabouzeid/nvim-lspinstall";
     "windwp/nvim-autopairs";
     "vijaymarupudi/nvim-fzf";
-    "nekonako/xresources-nvim";
+    -- "nekonako/xresources-nvim";
     "b3nj5m1n/kommentary";
 }
 
 -- Options
 -- cmd 'colorscheme xresources'            -- Put your favorite colorscheme here
+cmd 'colorscheme slate'            -- Put your favorite colorscheme here
 opt.expandtab = true                -- Use spaces instead of tabs
 opt.hidden = true                   -- Enable background buffers
 opt.hlsearch = true                 -- Highlight search terms
