@@ -32,6 +32,7 @@
     environment.systemPackages = with pkgs; [ coreutils wget git ];
 
     services.openssh.enable = true;
+    services.nextcloud.enable = true;
 
     users = {
       mutableUsers = false;
