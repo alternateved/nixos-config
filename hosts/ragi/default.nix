@@ -25,18 +25,26 @@
 
     networking = {
       hostName = "ragi";
-      firewall.enable = true;
+      firewall = {
+        enable = true;
+        allowedTCPPorts = [ 80 443 ];
+      };
       networkmanager.enable = true;
     };
 
     environment.systemPackages = with pkgs; [ coreutils wget git ];
+
+    security.acme = {
+      acceptTerms = true;
+      email = "alternateved@gmail.com";
+    };
 
     services = {
       openssh.enable = true;
       nextcloud = {
         enable = true;
         hostName = "testing";
-        adminpassFile = "/home/alternateved/.secrets/next_pass";
+        config = { adminpassFile = "/home/alternateved/.secrets/next_pass"; };
       };
     };
 
