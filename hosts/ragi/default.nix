@@ -31,8 +31,13 @@
 
     environment.systemPackages = with pkgs; [ coreutils wget git ];
 
-    services.openssh.enable = true;
-    services.nextcloud.enable = true;
+    services = {
+      openssh.enable = true;
+      nextcloud = {
+        enable = true;
+        hostName = "testing";
+      };
+    };
 
     users = {
       mutableUsers = false;
