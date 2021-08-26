@@ -27,7 +27,7 @@ import Xmobar
         template
       ),
     Date (Date),
-    Monitors (Battery, Cpu, Memory, Network, Weather),
+    Monitors (Battery, Cpu, Memory, Mpris2, Network, Weather),
     Runnable (..),
     StdinReader (UnsafeStdinReader),
     XMonadLog (UnsafeXPropertyLog),
@@ -89,7 +89,8 @@ auxConfig =
       position = OnScreen 1 (TopW L 100),
       template =
         "%xmobar1% }{"
-          <> "%time% "
+          <> "%mpris2% "
+          <> withPipe "%time% "
     }
 
 -------------------------------------------------------------------------
@@ -130,6 +131,7 @@ mainCommands =
 auxCommands :: [Runnable]
 auxCommands =
   [ Run $ UnsafeXPropertyLog "xmobar1",
+    Run $ Mpris2 "ncspot" ["-t", "<artist> - <title>"] 10,
     Run $ Date "%H:%M" "time" 300
   ]
 
