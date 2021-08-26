@@ -6,15 +6,7 @@
     vimAlias = true;
     vimdiffAlias = true;
     extraConfig = ''
-      if $TERM ==# 'linux'
-         " commands
-         colorscheme slate
-      else
-         " more commands
-         colorscheme xresources
-      endif
-
-        lua require("init")
+      lua require("init")
     '';
   };
 
