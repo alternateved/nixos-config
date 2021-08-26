@@ -1,6 +1,8 @@
   { config, pkgs, lib, ... }:
 
   {
+    imports = [ ../../modules/nextcloud ];
+
     fileSystems = {
       "/" = {
         device = "/dev/disk/by-label/NIXOS_SD";
@@ -39,14 +41,7 @@
       email = "alternateved@gmail.com";
     };
 
-    services = {
-      openssh.enable = true;
-      nextcloud = {
-        enable = true;
-        hostName = "testing";
-        config = { adminpassFile = "/home/alternateved/.secrets/next_pass"; };
-      };
-    };
+    services.openssh.enable = true;
 
     users = {
       mutableUsers = false;
