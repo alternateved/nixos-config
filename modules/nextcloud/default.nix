@@ -16,7 +16,7 @@
     # Setup Nextcloud virtual host to listen on ports
     virtualHosts = {
 
-      "nextcloud.jnep.xyz" = {
+      "10.7.171.78" = {
         ## Force HTTP redirect to HTTPS
         forceSSL = true;
         ## LetsEncrypt
@@ -28,7 +28,7 @@
   # Actual Nextcloud Config
   services.nextcloud = {
     enable = true;
-    hostName = "nextcloud.example.com";
+    hostName = "10.7.171.78";
     # Enable built-in virtual host management
     # Takes care of somewhat complicated setup
     # See here: https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/services/web-apps/nextcloud.nix#L529
