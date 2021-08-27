@@ -18,13 +18,13 @@ require "paq" {
     "kabouzeid/nvim-lspinstall";
     "windwp/nvim-autopairs";
     "vijaymarupudi/nvim-fzf";
-    -- "nekonako/xresources-nvim";
     "b3nj5m1n/kommentary";
+    "sainnhe/gruvbox-material"
 }
 
 -- Options
--- cmd 'colorscheme xresources'            -- Put your favorite colorscheme here
-cmd 'colorscheme slate'            -- Put your favorite colorscheme here
+cmd 'colorscheme gruvbox-material'  -- Put your favorite colorscheme here
+g.gruvbox_material_palette = 'original'
 opt.expandtab = true                -- Use spaces instead of tabs
 opt.hidden = true                   -- Enable background buffers
 opt.hlsearch = true                 -- Highlight search terms

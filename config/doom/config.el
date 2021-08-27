@@ -74,11 +74,7 @@
 ;;   (setq doom-themes-enable-bold t
 ;;         doom-themes-enable-italic t))
 
-(use-package! kaolin-themes
-  :config
-  (load-theme 'kaolin-dark t)
-  (kaolin-treemacs-theme))
-
+(setq doom-theme 'doom-gruvbox)
 (setq doom-modeline-major-mode-icon t)
 
 ;; Org-mode settings
