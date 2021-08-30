@@ -87,6 +87,7 @@
 
     # Communication
     discord
+    betterdiscordctl
     skypeforlinux
     thunderbird
     signal-desktop
