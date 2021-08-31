@@ -5,13 +5,14 @@
       pkgs.firefox.override { cfg = { enableTridactylNative = true; }; };
     extensions = with pkgs.nur.repos.rycee.firefox-addons; [
       bitwarden
+      clearurls
       cookie-autodelete
+      darkreader
       decentraleyes
       df-youtube
       duckduckgo-privacy-essentials
       facebook-container
       https-everywhere
-      leechblock-ng
       privacy-badger
       tridactyl
       ublock-origin
