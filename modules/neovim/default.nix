@@ -10,8 +10,8 @@
     '';
   };
 
-  # xdg.configFile."nvim/lua" = {
-  #   source = ../../config/nvim;
-  #   recursive = true;
-  # };
+  xdg.configFile."nvim/lua" = {
+    source = ../../config/nvim;
+    recursive = true;
+  };
 }
