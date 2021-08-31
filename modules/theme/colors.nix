@@ -1,3 +1,4 @@
+# Kaolin dark theme
 # {
 #   background = "#18181B";
 #   foreground = "#E4E4E8";
@@ -19,6 +20,32 @@
 #   bright-magenta = "#ab98b5";
 #   bright-cyan = "#65a0a1";
 #   bright-white = "#EFEFF1";
+# }
+
+# Gruvbox light theme
+# {
+#   # hard contrast: background = "#f9f5d7"
+#   background = "#fbf1c7";
+#   # soft contrast: background = "#f2e5bc"
+#   foreground = "#3c3836";
+
+#   black = "#fbf1c7";
+#   red = "#cc241d";
+#   green = "#98971a";
+#   yellow = "#d79921";
+#   blue = "#458588";
+#   magenta = "#b16286";
+#   cyan = "#689d6a";
+#   white = "#7c6f64";
+
+#   bright-black = "#928374";
+#   bright-red = "#9d0006";
+#   bright-green = "#79740e";
+#   bright-yellow = "#b57614";
+#   bright-blue = "#076678";
+#   bright-magenta = "#8f3f71";
+#   bright-cyan = "#427b58";
+#   bright-white = "#3c3836";
 # }
 
 # Gruvbox dark theme
@@ -47,7 +74,7 @@
   bright-white = "#ebdbb2";
 }
 
-# # Solarized light theme
+# Solarized light theme
 # {
 #   background = "#fdf6e3";
 #   foreground = "#586e75";
@@ -72,7 +99,7 @@
 #   bright-white = "#fdf6e3";
 # }
 
-# # Solarized dark theme
+# Solarized dark theme
 # {
 #   background = "#002b36";
 #   foreground = "#839496";
