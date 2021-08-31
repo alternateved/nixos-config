@@ -59,7 +59,6 @@
     hardware = {
       raspberry-pi."4".fkms-3d.enable = true;
       enableRedistributableFirmware = true;
-      pulseaudio.enable = true;
     };
 
     powerManagement.cpuFreqGovernor = "ondemand";
