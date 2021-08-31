@@ -149,11 +149,11 @@ myStartupHook = do
 -------------------------------------------------------------------------
 myManageHook :: ManageHook
 myManageHook = composeAll
-    [ className =? "Thunderbird" --> doShift (myWorkspaces !! 1)
+    [ className =? "Firefox" --> doShift (myWorkspaces !! 0)
+    , className =? "Thunderbird" --> doShift (myWorkspaces !! 1)
     , className =? "Signal" --> doShift (myWorkspaces !! 1)
     , className =? "discord" --> doShift (myWorkspaces !! 1)
     , className =? "mpv" --> doShift (myWorkspaces !! 4)
-    , className =? "Spotify" --> doShift (myWorkspaces !! 4)
     , className =? "Peek" --> doCenterFloat
     , className =? "Sxiv" --> doCenterFloat
     , isDialog --> doCenterFloat
@@ -199,22 +199,20 @@ mySpacing i = spacingRaw True (Border 0 i 0 i) True (Border i 0 i 0) True
 
 tall    = renamed [Replace "tall"]
           $ addTabs shrinkText myTabConfig . subLayout [] Simplest
-          $ avoidStruts
           $ mySpacing 5
           $ ResizableTall 1 (3 / 100) (1 / 2) []
 
 columns = renamed [Replace "columns"]
           $ addTabs shrinkText myTabConfig . subLayout [] Simplest
-          $ avoidStruts
           $ mySpacing 5
           $ ThreeColMid 1 (3 / 100) (12 / 30)
 
 monocle = renamed [Replace "monocle"]
           $ addTabs shrinkText myTabConfig . subLayout [] Simplest
-          $ avoidStruts
           $ Full
 
 myLayoutHook = workspaceDir myHome
+               $ avoidStruts
                $ smartBorders
                $ mkToggle (single REFLECTX)
                $ mkToggle (NBFULL ?? NOBORDERS ?? EOT)
