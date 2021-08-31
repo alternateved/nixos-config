@@ -12,10 +12,9 @@ end
 
 -- Plugins
 require "paq" {
-    "savq/paq-nvim";                  -- Let Paq manage itself
+    "savq/paq-nvim";
     "nvim-treesitter/nvim-treesitter";
     "neovim/nvim-lspconfig";
-    "kabouzeid/nvim-lspinstall";
     "windwp/nvim-autopairs";
     "vijaymarupudi/nvim-fzf";
     "b3nj5m1n/kommentary";
@@ -23,8 +22,6 @@ require "paq" {
 }
 
 -- Options
-cmd 'colorscheme gruvbox-material'  -- Put your favorite colorscheme here
-g.gruvbox_material_palette = 'original'
 opt.expandtab = true                -- Use spaces instead of tabs
 opt.hidden = true                   -- Enable background buffers
 opt.hlsearch = true                 -- Highlight search terms
@@ -49,6 +46,10 @@ opt.mouse = 'a'
 opt.undofile = true                 -- persistent undo
 opt.clipboard = "unnamedplus"
 g.mapleader = " "
+
+-- Colorscheme
+cmd 'colorscheme gruvbox-material'  -- Put your favorite colorscheme here
+g.gruvbox_material_palette = 'original'
 
 -- Mappings
 map('n', '<Esc>', '<cmd>noh<CR>')    -- Clear highlights
