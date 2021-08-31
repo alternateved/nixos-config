@@ -53,18 +53,20 @@ in {
     keyMap = "pl";
   };
 
-  sound.enable = true;
-  hardware = {
-    pulseaudio = { enable = true; };
-    bluetooth.enable = true;
-  };
+  hardware.bluetooth.enable = true;
+  security.rtkit.enable = true;
 
   services = {
+    pipewire = {
+      enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+    };
     xserver = {
       enable = true;
       layout = "pl";
       xkbOptions = "caps:escape_shifted_capslock";
-
       displayManager = {
         defaultSession = "none+myxmonad";
         autoLogin.enable = true;
@@ -86,9 +88,7 @@ in {
             border-color = ${colors.foreground}
           '';
         };
-
       };
-
       windowManager = {
         session = [{
           name = "myxmonad";
@@ -98,7 +98,6 @@ in {
           '';
         }];
       };
-
       libinput = {
         enable = true;
         touchpad.disableWhileTyping = true;
