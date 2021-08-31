@@ -199,20 +199,22 @@ mySpacing i = spacingRaw True (Border 0 i 0 i) True (Border i 0 i 0) True
 
 tall    = renamed [Replace "tall"]
           $ addTabs shrinkText myTabConfig . subLayout [] Simplest
+          $ avoidStruts
           $ mySpacing 5
           $ ResizableTall 1 (3 / 100) (1 / 2) []
 
 columns = renamed [Replace "columns"]
           $ addTabs shrinkText myTabConfig . subLayout [] Simplest
+          $ avoidStruts
           $ mySpacing 5
           $ ThreeColMid 1 (3 / 100) (12 / 30)
 
 monocle = renamed [Replace "monocle"]
           $ addTabs shrinkText myTabConfig . subLayout [] Simplest
+          $ avoidStruts
           $ Full
 
 myLayoutHook = workspaceDir myHome
-               $ avoidStruts
                $ smartBorders
                $ mkToggle (single REFLECTX)
                $ mkToggle (NBFULL ?? NOBORDERS ?? EOT)
