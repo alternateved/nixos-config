@@ -81,10 +81,16 @@
     graphviz
     pandoc
     python3Minimal
+    ## sh
     shellcheck
+    nodePackages.bash-language-server
+    ## JS, TS, json and web
     html-tidy
     nodePackages.stylelint
     nodePackages.js-beautify
+    nodePackages.typescript-language-server
+    nodePackages.vscode-json-languageserver-bin
+    nodePackages.vscode-html-languageserver-bin
 
     # Communication
     discord
