@@ -56,8 +56,7 @@ baseConfig =
     { font = mainFont,
       additionalFonts = [iconFont],
       bgColor = colorBg,
-      fgColor = colorFg
-,
+      fgColor = colorFg ,
       lowerOnStart = True,
       hideOnStart = False,
       allDesktops = True,
