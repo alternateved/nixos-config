@@ -129,10 +129,6 @@
   (after! vterm
     (ebn/evil-collection-vterm-setup)))
 
-(map! :mode emacs-mode
-      :leader
-      :desc "Move forward to next end of defun." "E" #'lispyville-end-of-defun)
-
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
 ;; - `load!' for loading external *.el files relative to this one
