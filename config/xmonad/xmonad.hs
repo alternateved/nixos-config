@@ -80,7 +80,7 @@ xmonadConfig :: String
 xmonadConfig = myDots ++ "/xmonad/xmonad.hs"
 
 xmobarConfig :: String
-xmobarConfig = myDots ++ "/xmonad/xmobar.hs"
+xmobarConfig = myDots ++ "/xmobar/xmobar.hs"
 
 myFont :: String
 myFont = "xft:Iosevka Nerd Font Mono:style=regular:size=12:antialias=true:hinting=true"
@@ -232,7 +232,6 @@ myKeys =
   -- Xmonad
   [ ("M-S-r", spawn "xmonad --restart")
   , ("M-C-r", spawn $ myEditor ++ xmonadConfig)
-  , ("M-S-b", spawn $ "sh " ++ myDots ++ "/xmonad/xmobar_recompile.sh")
   , ("M-C-b", spawn $ myEditor ++ xmobarConfig)
 
     -- Open my preferred terminal
@@ -447,12 +446,9 @@ auxXmobarPP s = pure $ def
 -------------------------------------------------------------------------
 -- XMOBAR INSTANCES
 -------------------------------------------------------------------------
-xmobarExec :: String
-xmobarExec = myHome ++ "/.config/xmobar/xmobar"
-
 xmobar0, xmobar1 :: StatusBarConfig
-xmobar0 = statusBarPropTo "xmobar0" (xmobarExec)           (mainXmobarPP 0)
-xmobar1 = statusBarPropTo "xmobar1" (xmobarExec ++ " aux") (auxXmobarPP  1)
+xmobar0 = statusBarPropTo "xmobar0" "alternateved-xmobar"     (mainXmobarPP 0)
+xmobar1 = statusBarPropTo "xmobar1" "alternateved-xmobar aux" (auxXmobarPP  1)
 
 barSpawner :: ScreenId -> IO StatusBarConfig
 barSpawner 0 = pure xmobar0

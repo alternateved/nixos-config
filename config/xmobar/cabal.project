@@ -1,0 +1,4 @@
+packages: ./alternateved-xmobar.cabal
+
+constraints:
+    xmobar +with_threaded +with_xft +with_mpris +with_weather
