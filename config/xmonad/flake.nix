@@ -11,9 +11,7 @@
     };
   };
   outputs = { self, flake-utils, nixpkgs, xmonad, xmonad-contrib }:
-    let
-      overlay = import ../../overlays/xmonad.nix;
-      overlays = [ overlay xmonad.overlay xmonad-contrib.overlay ];
+    let overlays = [ xmonad.overlay xmonad-contrib.overlay ];
     in flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs {
@@ -34,6 +32,6 @@
         };
         defaultPackage = pkgs.haskellPackages.alternateved-xmonad;
       }) // {
-        inherit overlay overlays;
+        inherit overlays;
       };
 }
