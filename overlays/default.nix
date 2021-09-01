@@ -7,6 +7,11 @@ _: pkgs: rec {
             "xmonad.hs"
             "alternateved-xmonad.cabal"
           ]) { };
+        alternateved-xmobar = self.callCabal2nix "alternateved-xmobar"
+          (pkgs.lib.sourceByRegex ../config/xmobar [
+            "xmobar.hs"
+            "alternateved-xmobar.cabal"
+          ]) { };
       });
   });
 }
