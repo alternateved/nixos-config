@@ -77,9 +77,11 @@
     gcc
     jq
     nixfmt
-    sqlite
     graphviz
     pandoc
+    ## org-roam
+    sqlite
+    ## treemacs
     python3Minimal
     ## sh
     shellcheck
