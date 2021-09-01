@@ -110,13 +110,13 @@ in {
   };
 
   environment.systemPackages = with pkgs; [
-    haskellPackages.xmobar
-    haskellPackages.xmonad
-    haskellPackages.alternateved-xmonad
     coreutils
     wget
     git
     mesa
+    haskellPackages.xmonad
+    haskellPackages.alternateved-xmobar
+    haskellPackages.alternateved-xmonad
   ];
 
   fonts.fonts = with pkgs; [
