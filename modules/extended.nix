@@ -87,7 +87,9 @@
     shellcheck
     nodePackages.bash-language-server
     ## JS, TS, json and web
+    nodejs
     html-tidy
+    nodePackages.npm
     nodePackages.stylelint
     nodePackages.js-beautify
     nodePackages.typescript-language-server
