@@ -18,7 +18,7 @@ require "paq" {
     "windwp/nvim-autopairs";
     "vijaymarupudi/nvim-fzf";
     "b3nj5m1n/kommentary";
-    "sainnhe/gruvbox-material"
+    "ishan9299/modus-theme-vim"
 }
 
 -- Options
@@ -48,8 +48,7 @@ opt.clipboard = "unnamedplus"
 g.mapleader = " "
 
 -- Colorscheme
-cmd 'colorscheme gruvbox-material'  -- Put your favorite colorscheme here
-g.gruvbox_material_palette = 'original'
+cmd 'colorscheme modus-vivendi'  -- Put your favorite colorscheme here
 
 -- Mappings
 map('n', '<Esc>', '<cmd>noh<CR>')    -- Clear highlights
