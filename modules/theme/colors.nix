@@ -122,3 +122,26 @@
 #   bright-cyan = "#93a1a1";
 #   bright-white = "#fdf6e3";
 # }
+# Monokai Dark
+#{
+#  background = "#272822";
+#  foreground = "#F8F8F2";
+#
+#   black = "#403E41";
+#   red = "#F92672";
+#   green = "#A6E22E";
+#   yellow = "#F4BF75";
+#   blue = "#66D9EF";
+#   magenta = "#AE81FF";
+#   cyan = "#A1EFE4";
+#   white = "#F8F8F2";
+#
+#   bright-black = "#75715E";
+#   bright-red = "#F92672";
+#   bright-green = "#A6E22E";
+#   bright-yellow = "#F4BF75";
+#   bright-blue = "#66D9EF";
+#   bright-magenta = "#AE81FF";
+#   bright-cyan = "#A1EFE4";
+#   bright-white = "#F9F8F5";
+#}
