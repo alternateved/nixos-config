@@ -8,7 +8,7 @@
         add_newline = false;
         line_break = { disabled = true; };
         character = {
-          success_symbol = "[λ](bold white)";
+          success_symbol = "[λ](bold gray)";
           error_symbol = "[λ](bold red)";
           vicmd_symbol = "[V](bold green)";
         };
