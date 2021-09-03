@@ -34,6 +34,8 @@ import XMonad.Hooks.StatusBar (StatusBarConfig, dynamicSBs, statusBarPropTo)
 import XMonad.Hooks.StatusBar.PP hiding (trim)
 import XMonad.Hooks.UrgencyHook (NoUrgencyHook (NoUrgencyHook), clearUrgents, focusUrgent, withUrgencyHook)
 -- Layouts
+import XMonad.Layout.BinarySpacePartition (emptyBSP)
+import XMonad.Layout.BorderResize (borderResize)
 import XMonad.Layout.LayoutCombinators ((|||), JumpToLayout (JumpToLayout))
 import XMonad.Layout.LayoutModifier (ModifiedLayout)
 import XMonad.Layout.MultiToggle (mkToggle, single, EOT(EOT), (??))
@@ -209,6 +211,13 @@ columns = renamed [Replace "columns"]
           $ mySpacing 5
           $ ThreeColMid 1 (3 / 100) (12 / 30)
 
+bsp     = renamed [Replace "bsp"]
+          $ borderResize
+          $ addTabs shrinkText myTabConfig . subLayout [] Simplest
+          $ avoidStruts
+          $ mySpacing 5
+          $ emptyBSP
+
 monocle = renamed [Replace "monocle"]
           $ addTabs shrinkText myTabConfig . subLayout [] Simplest
           $ avoidStruts
@@ -222,6 +231,7 @@ myLayoutHook = workspaceDir myHome
             where
                myDefaultLayout =      tall
                                   ||| columns
+                                  ||| bsp
                                   ||| monocle
 
 -------------------------------------------------------------------------
@@ -260,27 +270,39 @@ myKeys =
   , ("M-S-t", sinkAll)
 
     -- Windows navigation
-  , ("M-m", windows W.focusMaster)
   , ("M-j", windowGo D False)
   , ("M-k", windowGo U False)
   , ("M-h", windowGo L False)
   , ("M-l", windowGo R False)
-  , ("M-S-m", windows W.swapMaster)
   , ("M-S-j", windowSwap D False)
   , ("M-S-k", windowSwap U False)
   , ("M-S-h", windowSwap L False)
   , ("M-S-l", windowSwap R False)
+  , ("M-m", windows W.focusMaster)
+  , ("M-S-m", windows W.swapMaster)
   , ("M-n", windows W.focusDown)
   , ("M-S-n", windows W.focusUp)
   , ("M1-<Tab>", windows W.focusDown)
   , ("M1-S-<Tab>", windows W.focusUp)
-  , ("M-<Tab>", nextWS)
-  , ("M-S-<Tab>", prevWS)
   , ("M-<Backspace>", promote)
+
+  -- Alternative windows navigation
+  , ("M-<Down>", windowGo D False)
+  , ("M-<Up>", windowGo U False)
+  , ("M-<Left>", windowGo L False)
+  , ("M-<Right>", windowGo R False)
+  , ("M-S-<Down>", windowSwap D False)
+  , ("M-S-<Up>", windowSwap U False)
+  , ("M-S-<Left>", windowSwap L False)
+  , ("M-S-<Right>", windowSwap R False)
 
     -- Urgent windows
   , ("M-u", focusUrgent)
   , ("M-S-u", nextMatch History (return True))
+
+  -- Workspaces
+  , ("M-<Tab>", nextWS)
+  , ("M-S-<Tab>", prevWS)
 
     -- Layouts
   , ("M-<Space>", sendMessage NextLayout)
@@ -295,6 +317,7 @@ myKeys =
 
   , ("M-a t", sendMessage $ JumpToLayout "tall")
   , ("M-a c", sendMessage $ JumpToLayout "columns")
+  , ("M-a b", sendMessage $ JumpToLayout "bsp")
   , ("M-a m", sendMessage $ JumpToLayout "monocle")
   , ("M-f", sendMessage $ MT.Toggle NBFULL)
 
