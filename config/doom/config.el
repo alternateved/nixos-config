@@ -75,7 +75,9 @@
 ;;         doom-themes-enable-italic t))
 
 (setq doom-theme 'doom-gruvbox)
-(setq doom-modeline-major-mode-icon t)
+(use-package! doom-modeline
+  :custom (doom-modeline-height 15)
+          (doom-modeline-major-mode-icon t))
 
 ;; Org-mode settings
 (setq org-directory "~/Documents/org/"
@@ -86,6 +88,7 @@
   (add-hook 'org-mode-hook
             (lambda ()
               (doom/reload-font)
+              (display-line-numbers-mode 0)
               (visual-line-mode)))
   (setq calendar-week-start-day 1)
   (setq org-hide-emphasis-markers t)
