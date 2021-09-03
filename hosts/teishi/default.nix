@@ -2,7 +2,8 @@
 
 let colors = import ../../modules/theme/colors.nix;
 in {
-  imports = [ # Include the results of the hardware scan.
+  imports = [
+    # Include the results of the hardware scan.
     ./hardware-configuration.nix
   ];
 
@@ -105,7 +106,6 @@ in {
         touchpad.naturalScrolling = true;
       };
     };
-    tlp.enable = true;
     gvfs.enable = true;
   };
 
