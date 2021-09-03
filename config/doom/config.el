@@ -67,14 +67,11 @@
 (after! ispell
   (setq ispell-program-name "aspell"))
 
-;; Theme settings
-;; (setq doom-theme 'doom-tomorrow-night)
+(after! doom-themes
+  (setq doom-themes-enable-bold t
+        doom-themes-enable-italic t))
 
-;; (after! doom-themes
-;;   (setq doom-themes-enable-bold t
-;;         doom-themes-enable-italic t))
-
-(setq doom-theme 'doom-gruvbox)
+(setq doom-theme 'doom-opera-light)
 (use-package! doom-modeline
   :custom (doom-modeline-height 15)
           (doom-modeline-major-mode-icon t))
