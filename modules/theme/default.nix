@@ -1,21 +1,12 @@
 { pkgs, ... }: {
-  imports = [ ./xresources.nix ];
+  imports = [
+    ./xresources.nix
+    ./light.nix
+    # ./dark.nix
+  ];
   dconf.enable = false;
   gtk = {
     enable = true;
-    theme = {
-      # package = pkgs.materia-theme;
-      # name = "Materia-dark-compact";
-      package = pkgs.gruvbox-dark-gtk;
-      name = "gruvbox-dark";
-    };
-    gtk3.extraConfig = { gtk-application-prefer-dark-theme = 1; };
-    iconTheme = {
-      # package = pkgs.tela-icon-theme;
-      # name = "Tela";
-      package = pkgs.gruvbox-dark-icons-gtk;
-      name = "oomox-gruvbox-dark";
-    };
     font = {
       package = null;
       name = "Iosevka Aile Medium 11";
