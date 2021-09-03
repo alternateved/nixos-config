@@ -113,25 +113,27 @@ myNormColor :: String
 myNormColor = colorBg
 
 myFocusColor :: String
-myFocusColor = colorHiGray
+myFocusColor = colorFg
 
 -- Base colors
-colorBg, colorFg, colorHiWhite, colorLoGray, colorHiGray, colorRed, colorBlue, colorGreen :: String
+colorBg, colorFg, colorHiWhite, colorBlack, colorHiBlack, colorRed, colorBlue, colorGreen :: String
 colorBg       = basebg
 colorFg       = basefg
+colorWhite    = base07
 colorHiWhite  = base15
-colorLoGray   = base00
-colorHiGray   = base08
+colorBlack    = base00
+colorHiBlack  = base08
 colorRed      = base01
 colorBlue     = base04
 colorGreen    = base02
 
-hiWhite, loWhite, loGray, hiGray, red :: String -> String
-loWhite = xmobarColor colorFg ""
-hiWhite = xmobarColor colorHiWhite ""
-loGray  = xmobarColor colorLoGray ""
-hiGray  = xmobarColor colorHiGray ""
-red     = xmobarColor colorRed ""
+white, hiWhite, foreground, black, hiBlack, red :: String -> String
+foreground = xmobarColor colorFg ""
+white      = xmobarColor colorWhite ""
+hiWhite    = xmobarColor colorHiWhite ""
+black      = xmobarColor colorBlack ""
+hiBlack    = xmobarColor colorHiBlack ""
+red        = xmobarColor colorRed ""
 
 hiWhiteL :: Logger -> Logger
 hiWhiteL = xmobarColorL colorHiWhite ""
@@ -183,9 +185,9 @@ myTabConfig :: Theme
 myTabConfig = def
     { fontName = myFont
     , activeTextColor = colorBg
-    , activeColor = colorHiGray
-    , activeBorderColor = colorHiGray
-    , inactiveTextColor = colorHiGray
+    , activeColor = colorHiBlack
+    , activeBorderColor = colorHiBlack
+    , inactiveTextColor = colorHiBlack
     , inactiveColor = colorBg
     , inactiveBorderColor = colorBg
     , urgentTextColor = colorBg
@@ -414,7 +416,7 @@ myXPConfig = def
     , fgColor = colorFg
     , bgHLight = colorFg
     , fgHLight = colorBg
-    , borderColor = colorHiGray
+    , borderColor = colorHiBlack
     , promptBorderWidth = 2
     , position = CenteredAt (2 / 4) (2 / 4)
     , height = 38
@@ -443,13 +445,13 @@ myNavigation2DConfig = def { defaultTiledNavigation = sideNavigation }
 -------------------------------------------------------------------------
 mainXmobarPP :: ScreenId -> X PP
 mainXmobarPP s = clickablePP . namedScratchpadFilterOutWorkspacePP $ def
-      { ppCurrent = hiWhite . xmobarBorder "Bottom" colorFg 1
+      { ppCurrent = foreground . xmobarBorder "Bottom" colorFg 1
       , ppVisible = hiWhite
-      , ppHidden = hiGray
-      , ppHiddenNoWindows = loGray
+      , ppHidden = white
+      , ppHiddenNoWindows = hiBlack
       , ppUrgent = red
-      , ppTitle = loWhite . shorten 60
-      , ppSep = loWhite " | "
+      , ppTitle = foreground . shorten 60
+      , ppSep = foreground " | "
       , ppExtras  = [ logLayoutOnScreen s
                     , shortenL 70 $ logTitleOnScreen s
                     ]
@@ -459,7 +461,7 @@ mainXmobarPP s = clickablePP . namedScratchpadFilterOutWorkspacePP $ def
 auxXmobarPP :: ScreenId -> X PP
 auxXmobarPP s = pure $ def
     { ppOrder  = \(_ : _ : _ : extras) -> extras
-    , ppSep = loWhite " | "
+    , ppSep = foreground " | "
     , ppExtras = [ hiWhiteL $ logCurrentOnScreen s
                  , logLayoutOnScreen s
                  , shortenL 70 $ logTitleOnScreen s
@@ -497,10 +499,11 @@ trim, xprop :: ShowS
 trim = dropWhileEnd isSpace . dropWhile isSpace
 xprop = unsafeDupablePerformIO . xProperty
 
-basebg, basefg, base00, base08, base01, base02, base04, base15 :: String
+basebg, basefg, base00, base07, base08, base01, base02, base04, base15 :: String
 basebg = xprop "*.background"
 basefg = xprop "*.foreground"
 base00 = xprop "*.color0"
+base07 = xprop "*.color7"
 base08 = xprop "*.color8"
 base01 = xprop "*.color1"
 base02 = xprop "*.color2"
