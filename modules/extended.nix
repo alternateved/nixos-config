@@ -76,13 +76,14 @@
     cmake
     gcc
     jq
-    nixfmt
     graphviz
     pandoc
     ## org-roam
     sqlite
     ## treemacs
     python3Minimal
+    ## Nix
+    nixfmt
     ## sh
     shellcheck
     nodePackages.bash-language-server
