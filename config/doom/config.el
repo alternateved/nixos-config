@@ -146,6 +146,9 @@
           ("e" "Event" entry (file+headline "~/Documents/org/event.org" "Events")
            "** %? \n %^T\n%U" :empty-lines 1))))
 
+(use-package! evil-nerd-commenter
+  :init (evilnc-default-hotkeys))
+
 ;; ebn's hacks
 (use-package! evil-collection
   :config
