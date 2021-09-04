@@ -8,7 +8,7 @@ import Data.Bifunctor (bimap)
 import Data.Char (isSpace)
 import Data.Monoid (All(..))
 import Data.List (dropWhileEnd, elemIndex, find)
-import Data.Maybe (catMaybes, fromJust, fromMaybe)
+import Data.Maybe (catMaybes, isJust, fromJust, fromMaybe)
 import qualified Data.Map as M
 -- System
 import System.IO.Unsafe (unsafeDupablePerformIO)
@@ -161,7 +161,7 @@ myManageHook = composeAll
     , className =? "Peek" --> doCenterFloat
     , className =? "Sxiv" --> doCenterFloat
     , isDialog --> doCenterFloat
-    , insertPosition Below Newer
+    , fmap not willFloat --> insertPosition Below Newer
     ] <+> namedScratchpadManageHook myScratchPads
 
 -------------------------------------------------------------------------
@@ -483,6 +483,13 @@ barSpawner _ = mempty
 -------------------------------------------------------------------------
 -- HELPER FUNCTIONS
 -------------------------------------------------------------------------
+willFloat::Query Bool
+willFloat = ask >>= \w -> liftX $ withDisplay $ \d -> do
+  sh <- io $ getWMNormalHints d w
+  let isFixedSize = isJust (sh_min_size sh) && sh_min_size sh == sh_max_size sh
+  isTransient <- isJust <$> io (getTransientForHint d w)
+  return (isFixedSize || isTransient)
+
 xProperty :: String -> IO String
 xProperty key = fromMaybe "" . findValue key <$> runProcessWithInput "xrdb" ["-query"] ""
 
