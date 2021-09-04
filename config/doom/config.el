@@ -19,6 +19,31 @@
         evil-move-cursor-back nil       ; Don't move the block cursor when toggling insert mode
         evil-kill-on-visual-paste nil)) ; Don't put overwritten text in the kill ring
 
+
+;; Custom minimal dashboard
+(defun doom-dashboard-draw-ascii-emacs-banner-fn ()
+  (let* ((banner
+          '(",---.,-.-.,---.,---.,---."
+            "|---'| | |,---||    `---."
+            "`---'` ' '`---^`---'`---'"))
+         (longest-line (apply #'max (mapcar #'length banner))))
+    (put-text-property
+     (point)
+     (dolist (line banner (point))
+       (insert (+doom-dashboard--center
+                +doom-dashboard--width
+                (concat
+                 line (make-string (max 0 (- longest-line (length line)))
+                                   32)))
+               "\n"))
+     'face 'doom-dashboard-banner)))
+
+(unless (display-graphic-p)
+  (setq +doom-dashboard-ascii-banner-fn #'doom-dashboard-draw-ascii-emacs-banner-fn))
+(remove-hook '+doom-dashboard-functions #'doom-dashboard-widget-shortmenu)
+(add-hook! '+doom-dashboard-mode-hook (hide-mode-line-mode 1))
+(setq-hook! '+doom-dashboard-mode-hook evil-normal-state-cursor (list nil))
+
 ;; Lots of autocompletion
 (after! company
   (setq company-idle-delay 0.5
