@@ -1,10 +1,9 @@
 { config, pkgs, ... }:
-
 let colors = import ../../modules/theme/colors.nix;
 in {
   imports = [
-    # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    ../../modules/window-managers/xmonad.nix
   ];
 
   users = {
@@ -69,13 +68,8 @@ in {
       layout = "pl";
       xkbOptions = "caps:escape_shifted_capslock";
       displayManager = {
-        defaultSession = "none+myxmonad";
         autoLogin.enable = true;
         autoLogin.user = "alternateved";
-        sessionCommands = ''
-          bluetoothctl power on
-          xrdb ~/.Xresources
-        '';
         lightdm.greeters.mini = {
           enable = true;
           user = "alternateved";
@@ -90,15 +84,6 @@ in {
           '';
         };
       };
-      windowManager = {
-        session = [{
-          name = "myxmonad";
-          start = ''
-            /usr/bin/env alternateved-xmonad &
-            waitPID=$!
-          '';
-        }];
-      };
       libinput = {
         enable = true;
         touchpad.disableWhileTyping = true;
@@ -109,15 +94,7 @@ in {
     gvfs.enable = true;
   };
 
-  environment.systemPackages = with pkgs; [
-    coreutils
-    wget
-    git
-    mesa
-    haskellPackages.xmonad
-    haskellPackages.alternateved-xmobar
-    haskellPackages.alternateved-xmonad
-  ];
+  environment.systemPackages = with pkgs; [ coreutils wget git mesa ];
 
   fonts.fonts = with pkgs; [
     font-awesome_5
