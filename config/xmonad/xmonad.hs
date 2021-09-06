@@ -135,8 +135,8 @@ black      = xmobarColor colorBlack ""
 hiBlack    = xmobarColor colorHiBlack ""
 red        = xmobarColor colorRed ""
 
-hiWhiteL :: Logger -> Logger
-hiWhiteL = xmobarColorL colorHiWhite ""
+foregroundL :: Logger -> Logger
+foregroundL = xmobarColorL colorFg ""
 
 -------------------------------------------------------------------------
 -- STARTUPHOOK
@@ -446,7 +446,7 @@ myNavigation2DConfig = def { defaultTiledNavigation = sideNavigation }
 mainXmobarPP :: ScreenId -> X PP
 mainXmobarPP s = clickablePP . namedScratchpadFilterOutWorkspacePP $ def
       { ppCurrent = foreground . xmobarBorder "Bottom" colorFg 1
-      , ppVisible = hiWhite
+      , ppVisible = foreground
       , ppHidden = white
       , ppHiddenNoWindows = hiBlack
       , ppUrgent = red
@@ -462,7 +462,7 @@ auxXmobarPP :: ScreenId -> X PP
 auxXmobarPP s = pure $ def
     { ppOrder  = \(_ : _ : _ : extras) -> extras
     , ppSep = foreground " | "
-    , ppExtras = [ hiWhiteL $ logCurrentOnScreen s
+    , ppExtras = [ foregroundL $ logCurrentOnScreen s
                  , logLayoutOnScreen s
                  , shortenL 70 $ logTitleOnScreen s
                  ]
