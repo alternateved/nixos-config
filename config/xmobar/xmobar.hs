@@ -122,7 +122,9 @@ mainCommands =
           -- AC "on" status
           "-O", inIconFont "\xf242" ++ " <left>%",
           -- charged status
-          "-i", inIconFont "\xf240" ++ " 100%"
+          "-i", inIconFont "\xf240" ++ " 100%",
+					"-a",
+					"dunstify -u critical 'Battery' 'Battery running out!'"
         ] 150,
     Run $ Date "%A, %b %_d" "date" 500,
     Run $ Date "%H:%M" "time" 300
