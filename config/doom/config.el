@@ -113,14 +113,14 @@
               (visual-line-mode)))
   (setq calendar-week-start-day 1)
   (setq org-hide-emphasis-markers t)
-  (setq org-todo-keywords '((sequence
+  (setq org-todo-keywords '(((sequence
                              "TODO(t)"
                              "NEXT(n)"
                              "WAIT(w)"
+                             "MEETING(m)"
                              "|"
                              "DONE(d)"
-                             "CANCELLED(c)"
-                             "MEETING(m)"))))
+                             "CANCELLED(c)")))))
 
 (after! org-journal
   (add-hook 'org-journal-mode-hook
