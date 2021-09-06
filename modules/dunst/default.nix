@@ -61,8 +61,8 @@ in {
       };
       urgency_critical = {
         background = colors.red;
-        foreground = colors.black;
-        frame_color = colors.black;
+        foreground = colors.white;
+        frame_color = colors.white;
         timeout = 0;
       };
 
