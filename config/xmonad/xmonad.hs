@@ -345,8 +345,8 @@ myKeys =
 
     -- Multimedia Keys
   , ("<XF86AudioMute>", spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle")
-  , ("<XF86AudioLowerVolume>", spawn "pactl set-sink-volume @DEFAULT_SINK@ -5%")
-  , ("<XF86AudioRaiseVolume>", spawn "pactl set-sink-volume @DEFAULT_SINK@ +5%")
+  , ("<XF86AudioLowerVolume>", spawn "pactl set-sink-volume @DEFAULT_SINK@ -10%")
+  , ("<XF86AudioRaiseVolume>", spawn "pactl set-sink-volume @DEFAULT_SINK@ +10%")
   , ("<XF86AudioPlay>", spawn "playerctl --player=spotify,ncspot play-pause")
   , ("<XF86AudioNext>", spawn "playerctl --player=spotify,ncspot next")
   , ("<XF86AudioPrev>", spawn "playerctl --player=spotify,ncspot previous")
