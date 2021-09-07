@@ -30,7 +30,6 @@
 
   home.packages = with pkgs; [
     # Utility
-    haskellPackages.termonad
     devour
     exa
     neofetch
