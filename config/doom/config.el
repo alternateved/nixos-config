@@ -37,8 +37,7 @@
                "\n"))
      'face 'doom-dashboard-banner)))
 
-(unless (display-graphic-p)
-  (setq +doom-dashboard-ascii-banner-fn #'doom-dashboard-draw-ascii-emacs-banner-fn))
+(setq +doom-dashboard-ascii-banner-fn #'doom-dashboard-draw-ascii-emacs-banner-fn)
 (remove-hook '+doom-dashboard-functions #'doom-dashboard-widget-shortmenu)
 (add-hook! '+doom-dashboard-mode-hook (hide-mode-line-mode 1))
 (setq-hook! '+doom-dashboard-mode-hook evil-normal-state-cursor (list nil))
@@ -95,7 +94,7 @@
   (setq doom-themes-enable-bold t
         doom-themes-enable-italic t))
 
-(setq doom-theme 'modus-operandi)
+(setq doom-theme 'modus-vivendi)
 (use-package! doom-modeline
   :custom (doom-modeline-height 15)
           (doom-modeline-major-mode-icon t))
