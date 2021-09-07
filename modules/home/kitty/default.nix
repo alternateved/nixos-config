@@ -6,7 +6,7 @@ in {
     enable = true;
     font = {
       name = "Iosevka Nerd Font";
-      size = 12;
+      size = 14;
     };
     settings = {
       shell = "zsh";

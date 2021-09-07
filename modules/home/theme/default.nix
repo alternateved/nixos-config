@@ -1,6 +1,6 @@
 { pkgs, ... }: {
   imports = [
-    ./xresources.nix
+    # ./xresources.nix
     ./light.nix
     # ./dark.nix
   ];
