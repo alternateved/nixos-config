@@ -175,19 +175,21 @@ super + F2
 
 # run program launcher
 super + p
-      rofi -show drun
+      bg=$(xrdb -query | grep '*.background' | cut -f2- -d'#'); \
+      fg=$(xrdb -query | grep '*.foreground' | cut -f2- -d'#'); \ 
+      dmenu_run -c -l 8 -nb #${bg} -nf #${fg} -sf #${bg} -sb #${fg} -fn Iosevka
 
 super + shift + q
-      bash ~/dotfiles/scripts/exit
+      bash ~/.nixos-config/config/scripts/exit
 
 super + ctrl + p
-      bash ~/dotfiles/scripts/hub
+      bash ~/.nixos-config/config/scripts/hub
 
 super + ctrl + q
-      bash ~/dotfiles/scripts/kill
+      bash ~/.nixos-config/config/scripts/kill
 
 super + ctrl + r
-      bash ~/dotfiles/scripts/configurations
+      bash ~/.nixos-config/config/scripts/configurations
 
 super + apostrophe
       rofi -show windowcd
