@@ -19,6 +19,10 @@
     };
   };
   environment.systemPackages = with pkgs; [
+    xdotool
+    xwallpaper
+    xsecurelock
+    xorg.xkill
     haskellPackages.xmonad
     haskellPackages.alternateved-xmobar
     haskellPackages.alternateved-xmonad

@@ -22,5 +22,11 @@
     };
     windowManager.bspwm.enable = true;
   };
-  environment.systemPackages = with pkgs; [ xorg.xwininfo ];
+  environment.systemPackages = with pkgs; [
+    xdotool
+    xwallpaper
+    xsecurelock
+    xorg.xkill
+    xorg.xwininfo
+  ];
 }

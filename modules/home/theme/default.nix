@@ -2,9 +2,9 @@
   imports = [
     # ./xresources.nix
     ./light.nix
-    # ./dark.nix
+    #     ./dark.nix
   ];
-  dconf.enable = false;
+  dconf.enable = true;
   gtk = {
     enable = true;
     font = {
@@ -17,7 +17,13 @@
     platformTheme = "gtk";
   };
 
-  home.packages = with pkgs; [ libsForQt5.qtstyleplugins ];
+  home.packages = with pkgs; [
+    gnome.gnome-themes-extra
+    gsettings-desktop-schemas
+    gnome3.dconf
+    libsForQt5.qtstyleplugins
+  ];
+
   xsession.pointerCursor = {
     package = pkgs.vanilla-dmz;
     name = "Vanilla-DMZ";

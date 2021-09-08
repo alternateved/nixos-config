@@ -29,33 +29,15 @@
   ];
 
   home.packages = with pkgs; [
-    # Utility
-    devour
-    exa
-    neofetch
+    # Archives
     unrar
     unzip
     xarchiver
-    xwallpaper
-    xsecurelock
-
-    # Xorg
-    xdotool
-    xclip
-    killall
-    xorg.xkill
-
-    # Theming
-    gnome.gnome-themes-extra
-    gsettings-desktop-schemas
 
     # File managers
     pcmanfm
 
     # Office
-    aspell
-    aspellDicts.en
-    aspellDicts.pl
     libreoffice
 
     # Media
@@ -66,36 +48,6 @@
     pulseaudio
     pulsemixer
     youtube-dl
-
-    # Doom dependencies
-    fd
-    ripgrep
-
-    # Doom module dependencies
-    gnumake
-    cmake
-    gcc
-    jq
-    graphviz
-    pandoc
-    ## org-roam
-    sqlite
-    ## treemacs
-    python3Minimal
-    ## Nix
-    nixfmt
-    ## sh
-    shellcheck
-    nodePackages.bash-language-server
-    ## JS, TS, json and web
-    nodejs
-    html-tidy
-    nodePackages.npm
-    nodePackages.stylelint
-    nodePackages.js-beautify
-    nodePackages.typescript-language-server
-    nodePackages.vscode-json-languageserver-bin
-    nodePackages.vscode-html-languageserver-bin
 
     # Communication
     discord

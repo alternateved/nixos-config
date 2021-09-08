@@ -3,8 +3,8 @@ let colors = import ../../modules/home/theme/colors.nix;
 in {
   imports = [
     ./hardware-configuration.nix
-    # ../../modules/system/window-managers/xmonad.nix
-    ../../modules/system/window-managers/bspwm.nix
+    ../../modules/system/window-managers/xmonad.nix
+    # ../../modules/system/window-managers/bspwm.nix
   ];
 
   users = {
