@@ -25,6 +25,7 @@
     ### :term vterm
     libvterm
     gnumake
+    cmake
     ### :tty
     xclip
     ### :lang markdown
