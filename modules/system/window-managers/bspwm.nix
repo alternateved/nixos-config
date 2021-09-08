@@ -1,5 +1,5 @@
 { pkgs, ... }: {
-  imports = [ ../polybar ../rofi ];
+  imports = [ ../polybar ];
   nixpkgs.overlays = [
     (self: super: {
       bspwm = super.bspwm.overrideAttrs (old: rec {
@@ -23,6 +23,15 @@
     windowManager.bspwm.enable = true;
   };
   environment.systemPackages = with pkgs; [
+    (dmenu.overrideAttrs (oldAttrs: rec {
+      patches = [
+        (fetchpatch {
+          url =
+            "https://tools.suckless.org/dmenu/patches/center/dmenu-center-20200111-8cd37e1.diff";
+          sha256 = "0x7jc1m0138p7vfa955jmfhhyc317y0wbl8cxasr6cfpq8nq1qsg";
+        })
+      ];
+    }))
     xdotool
     xwallpaper
     xsecurelock
