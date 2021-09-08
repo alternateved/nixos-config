@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+source "$SCRIPT_DIR/config"
+
+main() {
+  # As this is loaded from other file it is technically not defined
+  # shellcheck disable=SC2154 # Choosing  a search engine by name from array above.
+  engine=$(printf '%s\n' "${!websearch[@]}" | sort | ${DMENU} -i -l 20 -p 'Choose search engine') "$@" || exit 1
+
+  # Getting the URL of the search engine we chose.
+  url="${websearch["${engine}"]}"
+
+  # Searching the chosen engine.
+  query=$(echo "$engine" | ${DMENU} -p 'Enter search query')
+
+  query="$(echo "${query}" | jq -s -R -r @uri)"
+  # Display search results in web browser
+  # shellcheck disable=SC2154
+  ${websearch_browser} "${url}${query}"
+}
+
+[[ "${BASH_SOURCE[0]}" == "${0}" ]] && main "$@"

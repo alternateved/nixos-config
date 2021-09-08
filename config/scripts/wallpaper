@@ -1,0 +1,76 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+source "$SCRIPT_DIR/config"
+
+help() {
+    # shellcheck disable=SC2154
+    printf '
+    ## Usage
+    run dmwall without any argument to select a wallpaper from %s\n
+    dmwall [optional arguments]
+    -h\tDisplays this help menu
+    -d\tdraws the wallpaper at startx. Add "dmwall -d" in your xinitrc
+    -r\trandomly selects a wallpaper
+    -i\tGo insane
+' "${setbg_dir}"
+}
+
+change() {
+    xwallpaper --stretch "$1" 2>/dev/null
+}
+
+shuffle() {
+    wallpaper=$(find "${setbg_dir}" -type f | shuf -n 1)
+    echo "$wallpaper"
+}
+
+setbg() {
+    wallpaper="$(sxiv -t -o "${setbg_dir}")"
+    echo "$wallpaper" > "$HOME"/.cache/wall
+    change "$wallpaper"
+}
+
+# draw the wallpaper at startx
+draw() {
+    change "$(cat "$HOME"/.cache/wall)"
+}
+
+random() {
+    wallpaper=$(shuffle)
+    echo "$wallpaper" > "$HOME"/.cache/wall
+    change "$wallpaper"
+}
+
+goInsane() {
+    while true; do
+        wallpaper=$(shuffle)
+        change "$wallpaper"
+        sleep 1s
+    done
+}
+
+# dmenu menu
+menu() {
+    # options="set background\nrandom\ngo insane"
+    input=$(printf "set wallpaper\nrandom\ngo insane" | ${DMENU} -i -l 3) || exit 1
+    case "$input" in
+        "set wallpaper") setbg ;;
+        "random") random ;;
+        "go insane") goInsane ;;
+    esac
+}
+
+noOpt=1
+while getopts "hdrim" arg 2>/dev/null; do
+    case "${arg}" in
+        h) help ;;
+        d) draw ;;
+        r) random ;;
+        i) goInsane ;;
+        *) printf "invalid option\nType dmwall -h for help" ;;
+    esac
+    noOpt=0
+done
+[ $noOpt = 1 ] && menu
