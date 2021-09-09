@@ -27,6 +27,11 @@
       patches = [
         (fetchpatch {
           url =
+            "https://tools.suckless.org/dmenu/patches/border/dmenu-border-20201112-1a13d04.diff";
+          sha256 = "1ghckggwgasw9p87x900gk9v3682d6is74q2rd0vcpsmrvpiv606";
+        })
+        (fetchpatch {
+          url =
             "https://tools.suckless.org/dmenu/patches/center/dmenu-center-20200111-8cd37e1.diff";
           sha256 = "0x7jc1m0138p7vfa955jmfhhyc317y0wbl8cxasr6cfpq8nq1qsg";
         })
