@@ -37,6 +37,7 @@
         })
       ];
     }))
+    killall
     xdotool
     xwallpaper
     xsecurelock
