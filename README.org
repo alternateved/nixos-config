@@ -28,5 +28,6 @@
 | *Browser:*     | firefox                                                 |
 | *GTK Theme:*   | [[Materia][https://github.com/nana-4/materia-theme]]    |
 
+* Disclaimer
 
 I try to keep my nixos configuration clean, therefore all my archived configuration files can be found [here](https://github.com/alternateved/dotfiles).
