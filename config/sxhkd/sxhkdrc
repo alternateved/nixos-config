@@ -51,17 +51,21 @@ super + shift + {h,j,k,l}
 
 # focus the next/previous node in the current desktop
 super + {_,shift + }n
-      bspc node -f {next,prev}.local
+      bspc node -f {next,prev}.local.!hidden.window.!locked
 
 # focus the next/previous desktop in the current monitor
 super + bracket{left,right}
       bspc desktop -f {prev,next}
 
+# Swap monitors
+super + {less,greater}
+	bspc monitor --focus {prev,next}
+
 # focus the last node/desktop
 super + {grave,Tab}
       bspc {node,desktop} -f last
 
-# send the newest marked node to the newest preselected node
+# focus the node marked as urgent
 super + u
       bspc node -f newest.urgent
 
@@ -75,6 +79,13 @@ super + {o,i}
 super + {_,shift + }{1,2,3,4,5,6}
       bspc {desktop -f,node -d} '^{1,2,3,4,5,6}'
       # bspc {desktop -f,node -d} '^{1,4,2,5,6,3}'
+
+# Swap the contents of two desktops
+super + alt + {1-6}
+	target={1,2,3,4,5,6}; \
+	bspc node "@focused:/" -s "@^$target:/" \
+	    || bspc node "@focused:/" -d "^$target" \
+	    || bspc node "@^$two:/" -d focused
 
 # focus or send to the given monitor
 super + {_,shift + }{w,e}
@@ -108,7 +119,7 @@ super + ctrl {h,j,k,l}
 
 # rotate windows by certain amounts
 super + r
-      bspc node @/ -R 90
+      bspc node @parent -R 90
 
 # Equalize/balance windows
 super + equal; {e,b}
