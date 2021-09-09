@@ -1,10 +1,10 @@
 { config, pkgs, ... }:
-let colors = import ../../modules/home/theme/colors.nix;
-in {
+{
   imports = [
     ./hardware-configuration.nix
-    ../../modules/system/window-managers/xmonad.nix
-    # ../../modules/system/window-managers/bspwm.nix
+    ../../modules/system/lightdm
+    # ../../modules/system/window-managers/xmonad.nix
+    ../../modules/system/window-managers/bspwm.nix
   ];
 
   users = {
@@ -68,23 +68,6 @@ in {
       enable = true;
       layout = "pl";
       xkbOptions = "caps:escape_shifted_capslock";
-      displayManager = {
-        autoLogin.enable = true;
-        autoLogin.user = "alternateved";
-        lightdm.greeters.mini = {
-          enable = true;
-          user = "alternateved";
-          extraConfig = ''
-            [greeter-theme]
-            background-image = "";
-            background-color = ${colors.background}
-            text-color = ${colors.foreground}
-            password-background-color = ${colors.black}
-            window-color = ${colors.background}
-            border-color = ${colors.foreground}
-          '';
-        };
-      };
       libinput = {
         enable = true;
         touchpad.disableWhileTyping = true;
