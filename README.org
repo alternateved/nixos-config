@@ -17,6 +17,8 @@
 
 * BSPWM
 
+[[Screenshot][https://user-images.githubusercontent.com/45176912/132751921-5e92c639-1647-4b95-9c60-5f029eb538b4.png]]
+
 | *Shell*:       | zsh                                                     |
 | *DM:*          | lightdm + lightdm-mini-greeter                          |
 | *WM:*          | BSPWM                                                   |
