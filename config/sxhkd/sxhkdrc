@@ -175,9 +175,7 @@ super + F2
 
 # run program launcher
 super + p
-      bg=$(xrdb -query | grep '*.background' | cut -f2- -d'#'); \
-      fg=$(xrdb -query | grep '*.foreground' | cut -f2- -d'#'); \ 
-      dmenu_run -c -l 8 -nb #${bg} -nf #${fg} -sf #${bg} -sb #${fg} -fn Iosevka
+      bash ~/.nixos-config/config/scripts/menu
 
 super + shift + q
       bash ~/.nixos-config/config/scripts/exit
@@ -191,8 +189,9 @@ super + ctrl + q
 super + ctrl + r
       bash ~/.nixos-config/config/scripts/configurations
 
-super + apostrophe
-      rofi -show windowcd
+# super + apostrophe
+#       rofi -show windowcd
 
-super + shift + apostrophe
-      rofi -show window
+# super + shift + apostrophe
+#       rofi -show window
+

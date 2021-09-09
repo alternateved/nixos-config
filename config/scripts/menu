@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+bg=$(xrdb -query | grep '*.background' | awk '{print $NF}')
+fg=$(xrdb -query | grep '*.foreground' | awk '{print $NF}')
+
+dmenu_run -c -bw 2 -l 8 -nb ${bg} -nf ${fg} -sf ${bg} -sb ${fg} -fn 'Iosevka Nerd Font'
