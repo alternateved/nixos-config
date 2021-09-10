@@ -37,4 +37,4 @@
 
 * Disclaimer
 
-I try to keep my nixos configuration clean, therefore all my archived configuration files can be found [here](https://github.com/alternateved/dotfiles).
+I try to keep my nixos configuration clean, therefore all my archived configuration files can be found [[https://github.com/alternateved/dotfiles][here]].
