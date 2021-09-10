@@ -96,27 +96,12 @@
         doom-themes-enable-italic t))
 
 (setq doom-theme 'modus-vivendi)
-(setq modus-themes-slanted-constructs nil
+(setq modus-themes-slanted-constructs t
       modus-themes-bold-constructs t
       modus-themes-org-blocks 'gray-background)
 
-(defun synchronize-theme ()
-  (let* ((light-theme 'modus-operandi)
-         (dark-theme 'modus-vivendi)
-         (start-time-light-theme 6)
-         (end-time-light-theme 18)
-         (hour (string-to-number (substring (current-time-string) 11 13)))
-         (next-theme (if (member hour (number-sequence start-time-light-theme end-time-light-theme))
-                         light-theme dark-theme)))
-    (when (not (equal doom-theme next-theme))
-      (setq doom-theme next-theme)
-      (load-theme next-theme))))
-
-(run-with-timer 0 900 'synchronize-theme)
-
-(use-package! doom-modeline
-  :custom (doom-modeline-height 15)
-          (doom-modeline-major-mode-icon t))
+(setq! +modeline-height 20
+       +modeline-bar-width nil)
 
 ;; Org-mode settings
 (setq org-directory "~/Documents/org/"
