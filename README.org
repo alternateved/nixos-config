@@ -30,6 +30,11 @@
 | *Browser:*     | firefox                                                 |
 | *GTK Theme:*   | [[https://github.com/nana-4/materia-theme][Materia]]   |
 
+* Flakes that inspired me
+
+** [[https://github.com/erikbackman/nixos-config][erikbackman flake]]
+** [[https://github.com/hlissner/dotfiles][hlissner flake]] 
+
 * Disclaimer
 
 I try to keep my nixos configuration clean, therefore all my archived configuration files can be found [here](https://github.com/alternateved/dotfiles).
