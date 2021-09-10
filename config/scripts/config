@@ -53,9 +53,9 @@ websearch[github]="https://github.com/search?q="
 
 # youtube config
 declare -A youtube_channels
-youtube_channels[DistroTube]="https://www.youtube.com/c/DistroTube/featured"
 youtube_channels[System Crafters]="https://www.youtube.com/c/SystemCrafters/videos"
 youtube_channels[Protesilaos Stavrou]="https://www.youtube.com/c/ProtesilaosStavrou/videos"
+youtube_channels[freeCodeCamp]="https://www.youtube.com/c/Freecodecamp/videos"
 youtube_channels[Tim Ferriss]="https://www.youtube.com/c/timferriss/videos"
 youtube_channels[Nick Cave]="https://www.youtube.com/c/nickcave/videos"
 

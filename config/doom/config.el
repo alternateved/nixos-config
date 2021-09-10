@@ -12,6 +12,8 @@
       scroll-margin 2
       display-line-numbers-type t)
 
+(global-subword-mode 1)                           ; Iterate through CamelCase words
+
 ;; Some sane settings in evil mode
 (after! evil
   (setq evil-ex-substitute-global t     ; I like my s/../.. to by global by default
