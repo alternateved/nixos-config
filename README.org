@@ -34,6 +34,7 @@
 
 - [[https://github.com/erikbackman/nixos-config][erikbackman flake]]
 - [[https://github.com/hlissner/dotfiles][hlissner flake]] 
+- [[  https://github.com/IvanMalison/dotfiles][IvanMalison flake]] 
 
 * Disclaimer
 
