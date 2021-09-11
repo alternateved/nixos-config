@@ -85,7 +85,7 @@ xmobarConfig :: String
 xmobarConfig = myDots ++ "/xmobar/xmobar.hs"
 
 myFont :: String
-myFont = "xft:Iosevka Nerd Font Mono:style=regular:size=12:antialias=true:hinting=true"
+myFont = "xft:Iosevka Nerd Font Mono:style=regular:size=11:antialias=true:hinting=true"
 
 myModMask :: KeyMask
 myModMask = mod4Mask
@@ -419,7 +419,7 @@ myXPConfig = def
     , borderColor = colorFg
     , promptBorderWidth = 2
     , position = CenteredAt (2 / 4) (2 / 4)
-    , height = 38
+    , height = 30
     , historySize = 100
     , historyFilter = id
     , defaultText = []
