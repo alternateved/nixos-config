@@ -140,14 +140,17 @@ super + alt + f
       alacritty -e nnn
 
 super + alt + e
-       emacsclient -a '' -c
+      emacsclient -a '' -c
+
+super + ctrl + e
+      emacsclient --eval '(emacs-everywhere)'
 
 # Floaters
 super + {_,shift } + z
     "$HOME"/.config/bspwm/scratchpad.sh {switch-app,toggle-flag}
 
 super + s; {t,v,m,s}
-      alacritty --title {"terrm","mixerr" -e pulsemixer,"monitorr" -e htop,"spotiff" -e ncspot}
+      alacritty --class {"terrm","mixerr" -e pulsemixer,"monitorr" -e htop,"spotiff" -e ncspot}
 
 # Volume
 XF86AudioMute
