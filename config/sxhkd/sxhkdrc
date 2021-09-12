@@ -142,12 +142,9 @@ super + alt + f
 super + alt + e
       emacsclient -a '' -c
 
-super + ctrl + e
-      emacsclient --eval '(emacs-everywhere)'
-
 # Floaters
 super + {_,shift } + z
-    "$HOME"/.config/bspwm/scratchpad.sh {switch-app,toggle-flag}
+    "$HOME"/.config/bspwm/scripts/scratchpad.sh {switch-app,toggle-flag}
 
 super + s; {t,v,m,s}
       alacritty --class {"terrm","mixerr" -e pulsemixer,"monitorr" -e htop,"spotiff" -e ncspot}
