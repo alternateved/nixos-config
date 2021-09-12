@@ -80,7 +80,7 @@
 (setq +zen-text-scale 0.7)
 
 ;; Font settings
-(setq doom-font (font-spec :family "Iosevka Nerd Font Mono" :size 16)
+(setq doom-font (font-spec :family "Iosevka Nerd Font Mono" :size 17)
       doom-big-font (font-spec :family "Iosevka Nerd Font Mono" :size 23)
       doom-variable-pitch-font (font-spec :family "Iosevka Etoile" :size 17))
 
