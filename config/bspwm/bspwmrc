@@ -74,9 +74,6 @@ bspc rule -a discord desktop=Communication
 bspc rule -a mpv desktop=Media
 bspc rule -a Spotify desktop=Media
 
-# Emacs everywhere
-bspc rule -a '*:*:emacs-everywhere' state=floating sticky=on
-
 # Floaters 
 bspc rule -a '*:terrm' state=floating center=on
 bspc rule -a '*:monitorr' state=floating center=on
