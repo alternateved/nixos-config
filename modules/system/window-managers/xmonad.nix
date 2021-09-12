@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
   services.xserver = {
     displayManager = {
       defaultSession = "none+myxmonad";
@@ -24,6 +23,7 @@
     xwallpaper
     xsecurelock
     xorg.xkill
+    xorg.xwininfo
     haskellPackages.xmonad
     haskellPackages.alternateved-xmobar
     haskellPackages.alternateved-xmonad
