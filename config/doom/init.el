@@ -20,11 +20,12 @@
        ;;layout            ; auie,ctsrnm is the superior home row
 
        :completion
-       company             ; the ultimate code completion backend
+       (company
+        +childframe)       ; the ultimate code completion backend
        ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
-       ;;(ivy +icons)        ; a search engine for love and life
-       (vertico +icons)        ; a search engine for love and life
+       ;;ivy               ; a search engine for love and life
+       (vertico +icons)    ; a search engine for love and life
 
        :ui
        ;;deft              ; notational velocity for Emacs
@@ -82,9 +83,8 @@
        :checkers
        syntax              ; tasing you for every semicolon you forget
        (spell
-        +aspell
-        +flyspell)         ; tasing you for misspelling mispelling
-       grammar             ; tasing grammar mistake every you make
+        +aspell)           ; tasing you for misspelling mispelling
+       ;; grammar          ; tasing grammar mistake every you make
 
        :tools
        ;;ansible
@@ -95,7 +95,7 @@
        ;;ein               ; tame Jupyter notebooks with emacs
        (eval +overlay)     ; run code, run (also, repls)
        ;;gist              ; interacting with github gists
-       (lookup +docsets)   ; navigate your code and its documentation
+       lookup              ; navigate your code and its documentation
        lsp                 ; M-x vscode
        magit               ; a git porcelain for Emacs
        ;;make              ; run make tasks from Emacs
