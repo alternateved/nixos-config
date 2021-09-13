@@ -13,7 +13,7 @@ import qualified Data.Map as M
 -- System
 import System.IO.Unsafe (unsafeDupablePerformIO)
 -- Base
-import XMonad hiding ((|||))
+import XMonad
 -- Actions
 import XMonad.Actions.CopyWindow (kill1)
 import XMonad.Actions.CycleWS (prevWS, nextWS)
@@ -36,7 +36,6 @@ import XMonad.Hooks.UrgencyHook (NoUrgencyHook (NoUrgencyHook), clearUrgents, fo
 -- Layouts
 import XMonad.Layout.BinarySpacePartition (emptyBSP)
 import XMonad.Layout.BorderResize (borderResize)
-import XMonad.Layout.LayoutCombinators ((|||), JumpToLayout (JumpToLayout))
 import XMonad.Layout.LayoutModifier (ModifiedLayout)
 import XMonad.Layout.MultiToggle (mkToggle, single, EOT(EOT), (??))
 import XMonad.Layout.MultiToggle.Instances (StdTransformers (NBFULL, NOBORDERS))
