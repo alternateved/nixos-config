@@ -184,7 +184,7 @@ super + shift + Insert
 control + shift + backslash
         dunstctl set-paused toggle
 
-super + F2
+super + F3
         echo $(sxiv -t -o ~/Pictures/Wallpapers) > /home/alternateved/.cache/wall; xargs xwallpaper --stretch < ~/.cache/wall
 
 # run program launcher
