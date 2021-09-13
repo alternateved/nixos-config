@@ -21,6 +21,7 @@ import XMonad.Actions.DynamicWorkspaces (addWorkspacePrompt, renameWorkspace, re
 import XMonad.Actions.GroupNavigation (Direction (History), historyHook, nextMatch,)
 import XMonad.Actions.Navigation2D (Direction2D (..), defaultTiledNavigation, centerNavigation, layoutNavigation, sideNavigation, singleWindowRect, unmappedWindowRect, windowGo, windowSwap, withNavigation2DConfig)
 import XMonad.Actions.Promote (promote)
+import qualified XMonad.Actions.Search as S (SearchEngine (..), promptSearch, selectSearch, searchEngine, searchEngineF)
 import XMonad.Actions.UpdatePointer (updatePointer)
 import XMonad.Actions.WithAll (killAll, sinkAll)
 -- Hooks
@@ -353,10 +354,12 @@ myKeys =
   , ("<XF86MonBrightnessDown>", spawn "xbacklight -dec 10")
   , ("M-<Insert>", unGrab *> spawn "flameshot screen -p ~/Pictures/Screenshots")
   , ("M-S-<Insert>", unGrab *> spawn "flameshot gui")
-  , ("M-C-<KP_Equal>", spawn "autorandr -cf")
-  , ("M-<F2>", spawn "echo $(sxiv -t -o ~/Pictures/Wallpapers) > /home/alternateved/.cache/wall; xargs xwallpaper --stretch < ~/.cache/wall")
+  , ("M-<F3>", spawn "echo $(sxiv -t -o ~/Pictures/Wallpapers) > /home/alternateved/.cache/wall; xargs xwallpaper --stretch < ~/.cache/wall")
 
   ]
+    -- Appending search engine prompts to keybindings list
+  ++ [("M-<F2> " ++ k, S.promptSearch myXPConfig' f) | (k,f) <- searchList ]
+  ++ [("M-S-<F2> " ++ k, S.selectSearch f) | (k,f) <- searchList ]
   ++ workspaceKeys
   ++ screenKeys
  where
@@ -427,12 +430,37 @@ myXPConfig = def
     , searchPredicate = fuzzyMatch
     , alwaysHighlight = True
     , maxComplRows = Just 5
+    , promptKeymap = emacsLikeXPKeymap
     }
 
 myXPConfig' :: XPConfig
 myXPConfig' = myXPConfig
     { autoComplete = Nothing
+    , historySize = 0
     }
+
+------------------------------------------------------------------------
+-- SEARCH ENGINES
+------------------------------------------------------------------------
+duckduckgo = S.searchEngine  "duckduckgo" "https://duckduckgo.com/?t=lm&q="
+google     = S.searchEngine  "google"     "https://www.google.com/search?num=100&q="
+hoogle     = S.searchEngine  "hoogle"     "https://www.haskell.org/hoogle/?hoogle="
+reddit     = S.searchEngine  "reddit"     "https://www.reddit.com/search/?q="
+url        = S.searchEngineF "url"        ("https://" <>)
+wikipedia  = S.searchEngine  "wiki"       "https://en.wikipedia.org/wiki/Special:Search?go=Go&search="
+youtube    = S.searchEngine  "youtube"    "https://www.youtube.com/results?search_type=search_videos&search_query="
+github     = S.searchEngine  "github"     "https://github.com/search?q="
+
+searchList :: [(String, S.SearchEngine)]
+searchList = [ ("d", duckduckgo)
+             , ("o", google)
+             , ("h", hoogle)
+             , ("r", reddit)
+             , ("u", url)
+             , ("w", wikipedia)
+             , ("y", youtube)
+             , ("g", github)
+             ]
 
 -------------------------------------------------------------------------
 -- 2D NAVIGATION
