@@ -43,12 +43,11 @@ declare -A websearch
 # Search Engines
 websearch[duckduckgo]="https://duckduckgo.com/?q="
 websearch[google]="https://www.google.com/search?q="
-# Information/News
+websearch[hoogle]="https://www.haskell.org/hoogle/?hoogle="
 websearch[wikipedia]="https://en.wikipedia.org/w/index.php?search="
-# Social Media
 websearch[reddit]="https://www.reddit.com/search/?q="
 websearch[youtube]="https://www.youtube.com/results?search_query="
-# Development
+websearch[nixpkgs]="https://search.nixos.org/packages?channel=unstable&from=0&size=50&sort=relevance&type=packages&query="
 websearch[github]="https://github.com/search?q="
 
 # youtube config
@@ -56,8 +55,6 @@ declare -A youtube_channels
 youtube_channels[System Crafters]="https://www.youtube.com/c/SystemCrafters/videos"
 youtube_channels[Protesilaos Stavrou]="https://www.youtube.com/c/ProtesilaosStavrou/videos"
 youtube_channels[freeCodeCamp]="https://www.youtube.com/c/Freecodecamp/videos"
-youtube_channels[Tim Ferriss]="https://www.youtube.com/c/timferriss/videos"
-youtube_channels[Nick Cave]="https://www.youtube.com/c/nickcave/videos"
 
 # translate config
 # Uncomment to manually set the languages dm-translate will show

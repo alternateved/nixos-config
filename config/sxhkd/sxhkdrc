@@ -50,7 +50,7 @@ super + shift + {h,j,k,l}
     bspc node -s {west,south,north,east} --follow || bspc node -m {west,south,north,east} --follow
 
 # focus the next/previous node in the current desktop
-super + {_,shift + }n
+super + {_,shift + } n
       bspc node -f {next,prev}.local.!hidden.window.!locked
 
 # focus the next/previous desktop in the current monitor
@@ -61,13 +61,13 @@ super + bracket{left,right}
 super + {less,greater}
 	bspc monitor --focus {prev,next}
 
-# focus the last node/desktop
-super + {grave,Tab}
-      bspc {node,desktop} -f last
-
 # focus the node marked as urgent
 super + u
       bspc node -f newest.urgent
+
+# focus the last node
+super + shift + u
+      bspc node -f last
 
 # focus the older or newer node in the focus history
 super + {o,i}
@@ -77,8 +77,8 @@ super + {o,i}
 
 # focus or send to the given desktop
 super + {_,shift + }{1,2,3,4,5,6}
-      bspc {desktop -f,node -d} '^{1,2,3,4,5,6}'
-      # bspc {desktop -f,node -d} '^{1,4,2,5,6,3}'
+     bspc {desktop -f,node -d} '^{1,2,3,4,5,6}'
+     # bspc {desktop -f,node -d} '^{1,4,2,5,6,3}'
 
 # Swap the contents of two desktops
 super + alt + {1-6}
@@ -184,6 +184,9 @@ super + shift + Insert
 control + shift + backslash
         dunstctl set-paused toggle
 
+super + F2
+      bash ~/.nixos-config/config/scripts/websearch
+
 super + F3
         echo $(sxiv -t -o ~/Pictures/Wallpapers) > /home/alternateved/.cache/wall; xargs xwallpaper --stretch < ~/.cache/wall
 
@@ -202,10 +205,3 @@ super + ctrl + q
 
 super + ctrl + r
       bash ~/.nixos-config/config/scripts/configurations
-
-# super + apostrophe
-#       rofi -show windowcd
-
-# super + shift + apostrophe
-#       rofi -show window
-
