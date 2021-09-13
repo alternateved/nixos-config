@@ -37,7 +37,8 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.users.alternateved = import ./modules/home/extended.nix;
+              home-manager.users.alternateved =
+                import ./modules/home/extended.nix;
             }
           ];
         };
@@ -50,7 +51,8 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.users.alternateved = import ./modules/home/minimal.nix;
+              home-manager.users.alternateved =
+                import ./modules/home/minimal.nix;
             }
           ];
         };
