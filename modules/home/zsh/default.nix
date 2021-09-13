@@ -29,7 +29,6 @@
         exa = "exa --color=auto --icons --binary --git";
         ls = "exa";
 
-        hc = "herbstclient";
         em = "devour emacsclient -c";
         mpv = "devour mpv";
         zathura = "devour zathura";
@@ -40,7 +39,7 @@
         ALTERNATE_EDITOR = "";
         EDITOR = "vim";
         VISUAL = "emacsclient -c -a ''";
-        BROWSER = "qutebrowser";
+        BROWSER = "firefox";
         CALIBRE_USE_SYSTEM_THEME = "1";
 
         # nnn theme from dircolors
@@ -92,9 +91,5 @@
     };
   };
 
-  home.packages = with pkgs; [
-    devour
-    exa
-    neofetch
-  ];
+  home.packages = with pkgs; [ devour exa neofetch ];
 }

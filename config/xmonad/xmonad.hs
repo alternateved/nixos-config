@@ -36,7 +36,7 @@ import XMonad.Hooks.StatusBar (StatusBarConfig, dynamicSBs, statusBarPropTo)
 import XMonad.Hooks.StatusBar.PP hiding (trim)
 import XMonad.Hooks.UrgencyHook (NoUrgencyHook (NoUrgencyHook), clearUrgents, focusUrgent, withUrgencyHook)
 -- Layouts
-import XMonad.Layout.BinarySpacePartition (emptyBSP)
+import XMonad.Layout.BinarySpacePartition (Rotate (..), emptyBSP)
 import XMonad.Layout.BorderResize (borderResize)
 import XMonad.Layout.LayoutModifier (ModifiedLayout)
 import XMonad.Layout.MultiToggle (mkToggle, single, EOT(EOT), (??))
@@ -86,7 +86,7 @@ xmobarConfig :: String
 xmobarConfig = myDots ++ "/xmobar/xmobar.hs"
 
 myFont :: String
-myFont = "xft:Iosevka Nerd Font Mono:style=regular:size=11:antialias=true:hinting=true"
+myFont = "xft:Iosevka Nerd Font Mono:style=regular:size=12:antialias=true:hinting=true"
 
 myModMask :: KeyMask
 myModMask = mod4Mask
@@ -185,8 +185,8 @@ myTabConfig :: Theme
 myTabConfig = def
     { fontName = myFont
     , activeTextColor = colorBg
-    , activeColor = colorHiBlack
-    , activeBorderColor = colorHiBlack
+    , activeColor = colorFg
+    , activeBorderColor = colorFg
     , inactiveTextColor = colorHiBlack
     , inactiveColor = colorBg
     , inactiveBorderColor = colorBg
@@ -280,12 +280,11 @@ myKeys =
   , ("M-S-k", windowSwap U False)
   , ("M-S-h", windowSwap L False)
   , ("M-S-l", windowSwap R False)
-  , ("M-m", windows W.focusMaster)
-  , ("M-S-m", windows W.swapMaster)
   , ("M-n", windows W.focusDown)
   , ("M-S-n", windows W.focusUp)
   , ("M1-<Tab>", windows W.focusDown)
   , ("M1-S-<Tab>", windows W.focusUp)
+  , ("M-<Return>", windows W.swapMaster)
   , ("M-<Backspace>", promote)
 
   -- Alternative windows navigation
@@ -314,7 +313,8 @@ myKeys =
   , ("M-C-k", sendMessage MirrorExpand)
   , ("M-i", sendMessage (IncMasterN 1))
   , ("M-d", sendMessage (IncMasterN (-1)))
-  , ("M-r", sendMessage (MT.Toggle REFLECTX))
+  , ("M-r", sendMessage Rotate)
+  , ("M-m", sendMessage (MT.Toggle REFLECTX))
   , ("M-b", sendMessage ToggleStruts)
 
   , ("M-a t", sendMessage $ JumpToLayout "tall")

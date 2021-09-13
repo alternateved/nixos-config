@@ -118,13 +118,13 @@ mainCommands =
           "--on"     , "",
           "--off"    , inIconFont "\xf6a9 ",
           "--lowv"   , "20",                   -- Low  threshold for strings (in %).
-          "--highv"  , "40",                   -- High threshold for strings (in %).
+          "--highv"  , "60",                   -- High threshold for strings (in %).
           "--lows"   , inIconFont "\xf026 ",   -- Low    charge string: 
           "--mediums", inIconFont "\xf027 ",   -- Medium charge string: 
           "--highs"  , inIconFont "\xf028 ",   -- High   charge string: 
           "--onc"    , colorFg,                -- On  color.
           "--offc"   , colorRed                -- Off color.
-        ] 10t
+        ] 10,
     Run $ Battery
         [ "--template", "<acstatus>",
           "--Low", "20", -- units: %
