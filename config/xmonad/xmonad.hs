@@ -207,18 +207,18 @@ tall    = renamed [Replace "tall"]
           $ mySpacing 5
           $ ResizableTall 1 (3 / 100) (1 / 2) []
 
-columns = renamed [Replace "columns"]
-          $ addTabs shrinkText myTabConfig . subLayout [] Simplest
-          $ avoidStruts
-          $ mySpacing 5
-          $ ThreeColMid 1 (3 / 100) (12 / 30)
-
 bsp     = renamed [Replace "bsp"]
           $ borderResize
           $ addTabs shrinkText myTabConfig . subLayout [] Simplest
           $ avoidStruts
           $ mySpacing 5
           $ emptyBSP
+
+columns = renamed [Replace "columns"]
+          $ addTabs shrinkText myTabConfig . subLayout [] Simplest
+          $ avoidStruts
+          $ mySpacing 5
+          $ ThreeColMid 1 (3 / 100) (12 / 30)
 
 monocle = renamed [Replace "monocle"]
           $ addTabs shrinkText myTabConfig . subLayout [] Simplest
@@ -232,8 +232,8 @@ myLayoutHook = workspaceDir myHome
                $ myDefaultLayout
             where
                myDefaultLayout =      tall
-                                  ||| columns
                                   ||| bsp
+                                  ||| columns
                                   ||| monocle
 
 -------------------------------------------------------------------------
@@ -313,13 +313,13 @@ myKeys =
   , ("M-C-k", sendMessage MirrorExpand)
   , ("M-i", sendMessage (IncMasterN 1))
   , ("M-d", sendMessage (IncMasterN (-1)))
-  , ("M-r", sendMessage Rotate)
   , ("M-m", sendMessage (MT.Toggle REFLECTX))
+  , ("M-r", sendMessage Rotate)
   , ("M-b", sendMessage ToggleStruts)
 
   , ("M-a t", sendMessage $ JumpToLayout "tall")
-  , ("M-a c", sendMessage $ JumpToLayout "columns")
   , ("M-a b", sendMessage $ JumpToLayout "bsp")
+  , ("M-a c", sendMessage $ JumpToLayout "columns")
   , ("M-a m", sendMessage $ JumpToLayout "monocle")
   , ("M-f", sendMessage $ MT.Toggle NBFULL)
 
@@ -385,7 +385,7 @@ myScratchPads =
   , NS "volumectl"  spawnMixer   findMixer   small
   , NS "monitor"    spawnMonitor findMonitor medium
   , NS "player"     spawnPlayer  findPlayer  medium
-  , NS "notes"      spawnNotes   findNotes   small
+  , NS "notes"      spawnNotes   findNotes   medium
   ]
   where
     spawnTerm = myTerminal ++ " --title scratchpad"
