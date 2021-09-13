@@ -30,6 +30,7 @@ import XMonad.Hooks.InsertPosition (Focus (Newer), Position (Below), insertPosit
 import XMonad.Hooks.ManageDocks (avoidStruts, docks, ToggleStruts (..))
 import XMonad.Hooks.ManageHelpers (doCenterFloat, doFullFloat, isDialog)
 import XMonad.Hooks.RefocusLast (refocusLastLogHook)
+import XMonad.Hooks.Rescreen (addRandrChangeHook)
 import XMonad.Hooks.SetWMName (setWMName)
 import XMonad.Hooks.StatusBar (StatusBarConfig, dynamicSBs, statusBarPropTo)
 import XMonad.Hooks.StatusBar.PP hiding (trim)
@@ -145,7 +146,6 @@ myStartupHook :: X ()
 myStartupHook = do
   spawnOnce "xsetroot -cursor_name left_ptr"
   spawnOnce "xargs xwallpaper --stretch < ~/.cache/wall"
-  spawnOnce "autorandr -cf"
   setWMName "LG3D"
 
 -------------------------------------------------------------------------
@@ -579,6 +579,7 @@ main = xmonad
      . docks
      . ewmh
      . ewmhFullscreen
+     . addRandrChangeHook (spawn "autorandr -c")
      . withNavigation2DConfig myNavigation2DConfig
      . withUrgencyHook NoUrgencyHook
      . dynamicSBs barSpawner
