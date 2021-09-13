@@ -62,6 +62,7 @@ bspc rule -r '*'
 
 bspc rule -a Skype state=floating center=on
 bspc rule -a Sxiv state=floating center=on
+bspc rule -a Peek state=floating center=on
 bspc rule -a flameshot state=floating center=on
 bspc rule -a Emacs state=tiled
 bspc rule -a Zathura state=tiled
