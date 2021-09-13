@@ -75,6 +75,7 @@ bspc rule -a mpv desktop=Media
 bspc rule -a Spotify desktop=Media
 
 # Floaters 
+bspc rule -a 'Emacs:*:scratch' state=floating center=on
 bspc rule -a '*:terrm' state=floating center=on
 bspc rule -a '*:monitorr' state=floating center=on
 bspc rule -a '*:mixerr' state=floating center=on rectangle=1000x300+0+0
