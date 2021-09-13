@@ -455,6 +455,7 @@ reddit     = S.searchEngine  "reddit"     "https://www.reddit.com/search/?q="
 url        = S.searchEngineF "url"        ("https://" <>)
 wikipedia  = S.searchEngine  "wiki"       "https://en.wikipedia.org/wiki/Special:Search?go=Go&search="
 youtube    = S.searchEngine  "youtube"    "https://www.youtube.com/results?search_type=search_videos&search_query="
+nixpkgs    = S.searchEngine  "nixpkgs"    "https://search.nixos.org/packages?channel=unstable&from=0&size=50&sort=relevance&type=packages&query="
 github     = S.searchEngine  "github"     "https://github.com/search?q="
 
 searchList :: [(String, S.SearchEngine)]
@@ -465,6 +466,7 @@ searchList = [ ("d", duckduckgo)
              , ("u", url)
              , ("w", wikipedia)
              , ("y", youtube)
+             , ("n", nixpkgs)
              , ("g", github)
              ]
 

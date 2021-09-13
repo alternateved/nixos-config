@@ -28,7 +28,7 @@ import Xmobar
         template
       ),
     Date (Date),
-    Monitors (Battery, Cpu, Memory, Mpris2, Network, Weather),
+    Monitors (Battery, Cpu, Memory, Mpris2, Network, Volume, Weather),
     Runnable (..),
     StdinReader (UnsafeStdinReader),
     XMonadLog (UnsafeXPropertyLog),
@@ -77,6 +77,7 @@ mainConfig =
           <> withPipe "%EPLL% "
           <> withPipe (inIconFont "\xf2db" ++ " %cpu% ")
           <> withPipe (inIconFont "\xf538" ++ "%memory% ")
+          <> withPipe "%default:Master% "
           <> withPipe "%battery% "
           <> withPipe "%date% "
           <> withPipe "%time% "
@@ -110,6 +111,20 @@ mainCommands =
         ] 36000,
     Run $ Cpu [ "-L", "3", "-H", "50", "--high", colorRed, "-t", "<total>%"] 20,
     Run $ Memory ["-t", " <used>M (<usedratio>%)"] 20,
+    Run $ Volume "default" "Master"
+        [ "--template", "<volumestatus>",
+          "--suffix"  , "True",  -- Show "%" at the end of the <volume> string.
+          "--",                  -- Volume specific options.
+          "--on"     , "",
+          "--off"    , inIconFont "\xf6a9 ",
+          "--lowv"   , "20",                   -- Low  threshold for strings (in %).
+          "--highv"  , "40",                   -- High threshold for strings (in %).
+          "--lows"   , inIconFont "\xf026 ",   -- Low    charge string: 
+          "--mediums", inIconFont "\xf027 ",   -- Medium charge string: 
+          "--highs"  , inIconFont "\xf028 ",   -- High   charge string: 
+          "--onc"    , colorFg,                -- On  color.
+          "--offc"   , colorRed                -- Off color.
+        ] 10t
     Run $ Battery
         [ "--template", "<acstatus>",
           "--Low", "20", -- units: %
