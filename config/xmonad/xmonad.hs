@@ -334,11 +334,12 @@ myKeys =
   , ("M-s v", scratchMixer)
   , ("M-s m", scratchMonitor)
   , ("M-s s", scratchPlayer)
+  , ("M-s e", scratchNotes)
 
     -- Notifications
   , ("C-S-\\", spawn "dunstctl set-paused toggle")
 
-    --- My Applications (Super+Alt+Key)
+    --- My Applications
   , ("M-M1-e", spawn myEditor)
   , ("M-M1-f", spawn myFileManager)
   , ("M-M1-b", spawn myBrowser)
@@ -380,23 +381,27 @@ myKeys =
 -------------------------------------------------------------------------
 myScratchPads :: [NamedScratchpad]
 myScratchPads =
-  [ NS "terminal"   spawnTerm    findTerm    medium
+  [ NS "terminal"   spawnTerm    findTerm    small
   , NS "volumectl"  spawnMixer   findMixer   small
   , NS "monitor"    spawnMonitor findMonitor medium
   , NS "player"     spawnPlayer  findPlayer  medium
+  , NS "notes"      spawnNotes   findNotes   small
   ]
   where
     spawnTerm = myTerminal ++ " --title scratchpad"
     findTerm = title =? "scratchpad"
 
     spawnMixer = myTerminal ++ " --title pulsemixer -e pulsemixer"
-    findMixer = title =? "pulsemixer"
+    findMixer  = title =? "pulsemixer"
 
     spawnMonitor = myTerminal ++ " --title htop -e htop"
-    findMonitor = title =? "htop"
+    findMonitor  = title =? "htop"
 
     spawnPlayer = myTerminal ++ " --title ncspot -e ncspot"
-    findPlayer = title =? "ncspot"
+    findPlayer  = title =? "ncspot"
+
+    spawnNotes = "emacsclient --eval '(open-scratch-frame)'"
+    findNotes  = title =? "scratch"
 
     small = customFloating $ W.RationalRect (1 / 4) (1 / 4) (1 / 2) (1 / 2)
     medium = customFloating $ W.RationalRect (1 / 6) (1 / 6) (2 / 3) (2 / 3)
@@ -407,6 +412,7 @@ scratchTerm    = namedScratchpadAction myScratchPads "terminal"
 scratchMixer   = namedScratchpadAction myScratchPads "volumectl"
 scratchMonitor = namedScratchpadAction myScratchPads "monitor"
 scratchPlayer  = namedScratchpadAction myScratchPads "player"
+scratchNotes   = namedScratchpadAction myScratchPads "notes"
 
 -------------------------------------------------------------------------
 -- PROMPT CONFIGURATION
