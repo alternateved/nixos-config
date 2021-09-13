@@ -58,14 +58,14 @@
 (after! company
   (setq company-idle-delay 0.5
         company-minimum-prefix-length 2)
-  (setq company-show-quick-access t)
-  (add-hook 'evil-normal-state-entry-hook #'company-abort)) ; make aborting less annoying.
+  (setq company-show-quick-access t))
 
 (setq-default history-length 1000)
 (setq-default prescient-history-length 1000)
 
 ;; Which-key improvements
 (setq which-key-idle-delay 0.5)                   ; I need the help, I really do
+
 
 ;; Those evil evils
 (setq which-key-allow-multiple-replacements t)
