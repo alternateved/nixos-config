@@ -45,7 +45,7 @@
     calibre
     spotify
     playerctl
-    pulseaudio
+    pamixer
     pulsemixer
     youtube-dl
 
