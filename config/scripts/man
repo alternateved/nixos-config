@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+source "$SCRIPT_DIR/config"
+
+function main() {
+    # shellcheck disable=SC2086
+    man -k . | awk '{$3="-"; print $0}' | \
+    ${DMENU} -i -l 20 -p 'Manpage:' | \
+    awk '{print $2, $1}' | tr -d '()' | xargs $DMTERM man
+}
+
+[[ "${BASH_SOURCE[0]}" == "${0}" ]] && main "$@"
