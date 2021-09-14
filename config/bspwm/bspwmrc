@@ -1,33 +1,39 @@
 #!/usr/bin/env bash
 
 #### AUTOSTART ####
-autorandr -cf
 pgrep -x sxhkd > /dev/null || sxhkd &
 xsetroot -cursor_name left_ptr
 xargs xwallpaper --stretch < ~/.cache/wall
 ~/.nixos-config/config/polybar/launch.sh
 
 #### MONITORS ####
+# auto-detect monitor configuration
+autorandr -cf
 extmon=$(xrandr | grep "HDMI-1 connected")
 if [ -z "$extmon" ]; then
-    bspc monitor eDP-1 -d Highway Communication Development System Media Other
+    bspc monitor eDP-1 -d 1 2 3 4 5
+    bspc config borderless_monocle true
 else
-    bspc monitor HDMI-1 -d Highway Communication Development System Media Other
-    bspc monitor eDP-1 -d Past Present Future
+    bspc monitor HDMI-1 -d 1 2 3 4 5
+    bspc monitor eDP-1 -d 6
+    bspc config borderless_monocle false
 fi
 
 #### BSPWM configuration ####
+# base
 bspc config border_width                  2
 bspc config window_gap                    5
 bspc config bottom_padding                0
 bspc config left_padding                  0
 bspc config right_padding                 0
-bspc config single_monocle                true
-bspc config click_to_focus                true
 bspc config split_ratio                   0.50
-bspc config borderless_monocle            true
+
+# monocle
+bspc config single_monocle                true
 bspc config gapless_monocle               true
 
+# focus
+bspc config click_to_focus                true
 bspc config focus_by_distance             true
 bspc config focus_follows_pointer         true
 bspc config pointer_follows_monitor       true
@@ -36,16 +42,17 @@ bspc config directional_focus_tightness   low
 bspc config history_aware_focus           true
 bspc config ignore_ewmh_focus             true
 
+# monitors
 bspc config remove_disabled_monitors      true
 bspc config remove_unplugged_monitors     true
 
+# pointer
 bspc config pointer_modifier mod4
 bspc config pointer_action1 move
 bspc config pointer_action2 resize_side
 bspc config pointer_action3 resize_corner
 
 #### BSPWM coloring ####
-# Colors
 bg=$(xrdb -query | grep '*.background' | awk '{print $NF}')
 fg=$(xrdb -query | grep '*.foreground' | awk '{print $NF}')
 gray=$(xrdb -query | grep color7 | awk '{print $NF}')
@@ -68,12 +75,12 @@ bspc rule -a Emacs state=tiled
 bspc rule -a Zathura state=tiled
 
 # Desktop rules
-bspc rule -a Firefox desktop=Highway
-bspc rule -a Thunderbird desktop=Communication
-bspc rule -a Signal desktop=Communication
-bspc rule -a discord desktop=Communication
-bspc rule -a mpv desktop=Media
-bspc rule -a Spotify desktop=Media
+bspc rule -a Firefox desktop=1
+bspc rule -a Thunderbird desktop=3
+bspc rule -a Signal desktop=2
+bspc rule -a discord desktop=2
+bspc rule -a mpv desktop=5
+bspc rule -a Spotify desktop=5
 
 # Floaters 
 bspc rule -a 'Emacs:*:scratch' state=floating center=on
