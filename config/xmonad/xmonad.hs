@@ -154,7 +154,7 @@ myStartupHook = do
 myManageHook :: ManageHook
 myManageHook = composeAll
     [ className =? "Firefox" --> doShift (myWorkspaces !! 0)
-    , className =? "Thunderbird" --> doShift (myWorkspaces !! 1)
+    , className =? "Thunderbird" --> doShift (myWorkspaces !! 2)
     , className =? "Signal" --> doShift (myWorkspaces !! 1)
     , className =? "discord" --> doShift (myWorkspaces !! 1)
     , className =? "mpv" --> doShift (myWorkspaces !! 4)
@@ -176,7 +176,7 @@ myLogHook = refocusLastLogHook
 -- WORKSPACES
 -------------------------------------------------------------------------
 myWorkspaces :: [WorkspaceId]
-myWorkspaces = ["Highway", "Communication", "Development", "System", "Media", "Other"]
+myWorkspaces = ["1", "2", "3", "4", "5" ]
 
 -------------------------------------------------------------------------
 -- TABS CONFIGURATION
@@ -373,7 +373,7 @@ myKeys =
   workspaceKeys =
     [ ("M-" <> m <> show k, withNthWorkspace f i)
     | (k, i) <- zip workspaceNumbers [0 ..]
-    , (m, f) <- [("", W.greedyView), ("C-", W.view), ("S-", W.shift)]
+    , (m, f) <- [("", W.view), ("C-", W.greedyView), ("S-", W.shift)]
     ]
   screenKeys =
     [ ("M-" <> m <> show k, screenWorkspace s >>= flip whenJust (windows . f))
@@ -431,7 +431,7 @@ myXPConfig = def
     , fgHLight = colorBg
     , borderColor = colorFg
     , promptBorderWidth = 2
-    , position = CenteredAt (2 / 4) (1 / 4)
+    , position = CenteredAt (2 / 4) (2 / 5)
     , height = 30
     , historySize = 100
     , historyFilter = id
