@@ -16,7 +16,7 @@ import System.IO.Unsafe (unsafeDupablePerformIO)
 import XMonad
 -- Actions
 import XMonad.Actions.CopyWindow (kill1)
-import XMonad.Actions.CycleWS (prevWS, nextWS)
+import XMonad.Actions.CycleWS (prevWS, nextWS, prevScreen, nextScreen)
 import XMonad.Actions.DynamicWorkspaces (addWorkspacePrompt, renameWorkspace, removeWorkspace, withNthWorkspace)
 import XMonad.Actions.GroupNavigation (Direction (History), historyHook, nextMatch,)
 import XMonad.Actions.Navigation2D (Direction2D (..), defaultTiledNavigation, centerNavigation, layoutNavigation, sideNavigation, singleWindowRect, unmappedWindowRect, windowGo, windowSwap, withNavigation2DConfig)
@@ -301,9 +301,13 @@ myKeys =
   , ("M-u", focusUrgent)
   , ("M-S-u", nextMatch History (return True))
 
-  -- Workspaces
+  -- Workspace/window/screen focus changes 
   , ("M-<Tab>", nextWS)
   , ("M-S-<Tab>", prevWS)
+  , ("M1-<Tab>", windows W.focusDown)
+  , ("M1-S-<Tab>", windows W.focusUp)
+  , ("M-o", nextScreen)
+  , ("M-S-o>", prevScreen)
 
     -- Layouts
   , ("M-<Space>", sendMessage NextLayout)
@@ -345,9 +349,10 @@ myKeys =
   , ("M-M1-b", spawn myBrowser)
 
     -- Multimedia Keys
-  , ("<XF86AudioMute>", spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle")
-  , ("<XF86AudioLowerVolume>", spawn "pactl set-sink-volume @DEFAULT_SINK@ -10%")
-  , ("<XF86AudioRaiseVolume>", spawn "pactl set-sink-volume @DEFAULT_SINK@ +10%")
+  , ("<XF86AudioMute>", spawn "pamixer -t")
+  , ("<XF86AudioLowerVolume>", spawn "pamixer -d 10")
+  , ("<XF86AudioRaiseVolume>", spawn "pamixer -i 10")
+  , ("S-<XF86AudioRaiseVolume>", spawn "pamixer -i 10 --allow-boost")
   , ("<XF86AudioPlay>", spawn "playerctl --player=spotify,ncspot play-pause")
   , ("<XF86AudioNext>", spawn "playerctl --player=spotify,ncspot next")
   , ("<XF86AudioPrev>", spawn "playerctl --player=spotify,ncspot previous")

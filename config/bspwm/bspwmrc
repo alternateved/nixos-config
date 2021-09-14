@@ -12,8 +12,8 @@ extmon=$(xrandr | grep "HDMI-1 connected")
 if [ -z "$extmon" ]; then
     bspc monitor eDP-1 -d Highway Communication Development System Media Other
 else
-    bspc monitor HDMI-1 -d Highway Development Other
-    bspc monitor eDP-1 -d Communication System Media
+    bspc monitor HDMI-1 -d Highway Communication Development System Media Other
+    bspc monitor eDP-1 -d Past Present Future
 fi
 
 #### BSPWM configuration ####

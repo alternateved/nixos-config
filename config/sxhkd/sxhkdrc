@@ -33,7 +33,7 @@ super + Return
 
 # set the window state
 super + {t,ctrl + t, shift + f}
-      bspc node -t {\~floating, \~pseudo_tiled, \~fullscreen}
+      bspc node -t ~{floating,pseudo_tiled,fullscreen}
 
 # set the node flags
 super + x; {m,l,s,p}
@@ -53,13 +53,13 @@ super + shift + {h,j,k,l}
 super + {_,shift + } n
       bspc node -f {next,prev}.local.!hidden.window.!locked
 
-# focus the next/previous desktop in the current monitor
-super + bracket{left,right}
-      bspc desktop -f {prev,next}
+# focus next/previous node/desktop
+{mod4,alt} + {_,shift +} Tab
+	bspc {desktop,node} -f {next,prev}.local
 
-# Swap monitors
-super + {less,greater}
-	bspc monitor --focus {prev,next}
+# focus next/previous monitor
+super + {_,shift +} o
+	bspc monitor --focus {next,prev}
 
 # focus the node marked as urgent
 super + u
@@ -69,15 +69,9 @@ super + u
 super + shift + u
       bspc node -f last
 
-# focus the older or newer node in the focus history
-super + {o,i}
-      bspc wm -h off; \
-      bspc node {older,newer} -f; \
-      bspc wm -h on
-
 # focus or send to the given desktop
-super + {_,shift + }{1,2,3,4,5,6}
-     bspc {desktop -f,node -d} '^{1,2,3,4,5,6}'
+super + {_,shift + }{1-9}
+     bspc {desktop -f,node -d} '^{1-9}'
      # bspc {desktop -f,node -d} '^{1,4,2,5,6,3}'
 
 # Swap the contents of two desktops
@@ -154,10 +148,13 @@ super + s; e
 
 # Volume
 XF86AudioMute
-    pactl set-sink-mute @DEFAULT_SINK@ toggle
+    pamixer -t
 
 XF86Audio{Raise,Lower}Volume
-    pactl set-sink-volume @DEFAULT_SINK@ {+,-}10%
+    pamixer -{i,d} 10
+
+shift + XF86AudioRaiseVolume
+    pamixer -i 10 --allow-boost
 
 # Media
 XF86AudioPlay
