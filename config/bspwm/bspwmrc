@@ -56,7 +56,7 @@ bspc config pointer_action3 resize_corner
 #### BSPWM coloring ####
 bg=$(xrdb -query | grep '*.background' | awk '{print $NF}')
 fg=$(xrdb -query | grep '*.foreground' | awk '{print $NF}')
-gray=$(xrdb -query | grep color7 | awk '{print $NF}')
+gray=$(xrdb -query | grep color8 | awk '{print $NF}')
 red=$(xrdb -query | grep color1 | awk '{print $NF}')
 
 bspc config normal_border_color      "$bg"
