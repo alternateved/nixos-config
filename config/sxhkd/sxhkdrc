@@ -72,11 +72,20 @@ super + shift + u
 # focus or send to the given desktop
 super + {_,shift + }{1-9}
      bspc {desktop -f,node -d} '^{1-9}'
-     # bspc {desktop -f,node -d} '^{1,4,2,5,6,3}'
 
 # focus or send to the given monitor
 super + {_,shift + }{w,e}
       bspc {monitor -f,node -m} '^{1-2}'
+
+# DYNAMIC WORKSPACES
+super + y; a
+      bash ~/.nixos-config/config/bspwm/scripts/add_workspace 
+
+super + y; r
+      bash ~/.nixos-config/config/bspwm/scripts/rename_workspace
+
+super + y; d
+      bspc desktop -r
 
 # PRESELECT
 
