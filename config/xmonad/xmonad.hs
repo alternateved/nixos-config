@@ -227,6 +227,7 @@ monocle = renamed [Replace "monocle"]
 
 myLayoutHook = workspaceDir myHome
                $ smartBorders
+               $ T.toggleLayouts monocle
                $ mkToggle (single REFLECTX)
                $ mkToggle (NBFULL ?? NOBORDERS ?? EOT)
                $ myDefaultLayout
@@ -323,8 +324,8 @@ myKeys =
   , ("M-a t", sendMessage $ JumpToLayout "tall")
   , ("M-a b", sendMessage $ JumpToLayout "bsp")
   , ("M-a c", sendMessage $ JumpToLayout "columns")
-  , ("M-a m", sendMessage $ JumpToLayout "monocle")
-  , ("M-f", sendMessage $ MT.Toggle NBFULL)
+  , ("M-f", sendMessage $ T.Toggle "monocle")
+  , ("M-S-f", sendMessage $ MT.Toggle NBFULL)
 
    -- SubLayouts
   , ("M-S-.", withFocused (sendMessage . mergeDir id))
