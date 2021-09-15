@@ -307,7 +307,6 @@ myKeys =
   , ("M1-<Tab>", windows W.focusDown)
   , ("M1-S-<Tab>", windows W.focusUp)
   , ("M-o", nextScreen)
-  , ("M-S-o>", prevScreen)
 
     -- Layouts
   , ("M-<Space>", sendMessage NextLayout)
@@ -431,7 +430,7 @@ myXPConfig = def
     , fgHLight = colorBg
     , borderColor = colorFg
     , promptBorderWidth = 2
-    , position = CenteredAt (2 / 4) (2 / 5)
+    , position = CenteredAt (2 / 4) (2 / 6)
     , height = 30
     , historySize = 100
     , historyFilter = id
@@ -485,11 +484,11 @@ myNavigation2DConfig = def { defaultTiledNavigation = sideNavigation }
 -------------------------------------------------------------------------
 mainXmobarPP :: ScreenId -> X PP
 mainXmobarPP s = clickablePP . namedScratchpadFilterOutWorkspacePP $ def
-      { ppCurrent = foreground . xmobarBorder "Bottom" colorFg 1
-      , ppVisible = foreground
-      , ppHidden = white
-      , ppHiddenNoWindows = hiBlack
-      , ppUrgent = red
+      { ppCurrent = foreground . xmobarBorder "Bottom" colorFg 1 . wrap " " " "
+      , ppVisible = foreground . wrap " " " "
+      , ppHidden = white . wrap " " " "
+      , ppHiddenNoWindows = hiBlack . wrap " " " "
+      , ppUrgent = red . wrap " " " "
       , ppTitle = foreground . shorten 60
       , ppSep = foreground " | "
       , ppExtras  = [ logLayoutOnScreen s
