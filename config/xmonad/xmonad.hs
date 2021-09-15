@@ -49,7 +49,6 @@ import XMonad.Layout.Renamed (Rename (Replace), renamed)
 import XMonad.Layout.ResizableTile (MirrorResize (..), ResizableTall (ResizableTall))
 import XMonad.Layout.Spacing (Border (Border), Spacing, spacingRaw)
 import XMonad.Layout.Tabbed (Theme (..), addTabs, shrinkText)
-import XMonad.Layout.ThreeColumns (ThreeCol (ThreeColMid))
 import XMonad.Layout.Simplest (Simplest (..))
 import XMonad.Layout.SubLayouts (GroupMsg (UnMerge), mergeDir, onGroup, subLayout)
 import XMonad.Layout.WorkspaceDir (changeDir, workspaceDir)
@@ -215,12 +214,6 @@ bsp     = renamed [Replace "bsp"]
           $ mySpacing 5
           $ emptyBSP
 
-columns = renamed [Replace "columns"]
-          $ addTabs shrinkText myTabConfig . subLayout [] Simplest
-          $ avoidStruts
-          $ mySpacing 5
-          $ ThreeColMid 1 (3 / 100) (12 / 30)
-
 monocle = renamed [Replace "monocle"]
           $ addTabs shrinkText myTabConfig . subLayout [] Simplest
           $ avoidStruts
@@ -235,7 +228,6 @@ myLayoutHook = workspaceDir myHome
             where
                myDefaultLayout =      tall
                                   ||| bsp
-                                  ||| columns
                                   ||| monocle
 
 -------------------------------------------------------------------------
@@ -327,7 +319,6 @@ myKeys =
 
   , ("M-a t", sendMessage $ JumpToLayout "tall")
   , ("M-a b", sendMessage $ JumpToLayout "bsp")
-  , ("M-a c", sendMessage $ JumpToLayout "columns")
   , ("M-f", sendMessage $ T.Toggle "monocle")
   , ("M-S-f", sendMessage $ MT.Toggle NBFULL)
 
@@ -409,7 +400,7 @@ myScratchPads =
     spawnPlayer = myTerminal ++ " --title ncspot -e ncspot"
     findPlayer  = title =? "ncspot"
 
-    spawnNotes = "emacsclient --eval '(open-scratch-frame)'"
+    spawnNotes = "emacsclient -a '' --eval '(open-scratch-frame)'"
     findNotes  = title =? "scratch"
 
     small = customFloating $ W.RationalRect (1 / 4) (1 / 4) (1 / 2) (1 / 2)
@@ -601,7 +592,7 @@ main = xmonad
      . docks
      . ewmh
      . ewmhFullscreen
-     . addRandrChangeHook (spawn "autorandr -c")
+     . addRandrChangeHook (spawn "autorandr -cf")
      . withNavigation2DConfig myNavigation2DConfig
      . withUrgencyHook NoUrgencyHook
      . dynamicSBs barSpawner
