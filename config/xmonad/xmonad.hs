@@ -16,10 +16,10 @@ import System.IO.Unsafe (unsafeDupablePerformIO)
 import XMonad
 -- Actions
 import XMonad.Actions.CopyWindow (kill1)
-import XMonad.Actions.CycleWS (prevWS, nextWS, prevScreen, nextScreen)
-import XMonad.Actions.DynamicWorkspaces (addWorkspacePrompt, renameWorkspace, removeWorkspace, withNthWorkspace)
+import XMonad.Actions.CycleWS (hiddenWS, prevWS, nextWS, nextScreen, shiftNextScreen)
+import XMonad.Actions.DynamicWorkspaces (addWorkspacePrompt, selectWorkspace, renameWorkspace, removeWorkspace, withNthWorkspace)
 import XMonad.Actions.GroupNavigation (Direction (History), historyHook, nextMatch,)
-import XMonad.Actions.Navigation2D (Direction2D (..), defaultTiledNavigation, centerNavigation, layoutNavigation, sideNavigation, singleWindowRect, unmappedWindowRect, windowGo, windowSwap, withNavigation2DConfig)
+import XMonad.Actions.Navigation2D (Direction2D (..), defaultTiledNavigation, sideNavigation, windowGo, windowSwap, withNavigation2DConfig, switchLayer)
 import XMonad.Actions.Promote (promote)
 import qualified XMonad.Actions.Search as S (SearchEngine (..), promptSearch, selectSearch, searchEngine, searchEngineF)
 import XMonad.Actions.UpdatePointer (updatePointer)
@@ -39,6 +39,7 @@ import XMonad.Hooks.UrgencyHook (NoUrgencyHook (NoUrgencyHook), clearUrgents, fo
 import XMonad.Layout.BinarySpacePartition (Rotate (..), emptyBSP)
 import XMonad.Layout.BorderResize (borderResize)
 import XMonad.Layout.LayoutModifier (ModifiedLayout)
+import qualified XMonad.Layout.ToggleLayouts as T (toggleLayouts, ToggleLayout(Toggle))
 import XMonad.Layout.MultiToggle (mkToggle, single, EOT(EOT), (??))
 import XMonad.Layout.MultiToggle.Instances (StdTransformers (NBFULL, NOBORDERS))
 import qualified XMonad.Layout.MultiToggle as MT (Toggle (..))
@@ -64,7 +65,7 @@ import qualified XMonad.StackSet as W
 -- Utilities
 import XMonad.Util.ClickableWorkspaces (clickablePP)
 import XMonad.Util.EZConfig (additionalKeysP)
-import XMonad.Util.Loggers (Logger, logCurrentOnScreen, logLayoutOnScreen, logTitleOnScreen, shortenL, xmobarColorL)
+import XMonad.Util.Loggers (Logger, logCurrentOnScreen, logLayoutOnScreen, logTitleOnScreen, shortenL, wrapL, xmobarColorL)
 import XMonad.Util.NamedScratchpad (NamedScratchpad (NS), customFloating, namedScratchpadAction, namedScratchpadFilterOutWorkspacePP, namedScratchpadManageHook)
 import XMonad.Util.Run (runProcessWithInput)
 import XMonad.Util.SpawnOnce (spawnOnce)
@@ -260,6 +261,7 @@ myKeys =
 
   -- Workspace management
   , ("M-y a", addWorkspacePrompt myXPConfig')
+  , ("M-y s", selectWorkspace myXPConfig)
   , ("M-y r", renameWorkspace myXPConfig')
   , ("M-y c", changeDir myXPConfig')
   , ("M-y d", removeWorkspace)
@@ -308,6 +310,8 @@ myKeys =
   , ("M1-<Tab>", windows W.focusDown)
   , ("M1-S-<Tab>", windows W.focusUp)
   , ("M-o", nextScreen)
+  , ("M-S-o", shiftNextScreen)
+  , ("M-C-<Space>", switchLayer)
 
     -- Layouts
   , ("M-<Space>", sendMessage NextLayout)
@@ -502,7 +506,7 @@ auxXmobarPP :: ScreenId -> X PP
 auxXmobarPP s = pure $ def
     { ppOrder  = \(_ : _ : _ : extras) -> extras
     , ppSep = foreground " | "
-    , ppExtras = [ foregroundL $ logCurrentOnScreen s
+    , ppExtras = [ wrapL "  " " " $ foregroundL $ logCurrentOnScreen s
                  , logLayoutOnScreen s
                  , shortenL 70 $ logTitleOnScreen s
                  ]
