@@ -38,7 +38,7 @@
       ];
     }))
     killall
-    xdotool
+    xdo
     xtitle
     xwallpaper
     xsecurelock
