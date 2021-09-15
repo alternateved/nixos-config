@@ -271,7 +271,7 @@ myKeys =
   , ("M-C-c", killAll)
 
     -- Floating windows
-  , ("M-t", withFocused $ windows . W.sink)
+  , ("M-t", withFocused toggleFloat)
   , ("M-S-t", sinkAll)
 
     -- Windows navigation
@@ -527,7 +527,12 @@ barSpawner _ = mempty
 -------------------------------------------------------------------------
 -- HELPER FUNCTIONS
 -------------------------------------------------------------------------
-willFloat::Query Bool
+toggleFloat :: Window -> X ()
+toggleFloat w = windows (\s -> if M.member w (W.floating s)
+                            then W.sink w s
+                            else (W.float w (W.RationalRect (1/3) (1/4) (1/2) (1/2)) s))
+
+willFloat :: Query Bool
 willFloat = ask >>= \w -> liftX $ withDisplay $ \d -> do
   sh <- io $ getWMNormalHints d w
   let isFixedSize = isJust (sh_min_size sh) && sh_min_size sh == sh_max_size sh
