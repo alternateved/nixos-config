@@ -28,7 +28,7 @@ import Xmobar
         template
       ),
     Date (Date),
-    Monitors (Battery, Cpu, Memory, Mpris2, Network, Volume, Weather),
+    Monitors (Battery, Cpu, Memory, Network, Volume, Weather),
     Runnable (..),
     StdinReader (UnsafeStdinReader),
     XMonadLog (UnsafeXPropertyLog),
@@ -89,9 +89,7 @@ auxConfig =
     { commands = auxCommands,
       position = OnScreen 1 (TopW L 100),
       template =
-        "%xmobar1% }{"
-          <> "%mpris2% "
-          <> withPipe "%time% "
+        "%xmobar1% }{ %time% "
     }
 
 -------------------------------------------------------------------------
@@ -116,7 +114,7 @@ mainCommands =
           "--suffix"  , "True",  -- Show "%" at the end of the <volume> string.
           "--",                  -- Volume specific options.
           "--on"     , "",
-          "--off"    , inIconFont "\xf6a9 ",
+          "--off"    , inIconFont "\xf6a9 OFF",
           "--lowv"   , "20",                   -- Low  threshold for strings (in %).
           "--highv"  , "60",                   -- High threshold for strings (in %).
           "--lows"   , inIconFont "\xf026 ",   -- Low    charge string: 
@@ -148,7 +146,6 @@ mainCommands =
 auxCommands :: [Runnable]
 auxCommands =
   [ Run $ UnsafeXPropertyLog "xmobar1",
-    Run $ Mpris2 "ncspot" ["-t", "<artist> - <title>"] 10,
     Run $ Date "%H:%M" "time" 300
   ]
 
@@ -164,10 +161,6 @@ colorHiGray   = base08
 colorRed      = base01
 colorBlue     = base04
 colorGreen    = base02
-
-red, blue :: String -> String
-red   = xmobarColor colorRed ""
-blue  = xmobarColor colorBlue ""
 
 -------------------------------------------------------------------------
 -- HELPER FUNCTIONS
