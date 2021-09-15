@@ -45,6 +45,7 @@ bspc config ignore_ewmh_focus             true
 # monitors
 bspc config remove_disabled_monitors      true
 bspc config remove_unplugged_monitors     true
+bspc config merge_overlapping_monitors    true
 
 # pointer
 bspc config pointer_modifier mod4
