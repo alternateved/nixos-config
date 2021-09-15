@@ -57,9 +57,9 @@ focus next/previous node/desktop
 {super,alt} + {_,shift +} Tab
 	bspc {desktop,node} -f {next,prev}.local
 
-# focus next/previous monitor
+# focus next monitor or sent node to it
 super + {_,shift +} o
-	bspc monitor --focus {next,prev}
+  bspc {monitor -f,node -m} {next,prev}
 
 # focus the node marked as urgent
 super + u
