@@ -39,6 +39,7 @@
     }))
     killall
     xdotool
+    xtitle
     xwallpaper
     xsecurelock
     xorg.xkill

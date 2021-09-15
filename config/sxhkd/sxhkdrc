@@ -125,6 +125,18 @@ super + equal; {e,b}
 super + {Left,Down,Up,Right}
       bspc node -v {-40 0,0 40,0 -40,40 0}
 
+# hide window
+super + shift + z
+    bspc node -g hidden -d ^1
+
+# unhide window
+super + z
+    bspc node $(bspc query -N -n .hidden | tail -n 1) -g hidden=off --to-monitor primary -d focused -f
+
+# toggle bar
+super + b
+    {polybar-msg cmd hide; bspc config -m focused top_padding 0, polybar-msg cmd show; bspc config -m focused top_padding 20}
+
 # APPLICATION KEYBINDINGS (Super + Alt + Key)
 super + shift + Return
       alacritty
@@ -139,8 +151,8 @@ super + alt + e
       emacsclient -a '' -c
 
 # Floaters
-super + {_,shift } + z
-    "$HOME"/.config/bspwm/scripts/scratchpad {switch-app,toggle-flag}
+# super + {_,shift } + z
+#     "$HOME"/.config/bspwm/scripts/scratchpad {switch-app,toggle-flag}
 
 super + s; {t,v,m,s}
       alacritty --class {"terrm","mixerr" -e pulsemixer,"monitorr" -e htop,"spotiff" -e ncspot}
@@ -195,6 +207,16 @@ super + ctrl + q
 
 super + ctrl + r
       bash ~/.nixos-config/config/scripts/configurations
+
+super + apostrophe
+      bash ~/.nixos-config/config/bspwm/scripts/windowcd
+
+super + shift + apostrophe
+      bash ~/.nixos-config/config/bspwm/scripts/window
+
+# show hidden windows
+super + ctrl + apostrophe
+      bash ~/.nixos-config/config/bspwm/scripts/hidden_windows
 
 super + F1
       bash ~/.nixos-config/config/scripts/man
