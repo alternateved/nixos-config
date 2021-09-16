@@ -53,9 +53,15 @@ super + shift + {h,j,k,l}
 super + {_,shift + } n
       bspc node -f {next,prev}.local.!hidden.window.!locked
 
-focus next/previous node/desktop
+
+# switch to last active {desktop,node}
+{super,alt} + grave
+	bspc {desktop,node} -f last
+
+# focus next/previous node/desktop
 {super,alt} + {_,shift +} Tab
 	bspc {desktop,node} -f {next,prev}.local
+
 
 # focus next monitor or sent node to it
 super + {_,shift +} o
