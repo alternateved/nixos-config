@@ -15,6 +15,7 @@
     ./fzf
     ./git
     ./htop
+    ./mail
     ./misc
     ./mpv
     ./ncspot
@@ -53,8 +54,10 @@
     discord
     betterdiscordctl
     skypeforlinux
-    thunderbird
     signal-desktop
+
+    # Other
+    google-chrome
   ];
 
   home.stateVersion = "21.05";
