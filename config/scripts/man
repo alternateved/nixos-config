@@ -1,15 +1,18 @@
 #!/usr/bin/env bash
 
 set -euo pipefail
-
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 source "$SCRIPT_DIR/config"
 
 function main() {
-    # shellcheck disable=SC2086
-    man -k . | awk '{$3="-"; print $0}' | \
-    ${DMENU} -i -l 20 -p 'Manpage:' | \
-    awk '{print $2, $1}' | tr -d '()' | xargs $DMTERM man
+  # shellcheck disable=SC2086
+  choice=$(man -k . | awk '{ print $1 }' | ${DMENU} -i -l 10 -p 'Manpage:')
+
+  if [ "$choice" ]; then
+      $DMTERM man $choice
+  else
+      echo "Program terminated." && exit 0
+  fi
 }
 
 [[ "${BASH_SOURCE[0]}" == "${0}" ]] && main "$@"
