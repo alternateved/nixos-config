@@ -24,7 +24,7 @@ bspc config click_to_focus                true
 bspc config focus_by_distance             true
 bspc config focus_follows_pointer         true
 bspc config pointer_follows_monitor       true
-bspc config pointer_follows_focus         true
+bspc config pointer_follows_focus         false
 bspc config directional_focus_tightness   low
 bspc config history_aware_focus           true
 bspc config ignore_ewmh_focus             true
