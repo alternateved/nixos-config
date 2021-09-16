@@ -107,6 +107,6 @@
       experimental-features = nix-command flakes
     '';
   };
-
+  documentation.man.generateCaches = true;
   system.stateVersion = "21.05";
 }
