@@ -13,6 +13,7 @@ in {
       };
       font = {
         size = 9.0;
+        # size = 11.0;
         normal.family = "Iosevka Nerd Font";
         bold.family = "Iosevka Nerd Font";
         italic.family = "Iosevka Nerd Font";
