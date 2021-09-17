@@ -1,6 +1,4 @@
-{ config, lib, pkgs, inputs, ... }:
-
-{
+{ config, lib, pkgs, inputs, ... }: {
   programs.home-manager.enable = true;
   home.username = "alternateved";
   home.homeDirectory = "/home/alternateved";
