@@ -104,14 +104,15 @@
   (setq doom-themes-enable-bold t
         doom-themes-enable-italic t))
 
-(setq doom-theme 'modus-vivendi)
+(setq doom-theme 'modus-operandi)
 (setq modus-themes-slanted-constructs t
       modus-themes-bold-constructs t
       modus-themes-org-blocks 'gray-background)
 
 ;; Lighter modeline
 (setq! +modeline-height 20
-       +modeline-bar-width nil)
+       +modeline-bar-width nil
+       +modeline-encoding nil)
 
 ;; Org-mode settings
 (setq org-directory "~/Documents/org/"
