@@ -14,7 +14,7 @@ case $1 in
         dmenu_string="Move and follow node to desktop: " ;;
 esac
 
-desktop=$(bspc query -m focused -D --names | ${DMENU} -l 10 -p "$dmenu_string")
+desktop=$(bspc query -m focused -D --names | ${DMENU} -i -l 10 -p "$dmenu_string")
 
 found=false
 
