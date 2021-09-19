@@ -1,0 +1,73 @@
+# First Account
+IMAPAccount outside
+Host imap.gmail.com
+UserCmd "gpg2 -q --for-your-eyes-only -d ~/.authinfo.gpg | awk -F ' ' '/outside/ { print $(NF-2); exit; }'"
+PassCmd "gpg2 -q --for-your-eyes-only -d ~/.authinfo.gpg | awk -F ' ' '/outside/ { print $NF; exit; }'"
+AuthMechs LOGIN
+SSLType IMAPS
+SSLVersions TLSv1.2
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+IMAPStore outside-remote
+Account outside
+
+MaildirStore outside-local
+Path ~/.mail/outside/
+Inbox ~/.mail/outside/Inbox
+Subfolders Verbatim
+
+Channel outside
+Far :outside-remote:
+Near :outside-local:
+Patterns * ![Gmail]* "[Gmail]/All Mail" "[Gmail]/Drafts" "[Gmail]/Sent Mail" "[Gmail]/Bin"
+Create Both
+SyncState *
+
+# Second Account
+IMAPAccount inside
+Host imap.gmail.com
+UserCmd "gpg2 -q --for-your-eyes-only -d ~/.authinfo.gpg | awk -F ' ' '/inside/ { print $(NF-2); exit; }'"
+PassCmd "gpg2 -q --for-your-eyes-only -d ~/.authinfo.gpg | awk -F ' ' '/inside/ { print $NF; exit; }'"
+AuthMechs LOGIN
+SSLType IMAPS
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+IMAPStore inside-remote
+Account inside
+
+MaildirStore inside-local
+Path ~/.mail/inside/
+Inbox ~/.mail/inside/Inbox
+Subfolders Verbatim
+
+Channel inside
+Far :inside-remote:
+Near :inside-local:
+Patterns * ![Gmail]* "[Gmail]/All Mail" "[Gmail]/Drafts" "[Gmail]/Sent Mail" "[Gmail]/Bin"
+Create Both
+SyncState *
+
+# Third Account
+IMAPAccount traffic
+Host imap.gmail.com
+UserCmd "gpg2 -q --for-your-eyes-only -d ~/.authinfo.gpg | awk -F ' ' '/traffic/ { print $(NF-2); exit; }'"
+PassCmd "gpg2 -q --for-your-eyes-only -d ~/.authinfo.gpg | awk -F ' ' '/traffic/ { print $NF; exit; }'"
+AuthMechs LOGIN
+SSLType IMAPS
+SSLVersions TLSv1.2
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+IMAPStore traffic-remote
+Account traffic
+
+MaildirStore traffic-local
+Path ~/.mail/traffic/
+Inbox ~/.mail/traffic/Inbox
+Subfolders Verbatim
+
+Channel traffic
+Far :traffic-remote:
+Near :traffic-local:
+Patterns * ![Gmail]* "[Gmail]/All Mail" "[Gmail]/Drafts" "[Gmail]/Sent Mail" "[Gmail]/Bin"
+Create Both
+SyncState *
