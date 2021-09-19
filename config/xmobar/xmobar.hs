@@ -68,7 +68,7 @@ mainConfig =
     { commands = mainCommands,
       position = OnScreen 0 (TopW L 100),
       template =
-        " %xmobar0% }{"
+        " %UnsafeXMonadLog% }{"
           <> "%notif% "
           <> withPipe "%EPLL% "
           <> withPipe (inIconFont "\xf2db" ++ " %cpu% ")
