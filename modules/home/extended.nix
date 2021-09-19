@@ -5,7 +5,6 @@
 
   imports = [
     ./alacritty
-    ./autorandr
     ./direnv
     ./dunst
     ./emacs

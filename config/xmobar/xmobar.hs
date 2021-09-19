@@ -30,8 +30,7 @@ import Xmobar
     Date (Date),
     Monitors (Battery, Cpu, Memory, Network, Volume, Weather),
     Runnable (..),
-    StdinReader (UnsafeStdinReader),
-    XMonadLog (UnsafeXPropertyLog),
+    XMonadLog (UnsafeXMonadLog),
     XPosition (OnScreen, TopW),
     defaultConfig,
     xmobar,
@@ -43,10 +42,7 @@ import XMonad.Util.Run (runProcessWithInput)
 -------------------------------------------------------------------------
 main :: IO ()
 main = do
-  xs <- getArgs
-  case xs of
-    ["aux"] -> xmobar auxConfig
-    _       -> xmobar mainConfig
+    xmobar mainConfig
 
 -------------------------------------------------------------------------
 -- CONFIG
@@ -83,21 +79,12 @@ mainConfig =
           <> withPipe "%time% "
     }
 
-auxConfig :: Config
-auxConfig =
-  baseConfig
-    { commands = auxCommands,
-      position = OnScreen 1 (TopW L 100),
-      template =
-        "%xmobar1% }{ %time% "
-    }
-
 -------------------------------------------------------------------------
 -- COMMANDS
 -------------------------------------------------------------------------
 mainCommands :: [Runnable]
 mainCommands =
-  [ Run $ UnsafeXPropertyLog "xmobar0",
+  [ Run $ UnsafeXMonadLog,
     Run $ Com "bash" ["-c", "if [[ $(dunstctl is-paused) = false ]]; then echo '<fn=1>\xf0f3</fn>'; else echo '<fn=1>\xf1f6</fn>'; fi"] "notif" 20,
     Run $ Weather "EPLL"
         [ "--template", "<weather> <tempC>°C",
@@ -141,11 +128,6 @@ mainCommands =
 					"dunstify -u critical 'Battery' 'Battery running out!'"
         ] 150,
     Run $ Date "%A, %b %_d" "date" 500,
-    Run $ Date "%H:%M" "time" 300
-  ]
-auxCommands :: [Runnable]
-auxCommands =
-  [ Run $ UnsafeXPropertyLog "xmobar1",
     Run $ Date "%H:%M" "time" 300
   ]
 

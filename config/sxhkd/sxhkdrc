@@ -44,7 +44,7 @@ super + x; {m,l,s,p}
 
 # focus the node in the given direction
 super + {h,j,k,l}
-    bspc node -f {west,south,north,east} || bspc monitor -f {west,south,north,east}
+    bspc node -f {west,south,north,east}
 
 super + shift + {h,j,k,l}
     bspc node -s {west,south,north,east} --follow || bspc node -m {west,south,north,east} --follow
@@ -62,11 +62,6 @@ super + {_,shift + } n
 {super,alt} + {_,shift +} Tab
 	bspc {desktop,node} -f {next,prev}.local
 
-
-# focus next monitor or sent node to it
-super + {_,shift +} o
-  bspc {monitor -f,node -m} {next,prev}
-
 # focus the node marked as urgent
 super + u
       bspc node -f newest.urgent
@@ -78,10 +73,6 @@ super + shift + u
 # focus or send to the given desktop
 super + {_,shift + }{1-9}
      bspc {desktop -f,node -d} '^{1-9}'
-
-# focus or send to the given monitor
-super + {_,shift + }{w,e}
-      bspc {monitor -f,node -m} '^{1-2}'
 
 # DYNAMIC WORKSPACES
 super + y; a

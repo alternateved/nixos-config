@@ -7,6 +7,9 @@ xargs xwallpaper --stretch < ~/.cache/wall
 ~/.nixos-config/config/polybar/launch.sh
 
 #### BSPWM configuration ####
+# workspaces
+bspc monitor -d 1 2 3 4 5
+
 # base
 bspc config border_width                  2
 bspc config window_gap                    5
@@ -18,6 +21,7 @@ bspc config split_ratio                   0.50
 # monocle
 bspc config single_monocle                true
 bspc config gapless_monocle               true
+bspc config borderless_monocle true
 
 # focus
 bspc config click_to_focus                true
@@ -28,11 +32,6 @@ bspc config pointer_follows_focus         false
 bspc config directional_focus_tightness   low
 bspc config history_aware_focus           true
 bspc config ignore_ewmh_focus             true
-
-# monitors
-bspc config remove_disabled_monitors      true
-bspc config remove_unplugged_monitors     true
-bspc config merge_overlapping_monitors    true
 
 # pointer
 bspc config pointer_modifier mod4
@@ -64,7 +63,7 @@ bspc rule -a Zathura state=tiled
 
 # Desktop rules
 bspc rule -a Firefox desktop=1
-bspc rule -a Thunderbird desktop=3
+bspc rule -a discord desktop=2
 bspc rule -a Signal desktop=2
 bspc rule -a mpv desktop=5
 bspc rule -a Spotify desktop=5
@@ -75,19 +74,3 @@ bspc rule -a '*:terrm' state=floating center=on rectangle=900x600+0+0
 bspc rule -a '*:monitorr' state=floating center=on rectangle=1200x600+0+0
 bspc rule -a '*:mixerr' state=floating center=on rectangle=1000x300+0+0
 bspc rule -a '*:spotiff' state=floating center=on rectangle=1200x500+0+0
-
-#### MONITORS ####
-# auto-detect monitor configuration
-autorandr -cf
-extmon=$(xrandr | grep "HDMI-1 connected")
-if [ -z "$extmon" ]; then
-    bspc monitor eDP-1 -d 1 2 3 4 5
-    bspc config borderless_monocle true
-    bspc rule -a discord desktop=2
-else
-    bspc monitor HDMI-1 -d 1 2 3 4 5
-    bspc monitor eDP-1 -d 6 7
-    bspc config borderless_monocle false
-    bspc rule -a discord desktop=7
-fi
-

@@ -19,7 +19,6 @@ import XMonad.Actions.CopyWindow (kill1)
 import XMonad.Actions.CycleWS (hiddenWS, prevWS, nextWS, nextScreen, shiftNextScreen)
 import XMonad.Actions.DynamicWorkspaces (addWorkspacePrompt, selectWorkspace, renameWorkspace, removeWorkspace, withNthWorkspace)
 import XMonad.Actions.GroupNavigation (Direction (History), historyHook, nextMatch,)
-import XMonad.Actions.Navigation2D (Direction2D (..), defaultTiledNavigation, sideNavigation, windowGo, windowSwap, withNavigation2DConfig, switchLayer)
 import XMonad.Actions.Promote (promote)
 import qualified XMonad.Actions.Search as S (SearchEngine (..), promptSearch, selectSearch, searchEngine, searchEngineF)
 import XMonad.Actions.UpdatePointer (updatePointer)
@@ -30,13 +29,11 @@ import XMonad.Hooks.InsertPosition (Focus (Newer), Position (Below), insertPosit
 import XMonad.Hooks.ManageDocks (avoidStruts, docks, ToggleStruts (..))
 import XMonad.Hooks.ManageHelpers (doCenterFloat, doFullFloat, isDialog)
 import XMonad.Hooks.RefocusLast (refocusLastLogHook)
-import XMonad.Hooks.Rescreen (addRandrChangeHook)
 import XMonad.Hooks.SetWMName (setWMName)
-import XMonad.Hooks.StatusBar (StatusBarConfig, dynamicSBs, statusBarPropTo)
+import XMonad.Hooks.StatusBar (StatusBarConfig, withSB, statusBarProp)
 import XMonad.Hooks.StatusBar.PP hiding (trim)
 import XMonad.Hooks.UrgencyHook (NoUrgencyHook (NoUrgencyHook), clearUrgents, focusUrgent, withUrgencyHook)
 -- Layouts
-import XMonad.Layout.BinarySpacePartition (Rotate (..), emptyBSP)
 import XMonad.Layout.BorderResize (borderResize)
 import XMonad.Layout.LayoutModifier (ModifiedLayout)
 import qualified XMonad.Layout.ToggleLayouts as T (toggleLayouts, ToggleLayout(Toggle))
@@ -64,7 +61,7 @@ import qualified XMonad.StackSet as W
 -- Utilities
 import XMonad.Util.ClickableWorkspaces (clickablePP)
 import XMonad.Util.EZConfig (additionalKeysP)
-import XMonad.Util.Loggers (Logger, logCurrentOnScreen, logLayoutOnScreen, logTitleOnScreen, shortenL, wrapL, xmobarColorL)
+import XMonad.Util.Loggers (logTitles)
 import XMonad.Util.NamedScratchpad (NamedScratchpad (NS), customFloating, namedScratchpadAction, namedScratchpadFilterOutWorkspacePP, namedScratchpadManageHook)
 import XMonad.Util.Run (runProcessWithInput)
 import XMonad.Util.SpawnOnce (spawnOnce)
@@ -136,9 +133,6 @@ black      = xmobarColor colorBlack ""
 hiBlack    = xmobarColor colorHiBlack ""
 red        = xmobarColor colorRed ""
 
-foregroundL :: Logger -> Logger
-foregroundL = xmobarColorL colorFg ""
-
 -------------------------------------------------------------------------
 -- STARTUPHOOK
 -------------------------------------------------------------------------
@@ -207,13 +201,6 @@ tall    = renamed [Replace "tall"]
           $ mySpacing 5
           $ ResizableTall 1 (3 / 100) (1 / 2) []
 
-bsp     = renamed [Replace "bsp"]
-          $ borderResize
-          $ addTabs shrinkText myTabConfig . subLayout [] Simplest
-          $ avoidStruts
-          $ mySpacing 5
-          $ emptyBSP
-
 monocle = renamed [Replace "monocle"]
           $ addTabs shrinkText myTabConfig . subLayout [] Simplest
           $ avoidStruts
@@ -227,7 +214,6 @@ myLayoutHook = workspaceDir myHome
                $ myDefaultLayout
             where
                myDefaultLayout =      tall
-                                  ||| bsp
                                   ||| monocle
 
 -------------------------------------------------------------------------
@@ -267,30 +253,12 @@ myKeys =
   , ("M-S-t", sinkAll)
 
     -- Windows navigation
-  , ("M-j", windowGo D False)
-  , ("M-k", windowGo U False)
-  , ("M-h", windowGo L False)
-  , ("M-l", windowGo R False)
-  , ("M-S-j", windowSwap D False)
-  , ("M-S-k", windowSwap U False)
-  , ("M-S-h", windowSwap L False)
-  , ("M-S-l", windowSwap R False)
-  , ("M-n", windows W.focusDown)
-  , ("M-S-n", windows W.focusUp)
+  , ("M-j", windows W.focusDown)
+  , ("M-k", windows W.focusUp)
   , ("M1-<Tab>", windows W.focusDown)
   , ("M1-S-<Tab>", windows W.focusUp)
   , ("M-<Return>", windows W.swapMaster)
   , ("M-<Backspace>", promote)
-
-  -- Alternative windows navigation
-  , ("M-<Down>", windowGo D False)
-  , ("M-<Up>", windowGo U False)
-  , ("M-<Left>", windowGo L False)
-  , ("M-<Right>", windowGo R False)
-  , ("M-S-<Down>", windowSwap D False)
-  , ("M-S-<Up>", windowSwap U False)
-  , ("M-S-<Left>", windowSwap L False)
-  , ("M-S-<Right>", windowSwap R False)
 
     -- Urgent windows
   , ("M-u", focusUrgent)
@@ -301,9 +269,6 @@ myKeys =
   , ("M-S-<Tab>", prevWS)
   , ("M1-<Tab>", windows W.focusDown)
   , ("M1-S-<Tab>", windows W.focusUp)
-  , ("M-o", nextScreen)
-  , ("M-S-o", shiftNextScreen)
-  , ("M-C-<Space>", switchLayer)
 
     -- Layouts
   , ("M-<Space>", sendMessage NextLayout)
@@ -314,11 +279,9 @@ myKeys =
   , ("M-i", sendMessage (IncMasterN 1))
   , ("M-d", sendMessage (IncMasterN (-1)))
   , ("M-m", sendMessage (MT.Toggle REFLECTX))
-  , ("M-r", sendMessage Rotate)
   , ("M-b", sendMessage ToggleStruts)
 
   , ("M-a t", sendMessage $ JumpToLayout "tall")
-  , ("M-a b", sendMessage $ JumpToLayout "bsp")
   , ("M-f", sendMessage $ T.Toggle "monocle")
   , ("M-S-f", sendMessage $ MT.Toggle NBFULL)
 
@@ -362,18 +325,12 @@ myKeys =
   ++ [("M-<F2> " ++ k, S.promptSearch myXPConfig' f) | (k,f) <- searchList ]
   ++ [("M-S-<F2> " ++ k, S.selectSearch f) | (k,f) <- searchList ]
   ++ workspaceKeys
-  ++ screenKeys
  where
   workspaceNumbers = [1 :: Int .. 9] <> [0]
   workspaceKeys =
     [ ("M-" <> m <> show k, withNthWorkspace f i)
     | (k, i) <- zip workspaceNumbers [0 ..]
     , (m, f) <- [("", W.view), ("C-", W.greedyView), ("S-", W.shift)]
-    ]
-  screenKeys =
-    [ ("M-" <> m <> show k, screenWorkspace s >>= flip whenJust (windows . f))
-    | (k, s) <- zip "we" [0 ..]
-    , (m, f) <- zip ["", "S-"] [W.view, W.shift]
     ]
 
 -------------------------------------------------------------------------
@@ -471,15 +428,10 @@ searchList = [ ("d", duckduckgo)
              ]
 
 -------------------------------------------------------------------------
--- 2D NAVIGATION
--------------------------------------------------------------------------
-myNavigation2DConfig = def { defaultTiledNavigation = sideNavigation }
-
--------------------------------------------------------------------------
 -- XMOBAR CONFIGURATION
 -------------------------------------------------------------------------
-mainXmobarPP :: ScreenId -> X PP
-mainXmobarPP s = clickablePP . namedScratchpadFilterOutWorkspacePP $ def
+mainXmobarPP :: X PP
+mainXmobarPP = clickablePP . namedScratchpadFilterOutWorkspacePP $ def
       { ppCurrent = foreground . xmobarBorder "Bottom" colorFg 1 . wrap " " " "
       , ppVisible = foreground . wrap " " " "
       , ppHidden = white . wrap " " " "
@@ -487,33 +439,22 @@ mainXmobarPP s = clickablePP . namedScratchpadFilterOutWorkspacePP $ def
       , ppUrgent = red . wrap " " " "
       , ppTitle = foreground . shorten 60
       , ppSep = foreground " | "
-      , ppExtras  = [ logLayoutOnScreen s
-                    , shortenL 70 $ logTitleOnScreen s
-                    ]
-      , ppOrder = \(ws : _ : _ : extras) -> ws : extras
+      , ppOrder = \(ws : l : _ : extras) -> ws : extras
+      , ppExtras = [logTitles formatFocused formatUnfocused]
       }
+  where
+    formatFocused   = foreground . ppWindow
+    formatUnfocused = white    . ppWindow
 
-auxXmobarPP :: ScreenId -> X PP
-auxXmobarPP s = pure $ def
-    { ppOrder  = \(_ : _ : _ : extras) -> extras
-    , ppSep = foreground " | "
-    , ppExtras = [ wrapL "  " " " $ foregroundL $ logCurrentOnScreen s
-                 , logLayoutOnScreen s
-                 , shortenL 70 $ logTitleOnScreen s
-                 ]
-    }
-
+    -- | Windows should have *some* title, which should not not exceed a sane length.
+    ppWindow :: String -> String
+    ppWindow = xmobarRaw . (\w -> if null w then "untitled" else w) . shorten 30
+      
 -------------------------------------------------------------------------
 -- XMOBAR INSTANCES
 -------------------------------------------------------------------------
-xmobar0, xmobar1 :: StatusBarConfig
-xmobar0 = statusBarPropTo "xmobar0" "alternateved-xmobar"     (mainXmobarPP 0)
-xmobar1 = statusBarPropTo "xmobar1" "alternateved-xmobar aux" (auxXmobarPP  1)
-
-barSpawner :: ScreenId -> IO StatusBarConfig
-barSpawner 0 = pure xmobar0
-barSpawner 1 = pure xmobar1
-barSpawner _ = mempty
+xmobar0 :: StatusBarConfig
+xmobar0 = statusBarProp "alternateved-xmobar" mainXmobarPP
 
 -------------------------------------------------------------------------
 -- HELPER FUNCTIONS
@@ -592,8 +533,6 @@ main = xmonad
      . docks
      . ewmh
      . ewmhFullscreen
-     . addRandrChangeHook (spawn "autorandr -cf")
-     . withNavigation2DConfig myNavigation2DConfig
      . withUrgencyHook NoUrgencyHook
-     . dynamicSBs barSpawner
+     . withSB xmobar0
      $ myConfig
