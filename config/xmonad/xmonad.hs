@@ -202,6 +202,13 @@ tall    = renamed [Replace "tall"]
           $ mySpacing 5
           $ ResizableTall 1 (3 / 100) (1 / 2) []
 
+wide    = renamed [Replace "wide"]
+          $ addTabs shrinkText myTabConfig . subLayout [] Simplest
+          $ avoidStruts
+          $ mySpacing 5
+          $ Mirror
+          $ ResizableTall 1 (3 / 100) (1 / 2) []
+
 columns = renamed [Replace "columns"]
           $ addTabs shrinkText myTabConfig . subLayout [] Simplest
           $ avoidStruts
@@ -215,13 +222,13 @@ monocle = renamed [Replace "monocle"]
 
 myLayoutHook = workspaceDir myHome
                $ smartBorders
-               $ configurableNavigation noNavigateBorders 
                $ T.toggleLayouts monocle
                $ mkToggle (single REFLECTX)
                $ mkToggle (NBFULL ?? NOBORDERS ?? EOT)
                $ myDefaultLayout
             where
                myDefaultLayout =      tall
+                                  ||| wide
                                   ||| columns
                                   ||| monocle
 
@@ -286,9 +293,10 @@ myKeys =
   , ("M-C-k", sendMessage MirrorExpand)
   , ("M-i", sendMessage (IncMasterN 1))
   , ("M-d", sendMessage (IncMasterN (-1)))
-  , ("M-m", sendMessage (MT.Toggle REFLECTX))
+  , ("M-r", sendMessage (MT.Toggle REFLECTX))
 
   , ("M-a t", sendMessage $ JumpToLayout "tall")
+  , ("M-a w", sendMessage $ JumpToLayout "wide")
   , ("M-a c", sendMessage $ JumpToLayout "columns")
   , ("M-f", sendMessage $ T.Toggle "monocle")
   , ("M-S-f", sendMessage $ MT.Toggle NBFULL)
