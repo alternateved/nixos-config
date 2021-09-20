@@ -201,6 +201,12 @@ tall    = renamed [Replace "tall"]
           $ mySpacing 5
           $ ResizableTall 1 (3 / 100) (1 / 2) []
 
+columns = renamed [Replace "columns"]
+          $ addTabs shrinkText myTabConfig . subLayout [] Simplest
+          $ avoidStruts
+          $ mySpacing 5
+          $ ThreeColMid 1 (3 / 100) (12 / 30)
+
 monocle = renamed [Replace "monocle"]
           $ addTabs shrinkText myTabConfig . subLayout [] Simplest
           $ avoidStruts
