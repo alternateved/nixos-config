@@ -35,7 +35,6 @@ import XMonad.Hooks.StatusBar (StatusBarConfig, withSB, statusBarProp)
 import XMonad.Hooks.StatusBar.PP hiding (trim)
 import XMonad.Hooks.UrgencyHook (NoUrgencyHook (NoUrgencyHook), clearUrgents, focusUrgent, withUrgencyHook)
 -- Layouts
-import XMonad.Layout.BorderResize (borderResize)
 import XMonad.Layout.LayoutModifier (ModifiedLayout)
 import qualified XMonad.Layout.ToggleLayouts as T (toggleLayouts, ToggleLayout(Toggle))
 import XMonad.Layout.MultiToggle (mkToggle, single, EOT(EOT), (??))
@@ -50,7 +49,6 @@ import XMonad.Layout.Tabbed (Theme (..), addTabs, shrinkText)
 import XMonad.Layout.ThreeColumns (ThreeCol (ThreeColMid))
 import XMonad.Layout.Simplest (Simplest (..))
 import XMonad.Layout.SubLayouts (GroupMsg (UnMerge), mergeDir, onGroup, subLayout)
-import XMonad.Layout.WindowNavigation (Direction2D (L, R), Navigate (Go, Swap), configurableNavigation, noNavigateBorders)
 import XMonad.Layout.WorkspaceDir (changeDir, workspaceDir)
 import XMonad.Operations
 -- Prompt
@@ -263,24 +261,12 @@ myKeys =
     -- Floating windows
   , ("M-t", withFocused toggleFloat)
   , ("M-S-t", sinkAll)
-  , ("M-C-<Down>", withFocused (keysResizeWindow  (0, -20) (1, 1)))
-  , ("M-C-<Up>", withFocused (keysResizeWindow    (0,  20) (1, 1)))
-  , ("M-C-<Left>", withFocused (keysResizeWindow  (20,  0) (1, 1)))
-  , ("M-C-<Right>", withFocused (keysResizeWindow (-20, 0) (1, 1)))
-  , ("M-<Down>", withFocused (keysMoveWindow  (0,  40)))
-  , ("M-<Up>", withFocused (keysMoveWindow    (0, -40)))
-  , ("M-<Left>", withFocused (keysMoveWindow  (-40, 0)))
-  , ("M-<Right>", withFocused (keysMoveWindow (40,  0)))
 
     -- Windows navigation
   , ("M-j", windows W.focusDown)
   , ("M-k", windows W.focusUp)
-  , ("M-l", sendMessage $ Go R)
-  , ("M-h", sendMessage $ Go L)
-  , ("M-S-l", sendMessage $ Swap R)
-  , ("M-S-h", sendMessage $ Swap L)
-  , ("M-<Return>", windows W.swapMaster)
-  , ("M-<Backspace>", promote)
+  , ("M-m", windows W.focusMaster)
+  , ("M-<Return>", promote)
 
     -- Urgent windows
   , ("M-u", focusUrgent)
@@ -404,7 +390,7 @@ myXPConfig = def
     , bgHLight = colorFg
     , fgHLight = colorBg
     , borderColor = colorFg
-    , promptBorderWidth = 2
+    , promptBorderWidth = 1
     , position = CenteredAt (2 / 4) (2 / 6)
     , height = 30
     , historySize = 100
@@ -478,13 +464,6 @@ mainXmobarPP = clickablePP . filterOutWsPP [scratchpadWorkspaceTag] $ def
       , ppOrder = \(ws : l : t : extras) -> ws : l : t : extras
       , ppExtras = []
       }
-  where
-    formatFocused   = foreground . ppWindow
-    formatUnfocused = white    . ppWindow
-
-    -- | Windows should have *some* title, which should not not exceed a sane length.
-    ppWindow :: String -> String
-    ppWindow = xmobarRaw . (\w -> if null w then "untitled" else w) . shorten 30
       
 -------------------------------------------------------------------------
 -- XMOBAR INSTANCES
@@ -566,9 +545,9 @@ myConfig = def
 -------------------------------------------------------------------------
 main :: IO ()
 main = xmonad
+     . withSB xmobar0
      . docks
      . ewmh
      . ewmhFullscreen
      . withUrgencyHook NoUrgencyHook
-     . withSB xmobar0
      $ myConfig
