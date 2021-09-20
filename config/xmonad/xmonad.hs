@@ -452,16 +452,16 @@ searchList = [ ("d", duckduckgo)
 -- XMOBAR CONFIGURATION
 -------------------------------------------------------------------------
 mainXmobarPP :: X PP
-mainXmobarPP = clickablePP . namedScratchpadFilterOutWorkspacePP $ def
+mainXmobarPP = clickablePP . filterOutWsPP [scratchpadWorkspaceTag] $ def
       { ppCurrent = foreground . xmobarBorder "Bottom" colorFg 1 . wrap " " " "
       , ppVisible = foreground . wrap " " " "
       , ppHidden = white . wrap " " " "
       , ppHiddenNoWindows = hiBlack . wrap " " " "
       , ppUrgent = red . wrap " " " "
-      , ppTitle = foreground . shorten 60
+      , ppTitle = foreground . shorten 70
       , ppSep = foreground " | "
-      , ppOrder = \(ws : l : _ : extras) -> ws : extras
-      , ppExtras = [logTitles formatFocused formatUnfocused]
+      , ppOrder = \(ws : l : t : extras) -> ws : l : t : extras
+      , ppExtras = []
       }
   where
     formatFocused   = foreground . ppWindow
@@ -480,17 +480,17 @@ xmobar0 = statusBarProp "alternateved-xmobar" mainXmobarPP
 -------------------------------------------------------------------------
 -- HELPER FUNCTIONS
 -------------------------------------------------------------------------
-toggleFloat :: Window -> X ()
-toggleFloat w = windows (\s -> if M.member w (W.floating s)
-                            then W.sink w s
-                            else (W.float w (W.RationalRect (1/3) (1/4) (1/2) (1/2)) s))
-
 willFloat :: Query Bool
 willFloat = ask >>= \w -> liftX $ withDisplay $ \d -> do
   sh <- io $ getWMNormalHints d w
   let isFixedSize = isJust (sh_min_size sh) && sh_min_size sh == sh_max_size sh
   isTransient <- isJust <$> io (getTransientForHint d w)
   return (isFixedSize || isTransient)
+
+toggleFloat :: Window -> X ()
+toggleFloat w = windows (\s -> if M.member w (W.floating s)
+                            then W.sink w s
+                            else (W.float w (W.RationalRect (1/3) (1/4) (1/2) (1/2)) s))
 
 xProperty :: String -> IO String
 xProperty key = fromMaybe "" . findValue key <$> runProcessWithInput "xrdb" ["-query"] ""
