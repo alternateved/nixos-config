@@ -65,7 +65,7 @@ import qualified XMonad.StackSet as W
 import XMonad.Util.ClickableWorkspaces (clickablePP)
 import XMonad.Util.EZConfig (additionalKeysP)
 import XMonad.Util.Loggers (logTitles)
-import XMonad.Util.NamedScratchpad (NamedScratchpad (NS), customFloating, namedScratchpadAction, namedScratchpadFilterOutWorkspacePP, namedScratchpadManageHook)
+import XMonad.Util.NamedScratchpad (NamedScratchpad (NS), customFloating, namedScratchpadAction, namedScratchpadFilterOutWorkspacePP, scratchpadWorkspaceTag, namedScratchpadManageHook)
 import XMonad.Util.Run (runProcessWithInput)
 import XMonad.Util.SpawnOnce (spawnOnce)
 import XMonad.Util.Ungrab (unGrab)
@@ -286,8 +286,8 @@ myKeys =
   , ("M-S-u", nextMatch History (return True))
 
   -- Workspace/window/screen focus changes 
-  , ("M-<Tab>", nextWS)
-  , ("M-S-<Tab>", prevWS)
+  , ("M-<Tab>", moveTo Next $ ignoringWSs [scratchpadWorkspaceTag])
+  , ("M-S-<Tab>", moveTo Prev $ ignoringWSs [scratchpadWorkspaceTag])
   , ("M1-<Tab>", windows W.focusDown)
   , ("M1-S-<Tab>", windows W.focusUp)
 
@@ -300,9 +300,9 @@ myKeys =
   , ("M-i", sendMessage (IncMasterN 1))
   , ("M-d", sendMessage (IncMasterN (-1)))
   , ("M-m", sendMessage (MT.Toggle REFLECTX))
-  , ("M-b", sendMessage ToggleStruts)
 
   , ("M-a t", sendMessage $ JumpToLayout "tall")
+  , ("M-a c", sendMessage $ JumpToLayout "columns")
   , ("M-f", sendMessage $ T.Toggle "monocle")
   , ("M-S-f", sendMessage $ MT.Toggle NBFULL)
 
