@@ -16,8 +16,9 @@ import System.IO.Unsafe (unsafeDupablePerformIO)
 import XMonad
 -- Actions
 import XMonad.Actions.CopyWindow (kill1)
-import XMonad.Actions.CycleWS (hiddenWS, prevWS, nextWS, nextScreen, shiftNextScreen)
+import XMonad.Actions.CycleWS (Direction1D (..), ignoringWSs, moveTo)
 import XMonad.Actions.DynamicWorkspaces (addWorkspacePrompt, selectWorkspace, renameWorkspace, removeWorkspace, withNthWorkspace)
+import XMonad.Actions.FloatKeys (keysResizeWindow, keysMoveWindow)
 import XMonad.Actions.GroupNavigation (Direction (History), historyHook, nextMatch,)
 import XMonad.Actions.Promote (promote)
 import qualified XMonad.Actions.Search as S (SearchEngine (..), promptSearch, selectSearch, searchEngine, searchEngineF)
@@ -44,10 +45,12 @@ import XMonad.Layout.NoBorders (noBorders, smartBorders)
 import XMonad.Layout.Reflect (REFLECTX (..))
 import XMonad.Layout.Renamed (Rename (Replace), renamed)
 import XMonad.Layout.ResizableTile (MirrorResize (..), ResizableTall (ResizableTall))
-import XMonad.Layout.Spacing (Border (Border), Spacing, spacingRaw)
+import XMonad.Layout.Spacing (Border (Border), Spacing, spacingRaw) 
 import XMonad.Layout.Tabbed (Theme (..), addTabs, shrinkText)
+import XMonad.Layout.ThreeColumns (ThreeCol (ThreeColMid))
 import XMonad.Layout.Simplest (Simplest (..))
 import XMonad.Layout.SubLayouts (GroupMsg (UnMerge), mergeDir, onGroup, subLayout)
+import XMonad.Layout.WindowNavigation (Direction2D (L, R), Navigate (Go, Swap), configurableNavigation, noNavigateBorders)
 import XMonad.Layout.WorkspaceDir (changeDir, workspaceDir)
 import XMonad.Operations
 -- Prompt
@@ -214,12 +217,14 @@ monocle = renamed [Replace "monocle"]
 
 myLayoutHook = workspaceDir myHome
                $ smartBorders
+               $ configurableNavigation noNavigateBorders 
                $ T.toggleLayouts monocle
                $ mkToggle (single REFLECTX)
                $ mkToggle (NBFULL ?? NOBORDERS ?? EOT)
                $ myDefaultLayout
             where
                myDefaultLayout =      tall
+                                  ||| columns
                                   ||| monocle
 
 -------------------------------------------------------------------------
@@ -257,12 +262,22 @@ myKeys =
     -- Floating windows
   , ("M-t", withFocused toggleFloat)
   , ("M-S-t", sinkAll)
+  , ("M-C-<Down>", withFocused (keysResizeWindow  (0, -20) (1, 1)))
+  , ("M-C-<Up>", withFocused (keysResizeWindow    (0,  20) (1, 1)))
+  , ("M-C-<Left>", withFocused (keysResizeWindow  (20,  0) (1, 1)))
+  , ("M-C-<Right>", withFocused (keysResizeWindow (-20, 0) (1, 1)))
+  , ("M-<Down>", withFocused (keysMoveWindow  (0,  40)))
+  , ("M-<Up>", withFocused (keysMoveWindow    (0, -40)))
+  , ("M-<Left>", withFocused (keysMoveWindow  (-40, 0)))
+  , ("M-<Right>", withFocused (keysMoveWindow (40,  0)))
 
     -- Windows navigation
   , ("M-j", windows W.focusDown)
   , ("M-k", windows W.focusUp)
-  , ("M1-<Tab>", windows W.focusDown)
-  , ("M1-S-<Tab>", windows W.focusUp)
+  , ("M-l", sendMessage $ Go R)
+  , ("M-h", sendMessage $ Go L)
+  , ("M-S-l", sendMessage $ Swap R)
+  , ("M-S-h", sendMessage $ Swap L)
   , ("M-<Return>", windows W.swapMaster)
   , ("M-<Backspace>", promote)
 
