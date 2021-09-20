@@ -15,10 +15,10 @@ import System.IO.Unsafe (unsafeDupablePerformIO)
 -- Base
 import XMonad
 -- Actions
-import XMonad.Actions.CopyWindow (kill1)
+import XMonad.Actions.CopyWindow (copy, kill1)
 import XMonad.Actions.CycleWS (Direction1D (..), ignoringWSs, moveTo)
 import XMonad.Actions.DynamicWorkspaces (addWorkspacePrompt, selectWorkspace, renameWorkspace, removeWorkspace, withNthWorkspace)
-import XMonad.Actions.FloatKeys (keysResizeWindow, keysMoveWindow)
+import XMonad.Actions.EasyMotion (EasyMotionConfig(..), selectWindow, textSize)
 import XMonad.Actions.GroupNavigation (Direction (History), historyHook, nextMatch,)
 import XMonad.Actions.Promote (promote)
 import qualified XMonad.Actions.Search as S (SearchEngine (..), promptSearch, selectSearch, searchEngine, searchEngineF)
@@ -247,6 +247,7 @@ myKeys =
   , ("M-'", windowPrompt myXPConfig' Goto wsWindows)
   , ("M-C-'", windowPrompt myXPConfig' Goto allWindows)
   , ("M-S-'", windowPrompt myXPConfig' Bring allWindows)
+  , ("M-/", selectWindow emConfig >>= (`whenJust` windows . W.focusWindow))
 
   -- Workspace management
   , ("M-y a", addWorkspacePrompt myXPConfig')
@@ -421,6 +422,20 @@ myXPConfig' :: XPConfig
 myXPConfig' = myXPConfig
     { autoComplete = Nothing
     , historySize = 0
+    }
+
+-------------------------------------------------------------------------
+-- EASYMOTION CONFIGURATION
+-------------------------------------------------------------------------
+emConfig :: EasyMotionConfig
+emConfig = def
+    { txtCol    = colorFg
+    , bgCol     = colorBg 
+    , borderCol = colorFg
+    , overlayF  = textSize
+    , cancelKey = xK_Escape
+    , emFont    = myFont
+    , borderPx  = 1
     }
 
 ------------------------------------------------------------------------
