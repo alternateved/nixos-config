@@ -346,7 +346,7 @@ myKeys =
   workspaceKeys =
     [ ("M-" <> m <> show k, withNthWorkspace f i)
     | (k, i) <- zip workspaceNumbers [0 ..]
-    , (m, f) <- [("", W.view), ("C-", W.greedyView), ("S-", W.shift)]
+    , (m, f) <- [("", W.view), ("S-", W.shift), ("C-", copy)]
     ]
 
 -------------------------------------------------------------------------
