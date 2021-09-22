@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # Terminate already running bar instances
 killall -q polybar
@@ -19,3 +19,4 @@ else
         MONITOR=$m polybar -q aux &
     done
 fi
+
