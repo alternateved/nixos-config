@@ -46,13 +46,13 @@ mainConfig =
       position = OnScreen 0 (TopW L 100),
       template =
         " %UnsafeXMonadLog% }{"
-          <> "%notif% "
-          <> withPipe "%EPLL% "
-          <> withPipe "%cpu% "
-          <> withPipe "%memory% "
-          <> withPipe "%default:Master% "
-          <> withPipe "%battery% "
-          <> withPipe "%date% "
+          <> "%notif%"
+          <> withPipe "%EPLL%"
+          <> withPipe "%cpu%"
+          <> withPipe "%memory%"
+          <> withPipe "%default:Master%"
+          <> withPipe "%battery%"
+          <> withPipe "%date%"
           <> withPipe "%time% "
     }
 
@@ -71,19 +71,19 @@ mainCommands =
           "--normal", colorFg,
           "--high"  , colorRed
         ] 36000,
-    Run $ Cpu [ "-L", "3", "-H", "50", "--high", colorRed, "-t", "\xf2db <total>%"] 20,
-    Run $ Memory ["-t", "\xf85a <used>M (<usedratio>%)"] 20,
+    Run $ Cpu [ "-L", "3", "-H", "50", "--high", colorRed, "-t", "\xf2db  <total>%"] 20,
+    Run $ Memory ["-t", "\xf85a  <used>M (<usedratio>%)"] 20,
     Run $ Volume "default" "Master"
         [ "--template", "<volumestatus>",
           "--suffix"  , "True",  -- Show "%" at the end of the <volume> string.
           "--",                  -- Volume specific options.
           "--on"     , "",
-          "--off"    , "\xfc5d OFF",
+          "--off"    , "\xfc5d  OFF",
           "--lowv"   , "20",        -- Low  threshold for strings (in %).
           "--highv"  , "60",        -- High threshold for strings (in %).
-          "--lows"   , "\xfa7e ",   -- Low
-          "--mediums", "\xfa7f ",   -- Medium
-          "--highs"  , "\xfa7d ",   -- High
+          "--lows"   , "\xfa7e  ",   -- Low
+          "--mediums", "\xfa7f  ",   -- Medium
+          "--highs"  , "\xfa7d  ",   -- High
           "--onc"    , colorFg,     -- On  color.
           "--offc"   , colorRed     -- Off color.
         ] 10,
@@ -96,11 +96,11 @@ mainCommands =
           -- send message when low
           "--", -- battery specific options
           -- discharging status
-          "-o", "\xf243  <left>% <timeleft>",
+          "-o", "\xf243   <left>% <timeleft>",
           -- AC "on" status
-          "-O", "\xf242  <left>%",
+          "-O", "\xf242   <left>%",
           -- charged status
-          "-i", "\xf240  100%",
+          "-i", "\xf240   100%",
           "-a", "dunstify -u critical 'Battery' 'Battery running out!'"
         ] 150,
     Run $ Date "%A, %b %_d" "date" 500,
@@ -184,4 +184,4 @@ mainFont :: String
 mainFont = "xft:Iosevka Nerd Font:style=medium:pixelsize=14:antialias=true:hinting=true"
 
 withPipe :: String -> String
-withPipe = (++) "| "
+withPipe = (++) " | "
