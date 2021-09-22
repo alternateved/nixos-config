@@ -3,38 +3,16 @@
 -------------------------------------------------------------------------
 module Main (main) where
 
-import System.Environment (getArgs)
-import System.IO.Unsafe (unsafeDupablePerformIO)
+-- Data
 import Data.Bifunctor (bimap)
 import Data.Char (isSpace)
 import Data.List (dropWhileEnd, elemIndex, find)
 import Data.Maybe (catMaybes, fromMaybe)
+-- System
+import System.Environment (getArgs)
+import System.IO.Unsafe (unsafeDupablePerformIO)
+-- Base
 import Xmobar
-  ( Align (L),
-    Command (Com),
-    Config
-      ( additionalFonts,
-        alignSep,
-        allDesktops,
-        bgColor,
-        commands,
-        fgColor,
-        font,
-        hideOnStart,
-        lowerOnStart,
-        persistent,
-        position,
-        sepChar,
-        template
-      ),
-    Date (Date),
-    Monitors (Battery, Cpu, Memory, Network, Volume, Weather),
-    Runnable (..),
-    XMonadLog (UnsafeXMonadLog),
-    XPosition (OnScreen, TopW),
-    defaultConfig,
-    xmobar,
-  )
 import XMonad.Util.Run (runProcessWithInput)
 
 -------------------------------------------------------------------------
