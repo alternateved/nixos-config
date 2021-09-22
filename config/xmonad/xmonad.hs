@@ -39,6 +39,7 @@ import XMonad.Layout.LayoutModifier (ModifiedLayout)
 import XMonad.Layout.MultiToggle (mkToggle, single, EOT(EOT), (??))
 import XMonad.Layout.MultiToggle.Instances (StdTransformers (NBFULL, NOBORDERS))
 import qualified XMonad.Layout.MultiToggle as MT (Toggle (..))
+import XMonad.Layout.Magnifier (MagnifyThis (NoMaster), magnify)
 import XMonad.Layout.NoBorders (noBorders, smartBorders)
 import XMonad.Layout.Reflect (REFLECTX (..))
 import XMonad.Layout.Renamed (Rename (Replace), renamed)
@@ -208,6 +209,13 @@ wide    = renamed [Replace "wide"]
           $ Mirror
           $ ResizableTall 1 (3 / 100) (1 / 2) []
 
+englare = renamed [Replace "englare"]
+          $ addTabs shrinkText myTabConfig . subLayout [] Simplest
+          $ avoidStruts
+          $ mySpacing 5
+          $ magnify 1.3 (NoMaster 3) True
+          $ ResizableTall 1 (3 / 100) (1 / 2) []
+
 columns = renamed [Replace "columns"]
           $ addTabs shrinkText myTabConfig . subLayout [] Simplest
           $ avoidStruts
@@ -227,6 +235,7 @@ myLayoutHook = workspaceDir myHome
             where
                myDefaultLayout =      tall
                                   ||| wide
+                                  ||| englare
                                   ||| columns
                                   ||| monocle
 
@@ -292,9 +301,11 @@ myKeys =
   , ("M-i", sendMessage (IncMasterN 1))
   , ("M-d", sendMessage (IncMasterN (-1)))
   , ("M-r", sendMessage (MT.Toggle REFLECTX))
+  , ("M-b", sendMessage ToggleStruts)
 
   , ("M-a t", sendMessage $ JumpToLayout "tall")
   , ("M-a w", sendMessage $ JumpToLayout "wide")
+  , ("M-a e", sendMessage $ JumpToLayout "englare")
   , ("M-a c", sendMessage $ JumpToLayout "columns")
   , ("M-a m", sendMessage $ JumpToLayout "monocle")
   , ("M-f", sendMessage $ MT.Toggle NBFULL)
