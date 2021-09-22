@@ -85,7 +85,6 @@
   environment.systemPackages = with pkgs; [ coreutils wget git mesa ];
 
   fonts.fonts = with pkgs; [
-    font-awesome_5
     (iosevka-bin.override { variant = "aile"; })
     (iosevka-bin.override { variant = "etoile"; })
     (nerdfonts.override { fonts = [ "Iosevka" ]; })
