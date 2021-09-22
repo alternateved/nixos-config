@@ -51,7 +51,6 @@ baseConfig :: Config
 baseConfig =
   defaultConfig
     { font = mainFont,
-      additionalFonts = [iconFont],
       bgColor = colorBg,
       fgColor = colorFg ,
       lowerOnStart = True,
@@ -71,8 +70,8 @@ mainConfig =
         " %UnsafeXMonadLog% }{"
           <> "%notif% "
           <> withPipe "%EPLL% "
-          <> withPipe (inIconFont "\xf2db" ++ " %cpu% ")
-          <> withPipe (inIconFont "\xf538" ++ "%memory% ")
+          <> withPipe "%cpu% "
+          <> withPipe "%memory% "
           <> withPipe "%default:Master% "
           <> withPipe "%battery% "
           <> withPipe "%date% "
@@ -85,7 +84,7 @@ mainConfig =
 mainCommands :: [Runnable]
 mainCommands =
   [ Run $ UnsafeXMonadLog,
-    Run $ Com "bash" ["-c", "if [[ $(dunstctl is-paused) = false ]]; then echo '<fn=1>\xf0f3</fn>'; else echo '<fn=1>\xf1f6</fn>'; fi"] "notif" 20,
+    Run $ Com "bash" ["-c", "if [[ $(dunstctl is-paused) = false ]]; then echo '\xf0f3 '; else echo '\xf1f6 '; fi"] "notif" 20,
     Run $ Weather "EPLL"
         [ "--template", "<weather> <tempC>°C",
           "-L", "0",
@@ -94,21 +93,21 @@ mainCommands =
           "--normal", colorFg,
           "--high"  , colorRed
         ] 36000,
-    Run $ Cpu [ "-L", "3", "-H", "50", "--high", colorRed, "-t", "<total>%"] 20,
-    Run $ Memory ["-t", " <used>M (<usedratio>%)"] 20,
+    Run $ Cpu [ "-L", "3", "-H", "50", "--high", colorRed, "-t", "\xf2db <total>%"] 20,
+    Run $ Memory ["-t", "\xf85a <used>M (<usedratio>%)"] 20,
     Run $ Volume "default" "Master"
         [ "--template", "<volumestatus>",
           "--suffix"  , "True",  -- Show "%" at the end of the <volume> string.
           "--",                  -- Volume specific options.
           "--on"     , "",
-          "--off"    , inIconFont "\xf6a9 OFF",
-          "--lowv"   , "20",                   -- Low  threshold for strings (in %).
-          "--highv"  , "60",                   -- High threshold for strings (in %).
-          "--lows"   , inIconFont "\xf026 ",   -- Low    charge string: 
-          "--mediums", inIconFont "\xf027 ",   -- Medium charge string: 
-          "--highs"  , inIconFont "\xf028 ",   -- High   charge string: 
-          "--onc"    , colorFg,                -- On  color.
-          "--offc"   , colorRed                -- Off color.
+          "--off"    , "\xfc5d OFF",
+          "--lowv"   , "20",        -- Low  threshold for strings (in %).
+          "--highv"  , "60",        -- High threshold for strings (in %).
+          "--lows"   , "\xfa7e ",   -- Low
+          "--mediums", "\xfa7f ",   -- Medium
+          "--highs"  , "\xfa7d ",   -- High
+          "--onc"    , colorFg,     -- On  color.
+          "--offc"   , colorRed     -- Off color.
         ] 10,
     Run $ Battery
         [ "--template", "<acstatus>",
@@ -119,12 +118,12 @@ mainCommands =
           -- send message when low
           "--", -- battery specific options
           -- discharging status
-          "-o", inIconFont "\xf243" ++ " <left>% <timeleft>",
+          "-o", "\xf243  <left>% <timeleft>",
           -- AC "on" status
-          "-O", inIconFont "\xf242" ++ " <left>%",
+          "-O", "\xf242  <left>%",
           -- charged status
-          "-i", inIconFont "\xf240" ++ " 100%",
-	  "-a", "dunstify -u critical 'Battery' 'Battery running out!'"
+          "-i", "\xf240  100%",
+          "-a", "dunstify -u critical 'Battery' 'Battery running out!'"
         ] 150,
     Run $ Date "%A, %b %_d" "date" 500,
     Run $ Date "%H:%M" "time" 300
@@ -204,14 +203,7 @@ base15 = xprop "*.color15"
 -- FONTS AND ICONS
 -------------------------------------------------------------------------
 mainFont :: String
-mainFont = "xft:Iosevka Nerd Font Mono:style=medium:pixelsize=14:antialias=true:hinting=true"
-
-iconFont :: String
-iconFont = "xft:Font Awesome 5 Free Solid:pixelsize=14"
-
--- Wrap stuff so it uses the icon font.
-inIconFont :: String -> String
-inIconFont = wrap "<fn=1>" "</fn>"
+mainFont = "xft:Iosevka Nerd Font:style=medium:pixelsize=14:antialias=true:hinting=true"
 
 withPipe :: String -> String
 withPipe = (++) "| "
