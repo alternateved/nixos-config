@@ -117,14 +117,11 @@
     nixfmt
     ## :lang sh
     shellcheck
-    nodePackages.bash-language-server
     ## :lang javascript, webm json
     jq
     nodejs
-    html-tidy
     nodePackages.npm
-    nodePackages.stylelint
-    nodePackages.js-beautify
+    nodePackages.prettier
     nodePackages.typescript-language-server
     nodePackages.vscode-json-languageserver-bin
     nodePackages.vscode-html-languageserver-bin
