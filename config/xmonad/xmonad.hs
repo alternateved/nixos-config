@@ -36,7 +36,6 @@ import XMonad.Hooks.StatusBar.PP hiding (trim)
 import XMonad.Hooks.UrgencyHook (NoUrgencyHook (NoUrgencyHook), clearUrgents, focusUrgent, withUrgencyHook)
 -- Layouts
 import XMonad.Layout.LayoutModifier (ModifiedLayout)
-import qualified XMonad.Layout.ToggleLayouts as T (toggleLayouts, ToggleLayout(Toggle))
 import XMonad.Layout.MultiToggle (mkToggle, single, EOT(EOT), (??))
 import XMonad.Layout.MultiToggle.Instances (StdTransformers (NBFULL, NOBORDERS))
 import qualified XMonad.Layout.MultiToggle as MT (Toggle (..))
@@ -222,7 +221,6 @@ monocle = renamed [Replace "monocle"]
 
 myLayoutHook = workspaceDir myHome
                $ smartBorders
-               $ T.toggleLayouts monocle
                $ mkToggle (single REFLECTX)
                $ mkToggle (NBFULL ?? NOBORDERS ?? EOT)
                $ myDefaultLayout
@@ -298,8 +296,8 @@ myKeys =
   , ("M-a t", sendMessage $ JumpToLayout "tall")
   , ("M-a w", sendMessage $ JumpToLayout "wide")
   , ("M-a c", sendMessage $ JumpToLayout "columns")
-  , ("M-f", sendMessage $ T.Toggle "monocle")
-  , ("M-S-f", sendMessage $ MT.Toggle NBFULL)
+  , ("M-a m", sendMessage $ JumpToLayout "monocle")
+  , ("M-f", sendMessage $ MT.Toggle NBFULL)
 
    -- SubLayouts
   , ("M-S-.", withFocused (sendMessage . mergeDir id))
