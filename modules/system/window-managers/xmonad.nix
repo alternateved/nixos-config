@@ -4,7 +4,6 @@
       defaultSession = "none+myxmonad";
       sessionCommands = ''
         bluetoothctl power on
-        xrdb ~/.Xresources
       '';
     };
     windowManager = {

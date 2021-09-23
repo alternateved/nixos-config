@@ -17,7 +17,6 @@
       defaultSession = "none+bspwm";
       sessionCommands = ''
         bluetoothctl power on
-        xrdb ~/.Xresources
       '';
     };
     windowManager.bspwm.enable = true;
