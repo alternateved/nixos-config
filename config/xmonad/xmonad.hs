@@ -52,9 +52,9 @@ import XMonad.Layout.SubLayouts (GroupMsg (UnMerge), mergeDir, onGroup, subLayou
 import XMonad.Layout.WorkspaceDir (changeDir, workspaceDir)
 import XMonad.Operations
 -- Prompt
-import XMonad.Prompt (XPConfig (..), XPPosition (CenteredAt), emacsLikeXPKeymap)
+import XMonad.Prompt (XPConfig (..), XPPosition (CenteredAt), deleteAllDuplicates, emacsLikeXPKeymap)
 import XMonad.Prompt.DirExec (dirExecPromptNamed)
-import XMonad.Prompt.FuzzyMatch (fuzzyMatch)
+import XMonad.Prompt.FuzzyMatch (fuzzyMatch, fuzzySort)
 import XMonad.Prompt.Man (manPrompt)
 import XMonad.Prompt.Shell (shellPrompt)
 import XMonad.Prompt.Window (WindowPrompt (Bring, Goto), windowPrompt, allWindows, wsWindows)
@@ -410,12 +410,13 @@ myXPConfig = def
     , promptBorderWidth = 1
     , position = CenteredAt (2 / 4) (2 / 6)
     , height = 30
-    , historySize = 100
-    , historyFilter = id
+    , historySize = 50
+    , historyFilter = deleteAllDuplicates
     , defaultText = []
-    , autoComplete = Just 100000
+    , autoComplete = Nothing
     , showCompletionOnTab = False
     , searchPredicate = fuzzyMatch
+    , sorter = fuzzySort
     , alwaysHighlight = True
     , maxComplRows = Just 5
     , promptKeymap = emacsLikeXPKeymap
@@ -423,9 +424,7 @@ myXPConfig = def
 
 myXPConfig' :: XPConfig
 myXPConfig' = myXPConfig
-    { autoComplete = Nothing
-    , historySize = 0
-    }
+    { historySize = 0 }
 
 -------------------------------------------------------------------------
 -- EASYMOTION CONFIGURATION
