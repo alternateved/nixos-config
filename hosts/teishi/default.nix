@@ -2,8 +2,8 @@
   imports = [
     ./hardware-configuration.nix
     ../../modules/system/lightdm
-    # ../../modules/system/window-managers/xmonad.nix
-    ../../modules/system/window-managers/bspwm.nix
+    ../../modules/system/window-managers/xmonad.nix
+    # ../../modules/system/window-managers/bspwm.nix
   ];
 
   users = {
