@@ -21,6 +21,7 @@ import XMonad.Actions.DynamicWorkspaces (addWorkspacePrompt, selectWorkspace, re
 import XMonad.Actions.EasyMotion (EasyMotionConfig(..), selectWindow, textSize)
 import XMonad.Actions.GroupNavigation (Direction (History), historyHook, nextMatch,)
 import XMonad.Actions.Promote (promote)
+import XMonad.Actions.CycleRecentWS (toggleRecentWS)
 import qualified XMonad.Actions.Search as S (SearchEngine (..), promptSearch, selectSearch, searchEngine, searchEngineF)
 import XMonad.Actions.UpdatePointer (updatePointer)
 import XMonad.Actions.WithAll (killAll, sinkAll)
@@ -289,6 +290,8 @@ myKeys =
   -- Workspace/window/screen focus changes 
   , ("M-<Tab>", moveTo Next $ ignoringWSs [scratchpadWorkspaceTag])
   , ("M-S-<Tab>", moveTo Prev $ ignoringWSs [scratchpadWorkspaceTag])
+  , ("M-`", toggleRecentWS)
+  , ("M1-`", nextMatch History (return True))
   , ("M1-<Tab>", windows W.focusDown)
   , ("M1-S-<Tab>", windows W.focusUp)
 
