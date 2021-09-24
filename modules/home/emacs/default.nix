@@ -23,6 +23,7 @@
           mood-line
           hide-mode-line
           all-the-icons
+          all-the-icons-dired
           all-the-icons-completion
 
           # Evil
@@ -44,7 +45,7 @@
 
           # Org
           org-bullets
-          org-journal
+          org-roam
           hl-todo
 
           # Tools
@@ -104,6 +105,7 @@
     libvterm
     gnumake
     cmake
+    gcc
     ### :tty
     xclip
     ### :lang markdown
