@@ -47,6 +47,7 @@
           org-bullets
           org-roam
           hl-todo
+          olivetti
 
           # Tools
           ## Mail
