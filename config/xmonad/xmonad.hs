@@ -18,6 +18,7 @@ import XMonad
 import XMonad.Actions.CopyWindow (copy, kill1)
 import XMonad.Actions.CycleWS (Direction1D (..), ignoringWSs, moveTo)
 import XMonad.Actions.DynamicWorkspaces (addWorkspacePrompt, selectWorkspace, renameWorkspace, removeWorkspace, withNthWorkspace)
+import XMonad.Actions.DynamicWorkspaceOrder (getSortByOrder)
 import XMonad.Actions.EasyMotion (EasyMotionConfig(..), selectWindow, textSize)
 import XMonad.Actions.GroupNavigation (Direction (History), historyHook, nextMatch,)
 import XMonad.Actions.Promote (promote)
@@ -68,6 +69,8 @@ import XMonad.Util.NamedScratchpad (NamedScratchpad (NS), customFloating, namedS
 import XMonad.Util.Run (runProcessWithInput)
 import XMonad.Util.SpawnOnce (spawnOnce)
 import XMonad.Util.Ungrab (unGrab)
+import XMonad.Util.WorkspaceCompare (filterOutWs)
+
 
 -------------------------------------------------------------------------
 -- VARIABLES
@@ -349,17 +352,25 @@ myKeys =
   , ("M-<F3>", spawn "echo $(sxiv -t -o ~/Pictures/Wallpapers) > /home/alternateved/.cache/wall; xargs xwallpaper --stretch < ~/.cache/wall")
 
   ]
-    -- Appending search engine prompts to keybindings list
+  -- Appending search engine prompts to keybindings list
   ++ [("M-<F2> " ++ k, S.promptSearch myXPConfig' f) | (k,f) <- searchList ]
   ++ [("M-S-<F2> " ++ k, S.selectSearch f) | (k,f) <- searchList ]
   ++ workspaceKeys
  where
   workspaceNumbers = [1 :: Int .. 9] <> [0]
   workspaceKeys =
-    [ ("M-" <> m <> show k, withNthWorkspace f i)
+    [ ("M-" <> m <> show k, withNthWorkspace' f i)
     | (k, i) <- zip workspaceNumbers [0 ..]
     , (m, f) <- [("", W.view), ("S-", W.shift), ("C-", copy)]
     ]
+  -- Re-implementation of withNthworkspace with "skipTags" added to filter out NSP
+  withNthWorkspace' :: (String -> WindowSet -> WindowSet) -> Int -> X ()
+  withNthWorkspace' job wnum = do
+    sort <- getSortByOrder
+    ws <- gets (map W.tag . sort . filterOutWs [scratchpadWorkspaceTag] . W.workspaces . windowset)
+    case drop wnum ws of
+      (w:_) -> windows $ job w
+      []    -> return ()
 
 -------------------------------------------------------------------------
 -- SCRATCHPADS
