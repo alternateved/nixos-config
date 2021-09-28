@@ -10,10 +10,11 @@
     emacs-overlay.url = "github:nix-community/emacs-overlay";
     xmonad.url = "github:xmonad/xmonad";
     xmonad-contrib.url = "github:xmonad/xmonad-contrib";
+    xmobar.url = "github:alternateved/xmobar";
   };
 
   outputs = { nixpkgs, nixos-hardware, home-manager, nur, emacs-overlay, xmonad
-    , xmonad-contrib, ... }:
+    , xmonad-contrib, xmobar, ... }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -24,6 +25,7 @@
           emacs-overlay.overlay
           xmonad.overlay
           xmonad-contrib.overlay
+          xmobar.overlay
           (import ./overlays)
         ];
       };
