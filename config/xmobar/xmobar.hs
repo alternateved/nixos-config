@@ -50,7 +50,7 @@ mainConfig =
           <> withPipe "%EPLL%"
           <> withPipe "%cpu%"
           <> withPipe "%memory%"
-          <> withPipe "%default:Master%"
+          <> withPipe "%alsa:default:Master%"
           <> withPipe "%battery%"
           <> withPipe "%date%"
           <> withPipe "%time% "
@@ -73,7 +73,7 @@ mainCommands =
         ] 36000,
     Run $ Cpu [ "-L", "3", "-H", "50", "--high", colorRed, "-t", "\xf2db  <total>%"] 20,
     Run $ Memory ["-t", "\xf85a  <used>M (<usedratio>%)"] 20,
-    Run $ Volume "default" "Master"
+    Run $ Alsa "default" "Master"
         [ "--template", "<volumestatus>",
           "--suffix"  , "True",  -- Show "%" at the end of the <volume> string.
           "--",                  -- Volume specific options.
@@ -86,7 +86,7 @@ mainCommands =
           "--highs"  , "\xfa7d  ",   -- High
           "--onc"    , colorFg,     -- On  color.
           "--offc"   , colorRed     -- Off color.
-        ] 10,
+        ],
     Run $ Battery
         [ "--template", "<acstatus>",
           "--Low", "20", -- units: %
