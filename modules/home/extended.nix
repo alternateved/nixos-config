@@ -43,6 +43,7 @@
     calibre
     spotify
     playerctl
+    alsa-utils
     pamixer
     pulsemixer
     youtube-dl
