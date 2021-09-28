@@ -84,11 +84,21 @@
 
   environment.systemPackages = with pkgs; [ coreutils wget git mesa ];
 
-  fonts.fonts = with pkgs; [
-    (iosevka-bin.override { variant = "aile"; })
-    (iosevka-bin.override { variant = "etoile"; })
-    (nerdfonts.override { fonts = [ "Iosevka" ]; })
-  ];
+  fonts = {
+    fontconfig = {
+      enable = true;
+      defaultFonts = {
+        monospace = [ "Iosevka Nerd Font" ];
+        serif = [ "Iosevka Etoile" ];
+        sansSerif = [ "Iosevka Aile" ];
+      };
+    };
+    fonts = with pkgs; [
+      (iosevka-bin.override { variant = "aile"; })
+      (iosevka-bin.override { variant = "etoile"; })
+      (nerdfonts.override { fonts = [ "Iosevka" ]; })
+    ];
+  };
 
   nix = {
     autoOptimiseStore = true;
