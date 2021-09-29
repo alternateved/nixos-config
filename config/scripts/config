@@ -4,7 +4,8 @@
 bg=$(xrdb -query | grep '*.background' | awk '{print $NF}')
 fg=$(xrdb -query | grep '*.foreground' | awk '{print $NF}')
 
-DMENU="dmenu -c -bw 2 -nb ${bg} -nf ${fg} -sf ${bg} -sb ${fg} -fn Iosevka"
+# DMENU="dmenu -c -bw 2 -nb ${bg} -nf ${fg} -sf ${bg} -sb ${fg} -fn Iosevka"
+DMENU="bemenu --tf ${fg} --ff ${fg} --nb ${bg} --nf ${fg} --sf ${bg} --sb ${fg} --hb ${fg} --hf ${bg} --fn Iosevka"
 DMBROWSER="firefox"
 DMTERM="alacritty -e"
 DMEDITOR="emacsclient -c -a emacs"

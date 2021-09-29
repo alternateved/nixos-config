@@ -19,7 +19,7 @@ main() {
     # An array of options to choose.
     declare -a options=(
     "  lock"
-    " logout"
+    " logout"
     "  reboot"
     "  poweroff"
     "  hibernate"

@@ -4,4 +4,5 @@ set -euo pipefail
 bg=$(xrdb -query | grep '*.background' | awk '{print $NF}')
 fg=$(xrdb -query | grep '*.foreground' | awk '{print $NF}')
 
-dmenu_run -c -bw 2 -l 8 -nb ${bg} -nf ${fg} -sf ${bg} -sb ${fg} -fn 'Iosevka Nerd Font'
+# dmenu_run -c -bw 2 -l 8 -nb ${bg} -nf ${fg} -sf ${bg} -sb ${fg} -fn 'Iosevka Nerd Font'
+bemenu-run -p "Run: " -l 8 --tf ${fg} --ff ${fg} --nb ${bg} --nf ${fg} --sf ${bg} --sb ${fg} --hb ${fg} --hf ${bg} --fn Iosevka
