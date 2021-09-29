@@ -1,9 +1,10 @@
 { config, pkgs, ... }: {
   imports = [
     ./hardware-configuration.nix
-    ../../modules/system/lightdm
-    ../../modules/system/window-managers/xmonad.nix
-    # ../../modules/system/window-managers/bspwm.nix
+    ../../modules/lightdm
+    # ../../modules/window-managers/xmonad.nix
+    # ../../modules/window-managers/bspwm.nix
+    ../../modules/window-managers/sway.nix
   ];
 
   users = {
