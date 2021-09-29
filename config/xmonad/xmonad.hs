@@ -398,7 +398,7 @@ myScratchPads =
     findPlayer  = title =? "ncspot"
 
     spawnNotes = "emacsclient -a '' --eval '(open-scratch-frame)'"
-    findNotes  = title =? "scratch"
+    findNotes  = title =? "scratcher"
 
     small = customFloating $ W.RationalRect (1 / 4) (1 / 4) (1 / 2) (1 / 2)
     medium = customFloating $ W.RationalRect (1 / 6) (1 / 6) (2 / 3) (2 / 3)

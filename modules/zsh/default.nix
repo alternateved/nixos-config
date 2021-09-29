@@ -28,11 +28,7 @@
         grep = "grep --color=auto";
         exa = "exa --color=auto --icons --binary --git";
         ls = "exa";
-
-        em = "devour emacsclient -c";
-        mpv = "devour mpv";
-        zathura = "devour zathura";
-        sxiv = "devour sxiv";
+        em = "emacsclient -c";
       };
       sessionVariables = {
         ALTERNATE_EDITOR = "";
@@ -74,9 +70,5 @@
     };
   };
 
-  home-manager.users.alternateved.home.packages = with pkgs; [
-    devour
-    exa
-    neofetch
-  ];
+  home-manager.users.alternateved.home.packages = with pkgs; [ exa neofetch ];
 }
