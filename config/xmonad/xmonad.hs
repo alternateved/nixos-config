@@ -152,15 +152,15 @@ myStartupHook = do
 -------------------------------------------------------------------------
 myManageHook :: ManageHook
 myManageHook = composeAll
-    [ className =? "Firefox" --> doShift (myWorkspaces !! 0)
-    , className =? "Thunderbird" --> doShift (myWorkspaces !! 2)
-    , className =? "Signal" --> doShift (myWorkspaces !! 1)
-    , className =? "discord" --> doShift (myWorkspaces !! 1)
-    , className =? "mpv" --> doShift (myWorkspaces !! 4)
-    , className =? "Peek" --> doCenterFloat
-    , className =? "Sxiv" --> doCenterFloat
-    , isDialog --> doCenterFloat
-    , fmap not willFloat --> insertPosition Below Newer
+    [ className =? "Firefox"        --> doShift (myWorkspaces !! 0)
+    , className =? "Thunderbird"    --> doShift (myWorkspaces !! 2)
+    , className =? "Signal"         --> doShift (myWorkspaces !! 1)
+    , className =? "discord"        --> doShift (myWorkspaces !! 1)
+    , className =? "mpv"            --> doShift (myWorkspaces !! 4)
+    , className =? "Peek"           --> doCenterFloat
+    , className =? "Sxiv"           --> doCenterFloat
+    , isDialog                      --> doCenterFloat
+    , fmap not willFloat            --> insertPosition Below Newer
     ] <+> namedScratchpadManageHook myScratchPads
 
 -------------------------------------------------------------------------
@@ -336,6 +336,7 @@ myKeys =
   , ("M-M1-e", spawn myEditor)
   , ("M-M1-f", spawn myFileManager)
   , ("M-M1-b", spawn myBrowser)
+  , ("M-M1-m", spawn "emacsclient -a '' -c --eval '(mu4e)'")
 
     -- Multimedia Keys
   , ("<XF86AudioMute>", spawn "pamixer -t")
