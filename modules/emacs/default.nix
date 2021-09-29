@@ -2,7 +2,7 @@
   home-manager.users.alternateved.programs = {
     emacs = {
       enable = true;
-      package = pkgs.emacsGcc;
+      package = pkgs.emacsPgtkGcc;
       extraPackages = (epkgs:
         with epkgs; [
           # Package managements
