@@ -12,6 +12,7 @@ in {
       name = "Tela";
     };
   };
+
   home-manager.users.alternateved.xresources.extraConfig = ''
      Xft.antialias: 1
      Xft.hinting: 1
