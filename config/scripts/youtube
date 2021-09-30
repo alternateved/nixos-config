@@ -42,7 +42,7 @@ main() {
   # Sorts the array and lets you select a channel with dmenu
   # As this is loaded from other file it is technically not defined
   # shellcheck disable=SC2154
-  _channel=$(printf '%s\n' "${!youtube_channels[@]}" | sort | ${DMENU} -i -l 10 -p 'Select channel' "$@")
+  _channel=$(printf '%s\n' "${!youtube_channels[@]}" | sort | ${DMENU} -i -l 10 -p 'Select channel:' "$@")
 
   # get channel id to be able to get rss
   _channel_id=$(curl -s -f -L "${youtube_channels[${_channel}]}" | grep -o "channel_id=.*" | sed 's/".*//g' | awk -F"=" '{print $2}')
@@ -51,7 +51,7 @@ main() {
   # parse rss
   _video_list=$(parse_rss "$(curl -s "${_feed_url}")" )
 
-  _video=$(printf '%s\n' "${_video_list}" | sort -r | ${DMENU} -i -l 15 -p 'Select Video' "$@")
+  _video=$(printf '%s\n' "${_video_list}" | sort -r | ${DMENU} -i -l 15 -p 'Select Video:' "$@")
   _video_id=$(echo "${_video}" | awk -F'|' '{print $2}' | sed -e 's/^[ \t]*//')
 
   if [[ -n ${_video_id} ]]; then

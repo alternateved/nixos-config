@@ -28,7 +28,7 @@ main() {
 
     # Piping the above array into dmenu.
     # We use "printf '%s\n'" to format the array one item to a line.
-    choice=$(printf '%s\n' "${options[@]}" | ${DMENU} -i -l 6 -p 'Shutdown menu' "${@}")
+    choice=$(printf '%s\n' "${options[@]}" | ${DMENU} -i -l 6 -p 'Shutdown menu:' "${@}")
 
     # What to do when/if we choose one of the options.
     case $choice in
