@@ -19,7 +19,7 @@ main() {
     # An array of options to choose.
     declare -a options=(
     "  lock"
-    " logout"
+    "  logout"
     "  reboot"
     "  poweroff"
     "  hibernate"
@@ -33,50 +33,32 @@ main() {
     # What to do when/if we choose one of the options.
     case $choice in
         ' logout')
-            if [[ "$(echo -e "No\nYes" | ${DMENU} -i -p "${choice}" "${@}" )" == "Yes" ]]; then
-                pkill -u $USER
-                # herbstclient quit
-            else
-                output "User chose not to logout." && exit 1
-            fi
+            # pkill -u $USER
+            # herbstclient quit
+            swaymsg exit
             ;;
         '  lock')
             # shellcheck disable=SC2154
-            XSECURELOCK_FONT='Iosevka Nerd Font Mono' XSECURELOCK_AUTH_BACKGROUND_COLOR='#000000' XSECURELOCK_AUTH_FOREGROUND_COLOR='#ffffff' xsecurelock
+            swaylock -f -c 000000
+            # XSECURELOCK_FONT='Iosevka Nerd Font Mono' XSECURELOCK_AUTH_BACKGROUND_COLOR='#000000' XSECURELOCK_AUTH_FOREGROUND_COLOR='#ffffff' xsecurelock
             ;;
         '  reboot')
-            if [[ "$(echo -e "No\nYes" | ${DMENU} -i -p "${choice}" "${@}" )" == "Yes" ]]; then
-                systemctl reboot
-            else
-                output "User chose not to reboot." && exit 0
-            fi
+            systemctl reboot
             ;;
         '  poweroff')
-            if [[ "$(echo -e "No\nYes" | ${DMENU} -i -p "${choice}" "${@}" )" == "Yes" ]]; then
-                systemctl poweroff
-            else
-                output "User chose not to shutdown." && exit 0
-            fi
+            systemctl poweroff
             ;;
         '  hibernate')
-            if [[ "$(echo -e "No\nYes" | ${DMENU} -i -p "${choice}" "${@}" )" == "Yes" ]]; then
-                systemctl hibernate
-            else
-                output "User chose not to hibernate." && exit 0
-            fi
+            systemctl hibernate
             ;;
         '⏾  suspend')
-            if [[ "$(echo -e "No\nYes" | ${DMENU} -i -p "${choice}" "${@}" )" == "Yes" ]]; then
-                systemctl suspend
-            else
-                output "User chose not to suspend." && exit 0
-            fi
-        ;;
+            systemctl suspend
+            ;;
         # It is a common practice to use the wildcard asterisk symbol (*) as a final
         # pattern to define the default case. This pattern will always match.
         *)
             exit 0
-        ;;
+            ;;
     esac
 
 }
