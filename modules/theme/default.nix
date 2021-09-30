@@ -2,7 +2,7 @@
   imports = [
     # ./xresources.nix
     ./light.nix
-    #    ./dark.nix
+#    ./dark.nix
   ];
   home-manager.users.alternateved.dconf.enable = true;
   home-manager.users.alternateved.gtk = {
