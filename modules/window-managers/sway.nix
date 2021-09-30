@@ -408,8 +408,9 @@ in {
         }
         {
           block = "memory";
-          format_mem = "{mem_used}/{mem_total}";
+          format_mem = "{mem_used_percents}";
           display_type = "memory";
+          icons_format = " {icon} ";
           icons = true;
           clickable = false;
           warning_mem = 80;
@@ -422,8 +423,9 @@ in {
         }
         {
           block = "battery";
+          icons_format = " {icon} ";
           format = "{percentage} {time}";
-          full_format = "{percentage}";
+          full_format = "{percentage} ";
           full_threshold = 96;
         }
         {
@@ -439,7 +441,7 @@ in {
       ];
 
       settings = {
-        icons_format = "  {icon}  ";
+        icons_format = " {icon}  ";
         icons = {
           name = "material-nf";
           overrides = {
