@@ -233,7 +233,6 @@ in {
       }];
 
       modes = {
-
         scratchpad = {
           "t" = "exec ${terminal} --class terrm, mode default";
           "v" = "exec ${terminal} --class mixerr -e pulsemixer, mode default";
@@ -244,27 +243,18 @@ in {
           Return = ''mode "default"'';
           Escape = ''mode "default"'';
         };
-
-        "Exit Sway: [l]ock, [e]xit, [r]eboot, [p]oweroff, [s]uspend" = {
-          "p" = "exec ${pkgs.systemd}/bin/systemctl poweroff, mode default";
-          "r" = "exec ${pkgs.systemd}/bin/systemctl reboot, mode default";
-          "s" = "exec ${pkgs.systemd}/bin/systemctl suspend, mode default";
-          "l" = "exec ${pkgs.swaylock}/bin/swaylock -f -c 000000, mode default";
-          "e" = "exec swaymsg exit, mode default";
-          "Escape" = "mode default";
-          "Return" = "mode default";
-        };
       };
 
       terminal = "${pkgs.alacritty}/bin/alacritty";
       menu = "exec bash " + ../../config/scripts/menu;
 
-      keybindings = {
+      keybindings = let
+        screenshot_dir =
+          "Pictures/Screenshots/$(date +'%Y-%m-%d+%H:%M:%S').png";
+      in {
         "${modifier}+Shift+Return" = "exec ${terminal}";
         "${modifier}+Shift+c" = "kill";
         "${modifier}+Shift+r" = "reload";
-        "${modifier}+Shift+q" =
-          "mode 'Exit Sway: [l]ock, [e]xit, [r]eboot, [p]oweroff, [s]uspend'";
 
         "${modifier}+p" = "${menu}";
 
@@ -349,6 +339,8 @@ in {
 
         "${modifier}+Alt+e" = "exec emacsclient -a '' -c";
         "${modifier}+Alt+b" = "exec firefox";
+
+        "${modifier}+Shift+q" = "exec bash ~/.nixos-config/config/scripts/exit";
 
         "${modifier}+Control+q" =
           "exec bash ~/.nixos-config/config/scripts/kill";
