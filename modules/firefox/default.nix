@@ -1,8 +1,9 @@
 { pkgs, ... }: {
   home-manager.users.alternateved.programs.firefox = {
     enable = true;
-    package =
-      pkgs.firefox.override { cfg = { enableTridactylNative = true; }; };
+    package = pkgs.firefox-wayland.override {
+      cfg = { enableTridactylNative = true; };
+    };
     extensions = with pkgs.nur.repos.rycee.firefox-addons; [
       bitwarden
       clearurls
