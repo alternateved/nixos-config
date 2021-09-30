@@ -347,12 +347,12 @@ in {
         "${modifier}+F1" = "exec bash ~/.nixos-config/config/scripts/man";
         "${modifier}+F2" = "exec bash ~/.nixos-config/config/scripts/websearch";
         "${modifier}+F3" =
-          "exec echo $(sxiv -t -o ~/Pictures/Wallpapers) > /home/alternateved/.cache/wall";
+          "exec echo $(sxiv -t -o ~/Pictures/Wallpapers) | xargs -I {} cp {} /home/alternateved/.cache/current.png";
         "${modifier}+F4" = "exec bash ~/.nixos-config/config/scripts/youtube";
         "${modifier}+F5" = "exec bash ~/.nixos-config/config/scripts/wifi";
 
         "${modifier}+Insert" =
-          "exec ${pkgs.sway-contrib.grimshot}/bin/grimshot --notify save screen";
+          "exec ${pkgs.sway-contrib.grimshot}/bin/grimshot --notify save screen ${screenshot_dir}";
         "${modifier}+Shift+Insert" =
           "exec ${pkgs.sway-contrib.grimshot}/bin/grimshot copy area";
 
