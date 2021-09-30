@@ -126,56 +126,63 @@ in {
         smartBorders = "on";
       };
 
-      floating.border = 2;
-      window.border = 2;
-      window.titlebar = false;
-      window.commands = [
+      window = {
+        border = 2;
+        titlebar = false;
+        hideEdgeBorders = "smart";
+        commands = [
+          {
+            criteria = { app_id = "mpv"; };
+            command = "floating enable";
+          }
+          {
+            criteria = { title = "^(.*) Indicator"; };
+            command = "floating enable";
+          }
+          {
+            criteria = { class = "Sxiv"; };
+            command = "floating enable";
+          }
+          {
+            criteria = { app_id = "terrm"; };
+            command =
+              "floating enable, resize set width 900px 600px, move scratchpad, scratchpad show";
+          }
+          {
+            criteria = { app_id = "mixerr"; };
+            command =
+              "floating enable, resize set width 1000px 500px, move scratchpad, scratchpad show";
+          }
+          {
+            criteria = { app_id = "monitorr"; };
+            command =
+              "floating enable, resize set width 1200px 900px, move scratchpad, scratchpad show";
+          }
+          {
+            criteria = { app_id = "spotiff"; };
+            command =
+              "floating enable, resize set width 1300px 500px, move scratchpad, scratchpad show";
+          }
+          {
+            criteria = { title = "scratcher"; };
+            command = "floating enable, move scratchpad, scratchpad show";
+          }
+        ];
+      };
+
+      startup = [
+        { command = "${importGsettings}"; }
+        { command = "${pkgs.xorg.xrdb}/bin/xrdb -merge ~/.Xresources"; }
         {
-          criteria = { app_id = "mpv"; };
-          command = "floating enable";
-        }
-        {
-          criteria = { title = "^(.*) Indicator"; };
-          command = "floating enable";
-        }
-        {
-          criteria = { class = "Sxiv"; };
-          command = "floating enable";
-        }
-        {
-          criteria = { app_id = "terrm"; };
-          command =
-            "floating enable, resize set width 900px 600px, move scratchpad, scratchpad show";
-        }
-        {
-          criteria = { app_id = "mixerr"; };
-          command =
-            "floating enable, resize set width 1000px 500px, move scratchpad, scratchpad show";
-        }
-        {
-          criteria = { app_id = "monitorr"; };
-          command =
-            "floating enable, resize set width 1200px 900px, move scratchpad, scratchpad show";
-        }
-        {
-          criteria = { app_id = "spotiff"; };
-          command =
-            "floating enable, resize set width 1300px 500px, move scratchpad, scratchpad show";
-        }
-        {
-          criteria = { title = "scratcher"; };
-          command = "floating enable, move scratchpad, scratchpad show";
+          always = true;
+          command = ''
+            swayidle -w timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' '';
         }
       ];
-      startup = [{
-        always = true;
-        command = ''
-          swayidle -w timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' '';
-      }];
 
       assigns = {
         "1" = [{ class = "Firefox"; }];
-        "2" = [ { class = "discord"; } { class = "Signal"; } ];
+        "2" = [ { app_id = "discord"; } { class = "Signal"; } ];
         "5" = [ { app_id = "mpv"; } { class = "Spotify"; } ];
       };
 
