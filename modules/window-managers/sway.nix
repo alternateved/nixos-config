@@ -85,11 +85,14 @@ in {
       };
 
       output = {
-        "*".bg = "~/Pictures/Wallpapers/57.jpg fill";
+        "*".bg = "~/.cache/current.png fill";
         "*".scale = "1";
       };
 
-      seat = { seat0 = { xcursor_theme = "Vanilla-DMZ 16"; }; };
+      seat = {
+        seat0 = { xcursor_theme = "capitaine-cursors-white 16"; };
+        "*".hide_cursor = "when-typing enable";
+      };
 
       fonts = {
         names = [ "Iosevka Nerd Font" ];
