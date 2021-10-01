@@ -16,7 +16,6 @@ require "paq" {
     "nvim-treesitter/nvim-treesitter";
     "neovim/nvim-lspconfig";
     "windwp/nvim-autopairs";
-    "vijaymarupudi/nvim-fzf";
     "b3nj5m1n/kommentary";
     "ishan9299/modus-theme-vim"
 }
@@ -28,7 +27,7 @@ opt.hlsearch = true                 -- Highlight search terms
 opt.ignorecase = true               -- Ignore case
 opt.joinspaces = false              -- No double spaces with join
 opt.list = true                     -- Show some invisible characters
-opt.number = true                   -- Show line numbers
+opt.number = false                   -- Show line numbers
 opt.scrolloff = 4                   -- Lines of context
 opt.shiftround = true               -- Round indent
 opt.shiftwidth = 2                  -- Size of an indent
@@ -48,7 +47,7 @@ opt.clipboard = "unnamedplus"
 g.mapleader = " "
 
 -- Colorscheme
-cmd 'colorscheme modus-vivendi'  -- Put your favorite colorscheme here
+cmd 'colorscheme modus-vivendi'
 
 -- Mappings
 map('n', '<Esc>', '<cmd>noh<CR>')    -- Clear highlights
