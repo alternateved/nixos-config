@@ -6,7 +6,7 @@ source "$SCRIPT_DIR/config"
 
 function main() {
   # shellcheck disable=SC2086
-  choice=$(man -k . | awk '{ print $1 }' | ${DMENU} -i -l 10 -p 'Manpage:')
+  choice=$(man -k . | awk '{ print $1 " " $2 }' | ${DMENU} -i -l 10 -p 'Manpage:')
 
   if [ "$choice" ]; then
       $DMTERM man $choice
