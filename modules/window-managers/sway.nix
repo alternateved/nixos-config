@@ -139,7 +139,7 @@ in {
           {
             criteria = { app_id = "mixerr"; };
             command =
-              "floating enable, resize set width 1000px 500px, move scratchpad, scratchpad show";
+              "floating enable, resize set width 1000px 350px, move scratchpad, scratchpad show";
           }
           {
             criteria = { app_id = "monitorr"; };
@@ -234,12 +234,16 @@ in {
 
       modes = {
         scratchpad = {
-          "t" = "exec ${terminal} --class terrm, mode default";
-          "v" = "exec ${terminal} --class mixerr -e pulsemixer, mode default";
-          "m" = "exec ${terminal} --class monitorr -e htop, mode default";
-          "s" = "exec ${terminal} --class spotiff -e ncspot, mode default";
+          "t" = ''
+            exec swaymsg "[app_id=terrm] scratchpad show " || exec ${terminal} --class terrm, mode default'';
+          "v" = ''
+            exec swaymsg "[app_id=mixerr] scratchpad show " || exec ${terminal} --class mixerr -e pulsemixer, mode default'';
+          "m" = ''
+            exec swaymsg "[app_id=monitorr] scratchpad show " || exec ${terminal} --class monitorr -e htop, mode default'';
+          "s" = ''
+            exec swaymsg "[app_id=spotiff] scratchpad show " || exec ${terminal} --class spotiff -e ncspot, mode default'';
           "e" =
-            "exec emacsclient -a '' --eval \"(open-scratch-frame)\", mode default";
+            "exec swaymsg \"[title=scratcher] scratchpad show \" || exec emacsclient -a '' --eval \"(open-scratch-frame)\", mode default";
           Return = ''mode "default"'';
           Escape = ''mode "default"'';
         };
@@ -331,8 +335,8 @@ in {
 
         "${modifier}+grave" = "workspace back_and_forth";
 
-        "${modifier}+Shift+z" = "move scratchpad";
-        "${modifier}+z" = "scratchpad show";
+        "${modifier}+Shift+z" = "mark z; move scratchpad";
+        "${modifier}+z" = "[con_mark=z] scratchpad show";
         "${modifier}+s" = "mode scratchpad";
 
         "${modifier}+Alt+e" = "exec emacsclient -a '' -c";
