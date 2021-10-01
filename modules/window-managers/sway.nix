@@ -239,6 +239,18 @@ in {
       }];
 
       modes = {
+        resize = {
+          "h" = "resize shrink width 10 px or 10 ppt";
+          "l" = "resize grow width 10 px or 10 ppt";
+          "k" = "resize shrink height 10 px or 10 ppt";
+          "j" = "resize grow height 10 px or 10 ppt";
+          "Left" = "resize shrink width 10 px or 10 ppt";
+          "Right" = "resize grow width 10 px or 10 ppt";
+          "Up" = "resize shrink height 10 px or 10 ppt";
+          "Down" = "resize grow height 10 px or 10 ppt";
+          Return = "mode default";
+          Escape = "mode default";
+        };
         scratchpad = {
           "t" = ''
             exec swaymsg "[app_id=terrm] scratchpad show " || exec ${terminal} --class terrm, mode default'';
@@ -354,6 +366,7 @@ in {
         "${modifier}+Shift+z" = "mark z; move scratchpad";
         "${modifier}+z" = "[con_mark=z] scratchpad show";
         "${modifier}+s" = "mode scratchpad";
+        "${modifier}+r" = "mode resize";
         "${modifier}+y" = "mode workspace";
 
         "${modifier}+Alt+e" = "exec emacsclient -a '' -c";
