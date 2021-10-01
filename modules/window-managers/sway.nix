@@ -251,6 +251,16 @@ in {
           Return = ''mode "default"'';
           Escape = ''mode "default"'';
         };
+        workspace = {
+          "a" =
+            "exec bash ~/.nixos-config/config/sway/add_workspace, mode default";
+          "r" =
+            "exec bash ~/.nixos-config/config/sway/rename_workspace, mode default";
+          "s" =
+            "exec bash ~/.nixos-config/config/sway/switch_workspace, mode default";
+          Return = ''mode "default"'';
+          Escape = ''mode "default"'';
+        };
       };
 
       terminal = "${pkgs.alacritty}/bin/alacritty";
@@ -342,12 +352,12 @@ in {
         "${modifier}+Shift+z" = "mark z; move scratchpad";
         "${modifier}+z" = "[con_mark=z] scratchpad show";
         "${modifier}+s" = "mode scratchpad";
+        "${modifier}+y" = "mode workspace";
 
         "${modifier}+Alt+e" = "exec emacsclient -a '' -c";
         "${modifier}+Alt+b" = "exec firefox";
 
         "${modifier}+Shift+q" = "exec bash ~/.nixos-config/config/scripts/exit";
-
         "${modifier}+Control+q" =
           "exec bash ~/.nixos-config/config/scripts/kill";
         "${modifier}+Control+r" =
