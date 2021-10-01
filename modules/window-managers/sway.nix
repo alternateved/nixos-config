@@ -102,10 +102,7 @@ in {
         size = 11.0;
       };
 
-      focus = {
-        followMouse = "always";
-        mouseWarping = true;
-      };
+      focus = { followMouse = "always"; };
 
       gaps = {
         inner = 5;
@@ -117,7 +114,6 @@ in {
       window = {
         border = 2;
         titlebar = false;
-        hideEdgeBorders = "smart";
         commands = [
           {
             criteria = { app_id = "mpv"; };
