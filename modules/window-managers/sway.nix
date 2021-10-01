@@ -380,7 +380,7 @@ in {
         "${modifier}+F1" = "exec bash ~/.nixos-config/config/scripts/man";
         "${modifier}+F2" = "exec bash ~/.nixos-config/config/scripts/websearch";
         "${modifier}+F3" =
-          "exec echo $(sxiv -t -o ~/Pictures/Wallpapers) | xargs -I {} cp {} /home/alternateved/.cache/current.png";
+          "exec echo $(sxiv -t -o ~/Pictures/Wallpapers) | xargs -I {} cp {} ~/.cache/current.png && swaymsg output '*' bg ~/.cache/current.png fill";
         "${modifier}+F4" = "exec bash ~/.nixos-config/config/scripts/youtube";
         "${modifier}+F5" = "exec bash ~/.nixos-config/config/scripts/wifi";
 
