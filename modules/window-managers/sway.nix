@@ -132,6 +132,10 @@ in {
             command = "floating enable";
           }
           {
+            criteria = { class = "Spotify"; };
+            command = "move window to workspace 5";
+          }
+          {
             criteria = { app_id = "terrm"; };
             command =
               "floating enable, resize set width 900px 600px, move scratchpad, scratchpad show";
@@ -170,8 +174,8 @@ in {
 
       assigns = {
         "1" = [{ class = "Firefox"; }];
-        "2" = [ { app_id = "discord"; } { class = "Signal"; } ];
-        "5" = [ { app_id = "mpv"; } { class = "Spotify"; } ];
+        "2" = [ { class = "discord"; } { class = "Signal"; } ];
+        "5" = [{ app_id = "mpv"; }];
       };
 
       colors = rec {
