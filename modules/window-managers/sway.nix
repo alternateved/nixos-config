@@ -370,7 +370,8 @@ in {
         "${modifier}+Shift+Insert" =
           "exec ${pkgs.sway-contrib.grimshot}/bin/grimshot copy area";
 
-        "Control+Alt+Space" = "exec makoctl -a";
+        "Control+Shift+space" = "exec makoctl dismiss -a";
+        "Control+Shift+comma" = "exec makoctl restore";
 
         "XF86AudioLowerVolume" = "exec ${pkgs.pamixer}/bin/pamixer -d 10";
         "XF86AudioLowerVolume+Shift" =
