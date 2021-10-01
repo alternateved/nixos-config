@@ -5,10 +5,11 @@ in {
     font = "Iosevka Aile Medium 11";
     backgroundColor = colors.background;
     textColor = colors.foreground;
+    maxVisible = 3;
     width = 400;
     height = 100;
     padding = "10";
     borderSize = 0;
-    borderRadius = 5;
+    defaultTimeout = 5000;
   };
 }
