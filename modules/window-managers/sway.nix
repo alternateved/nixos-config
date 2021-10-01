@@ -224,6 +224,12 @@ in {
             text = theme.red;
           };
 
+          bindingMode = {
+            border = theme.cyan;
+            background = theme.cyan;
+            text = theme.background;
+          };
+
         };
         mode = "dock";
         position = "top";
