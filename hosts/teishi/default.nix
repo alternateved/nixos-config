@@ -1,7 +1,6 @@
 { config, pkgs, ... }: {
   imports = [
     ./hardware-configuration.nix
-    ../../modules/lightdm
     # ../../modules/window-managers/xmonad.nix
     # ../../modules/window-managers/bspwm.nix
     ../../modules/window-managers/sway.nix
@@ -63,17 +62,6 @@
       alsa.enable = true;
       alsa.support32Bit = true;
       pulse.enable = true;
-    };
-    xserver = {
-      enable = true;
-      layout = "pl";
-      xkbOptions = "caps:escape_shifted_capslock";
-      libinput = {
-        enable = true;
-        touchpad.disableWhileTyping = true;
-        touchpad.middleEmulation = true;
-        touchpad.naturalScrolling = true;
-      };
     };
     gvfs.enable = true;
   };

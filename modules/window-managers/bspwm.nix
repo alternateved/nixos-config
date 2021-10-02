@@ -9,6 +9,7 @@
     ../fzf
     ../git
     ../htop
+    ../lightdm
     ../mail
     ../mpv
     ../ncspot
@@ -36,6 +37,15 @@
     })
   ];
   services.xserver = {
+    enable = true;
+    layout = "pl";
+    xkbOptions = "caps:escape_shifted_capslock";
+    libinput = {
+      enable = true;
+      touchpad.disableWhileTyping = true;
+      touchpad.middleEmulation = true;
+      touchpad.naturalScrolling = true;
+    };
     displayManager = {
       defaultSession = "none+bspwm";
       sessionCommands = ''
