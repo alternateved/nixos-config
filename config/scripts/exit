@@ -32,7 +32,7 @@ main() {
 
     # What to do when/if we choose one of the options.
     case $choice in
-        ' logout')
+        '  logout')
             # pkill -u $USER
             # herbstclient quit
             swaymsg exit
