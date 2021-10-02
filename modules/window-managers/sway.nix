@@ -128,10 +128,6 @@ in {
         titlebar = false;
         commands = [
           {
-            criteria = { app_id = "mpv"; };
-            command = "floating enable";
-          }
-          {
             criteria = { title = "^(.*) Indicator"; };
             command = "floating enable";
           }
@@ -151,17 +147,17 @@ in {
           {
             criteria = { app_id = "mixerr"; };
             command =
-              "floating enable, resize set width 1000px 350px, move scratchpad, scratchpad show";
+              "floating enable, resize set width 1100px 350px, move scratchpad, scratchpad show";
           }
           {
             criteria = { app_id = "monitorr"; };
             command =
-              "floating enable, resize set width 1200px 900px, move scratchpad, scratchpad show";
+              "floating enable, resize set width 1400px 800px, move scratchpad, scratchpad show";
           }
           {
             criteria = { app_id = "spotiff"; };
             command =
-              "floating enable, resize set width 1300px 500px, move scratchpad, scratchpad show";
+              "floating enable, resize set width 1200px 600px, move scratchpad, scratchpad show";
           }
           {
             criteria = { title = "scratcher"; };
@@ -509,16 +505,17 @@ in {
   };
   home-manager.users.alternateved.home.sessionVariables = {
     XDG_SESSION_TYPE = "wayland";
+    XDG_SESSION_DESKTOP = "sway";
     XDG_CURRENT_DESKTOP = "sway";
     SDL_VIDEODRIVER = "wayland";
     GDK_BACKEND = "wayland";
     QT_QPA_PLATFORM = "wayland";
+    BMENU_BACKEND = "wayland";
     QT_WAYLAND_DISABLE_WINDOWDECORATION = 1;
     _JAVA_AWT_WM_NONPARENTING = 1;
     MOZ_ENABLE_WAYLAND = 1;
     MOZ_DBUS_REMOTE = 1;
     MOZ_USE_XINPUT2 = 1;
-    BMENU_BACKEND = "wayland";
   };
 }
 
