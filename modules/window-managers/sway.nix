@@ -22,7 +22,19 @@ in {
     ../zsh
   ];
 
-  services.xserver.displayManager.defaultSession = "sway";
+  services.greetd = {
+    enable = true;
+    settings = {
+      default_session = {
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd sway";
+      };
+      initial_session = {
+        command = "sway";
+        user = "alternateved";
+      };
+    };
+  };
+
   programs.sway = {
     enable = true;
     extraPackages = with pkgs; [
@@ -160,6 +172,7 @@ in {
 
       startup = [
         { command = "${importGsettings}"; }
+        { command = "bluetoothctl power on"; }
         { command = "${pkgs.xorg.xrdb}/bin/xrdb -merge ~/.Xresources"; }
         {
           always = true;
