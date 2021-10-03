@@ -52,6 +52,8 @@
           # Tools
           ## Mail
           org-msg
+          ## RSS
+          elfeed
           ## Projectile
           projectile
           ## Magit
