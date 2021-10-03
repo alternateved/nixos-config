@@ -18,5 +18,8 @@ in {
     OTHER = "02";
     NNN_FCOLORS =
       "$BLK$CHR$DIR$EXE$REG$HARDLINK$SYMLINK$MISSING$ORPHAN$FIFO$SOCK$OTHER";
+    NNN_PLUG = "o:fzopen;f:fzcd;v:imgview;s:chksum";
+    NN_TRASH = 1;
+    NNN_FIFO = "/tmp/nnn.fifo";
   };
 }
