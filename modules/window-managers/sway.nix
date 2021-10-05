@@ -90,6 +90,7 @@ in {
         "type:touchpad" = {
           tap = "enabled";
           dwt = "enabled";
+          middle_emulation = "enabled";
           scroll_method = "two_finger";
           natural_scroll = "enabled";
         };
@@ -332,7 +333,9 @@ in {
         "${modifier}+Shift+Tab" = "workspace prev";
         "${modifier}+Tab" = "workspace next";
 
-        "${modifier}+v" = "split toggle";
+        "${modifier}+c" = "split v";
+        "${modifier}+v" = "split h";
+
         "${modifier}+f" = "fullscreen toggle";
 
         "${modifier}+a" = "focus parent";
