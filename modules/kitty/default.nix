@@ -6,15 +6,21 @@ in {
     enable = true;
     font = {
       name = "Iosevka Nerd Font";
-      size = 14;
+      size = 13;
     };
     settings = {
       shell = "zsh";
       window_padding_width = 5;
+      enable_audio_bell = "no";
+      placement_strategy = "center";
       default_pointer_shape = "beam";
       cursor_shape = "underline";
       tab_bar_style = "fade";
       tab_fade = "1 1 1";
+
+      # for nnn image preview
+      allow_remote_control = "yes";
+      listen_on = "unix:/tmp/kitty";
 
       active_tab_foreground = "${colors.foreground}";
       active_tab_background = "${colors.background}";
