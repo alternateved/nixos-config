@@ -12,7 +12,6 @@ in {
         decorations = "none";
       };
       font = {
-        # size = 9.0;
         size = 13.0;
         normal.family = "Iosevka Nerd Font";
         bold.family = "Iosevka Nerd Font";
