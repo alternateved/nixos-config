@@ -30,6 +30,21 @@
 | *Browser:*     | firefox                                                 |
 | *GTK Theme:*   | [[https://github.com/nana-4/materia-theme][Materia]]   |
 
+* Sway
+
+[[Screenshot][https://user-images.githubusercontent.com/45176912/136066450-90272c1e-ab5c-4f15-9449-86cd28741957.png]]
+
+| *Shell*:       | zsh                     |
+| *DM:*          | greetd                  |
+| *WM:*          | Sway                    |
+| *Panel:*       | Swaybar + i3status-rust |
+| *Colorscheme:* | [[https://protesilaos.com/modus-themes/][Modus Themes]]            |
+| *Editor:*      | Emacs                   |
+| *Terminal:*    | alacritty               |
+| *Launcher:*    | bemenu                  |
+| *Browser:*     | firefox                 |
+| *GTK Theme:*   | [[https://github.com/nana-4/materia-theme][Materia]]                 |
+
 * Flakes that inspired me
 
 - [[https://github.com/erikbackman/nixos-config][erikbackman flake]]
