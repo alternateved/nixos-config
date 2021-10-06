@@ -1,3 +1,4 @@
+{ pkgs, ... }:
 let colors = import ../theme/colors.nix;
 in {
   home-manager.users.alternateved.programs.mako = {
@@ -11,5 +12,10 @@ in {
     padding = "10";
     borderSize = 0;
     defaultTimeout = 5000;
+    extraConfig = ''
+      [mode=do-not-disturb]
+      invisible=1
+    '';
   };
+  home-manager.users.alternateved.home.packages = with pkgs; [ libnotify ];
 }

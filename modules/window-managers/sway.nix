@@ -403,6 +403,9 @@ in {
 
         "Control+Shift+space" = "exec makoctl dismiss -a";
         "Control+Shift+comma" = "exec makoctl restore";
+        "Control+Shift+bracketleft" =
+          "exec notify-send 'Notifications on'; exec makoctl set-mode default";
+        "Control+Shift+bracketright" = "exec makoctl set-mode do-not-disturb";
 
         "XF86AudioLowerVolume" = "exec ${pkgs.pamixer}/bin/pamixer -d 10";
         "XF86AudioLowerVolume+Shift" =
