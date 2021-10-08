@@ -47,6 +47,7 @@ mainConfig =
       template =
         " %UnsafeXMonadLog% }{"
           <> "%notif%"
+          <> "%mail%"
           <> withPipe "%EPLL%"
           <> withPipe "%cpu%"
           <> withPipe "%memory%"
@@ -63,6 +64,10 @@ mainCommands :: [Runnable]
 mainCommands =
   [ Run $ UnsafeXMonadLog,
     Run $ Com "bash" ["-c", "if [[ $(dunstctl is-paused) = false ]]; then echo '\xf0f3 '; else echo '\xf1f6 '; fi"] "notif" 20,
+    Run $ Mail [(withPipe "Outside: ", "~/.mail/outside/Inbox")
+               ,(withPipe "Inside: ",  "~/.mail/inside/Inbox")
+               ,(withPipe "Traffic: ", "~/.mail/traffic/Inbox")
+               ]"mail",
     Run $ Weather "EPLL"
         [ "--template", "<weather> <tempC>°C",
           "-L", "0",
