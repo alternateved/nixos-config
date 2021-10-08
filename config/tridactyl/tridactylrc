@@ -41,6 +41,9 @@ bind gd tabdetach
 bind gD composite tabduplicate; tabdetach
 bind M hint -W mpvsafe
 
+bind --mode=ex <C-j> ex.next_completion
+bind --mode=ex <C-k> ex.prev_completion
+
 " Don't run Tridactyl on some web sites because it doesn't work well, or
 " because the web site has its own keybindings.
 autocmd DocStart mail.google.com mode ignore
