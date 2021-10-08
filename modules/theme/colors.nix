@@ -98,55 +98,6 @@
 #   bright-white = "#ebdbb2";
 # }
 
-# Solarized light
-# {
-#   background = "#fdf6e3";
-#   foreground = "#586e75";
-
-#   black = "#073642";
-#   red = "#dc322f";
-
-#   green = "#859900";
-#   yellow = "#b58900";
-#   blue = "#268bd2";
-#   magenta = "#d33682";
-#   cyan = "#2aa198";
-#   white = "#eee8d5";
-
-#   bright-black = "#002b36";
-#   bright-red = "#cb4b16";
-#   bright-green = "#586e75";
-#   bright-yellow = "#657b83";
-#   bright-blue = "#839496";
-#   bright-magenta = "#6c71c4";
-#   bright-cyan = "#93a1a1";
-#   bright-white = "#fdf6e3";
-# }
-
-# Solarized dark
-# {
-#   background = "#002b36";
-#   foreground = "#839496";
-
-#   black = "#073642";
-#   red = "#dc322f";
-#   green = "#859900";
-#   yellow = "#b58900";
-#   blue = "#268bd2";
-#   magenta = "#d33682";
-#   cyan = "#2aa198";
-#   white = "#eee8d5";
-
-#   bright-black = "#002b36";
-#   bright-red = "#cb4b16";
-#   bright-green = "#586e75";
-#   bright-yellow = "#657b83";
-#   bright-blue = "#839496";
-#   bright-magenta = "#6c71c4";
-#   bright-cyan = "#93a1a1";
-#   bright-white = "#fdf6e3";
-# }
-
 # Kaolin dark
 # {
 #   background = "#18181B";
@@ -162,11 +113,11 @@
 #   white = "#E4E4E8";
 
 #   bright-black = "#879193";
-#   bright-red = "#BE556D";
-#   bright-green = "#67A899";
-#   bright-yellow = "#DBC066";
-#   bright-blue = "#93B5C9";
-#   bright-magenta = "#926389";
-#   bright-cyan = "#508A95";
+#   bright-red = "#E36D5B";
+#   bright-green = "#72CCBA";
+#   bright-yellow = "#F2C866";
+#   bright-blue = "#97B8DE";
+#   bright-magenta = "#8C629C";
+#   bright-cyan = "#5096AB";
 #   bright-white = "#EFEFF1";
 # }
