@@ -19,7 +19,7 @@ Subfolders Verbatim
 Channel outside
 Far :outside-remote:
 Near :outside-local:
-Patterns * ![Gmail]* "[Gmail]/All Mail" "[Gmail]/Drafts" "[Gmail]/Sent Mail" "[Gmail]/Bin"
+Patterns * ![Gmail]* !"[Gmail]/All Mail" "[Gmail]/Drafts" "[Gmail]/Sent Mail" "[Gmail]/Bin"
 Create Both
 SyncState *
 
@@ -43,7 +43,7 @@ Subfolders Verbatim
 Channel inside
 Far :inside-remote:
 Near :inside-local:
-Patterns * ![Gmail]* "[Gmail]/All Mail" "[Gmail]/Drafts" "[Gmail]/Sent Mail" "[Gmail]/Bin"
+Patterns * ![Gmail]* !"[Gmail]/All Mail" "[Gmail]/Drafts" "[Gmail]/Sent Mail" "[Gmail]/Bin"
 Create Both
 SyncState *
 
@@ -68,6 +68,6 @@ Subfolders Verbatim
 Channel traffic
 Far :traffic-remote:
 Near :traffic-local:
-Patterns * ![Gmail]* "[Gmail]/All Mail" "[Gmail]/Drafts" "[Gmail]/Sent Mail" "[Gmail]/Bin"
+Patterns * ![Gmail]* !"[Gmail]/All Mail" "[Gmail]/Drafts" "[Gmail]/Sent Mail" "[Gmail]/Bin"
 Create Both
 SyncState *
