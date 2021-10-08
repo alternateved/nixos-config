@@ -160,7 +160,7 @@ super + s; s
       bash ~/.nixos-config/config/bspwm/scripts/scratchpad spotiff "alacritty --class spotiff -e ncspot"
 
 super + s; e
-      bash ~/.nixos-config/config/bspwm/scripts/scratchpad scratch "emacsclient -a '' --eval (open-scratch-frame)"
+      bash ~/.nixos-config/config/bspwm/scripts/scratchpad scratcher "emacsclient -a '' --eval (open-scratch-frame)"
 
 # Volume
 XF86AudioMute

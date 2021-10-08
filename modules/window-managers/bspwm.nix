@@ -16,6 +16,7 @@
     ../nnn
     ../neovim
     ../picom
+    ../polybar
     ../redshift
     ../starship/lambda.nix
     ../theme

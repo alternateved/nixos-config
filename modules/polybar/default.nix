@@ -5,7 +5,7 @@
       pulseSupport = true;
       githubSupport = true;
     };
-    config = ../../../config/polybar/config.ini;
+    config = ../../config/polybar/config.ini;
     script = ''
       outputs=$(polybar --list-monitors | cut -d":" -f1)
       outputs_length=$(wc -w <<< "$outputs")

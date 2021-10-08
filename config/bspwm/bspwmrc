@@ -69,7 +69,7 @@ bspc rule -a mpv desktop=5
 bspc rule -a Spotify desktop=5
 
 # Scratchpads 
-bspc rule -a 'Emacs:*:scratch' state=floating center=on
+bspc rule -a 'Emacs:*:scratcher' state=floating center=on
 bspc rule -a '*:terrm' state=floating center=on rectangle=900x600+0+0
 bspc rule -a '*:monitorr' state=floating center=on rectangle=1200x600+0+0
 bspc rule -a '*:mixerr' state=floating center=on rectangle=1000x300+0+0
