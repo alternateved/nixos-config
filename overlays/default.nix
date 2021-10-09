@@ -26,14 +26,14 @@ _: pkgs: rec {
     src = pkgs.fetchFromGitHub {
       owner = "swaywm";
       repo = "sway";
-      rev = "83310f5abf1fd9937a9f734da4015aacd54fd112";
-      sha256 = "hEmY5OwMtlMif0nY/17SfIg1lzC/TCEA7pMhbwwBOwo=";
+      rev = "624ffa45162d7df1ae0796b283bef2f4a0d6a0d7";
+      sha256 = "CRlCeQBrw9AK1RqKwvxmy/Ge039UvMLD32SJcHIlLig=";
     };
   });
   bemenu = pkgs.bemenu.overrideAttrs (old: rec {
     src = pkgs.fetchFromGitHub {
-      owner = "swaywm";
-      repo = "sway";
+      owner = "Cloudef";
+      repo = "bemenu";
       rev = "b7f8db7128b2560460b06c7b29adadd4e7874c93";
       sha256 = "TFlLxY3LhiWkorAoottEW8b17PULqUIWcWrUiCgMpBE=";
     };
