@@ -66,5 +66,3 @@ guiset_quiet tabs count
 guiset_quiet tabs always
 guiset_quiet navbarnoheight show
 guiset_quiet hoverlink right
-
-colourscheme dark
