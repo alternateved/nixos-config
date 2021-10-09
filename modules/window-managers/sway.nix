@@ -393,19 +393,18 @@ in {
         "${modifier}+F2" = "exec bash ~/.nixos-config/config/scripts/websearch";
         "${modifier}+F3" =
           "exec echo $(sxiv -t -o ~/Pictures/Wallpapers) | xargs -I {} cp {} ~/.cache/current.png && swaymsg output '*' bg ~/.cache/current.png fill";
-        "${modifier}+F4" = "exec bash ~/.nixos-config/config/scripts/youtube";
-        "${modifier}+F5" = "exec bash ~/.nixos-config/config/scripts/wifi";
+        "${modifier}+F4" = "exec bash ~/.nixos-config/config/scripts/wifi";
 
         "${modifier}+Insert" =
           "exec ${pkgs.sway-contrib.grimshot}/bin/grimshot --notify save screen ${screenshot_dir}";
         "${modifier}+Shift+Insert" =
           "exec ${pkgs.sway-contrib.grimshot}/bin/grimshot copy area";
 
-        "Control+Shift+space" = "exec makoctl dismiss -a";
-        "Control+Shift+comma" = "exec makoctl restore";
-        "Control+Shift+bracketleft" =
+        "Control+Alt+space" = "exec makoctl dismiss -a";
+        "Control+Alt+comma" = "exec makoctl restore";
+        "Control+Alt+bracketleft" =
           "exec notify-send 'Notifications on'; exec makoctl set-mode default";
-        "Control+Shift+bracketright" = "exec makoctl set-mode do-not-disturb";
+        "Control+Alt+bracketright" = "exec makoctl set-mode do-not-disturb";
 
         "XF86AudioLowerVolume" = "exec ${pkgs.pamixer}/bin/pamixer -d 10";
         "XF86AudioLowerVolume+Shift" =
