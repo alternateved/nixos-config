@@ -16,6 +16,7 @@
           # Editor
           smartparens
           rainbow-delimiters
+          ws-butler
           undo-fu
           undo-fu-session
 
