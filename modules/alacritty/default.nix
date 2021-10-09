@@ -120,11 +120,6 @@ in {
           action = "ClearLogNotice";
         }
         {
-          key = "L";
-          mods = "Control";
-          chars = "x0c";
-        }
-        {
           key = "PageUp";
           mods = "None";
           action = "ScrollPageUp";
@@ -159,6 +154,12 @@ in {
           mods = "Shift";
           action = "ScrollToBottom";
           mode = "~Alt";
+        }
+        {
+          key = "Space";
+          mods = "Control|Shift";
+          action = "ToggleViMode";
+          mode = "~Search";
         }
       ];
     };
