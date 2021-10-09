@@ -50,20 +50,4 @@ websearch[reddit]="https://www.reddit.com/search/?q="
 websearch[youtube]="https://www.youtube.com/results?search_query="
 websearch[nixpkgs]="https://search.nixos.org/packages?channel=unstable&from=0&size=50&sort=relevance&type=packages&query="
 websearch[github]="https://github.com/search?q="
-
-# youtube config
-declare -A youtube_channels
-youtube_channels[System Crafters]="https://www.youtube.com/c/SystemCrafters/videos"
-youtube_channels[Protesilaos Stavrou]="https://www.youtube.com/c/ProtesilaosStavrou/videos"
-youtube_channels[freeCodeCamp]="https://www.youtube.com/c/Freecodecamp/videos"
-
-# translate config
-# Uncomment to manually set the languages dm-translate will show
-# Get language codes from here: https://github.com/TheDavidDelta/lingva-translate/blob/main/utils/languages.json
-#translate_list="manual"
-#declare -A lang_map
-# lang_map[English]=en
-# lang_map[Swedish]=sv
-# lang_map[Automatic]=auto
-
-_revision=17
+websearch[gitlab]="https://gitlab.com/search?search="
