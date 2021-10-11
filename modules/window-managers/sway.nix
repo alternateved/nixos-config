@@ -146,6 +146,11 @@ in {
               "floating enable, resize set width 900px 600px, move scratchpad, scratchpad show";
           }
           {
+            criteria = { app_id = "haskell_repl"; };
+            command =
+              "floating enable, resize set width 900px 700px, move scratchpad, scratchpad show";
+          }
+          {
             criteria = { app_id = "mixerr"; };
             command =
               "floating enable, resize set width 1100px 350px, move scratchpad, scratchpad show";
@@ -250,38 +255,48 @@ in {
 
       modes = {
         resize = {
-          "h" = "resize shrink width 10 px or 10 ppt";
-          "l" = "resize grow width 10 px or 10 ppt";
-          "k" = "resize shrink height 10 px or 10 ppt";
-          "j" = "resize grow height 10 px or 10 ppt";
-          "Left" = "resize shrink width 10 px or 10 ppt";
-          "Right" = "resize grow width 10 px or 10 ppt";
-          "Up" = "resize shrink height 10 px or 10 ppt";
-          "Down" = "resize grow height 10 px or 10 ppt";
+          h = "resize shrink width 10 px or 10 ppt";
+          l = "resize grow width 10 px or 10 ppt";
+          k = "resize shrink height 10 px or 10 ppt";
+          j = "resize grow height 10 px or 10 ppt";
+          Left = "resize shrink width 10 px or 10 ppt";
+          Right = "resize grow width 10 px or 10 ppt";
+          Up = "resize shrink height 10 px or 10 ppt";
+          Down = "resize grow height 10 px or 10 ppt";
           Return = "mode default";
           Escape = "mode default";
         };
         scratchpad = {
-          "t" = ''
+          t = ''
             exec swaymsg "[app_id=terrm] scratchpad show " || exec ${terminal} --class terrm, mode default'';
-          "v" = ''
+          g = ''
+            exec swaymsg "[app_id=haskell_repl] scratchpad show " || exec ${terminal} --class haskell_repl --working-directory /home/alternateved/Documents/Programming/haskell/learn4haskell -e nix-shell --pure --run ghci, mode default'';
+          v = ''
             exec swaymsg "[app_id=mixerr] scratchpad show " || exec ${terminal} --class mixerr -e pulsemixer, mode default'';
-          "m" = ''
+          m = ''
             exec swaymsg "[app_id=monitorr] scratchpad show " || exec ${terminal} --class monitorr -e htop, mode default'';
-          "s" = ''
+          s = ''
             exec swaymsg "[app_id=spotiff] scratchpad show " || exec ${terminal} --class spotiff -e ncspot, mode default'';
-          "e" =
+          e =
             "exec swaymsg \"[title=scratcher] scratchpad show \" || exec emacsclient -a '' --eval \"(open-scratch-frame)\", mode default";
           Return = ''mode "default"'';
           Escape = ''mode "default"'';
         };
         workspace = {
-          "a" =
+          a =
             "exec bash ~/.nixos-config/config/sway/add_workspace, mode default";
-          "r" =
+          r =
             "exec bash ~/.nixos-config/config/sway/rename_workspace, mode default";
-          "s" =
+          s =
             "exec bash ~/.nixos-config/config/sway/switch_workspace, mode default";
+          Return = ''mode "default"'';
+          Escape = ''mode "default"'';
+        };
+        chat = {
+          s =
+            "exec signal-desktop --enable-features=UseOzonePlatform --ozone-platform=wayland, mode default";
+          d =
+            "exec discord --enable-features=UseOzonePlatform --ozone-platform=wayland, mode default";
           Return = ''mode "default"'';
           Escape = ''mode "default"'';
         };
@@ -383,6 +398,7 @@ in {
 
         "${modifier}+Alt+e" = "exec emacsclient -a '' -c";
         "${modifier}+Alt+b" = "exec firefox";
+        "${modifier}+Alt+c" = "mode chat";
 
         "${modifier}+Shift+q" = "exec bash ~/.nixos-config/config/scripts/exit";
         "${modifier}+Control+q" =
@@ -523,4 +539,3 @@ in {
     MOZ_USE_XINPUT2 = 1;
   };
 }
-
