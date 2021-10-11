@@ -269,7 +269,7 @@ in {
         scratchpad = {
           t = ''
             exec swaymsg "[app_id=terrm] scratchpad show " || exec ${terminal} --class terrm, mode default'';
-          g = ''
+          h = ''
             exec swaymsg "[app_id=haskell_repl] scratchpad show " || exec ${terminal} --class haskell_repl --working-directory /home/alternateved/Documents/Programming/haskell/learn4haskell -e nix-shell --pure --run ghci, mode default'';
           v = ''
             exec swaymsg "[app_id=mixerr] scratchpad show " || exec ${terminal} --class mixerr -e pulsemixer, mode default'';
