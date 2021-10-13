@@ -129,9 +129,5 @@
     jq
     nodejs
     nodePackages.npm
-    nodePackages.prettier
-    nodePackages.typescript-language-server
-    nodePackages.vscode-json-languageserver-bin
-    nodePackages.vscode-html-languageserver-bin
   ];
 }
