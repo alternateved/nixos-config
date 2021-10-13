@@ -145,7 +145,6 @@ myStartupHook = do
   spawnOnce "xsetroot -cursor_name left_ptr"
   spawnOnce "xrdb -merge ~/.Xresources"
   spawnOnce "xargs xwallpaper --stretch < ~/.cache/wall"
-  spawnOnce "bluetoothctl power on"
   setWMName "LG3D"
 
 -------------------------------------------------------------------------
