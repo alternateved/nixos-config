@@ -87,6 +87,7 @@
           web-mode
           typescript-mode
           haskell-mode
+          hindent
           yaml-mode
           lua-mode
           markdown-mode
