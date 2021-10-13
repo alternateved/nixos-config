@@ -3,6 +3,7 @@ let theme = import ../theme/colors.nix;
 in {
   imports = [
     ../alacritty
+    ../direnv
     ../emacs
     ../firefox
     ../fzf

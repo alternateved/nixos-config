@@ -2,6 +2,7 @@
 
   imports = [
     ../alacritty
+    ../direnv
     ../dunst
     ../emacs
     ../firefox
