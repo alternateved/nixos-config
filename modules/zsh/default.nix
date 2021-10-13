@@ -29,6 +29,8 @@
         exa = "exa --color=auto --icons --binary --git";
         ls = "exa";
         em = "emacsclient -c";
+        nixos-test = "sudo nixos-rebuild test --flake .";
+        nixos-switch = "sudo nixos-rebuild switch --flake .";
       };
       sessionVariables = {
         ALTERNATE_EDITOR = "";
