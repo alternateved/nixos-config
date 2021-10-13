@@ -71,6 +71,7 @@
           rainbow-mode
 
           # Development
+          envrc
           flycheck
           format-all
           ## LSP
