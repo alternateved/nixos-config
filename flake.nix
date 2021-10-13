@@ -30,6 +30,7 @@
         ];
       };
     in {
+      devShell.${system} = import ./shell.nix { inherit pkgs; };
       nixosConfigurations = {
         teishi = nixpkgs.lib.nixosSystem {
           inherit pkgs system;
