@@ -12,15 +12,16 @@ import Data.Maybe (catMaybes, fromMaybe)
 import System.Environment (getArgs)
 import System.IO.Unsafe (unsafeDupablePerformIO)
 -- Base
-import Xmobar
+
 import XMonad.Util.Run (runProcessWithInput)
+import Xmobar
 
 -------------------------------------------------------------------------
 -- MAIN
 -------------------------------------------------------------------------
 main :: IO ()
 main = do
-    xmobar mainConfig
+  xmobar mainConfig
 
 -------------------------------------------------------------------------
 -- CONFIG
@@ -30,7 +31,7 @@ baseConfig =
   defaultConfig
     { font = mainFont,
       bgColor = colorBg,
-      fgColor = colorFg ,
+      fgColor = colorFg,
       lowerOnStart = True,
       hideOnStart = False,
       allDesktops = True,
@@ -51,7 +52,7 @@ mainConfig =
           <> withPipe "%EPLL%"
           <> withPipe "%cpu%"
           <> withPipe "%memory%"
-          <> withPipe "%alsa:default:Master%"
+          -- <> withPipe "%default:Master%"
           <> withPipe "%battery%"
           <> withPipe "%date%"
           <> withPipe "%time% "
@@ -64,50 +65,88 @@ mainCommands :: [Runnable]
 mainCommands =
   [ Run $ UnsafeXMonadLog,
     Run $ Com "bash" ["-c", "if [[ $(dunstctl is-paused) = false ]]; then echo '\xf0f3 '; else echo '\xf1f6 '; fi"] "notif" 20,
-    Run $ Mail [(withPipe "Outside: ", "~/.mail/outside/Inbox")
-               ,(withPipe "Inside: ",  "~/.mail/inside/Inbox")
-               ,(withPipe "Traffic: ", "~/.mail/traffic/Inbox")
-               ]"mail",
-    Run $ Weather "EPLL"
-        [ "--template", "<weather> <tempC>°C",
-          "-L", "0",
-          "-H", "25",
-          "--low"   , colorBlue,
-          "--normal", colorFg,
-          "--high"  , colorRed
-        ] 36000,
-    Run $ Cpu [ "-L", "3", "-H", "50", "--high", colorRed, "-t", "\xf2db  <total>%"] 20,
-    Run $ Memory ["-t", "\xf85a  <used>M (<usedratio>%)"] 20,
-    Run $ Alsa "default" "Master"
-        [ "--template", "<volumestatus>",
-          "--suffix"  , "True",  -- Show "%" at the end of the <volume> string.
-          "--",                  -- Volume specific options.
-          "--on"     , "",
-          "--off"    , "\xfc5d  OFF",
-          "--lowv"   , "20",        -- Low  threshold for strings (in %).
-          "--highv"  , "60",        -- High threshold for strings (in %).
-          "--lows"   , "\xfa7e  ",   -- Low
-          "--mediums", "\xfa7f  ",   -- Medium
-          "--highs"  , "\xfa7d  ",   -- High
-          "--onc"    , colorFg,     -- On  color.
-          "--offc"   , colorRed     -- Off color.
-        ],
-    Run $ Battery
-        [ "--template", "<acstatus>",
-          "--Low", "20", -- units: %
-          "--High", "95", -- units: %
-          "--low", colorRed,
-          "--high", colorFg,
+    Run $
+      Mail
+        [ (withPipe "Outside: ", "~/.mail/outside/Inbox"),
+          (withPipe "Inside: ", "~/.mail/inside/Inbox"),
+          (withPipe "Traffic: ", "~/.mail/traffic/Inbox")
+        ]
+        "mail",
+    Run $
+      Weather
+        "EPLL"
+        [ "--template",
+          "<weather> <tempC>°C",
+          "-L",
+          "0",
+          "-H",
+          "25",
+          "--low",
+          colorBlue,
+          "--normal",
+          colorFg,
+          "--high",
+          colorRed
+        ]
+        36000,
+    Run $ Cpu ["-L", "3", "-H", "50", "--high", colorRed, "-t", "\xf2db  <total>%"] 20,
+    Run $ Memory ["-t", "\xf85a  <usedratio>%"] 20,
+    -- Run $
+    --   Volume
+    --     "default"
+    --     "Master"
+    --     [ "--template",
+    --       "<volumestatus>",
+    --       "--suffix",
+    --       "True", -- Show "%" at the end of the <volume> string.
+    --       "--", -- Volume specific options.
+    --       "--on",
+    --       "",
+    --       "--off",
+    --       "\xfc5d  OFF",
+    --       "--lowv",
+    --       "20", -- Low  threshold for strings (in %).
+    --       "--highv",
+    --       "60", -- High threshold for strings (in %).
+    --       "--lows",
+    --       "\xfa7e  ", -- Low
+    --       "--mediums",
+    --       "\xfa7f  ", -- Medium
+    --       "--highs",
+    --       "\xfa7d  ", -- High
+    --       "--onc",
+    --       colorFg, -- On  color.
+    --       "--offc",
+    --       colorRed -- Off color.
+    --     ]
+    --     10,
+    Run $
+      Battery
+        [ "--template",
+          "<acstatus>",
+          "--Low",
+          "20", -- units: %
+          "--High",
+          "95", -- units: %
+          "--low",
+          colorRed,
+          "--high",
+          colorFg,
           -- send message when low
           "--", -- battery specific options
           -- discharging status
-          "-o", "\xf243   <left>% <timeleft>",
+          "-o",
+          "\xf243   <left>% <timeleft>",
           -- AC "on" status
-          "-O", "\xf242   <left>%",
+          "-O",
+          "\xf242   <left>%",
           -- charged status
-          "-i", "\xf240   100%",
-          "-a", "dunstify -u critical 'Battery' 'Battery running out!'"
-        ] 150,
+          "-i",
+          "\xf240   100%",
+          "-a",
+          "dunstify -u critical 'Battery' 'Battery running out!'"
+        ]
+        150,
     Run $ Date "%A, %b %_d" "date" 500,
     Run $ Date "%H:%M" "time" 300
   ]
@@ -116,14 +155,14 @@ mainCommands =
 -- COLORS
 -------------------------------------------------------------------------
 colorBg, colorFg, colorHiWhite, colorLoGray, colorHiGray, colorRed, colorBlue, colorGreen :: String
-colorBg       = basebg
-colorFg       = basefg
-colorHiWhite  = base15
-colorLoGray   = base00
-colorHiGray   = base08
-colorRed      = base01
-colorBlue     = base04
-colorGreen    = base02
+colorBg = basebg
+colorFg = basefg
+colorHiWhite = base15
+colorLoGray = base00
+colorHiGray = base08
+colorRed = base01
+colorBlue = base04
+colorGreen = base02
 
 -------------------------------------------------------------------------
 -- HELPER FUNCTIONS
