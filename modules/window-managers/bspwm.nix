@@ -44,6 +44,7 @@
     };
     windowManager.bspwm.enable = true;
   };
+
   environment.systemPackages = with pkgs; [
     (dmenu.overrideAttrs (oldAttrs: rec {
       patches = [

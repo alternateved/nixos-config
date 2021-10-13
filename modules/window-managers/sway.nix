@@ -525,6 +525,7 @@ in {
       };
     };
   };
+
   home-manager.users.alternateved.home.sessionVariables = {
     XDG_SESSION_TYPE = "wayland";
     XDG_SESSION_DESKTOP = "sway";
