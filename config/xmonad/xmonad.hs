@@ -166,6 +166,22 @@ myManageHook =
     <+> namedScratchpadManageHook myScratchPads
 
 -------------------------------------------------------------------------
+-- EVENTHOOK
+-------------------------------------------------------------------------
+myHandleEventHook :: Event -> X All
+myHandleEventHook = dynamicPropertyChange "WM_NAME" (title =? "Spotify" --> doShift (myWorkspaces !! 4)) <+> restartEventHook
+
+-------------------------------------------------------------------------
+-- NIXOS RESTARTHOOK
+-------------------------------------------------------------------------
+restartEventHook e@ClientMessageEvent {ev_message_type = mt} = do
+  a <- getAtom "XMONAD_RESTART"
+  if mt == a
+    then XMonad.Operations.restart "alternateved-xmonad" True >> return (All True)
+    else return $ All True
+restartEventHook _ = return $ All True
+
+-------------------------------------------------------------------------
 -- LOGHOOK
 -------------------------------------------------------------------------
 myLogHook :: X ()
@@ -556,16 +572,6 @@ base04 = xprop "*.color4"
 base15 = xprop "*.color15"
 
 -------------------------------------------------------------------------
--- NIXOS RESTART HOOK
--------------------------------------------------------------------------
-restartEventHook e@ClientMessageEvent {ev_message_type = mt} = do
-  a <- getAtom "XMONAD_RESTART"
-  if mt == a
-    then XMonad.Operations.restart "alternateved-xmonad" True >> return (All True)
-    else return $ All True
-restartEventHook _ = return $ All True
-
--------------------------------------------------------------------------
 -- MAIN CONFIG
 -------------------------------------------------------------------------
 myConfig =
@@ -576,7 +582,7 @@ myConfig =
       startupHook = myStartupHook,
       logHook = myLogHook,
       layoutHook = myLayoutHook,
-      handleEventHook = restartEventHook,
+      handleEventHook = myHandleEventHook,
       workspaces = myWorkspaces,
       borderWidth = myBorderWidth,
       normalBorderColor = myNormColor,
