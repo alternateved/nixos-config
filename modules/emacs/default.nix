@@ -55,8 +55,8 @@
           org-msg
           ## RSS
           elfeed
-          ## Projectile
-          projectile
+          ## Project
+          project
           ## Magit
           magit
           ## Terminals
