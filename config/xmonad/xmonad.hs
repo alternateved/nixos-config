@@ -17,7 +17,7 @@ import XMonad
 -- Actions
 import XMonad.Actions.CopyWindow (copy, kill1)
 import XMonad.Actions.CycleRecentWS (toggleRecentWS)
-import XMonad.Actions.CycleWS (Direction1D (..), ignoringWSs, moveTo)
+import XMonad.Actions.CycleWS (Direction1D (..), WSType (..), emptyWS, ignoringWSs, moveTo)
 import XMonad.Actions.DynamicWorkspaceOrder (getSortByOrder)
 import XMonad.Actions.DynamicWorkspaces (addWorkspacePrompt, removeWorkspace, renameWorkspace, selectWorkspace, withNthWorkspace)
 import XMonad.Actions.EasyMotion (EasyMotionConfig (..), selectWindow, textSize)
@@ -322,8 +322,8 @@ myKeys =
     ("M-u", focusUrgent),
     ("M-S-u", nextMatch History (return True)),
     -- Workspace/window/screen focus changes
-    ("M-<Tab>", moveTo Next $ ignoringWSs [scratchpadWorkspaceTag]),
-    ("M-S-<Tab>", moveTo Prev $ ignoringWSs [scratchpadWorkspaceTag]),
+    ("M-<Tab>", moveTo Next $ Not emptyWS :&: ignoringWSs [scratchpadWorkspaceTag]),
+    ("M-S-<Tab>", moveTo Prev $ Not emptyWS :&: ignoringWSs [scratchpadWorkspaceTag]),
     ("M-`", toggleRecentWS),
     ("M1-`", nextMatch History (return True)),
     ("M1-<Tab>", windows W.focusDown),
@@ -342,6 +342,7 @@ myKeys =
     ("M-a w", sendMessage $ JumpToLayout "wide"),
     ("M-a e", sendMessage $ JumpToLayout "englare"),
     ("M-a c", sendMessage $ JumpToLayout "columns"),
+    ("M-a g", sendMessage $ JumpToLayout "grid"),
     ("M-a m", sendMessage $ JumpToLayout "monocle"),
     ("M-f", sendMessage $ MT.Toggle NBFULL),
     -- SubLayouts
