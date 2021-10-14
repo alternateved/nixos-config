@@ -378,7 +378,7 @@ myScratchPads =
     NS "ghci" spawnGhci findGhci small,
     NS "volumectl" spawnMixer findMixer wide,
     NS "monitor" spawnMonitor findMonitor large,
-    NS "player" spawnPlayer findPlayer medium,
+    NS "player" spawnPlayer findPlayer wider,
     NS "notes" spawnNotes findNotes medium
   ]
   where
@@ -404,6 +404,7 @@ myScratchPads =
     medium = customFloating $ W.RationalRect (1 / 6) (1 / 6) (2 / 3) (2 / 3)
     large = customFloating $ W.RationalRect (1 / 10) (1 / 10) (4 / 5) (4 / 5)
     wide = customFloating $ W.RationalRect (1 / 6) (2 / 6) (2 / 3) (1 / 3)
+    wider = customFloating $ W.RationalRect (1 / 6) (2 / 6) (2 / 3) (2 / 5)
 
 scratchTerm, scratchGhci, scratchMixer, scratchMonitor, scratchPlayer, scratchNotes :: X ()
 scratchTerm = namedScratchpadAction myScratchPads "terminal"
