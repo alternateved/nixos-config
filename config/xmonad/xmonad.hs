@@ -27,6 +27,8 @@ import qualified XMonad.Actions.Search as S (SearchEngine (..), duckduckgo, gith
 import XMonad.Actions.UpdatePointer (updatePointer)
 import XMonad.Actions.WithAll (killAll, sinkAll)
 -- Hooks
+
+import XMonad.Hooks.DynamicProperty (dynamicPropertyChange)
 import XMonad.Hooks.EwmhDesktops (ewmh, ewmhFullscreen)
 import XMonad.Hooks.InsertPosition (Focus (Newer), Position (Below), insertPosition)
 import XMonad.Hooks.ManageDocks (ToggleStruts (..), avoidStruts, docks)
@@ -37,6 +39,8 @@ import XMonad.Hooks.StatusBar (StatusBarConfig, statusBarProp, withSB)
 import XMonad.Hooks.StatusBar.PP hiding (trim)
 import XMonad.Hooks.UrgencyHook (NoUrgencyHook (NoUrgencyHook), clearUrgents, focusUrgent, withUrgencyHook)
 -- Layouts
+
+import XMonad.Layout.Grid (Grid (..))
 import XMonad.Layout.LayoutModifier (ModifiedLayout)
 import XMonad.Layout.Magnifier (MagnifyThis (NoMaster), magnify)
 import XMonad.Layout.MultiToggle (EOT (EOT), mkToggle, single, (??))
@@ -250,6 +254,13 @@ columns =
         mySpacing 5 $
           ThreeColMid 1 (3 / 100) (12 / 30)
 
+grid =
+  renamed [Replace "grid"] $
+    addTabs shrinkText myTabConfig . subLayout [] Simplest $
+      avoidStruts $
+        mySpacing 5 $
+          GridRatio (4 / 3)
+
 monocle =
   renamed [Replace "monocle"] $
     addTabs shrinkText myTabConfig . subLayout [] Simplest $
@@ -268,6 +279,7 @@ myLayoutHook =
         ||| wide
         ||| englare
         ||| columns
+        ||| grid
         ||| monocle
 
 -------------------------------------------------------------------------
