@@ -15,5 +15,5 @@ let
 
 in mkShell {
   name = "flakeEnv";
-  buildInputs = cLibsAndTools ++ haskellTools;
+  buildInputs = cLibsAndTools ++ haskellTools ++ [ rnix-lsp ];
 }
