@@ -16,6 +16,7 @@
         path = "$HOME/.cache/zsh_history";
       };
       initExtra = ''
+        export PATH="$HOME/.local/bin:$PATH"
         bindkey "^[[1;5C" forward-word
         bindkey "^[[1;5D" backward-word
         bindkey '^[[A' history-substring-search-up
