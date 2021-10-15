@@ -13,6 +13,7 @@ executable alternateved-xmobar
     main-is:          xmobar.hs
     build-depends:
         base,
+        process,
         xmobar,
+        X11-xft,
         xmonad-contrib,
-        process

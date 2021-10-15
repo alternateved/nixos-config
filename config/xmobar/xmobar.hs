@@ -12,7 +12,6 @@ import Data.Maybe (catMaybes, fromMaybe)
 import System.Environment (getArgs)
 import System.IO.Unsafe (unsafeDupablePerformIO)
 -- Base
-
 import XMonad.Util.Run (runProcessWithInput)
 import Xmobar
 
@@ -52,7 +51,6 @@ mainConfig =
           <> withPipe "%EPLL%"
           <> withPipe "%cpu%"
           <> withPipe "%memory%"
-          -- <> withPipe "%default:Master%"
           <> withPipe "%battery%"
           <> withPipe "%date%"
           <> withPipe "%time% "
@@ -91,35 +89,6 @@ mainCommands =
         36000,
     Run $ Cpu ["-L", "3", "-H", "50", "--high", colorRed, "-t", "\xf2db  <total>%"] 20,
     Run $ Memory ["-t", "\xf85a  <usedratio>%"] 20,
-    -- Run $
-    --   Volume
-    --     "default"
-    --     "Master"
-    --     [ "--template",
-    --       "<volumestatus>",
-    --       "--suffix",
-    --       "True", -- Show "%" at the end of the <volume> string.
-    --       "--", -- Volume specific options.
-    --       "--on",
-    --       "",
-    --       "--off",
-    --       "\xfc5d  OFF",
-    --       "--lowv",
-    --       "20", -- Low  threshold for strings (in %).
-    --       "--highv",
-    --       "60", -- High threshold for strings (in %).
-    --       "--lows",
-    --       "\xfa7e  ", -- Low
-    --       "--mediums",
-    --       "\xfa7f  ", -- Medium
-    --       "--highs",
-    --       "\xfa7d  ", -- High
-    --       "--onc",
-    --       colorFg, -- On  color.
-    --       "--offc",
-    --       colorRed -- Off color.
-    --     ]
-    --     10,
     Run $
       Battery
         [ "--template",
