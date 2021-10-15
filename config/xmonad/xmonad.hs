@@ -27,7 +27,6 @@ import qualified XMonad.Actions.Search as S (SearchEngine (..), duckduckgo, gith
 import XMonad.Actions.UpdatePointer (updatePointer)
 import XMonad.Actions.WithAll (killAll, sinkAll)
 -- Hooks
-
 import XMonad.Hooks.DynamicProperty (dynamicPropertyChange)
 import XMonad.Hooks.EwmhDesktops (ewmh, ewmhFullscreen)
 import XMonad.Hooks.InsertPosition (Focus (Newer), Position (Below), insertPosition)
@@ -39,7 +38,6 @@ import XMonad.Hooks.StatusBar (StatusBarConfig, statusBarProp, withSB)
 import XMonad.Hooks.StatusBar.PP hiding (trim)
 import XMonad.Hooks.UrgencyHook (NoUrgencyHook (NoUrgencyHook), clearUrgents, focusUrgent, withUrgencyHook)
 -- Layouts
-
 import XMonad.Layout.Grid (Grid (..))
 import XMonad.Layout.LayoutModifier (ModifiedLayout)
 import XMonad.Layout.Magnifier (MagnifyThis (NoMaster), magnify)
@@ -67,7 +65,7 @@ import XMonad.Prompt.Window (WindowPrompt (Bring, Goto), allWindows, windowPromp
 import qualified XMonad.StackSet as W
 -- Utilities
 import XMonad.Util.ClickableWorkspaces (clickablePP)
-import XMonad.Util.EZConfig (additionalKeysP)
+import XMonad.Util.EZConfig (additionalKeysP, removeKeysP)
 import XMonad.Util.Loggers (logTitles)
 import XMonad.Util.NamedScratchpad (NamedScratchpad (NS), customFloating, namedScratchpadAction, namedScratchpadFilterOutWorkspacePP, namedScratchpadManageHook, scratchpadWorkspaceTag)
 import XMonad.Util.Run (runProcessWithInput)
@@ -602,6 +600,7 @@ myConfig =
       focusedBorderColor = myFocusColor
     }
     `additionalKeysP` myKeys
+    `removeKeysP` ["M-h", "M-l"]
 
 -------------------------------------------------------------------------
 -- MAIN
