@@ -358,10 +358,10 @@ myKeys =
     -- Notifications
     ("C-S-\\", spawn "dunstctl set-paused toggle"),
     --- My Applications
-    ("M-M1-e", spawn myEditor),
+    ("M-C-e", spawn myEditor),
+    ("M-M1-e", spawn "emacs"),
     ("M-M1-f", spawn myFileManager),
     ("M-M1-b", spawn myBrowser),
-    ("M-M1-m", spawn "emacsclient -a '' -c --eval '(mu4e)'"),
     -- Multimedia Keys
     ("<XF86AudioMute>", spawn "pamixer -t"),
     ("<XF86AudioLowerVolume>", spawn "pamixer -d 10"),
