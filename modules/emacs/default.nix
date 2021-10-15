@@ -72,11 +72,9 @@
 
           # Development
           envrc
-          flycheck
           format-all
           ## LSP
-          lsp-mode
-          lsp-ui
+          eglot
           ## Company
           company
           company-box
@@ -88,6 +86,7 @@
           typescript-mode
           haskell-mode
           hindent
+          toml-mode
           yaml-mode
           lua-mode
           markdown-mode
