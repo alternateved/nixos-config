@@ -14,7 +14,7 @@
 
   bright-black = "#595959";
   bright-red = "#972500";
-      bright-green = "#315b00";
+  bright-green = "#315b00";
   bright-yellow = "#70480f";
   bright-blue = "#2544bb";
   bright-magenta = "#5317ac";
