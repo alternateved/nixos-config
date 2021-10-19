@@ -2,7 +2,7 @@
 
 let nnn = pkgs.nnn.override { withNerdIcons = true; };
 in {
-  home-manager.users.alternateved.home.packages = with pkgs; [ nnn ];
+  home-manager.users.alternateved.home.packages = with pkgs; [ nnn ueberzug ];
   home-manager.users.alternateved.home.sessionVariables = {
     BLK = "04";
     CHR = "04";
@@ -18,8 +18,9 @@ in {
     OTHER = "02";
     NNN_FCOLORS =
       "$BLK$CHR$DIR$EXE$REG$HARDLINK$SYMLINK$MISSING$ORPHAN$FIFO$SOCK$OTHER";
-    NNN_PLUG = "f:finder;o:fzopen;c:fzcd;v:imgview;s:chksum";
+    NNN_PLUG = "f:finder;o:fzopen;c:fzcd;p:preview-tui;v:imgview;s:chksum";
     NN_TRASH = 1;
     NNN_FIFO = "/tmp/nnn.fifo";
+    TERMINAL = "alacritty";
   };
 }
