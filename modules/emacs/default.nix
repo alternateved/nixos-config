@@ -75,9 +75,12 @@
           format-all
           ## LSP
           eglot
-          ## Company
+          ## Completions
+          corfu
           company
           company-box
+          ## Checkers
+          flymake-diagnostic-at-point
           ## Languages
           nix-mode
           js2-mode
