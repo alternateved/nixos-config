@@ -23,6 +23,7 @@ import XMonad.Actions.DynamicWorkspaces (addWorkspacePrompt, removeWorkspace, re
 import XMonad.Actions.EasyMotion (EasyMotionConfig (..), selectWindow, textSize)
 import XMonad.Actions.GroupNavigation (Direction (History), historyHook, nextMatch)
 import XMonad.Actions.Promote (promote)
+import XMonad.Actions.RotSlaves (rotSlavesDown, rotSlavesUp)
 import qualified XMonad.Actions.Search as S (SearchEngine (..), duckduckgo, github, google, hoogle, promptSearch, searchEngine, searchEngineF, selectSearch, wikipedia, youtube)
 import XMonad.Actions.UpdatePointer (updatePointer)
 import XMonad.Actions.WithAll (killAll, sinkAll)
@@ -48,11 +49,9 @@ import XMonad.Layout.NoBorders (noBorders, smartBorders)
 import XMonad.Layout.Reflect (REFLECTX (..))
 import XMonad.Layout.Renamed (Rename (Replace), renamed)
 import XMonad.Layout.ResizableTile (MirrorResize (..), ResizableTall (ResizableTall))
-import XMonad.Layout.Simplest (Simplest (..))
 import XMonad.Layout.Spacing (Border (Border), Spacing, spacingRaw)
-import XMonad.Layout.SubLayouts (GroupMsg (UnMerge), mergeDir, onGroup, subLayout)
-import XMonad.Layout.Tabbed (Theme (..), addTabs, shrinkText)
 import XMonad.Layout.ThreeColumns (ThreeCol (ThreeColMid))
+import XMonad.Layout.TwoPane (TwoPane (..))
 import XMonad.Layout.WorkspaceDir (changeDir, workspaceDir)
 import XMonad.Operations
 -- Prompt
@@ -199,24 +198,6 @@ myWorkspaces :: [WorkspaceId]
 myWorkspaces = ["1", "2", "3", "4", "5"]
 
 -------------------------------------------------------------------------
--- TABS CONFIGURATION
--------------------------------------------------------------------------
-myTabConfig :: Theme
-myTabConfig =
-  def
-    { fontName = myFont,
-      activeTextColor = colorBg,
-      activeColor = colorFg,
-      activeBorderColor = colorFg,
-      inactiveTextColor = colorHiBlack,
-      inactiveColor = colorBg,
-      inactiveBorderColor = colorBg,
-      urgentTextColor = colorBg,
-      urgentColor = colorRed,
-      urgentBorderColor = colorRed
-    }
-
--------------------------------------------------------------------------
 -- LAYOUTS
 -------------------------------------------------------------------------
 mySpacing :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
@@ -224,46 +205,46 @@ mySpacing i = spacingRaw True (Border 0 i 0 i) True (Border i 0 i 0) True
 
 tall =
   renamed [Replace "tall"] $
-    addTabs shrinkText myTabConfig . subLayout [] Simplest $
-      avoidStruts $
-        mySpacing 5 $
-          ResizableTall 1 (3 / 100) (1 / 2) []
+    avoidStruts $
+      mySpacing 5 $
+        ResizableTall 1 (3 / 100) (1 / 2) []
 
 wide =
   renamed [Replace "wide"] $
-    addTabs shrinkText myTabConfig . subLayout [] Simplest $
-      avoidStruts $
-        mySpacing 5 $
-          Mirror $
-            ResizableTall 1 (3 / 100) (1 / 2) []
+    avoidStruts $
+      mySpacing 5 $
+        Mirror $
+          ResizableTall 1 (3 / 100) (1 / 2) []
+
+panes =
+  renamed [Replace "panes"] $
+    avoidStruts $
+      mySpacing 5 $
+        TwoPane (3 / 100) (1 / 2)
 
 englare =
   renamed [Replace "englare"] $
-    addTabs shrinkText myTabConfig . subLayout [] Simplest $
-      avoidStruts $
-        mySpacing 5 $
-          magnify 1.3 (NoMaster 3) True $
-            ResizableTall 1 (3 / 100) (1 / 2) []
+    avoidStruts $
+      mySpacing 5 $
+        magnify 1.3 (NoMaster 3) True $
+          ResizableTall 1 (3 / 100) (1 / 2) []
 
 columns =
   renamed [Replace "columns"] $
-    addTabs shrinkText myTabConfig . subLayout [] Simplest $
-      avoidStruts $
-        mySpacing 5 $
-          ThreeColMid 1 (3 / 100) (12 / 30)
+    avoidStruts $
+      mySpacing 5 $
+        ThreeColMid 1 (3 / 100) (12 / 30)
 
 grid =
   renamed [Replace "grid"] $
-    addTabs shrinkText myTabConfig . subLayout [] Simplest $
-      avoidStruts $
-        mySpacing 5 $
-          GridRatio (4 / 3)
+    avoidStruts $
+      mySpacing 5 $
+        GridRatio (4 / 3)
 
 monocle =
   renamed [Replace "monocle"] $
-    addTabs shrinkText myTabConfig . subLayout [] Simplest $
-      avoidStruts $
-        Full
+    avoidStruts $
+      Full
 
 myLayoutHook =
   workspaceDir myHome $
@@ -275,6 +256,7 @@ myLayoutHook =
     myDefaultLayout =
       tall
         ||| wide
+        ||| panes
         ||| englare
         ||| columns
         ||| grid
@@ -326,6 +308,8 @@ myKeys =
     ("M1-`", nextMatch History (return True)),
     ("M1-<Tab>", windows W.focusDown),
     ("M1-S-<Tab>", windows W.focusUp),
+    ("M-<Backspace>", rotSlavesUp),
+    ("M-S-<Backspace>", rotSlavesDown),
     -- Layouts
     ("M-<Space>", sendMessage NextLayout),
     ("M-C-h", sendMessage Shrink),
@@ -338,16 +322,12 @@ myKeys =
     ("M-b", sendMessage ToggleStruts),
     ("M-a t", sendMessage $ JumpToLayout "tall"),
     ("M-a w", sendMessage $ JumpToLayout "wide"),
+    ("M-a p", sendMessage $ JumpToLayout "panes"),
     ("M-a e", sendMessage $ JumpToLayout "englare"),
     ("M-a c", sendMessage $ JumpToLayout "columns"),
     ("M-a g", sendMessage $ JumpToLayout "grid"),
     ("M-a m", sendMessage $ JumpToLayout "monocle"),
     ("M-f", sendMessage $ MT.Toggle NBFULL),
-    -- SubLayouts
-    ("M-S-.", withFocused (sendMessage . mergeDir id)),
-    ("M-S-,", withFocused (sendMessage . UnMerge)),
-    ("M-.", onGroup W.focusUp'),
-    ("M-,", onGroup W.focusDown'),
     -- Scratchpads
     ("M-s t", scratchTerm),
     ("M-s h", scratchGhci),

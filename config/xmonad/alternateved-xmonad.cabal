@@ -16,7 +16,6 @@ executable alternateved-xmonad
         base,
         xmonad,
         xmonad-contrib,
-        xmobar,
         X11,
         containers,
         utf8-string,
