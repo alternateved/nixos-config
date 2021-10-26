@@ -66,7 +66,6 @@ bspc rule -a Firefox desktop=1
 bspc rule -a discord desktop=2
 bspc rule -a Signal desktop=2
 bspc rule -a mpv desktop=5
-bspc rule -a Spotify desktop=5
 
 # Scratchpads 
 bspc rule -a 'Emacs:*:scratcher' state=floating center=on

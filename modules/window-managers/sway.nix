@@ -397,7 +397,8 @@ in {
         "${modifier}+r" = "mode resize";
         "${modifier}+y" = "mode workspace";
 
-        "${modifier}+Alt+e" = "exec emacsclient -a '' -c";
+        "${modifier}+Alt+e" = "exec emacs";
+        "${modifier}+Control+e" = "exec emacsclient -a '' -c";
         "${modifier}+Alt+b" = "exec firefox";
         "${modifier}+Alt+c" = "mode chat";
 

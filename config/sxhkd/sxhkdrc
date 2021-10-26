@@ -143,7 +143,12 @@ super + alt + f
       alacritty -e nnn
 
 super + alt + e
+      emacs
+
+
+super + control + e
       emacsclient -a '' -c
+
 
 # Scratchpads
 
@@ -230,7 +235,4 @@ super + F3
         echo $(sxiv -t -o ~/Pictures/Wallpapers) > /home/alternateved/.cache/wall; xargs xwallpaper --stretch < ~/.cache/wall
 
 super + F4
-      bash ~/.nixos-config/config/scripts/youtube
-
-super + F5
       bash ~/.nixos-config/config/scripts/wifi

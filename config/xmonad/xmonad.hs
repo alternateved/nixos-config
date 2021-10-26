@@ -29,7 +29,7 @@ import XMonad.Actions.UpdatePointer (updatePointer)
 import XMonad.Actions.WithAll (killAll, sinkAll)
 -- Hooks
 import XMonad.Hooks.DynamicProperty (dynamicPropertyChange)
-import XMonad.Hooks.EwmhDesktops (ewmh, ewmhFullscreen)
+import XMonad.Hooks.EwmhDesktops (ewmh, ewmhFullscreen, setEwmhActivateHook)
 import XMonad.Hooks.InsertPosition (Focus (Newer), Position (Below), insertPosition)
 import XMonad.Hooks.ManageDocks (ToggleStruts (..), avoidStruts, docks)
 import XMonad.Hooks.ManageHelpers (doCenterFloat, doFullFloat, isDialog)
@@ -37,7 +37,7 @@ import XMonad.Hooks.RefocusLast (refocusLastLogHook)
 import XMonad.Hooks.SetWMName (setWMName)
 import XMonad.Hooks.StatusBar (StatusBarConfig, statusBarProp, withSB)
 import XMonad.Hooks.StatusBar.PP hiding (trim)
-import XMonad.Hooks.UrgencyHook (NoUrgencyHook (NoUrgencyHook), clearUrgents, focusUrgent, withUrgencyHook)
+import XMonad.Hooks.UrgencyHook (NoUrgencyHook (NoUrgencyHook), doAskUrgent, focusUrgent, withUrgencyHook)
 -- Layouts
 import XMonad.Layout.Grid (Grid (..))
 import XMonad.Layout.LayoutModifier (ModifiedLayout)
@@ -590,6 +590,7 @@ main =
   xmonad
     . withSB xmobar0
     . docks
+    . setEwmhActivateHook doAskUrgent
     . ewmh
     . ewmhFullscreen
     . withUrgencyHook NoUrgencyHook
