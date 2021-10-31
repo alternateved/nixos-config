@@ -15,12 +15,11 @@
         share = true;
         path = "$HOME/.cache/zsh_history";
       };
+      defaultKeymap = "emacs";
       initExtra = ''
         export PATH="$HOME/.local/bin:$PATH"
-        bindkey "^[[1;5C" forward-word
-        bindkey "^[[1;5D" backward-word
-        bindkey '^[[A' history-substring-search-up
-        bindkey '^[[B' history-substring-search-down
+        bindkey -M emacs '^P' history-substring-search-up
+        bindkey -M emacs '^N' history-substring-search-down
       '';
       shellAliases = {
         cp = "cp -i"; # Confirm before overwriting something
@@ -35,7 +34,7 @@
       };
       sessionVariables = {
         ALTERNATE_EDITOR = "";
-        EDITOR = "vim";
+        EDITOR = "emacs";
         VISUAL = "emacsclient -c -a ''";
         BROWSER = "firefox";
         CALIBRE_USE_SYSTEM_THEME = "1";
