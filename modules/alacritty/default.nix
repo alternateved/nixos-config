@@ -18,7 +18,7 @@ in {
         italic.family = "Iosevka Nerd Font";
       };
       cursor.style = {
-        shape = "Underline";
+        shape = "Block";
         blinking = "On";
       };
       draw_bold_text_with_bright_colors = true;
@@ -26,10 +26,6 @@ in {
         primary = {
           background = colors.background;
           foreground = colors.foreground;
-        };
-        cursor = {
-          text = colors.black;
-          cursor = colors.white;
         };
         normal = {
           black = colors.black;

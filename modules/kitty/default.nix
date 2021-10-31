@@ -14,7 +14,7 @@ in {
       enable_audio_bell = "no";
       placement_strategy = "center";
       default_pointer_shape = "beam";
-      cursor_shape = "underline";
+      cursor_shape = "block";
       tab_bar_style = "fade";
       tab_fade = "1 1 1";
 
