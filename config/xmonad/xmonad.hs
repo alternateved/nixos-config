@@ -26,7 +26,7 @@ import XMonad.Actions.Promote (promote)
 import XMonad.Actions.RotSlaves (rotSlavesDown, rotSlavesUp)
 import qualified XMonad.Actions.Search as S (SearchEngine (..), duckduckgo, github, google, hoogle, promptSearch, searchEngine, searchEngineF, selectSearch, wikipedia, youtube)
 import XMonad.Actions.UpdatePointer (updatePointer)
-import XMonad.Actions.WithAll (killAll, sinkAll)
+import XMonad.Actions.WithAll (sinkAll)
 -- Hooks
 import XMonad.Hooks.DynamicProperty (dynamicPropertyChange)
 import XMonad.Hooks.EwmhDesktops (ewmh, ewmhFullscreen, setEwmhActivateHook)
@@ -289,7 +289,6 @@ myKeys =
     ("M-y d", removeWorkspace),
     -- Windows
     ("M-S-c", kill1),
-    ("M-C-c", killAll),
     -- Floating windows
     ("M-t", withFocused toggleFloat),
     ("M-S-t", sinkAll),
