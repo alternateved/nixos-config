@@ -1,9 +1,9 @@
 { pkgs, ... }: {
   home-manager.users.alternateved.programs.firefox = {
     enable = true;
-    package = pkgs.firefox.override {
-      cfg = { enableTridactylNative = true; };
-    };
+    # package = pkgs.firefox.override {
+    #   cfg = { enableTridactylNative = true; };
+    # };
     extensions = with pkgs.nur.repos.rycee.firefox-addons; [
       bitwarden
       clearurls
@@ -15,7 +15,7 @@
       facebook-container
       https-everywhere
       privacy-badger
-      tridactyl
+      # tridactyl
       ublock-origin
     ];
     profiles."trained".settings = {
@@ -23,7 +23,7 @@
       # Enable userContent.css and userChrome.css for our theme modules
       "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
       # Middle-click for fast scrolling
-      "general.autoScroll" = true;
+      "general.autoScroll" = false;
       # Don't use the built-in password manager; a nixos user is more likely
       # using an external one (you are using one, right?).
       "signon.rememberSignons" = false;
@@ -49,7 +49,6 @@
       "browser.newtabpage.directory.source" = "data:text/plain,{}";
       "browser.search.defaultenginename" = "DuckDuckGo";
       "browser.search.selectedEngine" = "DuckDuckGo";
-      "browser.urlbar.placeholderName" = "DuckDuckGo";
       "browser.uidensity" = 1;
       # Disable some not so useful functionality.
       "media.videocontrols.picture-in-picture.video-toggle.enabled" = false;
