@@ -17,26 +17,15 @@
           smartparens
           rainbow-delimiters
           ws-butler
-          undo-fu
-          undo-fu-session
 
           # Apperance
-          mood-line
+          ## Modeline
+          minions
           hide-mode-line
+
           all-the-icons
           all-the-icons-dired
           all-the-icons-completion
-
-          # Evil
-          evil
-          evil-collection
-          evil-org
-          evil-surround
-          evil-nerd-commenter
-          better-jumper
-
-          # Keybindings
-          general
 
           # Completion framework
           vertico
@@ -77,8 +66,6 @@
           eglot
           ## Completions
           corfu
-          company
-          company-box
           ## Checkers
           flymake-diagnostic-at-point
           ## Languages
