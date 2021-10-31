@@ -25,30 +25,32 @@
     ../zsh
   ];
 
-  services.xserver = {
-    enable = true;
-    layout = "pl";
-    xkbOptions = "caps:escape_shifted_capslock";
-    libinput = {
+  services = {
+    xserver = {
       enable = true;
-      touchpad.disableWhileTyping = true;
-      touchpad.middleEmulation = true;
-      touchpad.naturalScrolling = true;
-    };
-    displayManager = {
-      defaultSession = "none+myxmonad";
-      sessionCommands = ''
-        bluetoothctl power on
-      '';
-    };
-    windowManager = {
-      session = [{
-        name = "myxmonad";
-        start = ''
-          /usr/bin/env alternateved-xmonad &
-          waitPID=$!
+      layout = "pl";
+      xkbOptions = "ctrl:nocaps";
+      libinput = {
+        enable = true;
+        touchpad.disableWhileTyping = true;
+        touchpad.middleEmulation = true;
+        touchpad.naturalScrolling = true;
+      };
+      displayManager = {
+        defaultSession = "none+myxmonad";
+        sessionCommands = ''
+          bluetoothctl power on
         '';
-      }];
+      };
+      windowManager = {
+        session = [{
+          name = "myxmonad";
+          start = ''
+            /usr/bin/env alternateved-xmonad &
+            waitPID=$!
+          '';
+        }];
+      };
     };
   };
 
