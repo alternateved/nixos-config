@@ -153,11 +153,6 @@ in {
               "floating enable, resize set width 900px 600px, move scratchpad, scratchpad show";
           }
           {
-            criteria = { app_id = "haskell_repl"; };
-            command =
-              "floating enable, resize set width 900px 700px, move scratchpad, scratchpad show";
-          }
-          {
             criteria = { app_id = "mixerr"; };
             command =
               "floating enable, resize set width 1100px 350px, move scratchpad, scratchpad show";
@@ -172,10 +167,7 @@ in {
             command =
               "floating enable, resize set width 1200px 600px, move scratchpad, scratchpad show";
           }
-          {
-            criteria = { title = "scratcher"; };
-            command = "floating enable, move scratchpad, scratchpad show";
-          }
+
         ];
       };
 
@@ -276,16 +268,12 @@ in {
         scratchpad = {
           t = ''
             exec swaymsg "[app_id=terrm] scratchpad show " || exec ${terminal} --class terrm, mode default'';
-          h = ''
-            exec swaymsg "[app_id=haskell_repl] scratchpad show " || exec ${terminal} --class haskell_repl --working-directory /home/alternateved/Documents/Programming/haskell/learn4haskell -e nix-shell --pure --run ghci, mode default'';
           v = ''
             exec swaymsg "[app_id=mixerr] scratchpad show " || exec ${terminal} --class mixerr -e pulsemixer, mode default'';
           m = ''
             exec swaymsg "[app_id=monitorr] scratchpad show " || exec ${terminal} --class monitorr -e htop, mode default'';
           s = ''
             exec swaymsg "[app_id=spotiff] scratchpad show " || exec ${terminal} --class spotiff -e ncspot, mode default'';
-          e =
-            "exec swaymsg \"[title=scratcher] scratchpad show \" || exec emacsclient -a '' --eval \"(open-scratch-frame)\", mode default";
           Return = ''mode "default"'';
           Escape = ''mode "default"'';
         };

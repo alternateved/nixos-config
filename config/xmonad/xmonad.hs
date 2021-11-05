@@ -329,11 +329,9 @@ myKeys =
     ("M-f", sendMessage $ MT.Toggle NBFULL),
     -- Scratchpads
     ("M-s t", scratchTerm),
-    ("M-s h", scratchGhci),
     ("M-s v", scratchMixer),
     ("M-s m", scratchMonitor),
     ("M-s s", scratchPlayer),
-    ("M-s e", scratchNotes),
     -- Notifications
     ("C-S-\\", spawn "dunstctl set-paused toggle"),
     --- My Applications
@@ -381,18 +379,13 @@ myKeys =
 myScratchPads :: [NamedScratchpad]
 myScratchPads =
   [ NS "terminal" spawnTerm findTerm small,
-    NS "ghci" spawnGhci findGhci small,
     NS "volumectl" spawnMixer findMixer wide,
     NS "monitor" spawnMonitor findMonitor large,
-    NS "player" spawnPlayer findPlayer wider,
-    NS "notes" spawnNotes findNotes medium
+    NS "player" spawnPlayer findPlayer wider
   ]
   where
     spawnTerm = myTerminal ++ " --title scratchpad"
     findTerm = title =? "scratchpad"
-
-    spawnGhci = myTerminal ++ " --title haskell_repl --working-directory /home/alternateved/Documents/Programming/haskell/learn4haskell -e nix-shell --pure --run ghci"
-    findGhci = title =? "haskell_repl"
 
     spawnMixer = myTerminal ++ " --title pulsemixer -e pulsemixer"
     findMixer = title =? "pulsemixer"
@@ -403,22 +396,17 @@ myScratchPads =
     spawnPlayer = myTerminal ++ " --title ncspot -e ncspot"
     findPlayer = title =? "ncspot"
 
-    spawnNotes = "emacsclient -a '' --eval '(open-scratch-frame)'"
-    findNotes = title =? "scratcher"
-
     small = customFloating $ W.RationalRect (1 / 4) (1 / 4) (1 / 2) (1 / 2)
     medium = customFloating $ W.RationalRect (1 / 6) (1 / 6) (2 / 3) (2 / 3)
     large = customFloating $ W.RationalRect (1 / 10) (1 / 10) (4 / 5) (4 / 5)
     wide = customFloating $ W.RationalRect (1 / 6) (2 / 6) (2 / 3) (1 / 3)
     wider = customFloating $ W.RationalRect (1 / 6) (2 / 6) (2 / 3) (2 / 5)
 
-scratchTerm, scratchGhci, scratchMixer, scratchMonitor, scratchPlayer, scratchNotes :: X ()
+scratchTerm, scratchMixer, scratchMonitor, scratchPlayer :: X ()
 scratchTerm = namedScratchpadAction myScratchPads "terminal"
-scratchGhci = namedScratchpadAction myScratchPads "ghci"
 scratchMixer = namedScratchpadAction myScratchPads "volumectl"
 scratchMonitor = namedScratchpadAction myScratchPads "monitor"
 scratchPlayer = namedScratchpadAction myScratchPads "player"
-scratchNotes = namedScratchpadAction myScratchPads "notes"
 
 -------------------------------------------------------------------------
 -- PROMPT CONFIGURATION
