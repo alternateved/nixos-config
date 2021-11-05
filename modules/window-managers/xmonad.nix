@@ -10,6 +10,7 @@
     ../fzf
     ../git
     ../htop
+    ../interception-tools
     ../lightdm
     ../mail
     ../mpv
@@ -52,9 +53,11 @@
         }];
       };
     };
+    tlp.enable = true;
   };
 
   environment.systemPackages = with pkgs; [
+    pcmanfm
     xdotool
     xwallpaper
     xsecurelock

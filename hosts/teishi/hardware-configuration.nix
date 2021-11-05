@@ -45,6 +45,4 @@
     libvdpau-va-gl
     intel-media-driver
   ];
-  services.tlp.enable = true;
 }
-

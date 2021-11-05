@@ -10,6 +10,7 @@ in {
     ../git
     ../gammastep
     ../htop
+    ../interception-tools
     ../mail
     ../mako
     ../mpv
@@ -23,17 +24,20 @@ in {
     ../zsh
   ];
 
-  services.greetd = {
-    enable = true;
-    settings = {
-      default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd sway";
-      };
-      initial_session = {
-        command = "sway";
-        user = "alternateved";
+  services = {
+    greetd = {
+      enable = true;
+      settings = {
+        default_session = {
+          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd sway";
+        };
+        initial_session = {
+          command = "sway";
+          user = "alternateved";
+        };
       };
     };
+    tlp.enable = true;
   };
 
   programs.sway = {
@@ -42,6 +46,7 @@ in {
       swayidle
       swaylock
       xwayland
+      pcmanfm
       mako
       wl-clipboard
       gammastep
@@ -94,10 +99,11 @@ in {
           middle_emulation = "enabled";
           scroll_method = "two_finger";
           natural_scroll = "enabled";
+          tap_button_map = "lrm";
         };
         "type:keyboard" = {
           xkb_layout = "pl";
-          xkb_options = "caps:escape_shifted_capslock";
+          xkb_options = "ctrl:nocaps";
         };
       };
 
@@ -293,14 +299,6 @@ in {
           Return = ''mode "default"'';
           Escape = ''mode "default"'';
         };
-        chat = {
-          s =
-            "exec signal-desktop --enable-features=UseOzonePlatform --ozone-platform=wayland, mode default";
-          d =
-            "exec discord --enable-features=UseOzonePlatform --ozone-platform=wayland, mode default";
-          Return = ''mode "default"'';
-          Escape = ''mode "default"'';
-        };
       };
 
       terminal = "${pkgs.alacritty}/bin/alacritty";
@@ -400,7 +398,6 @@ in {
         "${modifier}+Alt+e" = "exec emacs";
         "${modifier}+Control+e" = "exec emacsclient -a '' -c";
         "${modifier}+Alt+b" = "exec firefox";
-        "${modifier}+Alt+c" = "mode chat";
 
         "${modifier}+Shift+q" = "exec bash ~/.nixos-config/config/scripts/exit";
         "${modifier}+Control+q" =
@@ -540,5 +537,10 @@ in {
     MOZ_ENABLE_WAYLAND = 1;
     MOZ_DBUS_REMOTE = 1;
     MOZ_USE_XINPUT2 = 1;
+  };
+
+  home-manager.users.alternateved.programs.firefox = {
+    enable = true;
+    package = pkgs.firefox-wayland;
   };
 }

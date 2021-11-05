@@ -26,23 +26,26 @@
     ../zsh
   ];
 
-  services.xserver = {
-    enable = true;
-    layout = "pl";
-    xkbOptions = "caps:escape_shifted_capslock";
-    libinput = {
+  services = {
+    xserver = {
       enable = true;
-      touchpad.disableWhileTyping = true;
-      touchpad.middleEmulation = true;
-      touchpad.naturalScrolling = true;
+      layout = "pl";
+      xkbOptions = "caps:escape_shifted_capslock";
+      libinput = {
+        enable = true;
+        touchpad.disableWhileTyping = true;
+        touchpad.middleEmulation = true;
+        touchpad.naturalScrolling = true;
+      };
+      displayManager = {
+        defaultSession = "none+bspwm";
+        sessionCommands = ''
+          bluetoothctl power on
+        '';
+      };
+      windowManager.bspwm.enable = true;
     };
-    displayManager = {
-      defaultSession = "none+bspwm";
-      sessionCommands = ''
-        bluetoothctl power on
-      '';
-    };
-    windowManager.bspwm.enable = true;
+    tlp.enable = true;
   };
 
   environment.systemPackages = with pkgs; [
@@ -60,6 +63,7 @@
         })
       ];
     }))
+    pcmanfm
     killall
     xdo
     xtitle
