@@ -11,6 +11,10 @@
       package = null;
       name = "Iosevka Aile Medium 11";
     };
+    gtk2.extraConfig = ''
+      gtk-key-theme-name = "Emacs"
+    '';
+    gtk3.extraConfig = { gtk-key-theme-name = "Emacs"; };
   };
   home-manager.users.alternateved.qt = {
     enable = true;
