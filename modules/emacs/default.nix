@@ -14,14 +14,15 @@
           no-littering
 
           # Editor
-          smartparens
           rainbow-delimiters
           ws-butler
+          avy
+          ace-window
+          god-mode
 
           # Apperance
           ## Modeline
           minions
-          hide-mode-line
 
           all-the-icons
           all-the-icons-dired
