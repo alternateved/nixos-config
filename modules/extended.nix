@@ -10,9 +10,6 @@
     unzip
     xarchiver
 
-    # File managers
-    pcmanfm
-
     # Office
     libreoffice
 
@@ -33,7 +30,10 @@
     signal-desktop
 
     # Other
-    google-chrome
+    nyxt
+    k380-function-keys-conf
+    ungoogled-chromium
+    android-tools
   ];
 
   home.stateVersion = "21.11";
