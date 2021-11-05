@@ -26,16 +26,16 @@ _: pkgs: rec {
     src = pkgs.fetchFromGitHub {
       owner = "swaywm";
       repo = "sway";
-      rev = "624ffa45162d7df1ae0796b283bef2f4a0d6a0d7";
-      sha256 = "CRlCeQBrw9AK1RqKwvxmy/Ge039UvMLD32SJcHIlLig=";
+      rev = "fc25e4944efdc5bc7e33a81180908927dba93ee6";
+      sha256 = "0gZP2Pe2LsMzScKKRL/q98ERJQuqxa1Swwi9DY/KCvg=";
     };
   });
   bemenu = pkgs.bemenu.overrideAttrs (old: rec {
     src = pkgs.fetchFromGitHub {
       owner = "Cloudef";
       repo = "bemenu";
-      rev = "b7f8db7128b2560460b06c7b29adadd4e7874c93";
-      sha256 = "TFlLxY3LhiWkorAoottEW8b17PULqUIWcWrUiCgMpBE=";
+      rev = "d593ab27b6444ccc5765edbdefcb182c64181ebf";
+      sha256 = "29NfRmtsSew8w4+uliEJ8FjVthSrhTTOorzwziCrbpE=";
     };
   });
 }
