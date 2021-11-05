@@ -26,6 +26,7 @@
           xmonad.overlay
           xmonad-contrib.overlay
           xmobar.overlay
+          (import ./packages)
           (import ./overlays)
         ];
       };
