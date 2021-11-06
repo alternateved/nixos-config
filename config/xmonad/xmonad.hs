@@ -22,6 +22,7 @@ import XMonad.Actions.DynamicWorkspaceOrder (getSortByOrder)
 import XMonad.Actions.DynamicWorkspaces (addWorkspacePrompt, removeWorkspace, renameWorkspace, selectWorkspace, withNthWorkspace)
 import XMonad.Actions.EasyMotion (EasyMotionConfig (..), selectWindow, textSize)
 import XMonad.Actions.GroupNavigation (Direction (History), historyHook, nextMatch)
+import XMonad.Actions.KeyRemap (KeymapTable (..), buildKeyRemapBindings, emptyKeyRemap, setDefaultKeyRemap)
 import XMonad.Actions.Promote (promote)
 import XMonad.Actions.RotSlaves (rotSlavesDown, rotSlavesUp)
 import qualified XMonad.Actions.Search as S (SearchEngine (..), duckduckgo, github, google, hoogle, promptSearch, searchEngine, searchEngineF, selectSearch, wikipedia, youtube)
@@ -64,7 +65,7 @@ import XMonad.Prompt.Window (WindowPrompt (Bring, Goto), allWindows, windowPromp
 import qualified XMonad.StackSet as W
 -- Utilities
 import XMonad.Util.ClickableWorkspaces (clickablePP)
-import XMonad.Util.EZConfig (additionalKeysP, removeKeysP)
+import XMonad.Util.EZConfig (additionalKeys, additionalKeysP, removeKeysP)
 import XMonad.Util.Loggers (logTitles)
 import XMonad.Util.NamedScratchpad (NamedScratchpad (NS), customFloating, namedScratchpadAction, namedScratchpadFilterOutWorkspacePP, namedScratchpadManageHook, scratchpadWorkspaceTag)
 import XMonad.Util.Run (runProcessWithInput)
@@ -108,6 +109,15 @@ myEditor = "emacsclient -a '' -c "
 myBorderWidth :: Dimension
 myBorderWidth = 2
 
+macMap :: KeymapTable
+macMap =
+  KeymapTable
+    [ ((myModMask, xK_x), (controlMask, xK_x)),
+      ((myModMask, xK_c), (controlMask, xK_c)),
+      ((myModMask, xK_v), (controlMask, xK_v)),
+      ((myModMask, xK_f), (controlMask, xK_f))
+    ]
+
 -------------------------------------------------------------------------
 -- COLORS
 -------------------------------------------------------------------------
@@ -146,6 +156,7 @@ myStartupHook = do
   spawnOnce "xsetroot -cursor_name left_ptr"
   spawnOnce "xrdb -merge ~/.Xresources"
   spawnOnce "xargs xwallpaper --stretch < ~/.cache/wall"
+  setDefaultKeyRemap macMap [macMap, emptyKeyRemap]
   setWMName "LG3D"
 
 -------------------------------------------------------------------------
@@ -280,7 +291,7 @@ myKeys =
     ("M-'", windowPrompt myXPConfig' Goto wsWindows),
     ("M-C-'", windowPrompt myXPConfig' Goto allWindows),
     ("M-S-'", windowPrompt myXPConfig' Bring allWindows),
-    ("M-/", selectWindow emConfig >>= (`whenJust` windows . W.focusWindow)),
+    ("M-o", selectWindow emConfig >>= (`whenJust` windows . W.focusWindow)),
     -- Workspace management
     ("M-y a", addWorkspacePrompt myXPConfig'),
     ("M-y s", selectWorkspace myXPConfig),
@@ -326,7 +337,7 @@ myKeys =
     ("M-a c", sendMessage $ JumpToLayout "columns"),
     ("M-a g", sendMessage $ JumpToLayout "grid"),
     ("M-a m", sendMessage $ JumpToLayout "monocle"),
-    ("M-f", sendMessage $ MT.Toggle NBFULL),
+    ("M-S-f", sendMessage $ MT.Toggle NBFULL),
     -- Scratchpads
     ("M-s t", scratchTerm),
     ("M-s v", scratchMixer),
@@ -421,7 +432,8 @@ myXPConfig =
       fgHLight = colorBg,
       borderColor = colorFg,
       promptBorderWidth = 1,
-      position = CenteredAt (2 / 4) (2 / 6),
+      -- position = CenteredAt (2 / 4) (2 / 6),
+      position = CenteredAt (1 / 4) (3 / 7),
       height = 30,
       historySize = 50,
       historyFilter = deleteAllDuplicates,
@@ -566,6 +578,7 @@ myConfig =
       normalBorderColor = myNormColor,
       focusedBorderColor = myFocusColor
     }
+    `additionalKeys` buildKeyRemapBindings [macMap, emptyKeyRemap]
     `additionalKeysP` myKeys
     `removeKeysP` ["M-h", "M-l"]
 
