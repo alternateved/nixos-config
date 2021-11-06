@@ -12,8 +12,8 @@ in {
         decorations = "none";
       };
       font = {
-        size = 12.0;
-        # size = 8.5;
+        # size = 12.0;
+        size = 8.5;
         normal.family = "Iosevka Nerd Font";
         bold.family = "Iosevka Nerd Font";
         italic.family = "Iosevka Nerd Font";
@@ -50,115 +50,6 @@ in {
         };
       };
       mouse.hide_when_typing = true;
-      key_bindings = [
-        {
-          key = "V";
-          mods = "Control|Shift";
-          action = "Paste";
-        }
-        {
-          key = "C";
-          mods = "Control|Shift";
-          action = "Copy";
-        }
-        {
-          key = "Insert";
-          mods = "Shift";
-          action = "PasteSelection";
-        }
-        {
-          key = "Key0";
-          mods = "Control";
-          action = "ResetFontSize";
-        }
-        {
-          key = "Equals";
-          mods = "Control";
-          action = "IncreaseFontSize";
-        }
-        {
-          key = "Plus";
-          mods = "Control";
-          action = "IncreaseFontSize";
-        }
-        {
-          key = "NumpadAdd";
-          mods = "Control";
-          action = "IncreaseFontSize";
-        }
-        {
-          key = "Minus";
-          mods = "Control";
-          action = "DecreaseFontSize";
-        }
-        {
-          key = "NumpadSubtract";
-          mods = "Control";
-          action = "DecreaseFontSize";
-        }
-        {
-          key = "F11";
-          mods = "None";
-          action = "ToggleFullscreen";
-        }
-        {
-          key = "Paste";
-          mods = "None";
-          action = "Paste";
-        }
-        {
-          key = "Copy";
-          mods = "None";
-          action = "Copy";
-        }
-        {
-          key = "L";
-          mods = "Control";
-          action = "ClearLogNotice";
-        }
-        {
-          key = "PageUp";
-          mods = "None";
-          action = "ScrollPageUp";
-          mode = "~Alt";
-        }
-        {
-          key = "K";
-          mods = "Control|Shift";
-          action = "ScrollPageUp";
-          mode = "~Alt";
-        }
-        {
-          key = "J";
-          mods = "Control|Shift";
-          action = "ScrollPageDown";
-          mode = "~Alt";
-        }
-        {
-          key = "PageDown";
-          mods = "None";
-          action = "ScrollPageDown";
-          mode = "~Alt";
-        }
-        {
-          key = "Home";
-          mods = "Shift";
-          action = "ScrollToTop";
-          mode = "~Alt";
-        }
-        {
-          key = "End";
-          mods = "Shift";
-          action = "ScrollToBottom";
-          mode = "~Alt";
-        }
-        {
-          key = "Space";
-          mods = "Control|Shift";
-          action = "ToggleViMode";
-          mode = "~Search";
-        }
-      ];
     };
   };
 }
