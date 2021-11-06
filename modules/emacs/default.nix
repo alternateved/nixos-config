@@ -75,6 +75,7 @@
           js2-refactor
           web-mode
           typescript-mode
+          json-mode
           haskell-mode
           hindent
           toml-mode
