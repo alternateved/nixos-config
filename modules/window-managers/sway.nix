@@ -338,7 +338,7 @@ in {
         "${modifier}+c" = "split v";
         "${modifier}+v" = "split h";
 
-        "${modifier}+f" = "fullscreen toggle";
+        "${modifier}+Shift+f" = "fullscreen toggle";
 
         "${modifier}+a" = "focus parent";
         "${modifier}+d" = "focus child";
@@ -430,18 +430,6 @@ in {
     enable = true;
     bars.top = {
       blocks = [
-        {
-          block = "maildir";
-          inboxes = [
-            "/home/alternateved/.mail/outside/Inbox"
-            "/home/alternateved/.mail/inside/Inbox"
-            "/home/alternateved/.mail/traffic/Inbox"
-          ];
-          threshold_warning = 1;
-          threshold_critical = 10;
-          display_type = "new";
-          icon = true;
-        }
         {
           block = "weather";
           format = "{weather_verbose} {temp}C";
