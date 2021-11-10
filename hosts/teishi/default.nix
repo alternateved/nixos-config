@@ -78,15 +78,17 @@
     fontconfig = {
       enable = true;
       defaultFonts = {
-        monospace = [ "Iosevka Nerd Font" ];
-        serif = [ "Iosevka Etoile" ];
-        sansSerif = [ "Iosevka Aile" ];
+        monospace = [ "JetBrainsMono Nerd Font" ];
+        serif = [ "Merriweather" ];
+        sansSerif = [ "Merriweather Sans" ];
       };
     };
     fonts = with pkgs; [
-      (iosevka-bin.override { variant = "aile"; })
-      (iosevka-bin.override { variant = "etoile"; })
-      (nerdfonts.override { fonts = [ "Iosevka" ]; })
+      merriweather
+      merriweather-sans
+      (nerdfonts.override {
+        fonts = [ "JetBrainsMono" ];
+      })
     ];
   };
 

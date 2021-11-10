@@ -515,8 +515,11 @@ in {
     MOZ_USE_XINPUT2 = 1;
   };
 
-  home-manager.users.alternateved.programs.firefox = {
-    enable = true;
-    package = pkgs.firefox-wayland;
+  home-manager.users.alternateved.programs = {
+    alacritty.settings.font.size = 12.0;
+    firefox = {
+      enable = true;
+      package = pkgs.firefox-wayland;
+    };
   };
 }

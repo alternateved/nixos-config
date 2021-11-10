@@ -72,4 +72,8 @@
     xorg.xkill
     xorg.xwininfo
   ];
+
+  home-manager.users.alternateved.programs = {
+    alacritty.settings.font.size = 7.5;
+  };
 }

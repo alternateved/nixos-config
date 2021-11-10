@@ -87,8 +87,8 @@ mainCommands =
           colorRed
         ]
         36000,
-    Run $ Cpu ["-L", "3", "-H", "50", "--high", colorRed, "-t", "\xf2db  <total>%"] 20,
-    Run $ Memory ["-t", "\xf85a  <usedratio>%"] 20,
+    Run $ Cpu ["-L", "3", "-H", "50", "--high", colorRed, "-t", "\xf2db <total>%"] 20,
+    Run $ Memory ["-t", "\xf85a <usedratio>%"] 20,
     Run $
       Battery
         [ "--template",
@@ -105,13 +105,13 @@ mainCommands =
           "--", -- battery specific options
           -- discharging status
           "-o",
-          "\xf243   <left>% <timeleft>",
+          "\xf243  <left>% <timeleft>",
           -- AC "on" status
           "-O",
-          "\xf242   <left>%",
+          "\xf242  <left>%",
           -- charged status
           "-i",
-          "\xf240   100%",
+          "\xf240  100%",
           "-a",
           "dunstify -u critical 'Battery' 'Battery running out!'"
         ]
@@ -194,7 +194,7 @@ base15 = xprop "*.color15"
 -- FONTS AND ICONS
 -------------------------------------------------------------------------
 mainFont :: String
-mainFont = "xft:Iosevka Nerd Font:style=medium:pixelsize=14:antialias=true:hinting=true"
+mainFont = "xft:JetBrainsMono Nerd Font:style=medium:pixelsize=13:antialias=true:hinting=true"
 
 withPipe :: String -> String
 withPipe = (++) " | "
