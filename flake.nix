@@ -5,6 +5,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     home-manager.url = "github:rycee/home-manager/master";
+    darwin.url = "github:lnl7/nix-darwin/master";
     nur.url = "github:nix-community/NUR";
 
     emacs-overlay.url = "github:nix-community/emacs-overlay";
@@ -13,8 +14,8 @@
     xmobar.url = "github:alternateved/xmobar";
   };
 
-  outputs = { nixpkgs, nixos-hardware, home-manager, nur, emacs-overlay, xmonad
-    , xmonad-contrib, xmobar, ... }:
+  outputs = { nixpkgs, nixos-hardware, home-manager, darwin, nur, emacs-overlay
+    , xmonad, xmonad-contrib, xmobar, ... }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -58,7 +59,14 @@
             }
           ];
         };
+        yotsugi = darwin.lib.darwinSystem {
+          system = "x86_64-darwin";
+          modules = [
+            ./hosts/yotsugi
+            home-manager.darwinModules.home-manager
+            { home-manager.users.alternateved = import ./modules/air.nix; }
+          ];
+        };
       };
     };
-  # });
 }
