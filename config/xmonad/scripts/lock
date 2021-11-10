@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 bg=$(cat ~/.Xresources | grep '*.background' | awk '{print $NF}')
 fg=$(cat ~/.Xresources | grep '*.foreground' | awk '{print $NF}')
-XSECURELOCK_FONT='Iosevka Nerd Font Mono' XSECURELOCK_AUTH_BACKGROUND_COLOR=${bg} XSECURELOCK_AUTH_FOREGROUND_COLOR=${fg} xsecurelock
+XSECURELOCK_FONT='JetBrainsMono Nerd Font Mono' XSECURELOCK_AUTH_BACKGROUND_COLOR=${bg} XSECURELOCK_AUTH_FOREGROUND_COLOR=${fg} xsecurelock
