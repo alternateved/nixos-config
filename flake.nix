@@ -59,14 +59,6 @@
             }
           ];
         };
-        yotsugi = darwin.lib.darwinSystem {
-          system = "x86_64-darwin";
-          modules = [
-            ./hosts/yotsugi
-            home-manager.darwinModules.home-manager
-            { home-manager.users.alternateved = import ./modules/air.nix; }
-          ];
-        };
       };
     };
 }
