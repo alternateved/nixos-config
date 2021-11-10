@@ -9,7 +9,7 @@
     enable = true;
     font = {
       package = null;
-      name = "Merriweather Sans 12";
+      name = "Merriweather Sans 10";
     };
     gtk2.extraConfig = ''
       gtk-key-theme-name = "Emacs"
