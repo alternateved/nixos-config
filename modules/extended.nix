@@ -24,6 +24,7 @@
     youtube-dl
 
     # Communication
+    slack
     discord
     betterdiscordctl
     skypeforlinux
@@ -33,7 +34,6 @@
     nyxt
     k380-function-keys-conf
     ungoogled-chromium
-    android-tools
   ];
 
   home.stateVersion = "21.11";

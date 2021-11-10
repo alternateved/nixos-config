@@ -34,7 +34,6 @@
   swapDevices =
     [{ device = "/dev/disk/by-uuid/837c185e-1551-4359-9b0b-deb72124aaf7"; }];
 
-  nix.maxJobs = lib.mkDefault 8;
   powerManagement.cpuFreqGovernor = "performance";
   hardware.cpu.intel.updateMicrocode = true;
   hardware.nvidiaOptimus.disable = true;

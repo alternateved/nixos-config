@@ -33,6 +33,8 @@
           orderless
           marginalia
           consult
+          embark
+          embark-consult
 
           # Org
           org-bullets
@@ -113,8 +115,6 @@
     sqlite
     ### :ui treemacs
     python3Minimal
-    ## :lang nix
-    nixfmt
     ## :lang sh
     shellcheck
     ## :lang javascript, webm json
