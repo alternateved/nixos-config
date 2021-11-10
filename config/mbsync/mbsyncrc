@@ -71,3 +71,28 @@ Near :traffic-local:
 Patterns * ![Gmail]* !"[Gmail]/All Mail" "[Gmail]/Drafts" "[Gmail]/Sent Mail" "[Gmail]/Bin"
 Create Both
 SyncState *
+
+# Fourth Account
+IMAPAccount work
+Host imap.gmail.com
+UserCmd "gpg2 -q --for-your-eyes-only -d ~/.authinfo.gpg | awk -F ' ' '/work/ { print $(NF-2); exit; }'"
+PassCmd "gpg2 -q --for-your-eyes-only -d ~/.authinfo.gpg | awk -F ' ' '/work/ { print $NF; exit; }'"
+AuthMechs LOGIN
+SSLType IMAPS
+SSLVersions TLSv1.2
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+IMAPStore work-remote
+Account work
+
+MaildirStore work-local
+Path ~/.mail/work/
+Inbox ~/.mail/work/Inbox
+Subfolders Verbatim
+
+Channel work
+Far :work-remote:
+Near :work-local:
+Patterns * ![Gmail]* !"[Gmail]/All Mail" "[Gmail]/Drafts" "[Gmail]/Sent Mail" "[Gmail]/Bin"
+Create Both
+SyncState *
