@@ -14,6 +14,7 @@ set editorcmd emacsclient -a \"\" -c -e '(progn (find-file "%f") (forward-line (
 
 " Unbinding keys used both emacs and vim
 unbind w
+unbind b
 unbind d
 unbind <C-u>
 unbind <C-x>
@@ -34,9 +35,6 @@ bind <C-p> scrollline -10
 bind <C-u><C-Space> jumpprev
 bind n followpage next
 bind p followpage prev
-" bindings below remains same for
-" backward compatibility reasons.
-" should be removed some day
 
 " Commands
 bind <A-x> fillcmdline_notrail
