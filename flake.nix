@@ -14,8 +14,18 @@
     xmobar.url = "github:alternateved/xmobar";
   };
 
-  outputs = { nixpkgs, nixos-hardware, home-manager, darwin, nur, emacs-overlay
-    , xmonad, xmonad-contrib, xmobar, ... }:
+  outputs =
+    { nixpkgs
+    , nixos-hardware
+    , home-manager
+    , darwin
+    , nur
+    , emacs-overlay
+    , xmonad
+    , xmonad-contrib
+    , xmobar
+    , ...
+    }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -31,7 +41,8 @@
           (import ./overlays)
         ];
       };
-    in {
+    in
+    {
       devShell.${system} = import ./shell.nix { inherit pkgs; };
       nixosConfigurations = {
         teishi = nixpkgs.lib.nixosSystem {
@@ -56,6 +67,19 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users.alternateved = import ./modules/minimal.nix;
+            }
+          ];
+        };
+      };
+      darwinConfigurations = {
+        yotsugi = darwin.lib.darwinSystem {
+          system = "aarch64-darwin";
+          modules = [
+            ./hosts/yotsugi
+            home-manager.darwinModule
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
             }
           ];
         };
