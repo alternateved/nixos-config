@@ -1,6 +1,7 @@
 let colors = import ./colors.nix;
-in {
-  xresources.extraConfig = ''
+in
+{
+  home-manager.users.alternateved.xresources.extraConfig = ''
      Xft.antialias: 1
      Xft.hinting: 1
      Xft.autohint: 0
@@ -10,9 +11,9 @@ in {
 
      Sxiv.background: ${colors.background}
      Sxiv.foreground: ${colors.foreground}
-     Sxiv.font: Iosevka Nerd Font Mono:style=regular:size=11
+     Sxiv.font: JetBrainsMono Nerd Font Mono:style=regular:size=11
 
-     Xmessage.font: Iosevka Nerd Font Mono:pixelsize=12
+     Xmessage.font: JetBrainsMono Nerd Font Mono:pixelsize=12
 
      *.foreground: ${colors.foreground}
      *.background: ${colors.background}
