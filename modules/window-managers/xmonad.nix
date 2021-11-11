@@ -1,7 +1,7 @@
 { pkgs, ... }: {
 
   imports = [
-    ../alacritty
+    ../kitty
     ../direnv
     ../dunst
     ../emacs
@@ -66,8 +66,4 @@
     haskellPackages.alternateved-xmobar
     haskellPackages.alternateved-xmonad
   ];
-
-  home-manager.users.alternateved.programs = {
-    alacritty.settings.font.size = 7.5;
-  };
 }

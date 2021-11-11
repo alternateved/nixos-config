@@ -12,6 +12,7 @@ in {
         decorations = "none";
       };
       font = {
+        size = 7.5;
         normal.family = "JetBrainsMono Nerd Font";
         bold.family = "JetBrainsMono Nerd Font";
         italic.family = "JetBrainsMono Nerd Font";

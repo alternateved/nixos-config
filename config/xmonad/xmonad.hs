@@ -94,7 +94,7 @@ myModMask :: KeyMask
 myModMask = mod4Mask
 
 myTerminal :: String
-myTerminal = "alacritty"
+myTerminal = "kitty"
 
 myBrowser :: String
 myBrowser = "firefox"
@@ -157,6 +157,7 @@ myManageHook =
     [ className =? "Firefox" --> doShift (myWorkspaces !! 0),
       className =? "Thunderbird" --> doShift (myWorkspaces !! 2),
       className =? "Signal" --> doShift (myWorkspaces !! 1),
+      className =? "Slack" --> doShift (myWorkspaces !! 1),
       className =? "discord" --> doShift (myWorkspaces !! 1),
       className =? "mpv" --> doShift (myWorkspaces !! 4),
       className =? "Peek" --> doCenterFloat,
@@ -272,7 +273,7 @@ myKeys =
     ("M-C-r", spawn $ myEditor ++ xmonadConfig),
     ("M-C-b", spawn $ myEditor ++ xmobarConfig),
     -- Open preferred terminal
-    ("M-S-<Return>", spawn myTerminal),
+    ("M-S-<Return>", spawn "kitty -1"),
     -- Prompts
     ("M-p", shellPrompt myXPConfig),
     ("M-S-q", dirExecPromptNamed myXPConfig' spawn (myDots ++ "/xmonad/scripts") "Session: "),
@@ -487,7 +488,7 @@ mainXmobarPP =
     def
       { ppCurrent = foreground . xmobarBorder "Bottom" colorFg 2 . wrap " " " ",
         ppVisible = foreground . wrap " " " ",
-        ppHidden = white . wrap " " " ",
+        ppHidden = foreground . wrap " " " ",
         ppHiddenNoWindows = hiBlack . wrap " " " ",
         ppUrgent = red . wrap " " " ",
         ppTitle = foreground . shorten 70,

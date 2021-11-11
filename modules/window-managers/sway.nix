@@ -2,7 +2,7 @@
 let theme = import ../theme/colors.nix;
 in {
   imports = [
-    ../alacritty
+    ../kitty
     ../direnv
     ../emacs
     ../firefox
@@ -289,14 +289,14 @@ in {
         };
       };
 
-      terminal = "${pkgs.alacritty}/bin/alacritty";
+      terminal = "${pkgs.kitty}/bin/kitty";
       menu = "exec bash " + ../../config/scripts/menu;
 
       keybindings = let
         screenshot_dir =
           "Pictures/Screenshots/$(date +'%Y-%m-%d+%H:%M:%S').png";
       in {
-        "${modifier}+Shift+Return" = "exec ${terminal}";
+        "${modifier}+Shift+Return" = "exec kitty -1";
         "${modifier}+Shift+c" = "kill";
         "${modifier}+Shift+r" = "reload";
 
@@ -516,7 +516,6 @@ in {
   };
 
   home-manager.users.alternateved.programs = {
-    alacritty.settings.font.size = 12.0;
     firefox = {
       enable = true;
       package = pkgs.firefox-wayland;

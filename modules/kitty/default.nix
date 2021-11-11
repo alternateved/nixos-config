@@ -5,12 +5,13 @@ in {
   home-manager.users.alternateved.programs.kitty = {
     enable = true;
     font = {
-      name = "Iosevka Nerd Font";
-      size = 13;
+      name = "JetBrainsMono Nerd Font";
+      size = 12;
     };
     settings = {
       shell = "zsh";
       window_padding_width = 5;
+      adjust_line_height = 1;
       enable_audio_bell = "no";
       placement_strategy = "center";
       default_pointer_shape = "beam";
@@ -22,10 +23,10 @@ in {
       allow_remote_control = "yes";
       listen_on = "unix:/tmp/kitty";
 
-      active_tab_foreground = "${colors.foreground}";
-      active_tab_background = "${colors.background}";
+      active_tab_foreground = "${colors.background}";
+      active_tab_background = "${colors.foreground}";
       inactive_tab_foreground = "${colors.background}";
-      inactive_tab_background = "${colors.foreground}";
+      inactive_tab_background = "${colors.bright-black}";
 
       foreground = "${colors.foreground}";
       background = "${colors.background}";
