@@ -31,7 +31,6 @@
     signal-desktop
 
     # Other
-    nyxt
     k380-function-keys-conf
     ungoogled-chromium
   ];

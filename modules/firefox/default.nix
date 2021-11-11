@@ -1,9 +1,9 @@
 { pkgs, ... }: {
   home-manager.users.alternateved.programs.firefox = {
     enable = true;
-    # package = pkgs.firefox.override {
-    #   cfg = { enableTridactylNative = true; };
-    # };
+    package = pkgs.firefox.override {
+      cfg = { enableTridactylNative = true; };
+    };
     extensions = with pkgs.nur.repos.rycee.firefox-addons; [
       bitwarden
       clearurls
@@ -15,7 +15,7 @@
       facebook-container
       https-everywhere
       privacy-badger
-      # tridactyl
+      tridactyl
       ublock-origin
     ];
     profiles."trained".settings = {
@@ -94,8 +94,8 @@
       "experiments.enabled" = false;
       "experiments.manifest.uri" = "";
       "font.name.monospace.x-western" = "JetBrainsMono Nerd Font";
-      "font.name.sans-serif.x-western" = "Merriweather Sans";
-      "font.name.serif.x-western" = "Merriweather";
+      "font.name.sans-serif.x-western" = "Alegreya Sans";
+      "font.name.serif.x-western" = "Alegreya";
       # Disable health reports (basically more telemetry)
       # https://support.mozilla.org/en-US/kb/firefox-health-report-understand-your-browser-perf
       # https://gecko.readthedocs.org/en/latest/toolkit/components/telemetry/telemetry/preferences.html
