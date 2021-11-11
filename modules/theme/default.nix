@@ -1,15 +1,15 @@
 { pkgs, ... }: {
   imports = [
     # ./xresources.nix
-#    ./light.nix
-    ./dark.nix
+    ./light.nix
+#    ./dark.nix
   ];
   home-manager.users.alternateved.dconf.enable = true;
   home-manager.users.alternateved.gtk = {
     enable = true;
     font = {
       package = null;
-      name = "Merriweather Sans 10";
+      name = "Alegreya Sans 13";
     };
     gtk2.extraConfig = ''
       gtk-key-theme-name = "Emacs"

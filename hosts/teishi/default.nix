@@ -79,13 +79,14 @@
       enable = true;
       defaultFonts = {
         monospace = [ "JetBrainsMono Nerd Font" ];
-        serif = [ "Merriweather" ];
-        sansSerif = [ "Merriweather Sans" ];
+        serif = [ "Alegreya" ];
+        sansSerif = [ "Alegreya  Sans" ];
       };
     };
     fonts = with pkgs; [
-      merriweather
-      merriweather-sans
+      alegreya
+      alegreya-sans
+      emacs-all-the-icons-fonts
       (nerdfonts.override {
         fonts = [ "JetBrainsMono" ];
       })

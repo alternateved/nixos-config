@@ -6,12 +6,14 @@ _: pkgs: rec {
           (pkgs.lib.sourceByRegex ../config/xmonad [
             "xmonad.hs"
             "alternateved-xmonad.cabal"
-          ]) { };
+          ])
+          { };
         alternateved-xmobar = self.callCabal2nix "alternateved-xmobar"
           (pkgs.lib.sourceByRegex ../config/xmobar [
             "xmobar.hs"
             "alternateved-xmobar.cabal"
-          ]) { };
+          ])
+          { };
       });
   });
   bspwm = pkgs.bspwm.overrideAttrs (old: rec {
