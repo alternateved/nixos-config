@@ -5,7 +5,6 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     home-manager.url = "github:rycee/home-manager/master";
-    darwin.url = "github:lnl7/nix-darwin/master";
     nur.url = "github:nix-community/NUR";
 
     emacs-overlay.url = "github:nix-community/emacs-overlay";
@@ -18,7 +17,6 @@
     { nixpkgs
     , nixos-hardware
     , home-manager
-    , darwin
     , nur
     , emacs-overlay
     , xmonad
@@ -67,19 +65,6 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users.alternateved = import ./modules/minimal.nix;
-            }
-          ];
-        };
-      };
-      darwinConfigurations = {
-        yotsugi = darwin.lib.darwinSystem {
-          system = "aarch64-darwin";
-          modules = [
-            ./hosts/yotsugi
-            home-manager.darwinModule
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
             }
           ];
         };
