@@ -9,48 +9,169 @@ sanitize tridactyllocal tridactylsync
 " Firefox homepage, but Tridactyl doesn't support this yet.
 set newtab www.duckduckgo.com
 
-" Use vim in tmux for editor.
-set editorcmd emacsclient -c
+" Set external editor command
+set editorcmd emacsclient -a \"\" -c -e '(progn (find-file "%f") (forward-line (1- %l)) (forward-char %c))'
+
+" Unbinding keys used both emacs and vim
+unbind w
+unbind d
+unbind <C-u>
+unbind <C-x>
+unbind <C-g>
+unbind <C-Space>
+
+" Ctrl-g is your friend (and hardcoded <C-,> of course)
+bind --mode=browser <C-g> escapehatch
+
+" Navigation
+bind <C-v> scrollpage 1
+bind <A-v> scrollpage -1
+bind <Backspace> scrollpage -1
+bind <A->> scrollto 100
+bind <A-<> scrollto 0
+bind <C-n> scrollline 10
+bind <C-p> scrollline -10
+bind <C-u><C-Space> jumpprev
+bind n followpage next
+bind p followpage prev
+" bindings below remains same for
+" backward compatibility reasons.
+" should be removed some day
+
+" Commands
+bind <A-x> fillcmdline_notrail
+
+" Searching
+" Fallback solution is / for find and win-G/win-g to select result
+bind <C-s> fillcmdline find
+bind --mode=ex <C-s> findnext 1
+bind --mode=ex <C-r> findnext -1
 
 " Ctrl-F should use the browser's native 'find' functionality.
 unbind <C-f>
 
-" But also support Tridactyl search too.
-bind / fillcmdline find
-bind ? fillcmdline find -?
-bind n findnext 1
-bind N findnext -1
-
-" Use sensitive case. Smart case would be nice here, but it doesn't work.
-set findcase insensitive
-
-" Remove search highlighting.
-bind <Esc> nohlsearch
-
-" Smooth scrolling, yes please. This is still a bit janky in Tridactyl.
-set smoothscroll true
-
-" Keybindings
-bind j scrollline 5
-bind k scrollline -5
-bind J tabprev
-bind K tabnext
-bind d tabclose
-bind gC tabduplicate
-bind gd tabdetach
-bind gD composite tabduplicate; tabdetach
-bind M hint -W mpvsafe
-
-bind --mode=ex <C-j> ex.next_completion
-bind --mode=ex <C-k> ex.prev_completion
-
-" Don't run Tridactyl on some web sites because it doesn't work well, or
-" because the web site has its own keybindings.
-autocmd DocStart mail.google.com mode ignore
+" Hinting
+bind f hint
+bind <C-u>f hint -b
+bind c hint -y
+bind w clipboard yank
+bind --mode=hint <C-g> hint.reset
+bind --mode=hint <C-n> hint.focusBottomHint
+bind --mode=hint <C-p> hint.focusTopHint
+bind --mode=hint <C-f> hint.focusRightHint
+bind --mode=hint <C-b> hint.focusLeftHint
 
 set hintfiltermode vimperator-reflow
 set hintuppercase false
 set hintdelay 100
+
+" History
+bind F forward
+bind r forward
+bind B back
+bind l back
+bind u urlparent
+bind t urlroot
+
+" Bookmarks
+bind <C-x>rM current_url bmark
+bind <C-x>rm current_url bmark
+bind <C-x>rj fillcmdline bmarks
+bind <C-u><C-x>rj fillcmdline bmarks -t
+
+" Tabs
+bind <A-n> tabnext
+bind <A-p> tabprev
+bind <A-N> tabmove +1
+bind <A-P> tabmove -1
+bind <C-x>b fillcmdline buffer
+bind <C-x>K tabclose
+bind <C-x>0 tabclose
+bind q tabclose
+bind <C-x>1 tabonly
+bind <C-x>tp pin
+bind <C-x>tm mute toggle
+bind <A-g>a tabaudio
+bind <C-x>u undo
+bind <C-/> undo
+
+" Pages
+bind R reload
+bind + zoom 0.1 true
+bind - zoom -0.1 true
+bind = zoom 1
+
+" Frames
+bind <C-x>50 winclose
+bind <C-x>52 winopen
+bind <C-x><C-u>52 winopen -private
+
+" Open links
+bind g fillcmdline open
+bind <C-u>0g current_url open
+bind <C-u>g fillcmdline tabopen
+
+" Textfields
+bind --mode=insert <C-d> text.delete_char
+bind --mode=insert <C-t> text.transpose_char
+bind --mode=insert <A-t> text.transpose_words
+bind --mode=insert <A-u> text.upcase_word
+bind --mode=insert <A-l> text.downcase_word
+bind --mode=insert <A-c> text.capitalize_word
+bind --mode=insert <C-k> text.kill_line
+bind --mode=insert <A-0><C-k> text.backward_kill_line
+bind --mode=insert <C-u>0<C-k> text.backward_kill_line
+bind --mode=insert <CS-Backspace> text.kill_whole_line
+bind --mode=insert <A-d> text.kill_word
+bind --mode=insert <A-Backspace> text.backward_kill_word
+bind --mode=insert <C-a> text.beginning_of_line
+bind --mode=insert <C-e> text.end_of_line
+bind --mode=insert <C-f> text.forward_char
+bind --mode=insert <C-b> text.backward_char
+bind --mode=insert <A-f> text.forward_word
+bind --mode=insert <A-b> text.backward_word
+bind --mode=insert <C-y> text.insert_text
+bind --mode=insert <C-g> composite unfocus | mode normal
+
+" Selection
+bind <C-Space> hint -h
+bind --mode=visual <C-g> composite js document.getSelection().empty(); mode normal; hidecmdline
+bind --mode=visual <C-n> js document.getSelection().modify("extend","forward","line")
+bind --mode=visual <C-p> js document.getSelection().modify("extend","backward","line")
+bind --mode=visual <C-b> js document.getSelection().modify("extend","backward","character")
+bind --mode=visual <C-f> js document.getSelection().modify("extend","forward","character")
+bind --mode=visual <A-f> js document.getSelection().modify("extend","forward","word")
+bind --mode=visual <A-b> js document.getSelection().modify("extend","backward","character"); document.getSelection().modify("extend","backward","word"); document.getSelection().modify("extend","forward","character")
+bind --mode=visual <A-w> composite js document.getSelection().toString() | clipboard yank
+
+" Edit field in external editor
+bind --mode=insert <C-x><C-e> editor
+bind --mode=input <C-x><C-e> editor
+
+" Help
+bind <C-h><h> help
+bind <C-h><b> fillcmdline help -b
+bind <C-h><f> fillcmdline help -e
+bind <C-h><v> fillcmdline help -s
+
+" Commands
+bind --mode=ex <C-n> ex.next_completion
+bind --mode=ex <C-p> ex.prev_completion
+bind --mode=ex <A-n> ex.next_history
+bind --mode=ex <A-p> ex.prev_history
+bind --mode=ex <C-g> ex.hide_and_clear
+bind --mode=ex <C-f> text.forward_char
+bind --mode=ex <C-b> text.backward_char
+
+" Functions
+command emacs-bindings-update source --url https://raw.githubusercontent.com/jumper047/tridactyl_emacs_config/main/emacs_bindings
+
+" Smooth scrolling, yes please. This is still a bit janky in Tridactyl.
+set smoothscroll true
+
+" Don't run Tridactyl on some web sites because it doesn't work well, or
+" because the web site has its own keybindings.
+" autocmd DocStart mail.google.com mode ignore
 
 set searchengine duckduckgo
 set searchurls.goog https://www.google.com/search?q=
@@ -62,7 +183,7 @@ set searchurls.yt https://www.youtube.com/results?search_query=
 
 " Sometimes the status bar in the bottom left corner overlaps the Tridactyl
 " command line, so set an option to move the status bar to the right.
-guiset_quiet tabs count
+" guiset_quiet tabs count
 guiset_quiet tabs always
-guiset_quiet navbarnoheight show
-guiset_quiet hoverlink right
+" guiset_quiet navbarnoheight show
+guiset_quiet hoverlink none
