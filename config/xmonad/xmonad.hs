@@ -88,7 +88,7 @@ xmobarConfig :: String
 xmobarConfig = myDots ++ "/xmobar/xmobar.hs"
 
 myFont :: String
-myFont = "xft:JetBrainsMono Nerd Font Mono:style=regular:size=11:antialias=true:hinting=true"
+myFont = "xft:Iosevka Nerd Font Mono:style=regular:size=12:antialias=true:hinting=true"
 
 myModMask :: KeyMask
 myModMask = mod4Mask
@@ -379,7 +379,7 @@ myKeys =
 -------------------------------------------------------------------------
 myScratchPads :: [NamedScratchpad]
 myScratchPads =
-  [ NS "terminal" spawnTerm findTerm small,
+  [ NS "terminal" spawnTerm findTerm medium,
     NS "volumectl" spawnMixer findMixer wide,
     NS "monitor" spawnMonitor findMonitor large,
     NS "player" spawnPlayer findPlayer wider

@@ -78,18 +78,15 @@
     fontconfig = {
       enable = true;
       defaultFonts = {
-        monospace = [ "JetBrainsMono Nerd Font" ];
-        serif = [ "Alegreya" ];
-        sansSerif = [ "Alegreya  Sans" ];
+        monospace = [ "Iosevka Nerd Font" ];
+        serif = [ "Iosevka Etoile" ];
+        sansSerif = [ "Iosevka Aile" ];
       };
     };
     fonts = with pkgs; [
-      alegreya
-      alegreya-sans
-      emacs-all-the-icons-fonts
-      (nerdfonts.override {
-        fonts = [ "JetBrainsMono" ];
-      })
+      (iosevka-bin.override { variant = "aile"; })
+      (iosevka-bin.override { variant = "etoile"; })
+      (nerdfonts.override { fonts = [ "Iosevka" ]; })
     ];
   };
 

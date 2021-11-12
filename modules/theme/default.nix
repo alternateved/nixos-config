@@ -9,7 +9,7 @@
     enable = true;
     font = {
       package = null;
-      name = "Alegreya Sans 13";
+      name = "Iosevka Aile Medium 11";
     };
     gtk2.extraConfig = ''
       gtk-key-theme-name = "Emacs"

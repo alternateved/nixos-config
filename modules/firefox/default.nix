@@ -93,9 +93,9 @@
       "experiments.supported" = false;
       "experiments.enabled" = false;
       "experiments.manifest.uri" = "";
-      "font.name.monospace.x-western" = "JetBrainsMono Nerd Font";
-      "font.name.sans-serif.x-western" = "Alegreya Sans";
-      "font.name.serif.x-western" = "Alegreya";
+      "font.name.monospace.x-western" = "Iosevka";
+      "font.name.sans-serif.x-western" = "Iosevka Aile";
+      "font.name.serif.x-western" = "Iosevka Etoile";
       # Disable health reports (basically more telemetry)
       # https://support.mozilla.org/en-US/kb/firefox-health-report-understand-your-browser-perf
       # https://gecko.readthedocs.org/en/latest/toolkit/components/telemetry/telemetry/preferences.html

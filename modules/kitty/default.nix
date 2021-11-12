@@ -5,8 +5,8 @@ in {
   home-manager.users.alternateved.programs.kitty = {
     enable = true;
     font = {
-      name = "JetBrainsMono Nerd Font";
-      size = 12;
+      name = "Iosevka Nerd Font";
+      size = 13;
     };
     settings = {
       shell = "zsh";
@@ -30,6 +30,9 @@ in {
 
       foreground = "${colors.foreground}";
       background = "${colors.background}";
+
+      cursor = "${colors.foreground}";
+      cursor_text_color = "${colors.background}";
 
       color0 = "${colors.black}";
       color1 = "${colors.red}";
