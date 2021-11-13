@@ -4,7 +4,7 @@
       enable = true;
       enableZshIntegration = true;
       settings = {
-        command_timeout = 1000;
+        command_timeout = 5000;
         add_newline = false;
         line_break = { disabled = true; };
         character = {
@@ -17,11 +17,25 @@
           truncation_length = 3;
           truncation_symbol = "…/";
           truncate_to_repo = true;
-          read_only = " ";
+          read_only = " ro";
         };
-        git_branch = { style = "bold purple"; };
-        git_status = { style = "bold purple"; };
-        package = { disabled = true; };
+        git_branch = { style = "bold purple"; symbol = ""; };
+        git_status = {
+          style = "bold purple";
+          ahead = ">";
+          behind = "<";
+          diverged = "<>";
+          renamed = "r";
+          deleted = "x";
+        };
+        git_commit = { tag_symbol = " tag "; };
+        nix_shell = { style = "bold blue"; symbol = "nix "; format = "via [$symbol]($style)"; };
+        nodejs = { symbol = "nodejs "; };
+        package = { symbol = "pkg "; };
+        python = { symbol = "python "; };
+        ruby = { symbol = "ruby "; };
+        rust = { symbol = "rust"; };
+        lua = { symbol = "lua "; };
       };
     };
   };
