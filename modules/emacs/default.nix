@@ -49,8 +49,9 @@
           elfeed
           ## Project
           project
-          ## Magit
+          ## Git
           magit
+          diff-hl
           ## Terminals
           ### Eshell
           eshell-syntax-highlighting
@@ -64,7 +65,6 @@
 
           # Development
           envrc
-          format-all
           ## LSP
           eglot
           ## Completions
