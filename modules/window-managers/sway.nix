@@ -6,6 +6,7 @@ in {
     ../direnv
     ../emacs
     ../firefox
+    ../flameshot
     ../fzf
     ../git
     ../gammastep
@@ -51,11 +52,9 @@ in {
       wl-clipboard
       gammastep
       bemenu
-      grim
-      slurp
-      sway-contrib.grimshot
       i3status-rust
       light
+      kanshi
     ];
   };
 
@@ -335,7 +334,7 @@ in {
         "${modifier}+Shift+Tab" = "workspace prev";
         "${modifier}+Tab" = "workspace next";
 
-        "${modifier}+c" = "split v";
+        "${modifier}+b" = "split v";
         "${modifier}+v" = "split h";
 
         "${modifier}+Shift+f" = "fullscreen toggle";
@@ -353,7 +352,7 @@ in {
         "${modifier}+Shift+t" = "sticky toggle";
         "${modifier}+space" = "focus mode_toggle";
 
-        "${modifier}+b" = "bar mode toggle";
+        "${modifier}+Shift+b" = "bar mode toggle";
 
         "${modifier}+1" = "workspace number 1";
         "${modifier}+2" = "workspace number 2";
@@ -399,9 +398,9 @@ in {
         "${modifier}+F4" = "exec bash ~/.nixos-config/config/scripts/wifi";
 
         "${modifier}+Insert" =
-          "exec ${pkgs.sway-contrib.grimshot}/bin/grimshot --notify save screen ${screenshot_dir}";
+          "exec ${pkgs.flameshot}/bin/flameshot screen -p ${screenshot_dir}";
         "${modifier}+Shift+Insert" =
-          "exec ${pkgs.sway-contrib.grimshot}/bin/grimshot copy area";
+          "exec ${pkgs.flameshot}/bin/flameshot gui";
 
         "Control+Alt+space" = "exec makoctl dismiss -a";
         "Control+Alt+comma" = "exec makoctl restore";

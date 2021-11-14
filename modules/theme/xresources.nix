@@ -11,9 +11,9 @@ in
 
      Sxiv.background: ${colors.background}
      Sxiv.foreground: ${colors.foreground}
-     Sxiv.font: JetBrainsMono Nerd Font Mono:style=regular:size=11
+     Sxiv.font: Iosevka Nerd Font:style=regular:size=11
 
-     Xmessage.font: JetBrainsMono Nerd Font Mono:pixelsize=12
+     Xmessage.font: Iosevka Nerd Font:pixelsize=12
 
      *.foreground: ${colors.foreground}
      *.background: ${colors.background}

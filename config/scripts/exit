@@ -18,12 +18,12 @@ output(){
 main() {
     # An array of options to choose.
     declare -a options=(
-    "  lock"
-    "  logout"
-    "  reboot"
-    "  poweroff"
-    "  hibernate"
-    "⏾  suspend"
+    "lock"
+    "logout"
+    "reboot"
+    "poweroff"
+    "hibernate"
+    "suspend"
     )
 
     # Piping the above array into dmenu.
@@ -32,26 +32,26 @@ main() {
 
     # What to do when/if we choose one of the options.
     case $choice in
-        '  logout')
+        'logout')
             # pkill -u $USER
             # herbstclient quit
             swaymsg exit
             ;;
-        '  lock')
+        'lock')
             # shellcheck disable=SC2154
             swaylock -f -c 000000
             # XSECURELOCK_FONT='Iosevka Nerd Font Mono' XSECURELOCK_AUTH_BACKGROUND_COLOR='#000000' XSECURELOCK_AUTH_FOREGROUND_COLOR='#ffffff' xsecurelock
             ;;
-        '  reboot')
+        'reboot')
             systemctl reboot
             ;;
-        '  poweroff')
+        'poweroff')
             systemctl poweroff
             ;;
-        '  hibernate')
+        'hibernate')
             systemctl hibernate
             ;;
-        '⏾  suspend')
+        'suspend')
             systemctl suspend
             ;;
         # It is a common practice to use the wildcard asterisk symbol (*) as a final
