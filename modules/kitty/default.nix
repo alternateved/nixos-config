@@ -5,7 +5,7 @@ in {
   home-manager.users.alternateved.programs.kitty = {
     enable = true;
     font = {
-      name = "Iosevka Nerd Font";
+      name = "Iosevka Nerd Font Complete";
       size = 13;
     };
     settings = {

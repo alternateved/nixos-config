@@ -41,6 +41,8 @@
         defaultSession = "none+myxmonad";
         sessionCommands = ''
           bluetoothctl power on
+          xmodmap -e "keycode 135 = Menu"
+          xmodmap -e "keysym Menu = Super_R"
         '';
       };
       windowManager = {
@@ -62,6 +64,7 @@
     xwallpaper
     xsecurelock
     xorg.xkill
+    xorg.xmodmap
     haskellPackages.xmonad
     haskellPackages.alternateved-xmobar
     haskellPackages.alternateved-xmonad

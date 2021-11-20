@@ -67,10 +67,9 @@
           envrc
           ## LSP
           eglot
+          consult-eglot
           ## Completions
           corfu
-          ## Checkers
-          flymake-diagnostic-at-point
           ## Languages
           nix-mode
           js2-mode

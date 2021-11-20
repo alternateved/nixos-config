@@ -1,9 +1,6 @@
 { pkgs, ... }: {
   home-manager.users.alternateved.programs.firefox = {
     enable = true;
-    # package = pkgs.firefox.override {
-    #   cfg = { enableTridactylNative = true; };
-    # };
     extensions = with pkgs.nur.repos.rycee.firefox-addons; [
       bitwarden
       clearurls
@@ -15,7 +12,7 @@
       facebook-container
       https-everywhere
       privacy-badger
-      # tridactyl
+      vimium
       ublock-origin
     ];
     profiles."trained".settings = {
