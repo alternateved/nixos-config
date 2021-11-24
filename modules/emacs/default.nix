@@ -15,10 +15,11 @@
 
           # Editor
           rainbow-delimiters
-          ws-butler
           avy
           ace-window
           god-mode
+          multiple-cursors
+          expand-region
 
           # Apperance
           ## Modeline
@@ -65,6 +66,7 @@
 
           # Development
           envrc
+          dumb-jump
           ## LSP
           eglot
           consult-eglot
