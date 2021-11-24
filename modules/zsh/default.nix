@@ -29,6 +29,7 @@
         exa = "exa --color=auto --icons --binary --git";
         ls = "exa";
         em = "emacsclient -c";
+        ssh = "kitty +kitten ssh";
         nixos-test = "sudo nixos-rebuild test --flake .";
         nixos-switch = "sudo nixos-rebuild switch --flake .";
       };
