@@ -28,6 +28,9 @@ in {
       inactive_tab_foreground = "${colors.background}";
       inactive_tab_background = "${colors.bright-black}";
 
+      active_border_color = "${colors.cyan}";
+      inactive_border_color = "${colors.black}";
+
       foreground = "${colors.foreground}";
       background = "${colors.background}";
 
