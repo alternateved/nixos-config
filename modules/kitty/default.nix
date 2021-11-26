@@ -29,7 +29,7 @@ in {
       inactive_tab_background = "${colors.bright-black}";
 
       active_border_color = "${colors.cyan}";
-      inactive_border_color = "${colors.black}";
+      inactive_border_color = "${colors.bright-black}";
 
       foreground = "${colors.foreground}";
       background = "${colors.background}";

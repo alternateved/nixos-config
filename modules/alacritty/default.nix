@@ -12,10 +12,10 @@ in {
         decorations = "none";
       };
       font = {
-        size = 7.5;
-        normal.family = "JetBrainsMono Nerd Font";
-        bold.family = "JetBrainsMono Nerd Font";
-        italic.family = "JetBrainsMono Nerd Font";
+        size = 8.5;
+        normal.family = "Iosevka Nerd Font";
+        bold.family =   "Iosevka Nerd Font";
+        italic.family = "Iosevka Nerd Font";
       };
       cursor.style = {
         shape = "Block";
