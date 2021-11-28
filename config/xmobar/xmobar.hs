@@ -46,9 +46,8 @@ mainConfig =
       position = OnScreen 0 (TopW L 100),
       template =
         " %UnsafeXMonadLog% }{"
-          <> "%notif%"
           <> "%mail%"
-          <> withPipe "%EPLL%"
+          <> "%EPLL%"
           <> withPipe "%cpu%"
           <> withPipe "%memory%"
           <> withPipe "%battery%"
@@ -62,7 +61,6 @@ mainConfig =
 mainCommands :: [Runnable]
 mainCommands =
   [ Run $ UnsafeXMonadLog,
-    Run $ Com "bash" ["-c", "if [[ $(dunstctl is-paused) = false ]]; then echo '\xf0f3 '; else echo '\xf1f6 '; fi"] "notif" 20,
     Run $
       Mail
         [ (withPipe "Outside: ", "~/.mail/outside/Inbox"),
@@ -87,8 +85,8 @@ mainCommands =
           colorRed
         ]
         36000,
-    Run $ Cpu ["-L", "3", "-H", "50", "--high", colorRed, "-t", "\xf2db  <total>%"] 20,
-    Run $ Memory ["-t", "\xf85a  <usedratio>%"] 20,
+    Run $ Cpu ["-L", "3", "-H", "50", "--high", colorRed, "-t", "CPU: <total>%"] 20,
+    Run $ Memory ["-t", "MEM: <usedratio>%"] 20,
     Run $
       Battery
         [ "--template",
@@ -105,13 +103,13 @@ mainCommands =
           "--", -- battery specific options
           -- discharging status
           "-o",
-          "\xf243   <left>% <timeleft>",
+          "BAT: <left>% <timeleft>",
           -- AC "on" status
           "-O",
-          "\xf242   <left>%",
+          "BAT: <left>%",
           -- charged status
           "-i",
-          "\xf240   100%",
+          "BAT: 100%",
           "-a",
           "dunstify -u critical 'Battery' 'Battery running out!'"
         ]
