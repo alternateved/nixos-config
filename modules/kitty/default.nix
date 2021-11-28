@@ -5,8 +5,8 @@ in {
   home-manager.users.alternateved.programs.kitty = {
     enable = true;
     font = {
-      name = "Iosevka Nerd Font Complete";
-      size = 13;
+      name = "JuliaMono";
+      size = 12;
     };
     settings = {
       shell = "zsh";

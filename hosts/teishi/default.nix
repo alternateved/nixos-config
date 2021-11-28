@@ -78,15 +78,14 @@
     fontconfig = {
       enable = true;
       defaultFonts = {
-        monospace = [ "Iosevka Nerd Font" ];
-        serif = [ "Iosevka Etoile" ];
-        sansSerif = [ "Iosevka Aile" ];
+        monospace = [ "JuliaMono" ];
+        serif = [ "CMU Concrete" ];
+        sansSerif = [ "CMU Sans Serif" ];
       };
     };
     fonts = with pkgs; [
-      (iosevka-bin.override { variant = "aile"; })
-      (iosevka-bin.override { variant = "etoile"; })
-      (nerdfonts.override { fonts = [ "Iosevka" ]; })
+      julia-mono
+      cm_unicode
     ];
   };
 

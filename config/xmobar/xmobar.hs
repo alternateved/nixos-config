@@ -194,7 +194,7 @@ base15 = xprop "*.color15"
 -- FONTS AND ICONS
 -------------------------------------------------------------------------
 mainFont :: String
-mainFont = "xft:Iosevka Nerd Font:style=medium:pixelsize=14:antialias=true:hinting=true"
+mainFont = "xft:JuliaMono:style=medium:pixelsize=14:antialias=true:hinting=true"
 
 withPipe :: String -> String
 withPipe = (++) " | "
