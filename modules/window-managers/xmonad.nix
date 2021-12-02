@@ -30,6 +30,7 @@
     xserver = {
       enable = true;
       layout = "pl";
+      xkbVariant = "colemak";
       xkbOptions = "ctrl:nocaps";
       libinput = {
         enable = true;
