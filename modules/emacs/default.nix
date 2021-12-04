@@ -21,6 +21,7 @@
           avy
           ace-window
           god-mode
+          dot-mode
           multiple-cursors
           expand-region
 

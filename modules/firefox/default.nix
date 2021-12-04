@@ -102,6 +102,4 @@
       "privacy.donottrackheader.enabled" = true;
     };
   };
-  home-manager.users.alternateved.home.packages = with pkgs;
-    [ tridactyl-native ];
 }
