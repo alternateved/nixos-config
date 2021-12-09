@@ -1,16 +1,16 @@
 { config, pkgs, ... }: {
   imports = [
     ./hardware-configuration.nix
-    ../../modules/window-managers/xmonad.nix
+    # ../../modules/window-managers/xmonad.nix
     # ../../modules/window-managers/bspwm.nix
-    # ../../modules/window-managers/sway.nix
+    ../../modules/window-managers/sway.nix
   ];
 
   users = {
     defaultUserShell = pkgs.zsh;
     users.alternateved = {
       isNormalUser = true;
-      extraGroups = [ "wheel" "networkmanager" "audio" "video" ];
+      extraGroups = [ "wheel" "networkmanager" "audio" "video" "input" ];
     };
   };
 
