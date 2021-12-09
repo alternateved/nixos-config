@@ -32,12 +32,4 @@ _: pkgs: rec {
       sha256 = "/mkeoUq9n6ybTz2gR7Kgb6mCdDZVN39gF0V0K1htGas=";
     };
   });
-  bemenu = pkgs.bemenu.overrideAttrs (old: rec {
-    src = pkgs.fetchFromGitHub {
-      owner = "Cloudef";
-      repo = "bemenu";
-      rev = "d593ab27b6444ccc5765edbdefcb182c64181ebf";
-      sha256 = "29NfRmtsSew8w4+uliEJ8FjVthSrhTTOorzwziCrbpE=";
-    };
-  });
 }

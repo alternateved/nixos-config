@@ -13,11 +13,11 @@ in
     ../gammastep
     ../htop
     ../interception-tools
+    ../libinput-gestures
     ../mail
     ../mako
     ../mpv
     ../ncspot
-    ../nnn
     ../neovim
     ../starship/lambda.nix
     ../theme
@@ -100,13 +100,15 @@ in
           "type:touchpad" = {
             tap = "enabled";
             dwt = "enabled";
-            middle_emulation = "enabled";
             scroll_method = "two_finger";
             natural_scroll = "enabled";
-            tap_button_map = "lrm";
+          };
+          "type:mouse" = {
+            natural_scroll = "enabled";
           };
           "type:keyboard" = {
             xkb_layout = "pl";
+            xkb_variant = "colemak";
             xkb_options = "ctrl:nocaps";
           };
         };
@@ -122,7 +124,7 @@ in
         };
 
         fonts = {
-          names = [ "Iosevka Nerd Font" ];
+          names = [ "JuliaMono" ];
           size = 11.0;
         };
 
@@ -154,7 +156,7 @@ in
             {
               criteria = { app_id = "terrm"; };
               command =
-                "floating enable, resize set width 900px 600px, move scratchpad, scratchpad show";
+                "floating enable, resize set width 1100px 700px, move scratchpad, scratchpad show";
             }
             {
               criteria = { app_id = "mixerr"; };
@@ -217,7 +219,7 @@ in
 
         bars = [{
           fonts = {
-            names = [ "Iosevka Nerd Font" ];
+            names = [ "JuliaMono" ];
             size = 11.0;
           };
           colors = {
@@ -249,7 +251,7 @@ in
             };
 
           };
-          mode = "dock";
+          mode = "hide";
           position = "top";
           trayOutput = "none";
           statusCommand =
@@ -324,19 +326,19 @@ in
             "${modifier}+Control+Right" = "resize grow width 20 px";
 
             "${modifier}+h" = "focus left";
-            "${modifier}+j" = "focus down";
-            "${modifier}+k" = "focus up";
-            "${modifier}+l" = "focus right";
+            "${modifier}+n" = "focus down";
+            "${modifier}+e" = "focus up";
+            "${modifier}+i" = "focus right";
 
             "${modifier}+Shift+h" = "move left";
-            "${modifier}+Shift+j" = "move down";
-            "${modifier}+Shift+k" = "move up";
-            "${modifier}+Shift+l" = "move right";
+            "${modifier}+Shift+n" = "move down";
+            "${modifier}+Shift+e" = "move up";
+            "${modifier}+Shift+i" = "move right";
 
             "${modifier}+Control+h" = "resize shrink width 20 px";
-            "${modifier}+Control+j" = "resize grow height 20 px";
-            "${modifier}+Control+k" = "resize shrink height 20 px";
-            "${modifier}+Control+l" = "resize grow width 20 px";
+            "${modifier}+Control+n" = "resize grow height 20 px";
+            "${modifier}+Control+e" = "resize shrink height 20 px";
+            "${modifier}+Control+i" = "resize grow width 20 px";
 
             "${modifier}+Shift+Tab" = "workspace prev";
             "${modifier}+Tab" = "workspace next";
@@ -348,12 +350,12 @@ in
 
             "${modifier}+a" = "focus parent";
             "${modifier}+d" = "focus child";
-            "${modifier}+n" = "focus next";
-            "${modifier}+Shift+n" = "focus prev";
+            "${modifier}+j" = "focus next";
+            "${modifier}+Shift+k" = "focus prev";
 
             "${modifier}+q" = "layout stacking";
             "${modifier}+w" = "layout tabbed";
-            "${modifier}+e" = "layout toggle split";
+            "${modifier}+f" = "layout toggle split";
 
             "${modifier}+t" = "floating toggle";
             "${modifier}+Shift+t" = "sticky toggle";
@@ -389,8 +391,8 @@ in
             "${modifier}+r" = "mode resize";
             "${modifier}+y" = "mode workspace";
 
-            "${modifier}+Alt+e" = "exec emacs";
-            "${modifier}+Control+e" = "exec emacsclient -a '' -c";
+            "${modifier}+Alt+a" = "exec emacs";
+            "${modifier}+Control+a" = "exec emacsclient -a '' -c";
             "${modifier}+Alt+b" = "exec firefox";
 
             "${modifier}+Shift+q" = "exec bash ~/.nixos-config/config/scripts/exit";
@@ -449,28 +451,29 @@ in
         }
         {
           block = "cpu";
-          format = "{utilization}";
+          icons_format = " ";
+          format = "CPU: {utilization}";
         }
         {
           block = "memory";
-          format_mem = "{mem_used_percents}";
+          format_mem = "MEM: {mem_used_percents}";
           display_type = "memory";
-          icons_format = " {icon} ";
-          icons = true;
+          icons = false;
           clickable = false;
           warning_mem = 80;
           critical_mem = 95;
         }
         {
           block = "sound";
-          format = "{volume}";
+          icons_format = " ";
+          format = "VOL: {volume}";
           on_click = "pamixer -t";
         }
         {
           block = "battery";
-          icons_format = " {icon} ";
-          format = "{percentage} {time}";
-          full_format = "{percentage} ";
+          icons_format = " ";
+          format = "BAT: {percentage} {time}";
+          full_format = "BAT: {percentage} ";
           full_threshold = 96;
         }
         {
@@ -486,14 +489,6 @@ in
       ];
 
       settings = {
-        icons_format = " {icon}  ";
-        icons = {
-          name = "material-nf";
-          overrides = {
-            cpu = "";
-            time = "";
-          };
-        };
         theme = {
           name = "native";
           overrides = {
