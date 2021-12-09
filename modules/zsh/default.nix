@@ -26,7 +26,7 @@
         df = "df -h"; # Human-readable sizes
         free = "free -m"; # Show sizes in MB
         grep = "grep --color=auto";
-        exa = "exa --color=auto --icons --binary --git";
+        exa = "exa --color=auto --binary --git";
         ls = "exa";
         em = "emacsclient -c";
         ssh = "kitty +kitten ssh";
