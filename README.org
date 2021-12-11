@@ -15,21 +15,6 @@
 | *Browser:*     | firefox                                                          |
 | *GTK Theme:*   | [[https://github.com/nana-4/materia-theme][Materia]]             |
 
-* BSPWM
-
-[[Screenshot][https://user-images.githubusercontent.com/45176912/132751921-5e92c639-1647-4b95-9c60-5f029eb538b4.png]]
-
-| *Shell*:       | zsh                                                     |
-| *DM:*          | lightdm + lightdm-mini-greeter                          |
-| *WM:*          | BSPWM                                                   |
-| *Panel:*       | Polybar                                                 |
-| *Colorscheme:* | [[https://protesilaos.com/modus-themes/][Modus Themes]] |
-| *Editor:*      | Emacs                                                   |
-| *Terminal:*    | alacritty                                               |
-| *Launcher:*    | dmenu with patches                                      |
-| *Browser:*     | firefox                                                 |
-| *GTK Theme:*   | [[https://github.com/nana-4/materia-theme][Materia]]   |
-
 * Sway
 
 [[Screenshot][https://user-images.githubusercontent.com/45176912/136066450-90272c1e-ab5c-4f15-9449-86cd28741957.png]]
@@ -48,7 +33,7 @@
 * Flakes that inspired me
 
 - [[https://github.com/erikbackman/nixos-config][erikbackman flake]]
-- [[https://github.com/hlissner/dotfiles][hlissner flake]] 
+- [[https://github.com/hlissner/dotfiles][hlissner flake]]
 - [[https://github.com/IvanMalison/dotfiles][IvanMalison flake]]
 
 * Disclaimer
