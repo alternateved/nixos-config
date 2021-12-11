@@ -103,7 +103,7 @@ in
             scroll_method = "two_finger";
             natural_scroll = "enabled";
           };
-          "type:mouse" = {
+          "type:pointer" = {
             natural_scroll = "enabled";
           };
           "type:keyboard" = {
@@ -124,8 +124,8 @@ in
         };
 
         fonts = {
-          names = [ "JuliaMono" ];
-          size = 11.0;
+          names = [ "Hack Nerd Font" ];
+          size = 10.5;
         };
 
         focus = { followMouse = "always"; };
@@ -219,8 +219,8 @@ in
 
         bars = [{
           fonts = {
-            names = [ "JuliaMono" ];
-            size = 11.0;
+            names = [ "Hack Nerd Font" ];
+            size = 10.5;
           };
           colors = {
             background = theme.background;
@@ -494,7 +494,6 @@ in
           overrides = {
             idle_bg = theme.background;
             idle_fg = theme.foreground;
-            separator = "|";
           };
         };
       };

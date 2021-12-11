@@ -79,14 +79,14 @@
     fontconfig = {
       enable = true;
       defaultFonts = {
-        monospace = [ "JuliaMono" ];
+        monospace = [ "Hack Nerd Font" ];
         serif = [ "CMU Concrete" ];
         sansSerif = [ "CMU Sans Serif" ];
       };
     };
     fonts = with pkgs; [
-      julia-mono
       cm_unicode
+      (nerdfonts.override { fonts = [ "Hack" ]; })
     ];
   };
 

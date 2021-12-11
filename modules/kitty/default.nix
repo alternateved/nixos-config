@@ -5,7 +5,7 @@ in {
   home-manager.users.alternateved.programs.kitty = {
     enable = true;
     font = {
-      name = "JuliaMono";
+      name = "Hack Nerd Font Complete";
       size = 12;
     };
     settings = {

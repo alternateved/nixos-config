@@ -11,9 +11,9 @@ in
 
      Sxiv.background: ${colors.background}
      Sxiv.foreground: ${colors.foreground}
-     Sxiv.font: JuliaMono:style=regular:size=11
+     Sxiv.font: Hack Nerd Font:style=regular:size=11
 
-     Xmessage.font: JuliaMono:pixelsize=12
+     Xmessage.font: Hack Nerd Font:pixelsize=12
 
      *.foreground: ${colors.foreground}
      *.background: ${colors.background}
