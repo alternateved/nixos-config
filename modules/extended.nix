@@ -6,8 +6,8 @@
   home.packages = with pkgs; [
     # Archives
     unrar
-    zip
     unzip
+    zip
     xarchiver
 
     # Office
@@ -18,15 +18,12 @@
     calibre
     spotify
     playerctl
-    alsa-utils
     pamixer
     pulsemixer
-    youtube-dl
 
     # Communication
     slack
     discord
-    betterdiscordctl
     skypeforlinux
     signal-desktop
 
