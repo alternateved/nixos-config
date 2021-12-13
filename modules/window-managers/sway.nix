@@ -7,7 +7,6 @@ in
     ../direnv
     ../emacs
     ../firefox
-    ../flameshot
     ../fzf
     ../git
     ../gammastep
@@ -124,7 +123,7 @@ in
         };
 
         fonts = {
-          names = [ "Hack Nerd Font" ];
+          names = [ "JuliaMono" ];
           size = 10.5;
         };
 
@@ -219,7 +218,7 @@ in
 
         bars = [{
           fonts = {
-            names = [ "Hack Nerd Font" ];
+            names = [ "JuliaMono" ];
             size = 10.5;
           };
           colors = {

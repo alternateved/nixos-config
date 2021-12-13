@@ -90,7 +90,7 @@
       "experiments.supported" = false;
       "experiments.enabled" = false;
       "experiments.manifest.uri" = "";
-      "font.name.monospace.x-western" = "Hack Nerd Font";
+      "font.name.monospace.x-western" = "JuliaMono";
       "font.name.sans-serif.x-western" = "CMU Sans Serif";
       "font.name.serif.x-western" = "CMU Concrete";
       # Disable health reports (basically more telemetry)

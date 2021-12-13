@@ -3,7 +3,7 @@ in {
   home-manager.users.alternateved.programs.zathura = {
     enable = true;
     options = {
-      font = "Hack Nerd Font 10";
+      font = "JuliaMono 10";
       recolor = true;
       default-bg = colors.background;
       default-fg = colors.foreground;
