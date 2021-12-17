@@ -2,7 +2,6 @@
   imports = [
     ./hardware-configuration.nix
     # ../../modules/window-managers/xmonad.nix
-    # ../../modules/window-managers/bspwm.nix
     ../../modules/window-managers/sway.nix
   ];
 
@@ -31,7 +30,6 @@
         enableCryptodisk = true;
       };
     };
-    kernel.sysctl = { "vm.swappiness" = 10; };
     kernelPackages = pkgs.linuxPackages_latest;
     cleanTmpDir = true;
   };
@@ -50,7 +48,6 @@
   i18n.defaultLocale = "en_US.UTF-8";
   console = {
     font = "Lat2-Terminus16";
-    # keyMap = "pl";
     keyMap = "colemak";
   };
 
@@ -73,7 +70,7 @@
     enableSSHSupport = true;
   };
 
-  environment.systemPackages = with pkgs; [ coreutils wget git mesa ];
+  environment.systemPackages = with pkgs; [ coreutils wget git ];
 
   fonts = {
     fontconfig = {
