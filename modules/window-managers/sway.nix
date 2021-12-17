@@ -47,7 +47,9 @@ in
       swayidle
       swaylock
       xwayland
-      pcmanfm
+      xfce.thunar
+      xfce.thunar-volman
+      xfce.thunar-archive-plugin
       mako
       wl-clipboard
       gammastep
@@ -112,10 +114,10 @@ in
           };
         };
 
-        output = {
-          "*".bg = "~/.cache/current.png fill";
-          "*".scale = "1";
-        };
+       output = {
+         "*".bg = "~/.cache/current.png fill";
+         "*".scale = "1";
+       };
 
         seat = {
           seat0 = { xcursor_theme = "capitaine-cursors-white 16"; };
@@ -403,7 +405,6 @@ in
             "${modifier}+F2" = "exec bash ~/.nixos-config/config/scripts/websearch";
             "${modifier}+F3" =
               "exec echo $(sxiv -t -o ~/Pictures/Wallpapers) | xargs -I {} cp {} ~/.cache/current.png && swaymsg output '*' bg ~/.cache/current.png fill";
-            "${modifier}+F4" = "exec bash ~/.nixos-config/config/scripts/wifi";
 
             "${modifier}+Insert" =
               "exec ${pkgs.sway-contrib.grimshot}/bin/grimshot --notify save screen ${screenshot_dir}";
