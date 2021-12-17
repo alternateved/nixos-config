@@ -2,7 +2,7 @@
   home-manager.users.alternateved.programs = {
     emacs = {
       enable = true;
-      package = pkgs.emacsPgtkGcc;
+      package = pkgs.emacsGcc;
       overrides = self: super: {
         org = self.elpaPackages.org;
       };

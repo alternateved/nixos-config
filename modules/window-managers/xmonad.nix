@@ -59,9 +59,6 @@
   };
 
   environment.systemPackages = with pkgs; [
-    xfce.thunar
-    xfce.thunar-volman
-    xfce.thunar-archive-plugin
     xdotool
     xwallpaper
     xsecurelock

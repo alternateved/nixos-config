@@ -1,8 +1,8 @@
 { config, pkgs, ... }: {
   imports = [
     ./hardware-configuration.nix
-    # ../../modules/window-managers/xmonad.nix
-    ../../modules/window-managers/sway.nix
+    ../../modules/window-managers/xmonad.nix
+    # ../../modules/window-managers/sway.nix
   ];
 
   users = {
@@ -20,7 +20,6 @@
       systemd-boot.enable = true;
       efi = {
         canTouchEfiVariables = true;
-        efiSysMountPoint = "/boot/efi";
       };
       grub = {
         enable = true;

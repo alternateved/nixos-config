@@ -47,9 +47,6 @@ in
       swayidle
       swaylock
       xwayland
-      xfce.thunar
-      xfce.thunar-volman
-      xfce.thunar-archive-plugin
       mako
       wl-clipboard
       gammastep
