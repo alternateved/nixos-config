@@ -3,7 +3,7 @@ let colors = import ../theme/colors.nix;
 in {
   home-manager.users.alternateved.programs.mako = {
     enable = true;
-    font = "Iosevka Aile Medium 11";
+    font = "CMU Sans Serif 12";
     backgroundColor = colors.background;
     textColor = colors.foreground;
     maxVisible = 3;

@@ -6,7 +6,7 @@
   imports =
     [ ./direnv ./fzf ./git ./htop ./neovim ./nnn ./starship/pi.nix ./zsh ];
 
-  home.packages = with pkgs; [ xarchiver unzip ];
+  home.packages = with pkgs; [ unrar unzip ];
 
-  home.stateVersion = "21.05";
+  home.stateVersion = "21.11";
 }

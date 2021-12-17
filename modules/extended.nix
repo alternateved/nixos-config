@@ -8,7 +8,6 @@
     unrar
     unzip
     zip
-    xarchiver
 
     # Office
     libreoffice
