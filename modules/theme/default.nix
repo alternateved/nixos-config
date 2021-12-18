@@ -1,15 +1,15 @@
 { pkgs, ... }: {
   imports = [
     ./xresources.nix
-#    ./light.nix
-    ./dark.nix
+    ./light.nix
+#    ./dark.nix
   ];
   home-manager.users.alternateved.dconf.enable = true;
   home-manager.users.alternateved.gtk = {
     enable = true;
     font = {
       package = null;
-      name = "IBM Plex Sans 11";
+      name = "IBM Plex Sans 12";
     };
     gtk2.extraConfig = ''
       gtk-key-theme-name = "Emacs"

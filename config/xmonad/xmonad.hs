@@ -316,7 +316,7 @@ myKeys =
     ("M-C-j", sendMessage MirrorShrink),
     ("M-C-k", sendMessage MirrorExpand),
     ("M-r", sendMessage (MT.Toggle REFLECTX)),
-    ("M-b", sendMessage ToggleStruts),
+    ("M-S-b", sendMessage ToggleStruts),
     ("M-l t", sendMessage $ JumpToLayout "tall"),
     ("M-l w", sendMessage $ JumpToLayout "wide"),
     ("M-l p", sendMessage $ JumpToLayout "panes"),

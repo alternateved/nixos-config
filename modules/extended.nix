@@ -1,4 +1,4 @@
-{ config, lib, pkgs, inputs, ... }: {
+{ config, lib, pkgs, ... }: {
   programs.home-manager.enable = true;
   home.username = "alternateved";
   home.homeDirectory = "/home/alternateved";
@@ -13,7 +13,6 @@
     xfce.thunar
     xfce.thunar-volman
     xfce.thunar-archive-plugin
-
 
     # Office
     libreoffice
@@ -34,7 +33,6 @@
 
     # Other
     k380-function-keys-conf
-    ungoogled-chromium
   ];
 
   home.stateVersion = "21.11";

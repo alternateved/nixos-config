@@ -10,7 +10,6 @@
         character = {
           success_symbol = "[λ](bold gray)";
           error_symbol = "[λ](bold red)";
-          vicmd_symbol = "[V](bold green)";
         };
         directory = {
           style = "bold green";

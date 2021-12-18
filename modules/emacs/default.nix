@@ -27,10 +27,8 @@
 
           # Apperance
           minions
-          kaolin-themes
-          all-the-icons
-          all-the-icons-dired
-          all-the-icons-completion
+          circadian
+          tao-theme
 
           # Completion framework
           vertico

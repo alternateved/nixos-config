@@ -46,8 +46,8 @@ mainConfig =
       position = OnScreen 0 (TopW L 100),
       template =
         " %UnsafeXMonadLog% }{"
-          <> "%mail%"
           <> "%EPLL%"
+          <> "%mail%"
           <> withPipe "%cpu%"
           <> withPipe "%memory%"
           <> withPipe "%battery%"
@@ -61,13 +61,6 @@ mainConfig =
 mainCommands :: [Runnable]
 mainCommands =
   [ Run $ UnsafeXMonadLog,
-    Run $
-      Mail
-        [ (withPipe "Outside: ", "~/.mail/outside/Inbox"),
-          (withPipe "Inside: ", "~/.mail/inside/Inbox"),
-          (withPipe "Traffic: ", "~/.mail/traffic/Inbox")
-        ]
-        "mail",
     Run $
       Weather
         "EPLL"
@@ -85,6 +78,13 @@ mainCommands =
           colorRed
         ]
         36000,
+    Run $
+      Mail
+        [ (withPipe "Outside: ", "~/.mail/outside/Inbox"),
+          (withPipe "Inside: ", "~/.mail/inside/Inbox"),
+          (withPipe "Traffic: ", "~/.mail/traffic/Inbox")
+        ]
+        "mail",
     Run $ Cpu ["-L", "3", "-H", "50", "--high", colorRed, "-t", "CPU: <total>%"] 20,
     Run $ Memory ["-t", "MEM: <usedratio>%"] 20,
     Run $
