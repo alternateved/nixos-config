@@ -9,7 +9,7 @@
     enable = true;
     font = {
       package = null;
-      name = "CMU Sans Serif 13";
+      name = "IBM Plex Sans 11";
     };
     gtk2.extraConfig = ''
       gtk-key-theme-name = "Emacs"

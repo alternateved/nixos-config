@@ -91,8 +91,8 @@
       "experiments.enabled" = false;
       "experiments.manifest.uri" = "";
       "font.name.monospace.x-western" = "JuliaMono";
-      "font.name.sans-serif.x-western" = "CMU Sans Serif";
-      "font.name.serif.x-western" = "CMU Concrete";
+      "font.name.sans-serif.x-western" = "IBM Plex Sans";
+      "font.name.serif.x-western" = "IBM Plex Serif";
       # Disable health reports (basically more telemetry)
       # https://support.mozilla.org/en-US/kb/firefox-health-report-understand-your-browser-perf
       # https://gecko.readthedocs.org/en/latest/toolkit/components/telemetry/telemetry/preferences.html

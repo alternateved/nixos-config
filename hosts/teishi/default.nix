@@ -13,8 +13,6 @@
     };
   };
 
-  nixpkgs.config.allowUnfree = true;
-
   boot = {
     loader = {
       systemd-boot.enable = true;
@@ -76,13 +74,13 @@
       enable = true;
       defaultFonts = {
         monospace = [ "JuliaMono" ];
-        serif = [ "CMU Concrete" ];
-        sansSerif = [ "CMU Sans Serif" ];
+        serif = [ "IBM Plex Serif" ];
+        sansSerif = [ "IBM Plex Sans" ];
       };
     };
     fonts = with pkgs; [
-      cm_unicode
       julia-mono
+      ibm-plex
     ];
   };
 
