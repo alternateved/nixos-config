@@ -1,12 +1,7 @@
-{ config, lib, pkgs, inputs, ... }: {
+{ config, lib, pkgs,  ... }: {
   programs.home-manager.enable = true;
   home.username = "alternateved";
   home.homeDirectory = "/home/alternateved";
-
-  imports =
-    [ ./direnv ./fzf ./git ./htop ./neovim ./nnn ./starship/pi.nix ./zsh ];
-
-  home.packages = with pkgs; [ unrar unzip ];
-
+  home.packages = with pkgs; [ unzip ];
   home.stateVersion = "21.11";
 }
