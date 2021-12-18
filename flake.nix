@@ -14,16 +14,7 @@
   };
 
   outputs =
-    { nixpkgs
-    , nixos-hardware
-    , home-manager
-    , nur
-    , emacs-overlay
-    , xmonad
-    , xmonad-contrib
-    , xmobar
-    , ...
-    }:
+    { nixpkgs, nixos-hardware, home-manager, nur, emacs-overlay, xmonad, xmonad-contrib, xmobar, ... }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {

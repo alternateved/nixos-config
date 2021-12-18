@@ -99,9 +99,6 @@ myTerminal = "kitty"
 myBrowser :: String
 myBrowser = "firefox"
 
-myFileManager :: String
-myFileManager = myTerminal ++ " -e nnn"
-
 myEditor :: String
 myEditor = "emacsclient -a '' -c "
 
@@ -338,7 +335,6 @@ myKeys =
     --- My Applications
     ("M-C-a", spawn myEditor),
     ("M-M1-a", spawn "emacs"),
-    ("M-M1-f", spawn myFileManager),
     ("M-M1-b", spawn myBrowser),
     -- Multimedia Keys
     ("<XF86AudioMute>", spawn "pamixer -t"),

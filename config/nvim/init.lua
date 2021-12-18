@@ -17,7 +17,6 @@ require "paq" {
     "neovim/nvim-lspconfig";
     "windwp/nvim-autopairs";
     "b3nj5m1n/kommentary";
-    "ishan9299/modus-theme-vim"
 }
 
 -- Options
@@ -45,9 +44,6 @@ opt.mouse = 'a'
 opt.undofile = true                 -- persistent undo
 opt.clipboard = "unnamedplus"
 g.mapleader = " "
-
--- Colorscheme
-cmd 'colorscheme modus-vivendi'
 
 -- Mappings
 map('n', '<Esc>', '<cmd>noh<CR>')    -- Clear highlights

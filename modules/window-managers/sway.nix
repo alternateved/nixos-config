@@ -99,6 +99,7 @@ in
             tap = "enabled";
             dwt = "enabled";
             scroll_method = "two_finger";
+            middle_emulation = "enabled";
             natural_scroll = "enabled";
           };
           "type:pointer" = {
@@ -111,10 +112,10 @@ in
           };
         };
 
-       output = {
-         "*".bg = "~/.cache/current.png fill";
-         "*".scale = "1";
-       };
+        output = {
+          "*".bg = "~/.cache/current.png fill";
+          "*".scale = "1";
+        };
 
         seat = {
           seat0 = { xcursor_theme = "capitaine-cursors-white 16"; };
