@@ -40,7 +40,7 @@
 
           # Org
           org
-          org-bullets
+          org-superstar
           org-roam
           hl-todo
           olivetti
