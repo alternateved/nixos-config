@@ -40,7 +40,6 @@
 
           # Org
           org
-          org-superstar
           org-roam
           hl-todo
           olivetti
