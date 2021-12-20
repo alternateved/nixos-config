@@ -250,7 +250,7 @@ in
             };
 
           };
-          mode = "hide";
+          mode = "dock";
           position = "top";
           trayOutput = "none";
           statusCommand =
@@ -409,11 +409,8 @@ in
             "${modifier}+Shift+Insert" =
               "exec ${pkgs.sway-contrib.grimshot}/bin/grimshot copy area";
 
-            "Control+Alt+space" = "exec makoctl dismiss -a";
-            "Control+Alt+comma" = "exec makoctl restore";
-            "Control+Alt+bracketleft" =
-              "exec notify-send 'Notifications on'; exec makoctl set-mode default";
-            "Control+Alt+bracketright" = "exec makoctl set-mode do-not-disturb";
+            "Control+Shift+space" = "exec makoctl dismiss -a";
+            "Control+Shift+comma" = "exec makoctl restore";
 
             "XF86AudioLowerVolume" = "exec ${pkgs.pamixer}/bin/pamixer -d 10";
             "XF86AudioLowerVolume+Shift" =
