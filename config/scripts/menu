@@ -3,6 +3,4 @@
 bg=$(cat ~/.Xresources | grep '*.background' | awk '{print $NF}')
 fg=$(cat ~/.Xresources | grep '*.foreground' | awk '{print $NF}')
 
-# dmenu_run -c -bw 2 -l 8 -nb ${bg} -nf ${fg} -sf ${bg} -sb ${fg} -fn 'Iosevka Nerd Font'
-# bemenu-run -c -M 600 --fn 'JuliaMono 11' -p 'Run:' -l 8 --tb ${bg} --tf ${fg} --fb ${bg} --ff ${fg} --nb ${bg} --nf ${fg} --sf ${bg} --sb ${fg} --hb ${fg} --hf ${bg}
-bemenu-run --fn 'JuliaMono 10' -p 'Run:' -l 8 --tb ${bg} --tf ${fg} --fb ${bg} --ff ${fg} --nb ${bg} --nf ${fg} --sf ${bg} --sb ${fg} --hb ${fg} --hf ${bg}
+bemenu-run -c -M 600 --fn 'JuliaMono 12' -p 'Run:' -l 8 --tb ${bg} --tf ${fg} --fb ${bg} --ff ${fg} --nb ${bg} --nf ${fg} --sf ${bg} --sb ${fg} --hb ${fg} --hf ${bg}
