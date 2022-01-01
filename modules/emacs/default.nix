@@ -2,7 +2,7 @@
   home-manager.users.alternateved.programs = {
     emacs = {
       enable = true;
-      package = pkgs.emacsGcc;
+      package = pkgs.emacsPgtkGcc;
       overrides = self: super: {
         org = self.elpaPackages.org;
       };
@@ -21,7 +21,7 @@
           avy
           ace-window
           god-mode
-          dot-mode
+          iedit
           multiple-cursors
           expand-region
 
