@@ -20,8 +20,8 @@ _: pkgs: rec {
     src = pkgs.fetchFromGitHub {
       owner = "swaywm";
       repo = "sway";
-      rev = "17ee30d07058bed7a5b5aaede3367a9e2f22d0af";
-      sha256 = "/P/laJw3WrOuYm4jdVuWXyZW3JIxgTPLmlsbceIoLQs=";
+      rev = "59aebaa5f9f3afe9cdfbb0d37c4dc631690da3b9";
+      sha256 = "oAoSqS9DUtGjySvDGgJ74osEIq04MSVu0FBOOuBssY4=";
     };
   });
 }

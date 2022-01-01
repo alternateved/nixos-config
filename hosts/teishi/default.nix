@@ -73,13 +73,13 @@
     fontconfig = {
       enable = true;
       defaultFonts = {
-        monospace = [ "JuliaMono" ];
+        monospace = [ "Rec Mono Linear" ];
         serif = [ "IBM Plex Serif" ];
         sansSerif = [ "IBM Plex Sans" ];
       };
     };
     fonts = with pkgs; [
-      julia-mono
+      recursive
       ibm-plex
     ];
   };

@@ -22,7 +22,6 @@ main() {
     "logout"
     "reboot"
     "poweroff"
-    "hibernate"
     "suspend"
     )
 
@@ -47,9 +46,6 @@ main() {
             ;;
         'poweroff')
             systemctl poweroff
-            ;;
-        'hibernate')
-            systemctl hibernate
             ;;
         'suspend')
             systemctl suspend

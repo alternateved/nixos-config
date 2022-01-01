@@ -123,7 +123,7 @@ in
         };
 
         fonts = {
-          names = [ "JuliaMono" ];
+          names = [ "Rec Mono Casual" ];
           size = 10.5;
         };
 
@@ -218,7 +218,7 @@ in
 
         bars = [{
           fonts = {
-            names = [ "JuliaMono" ];
+            names = [ "Rec Mono Casual" ];
             size = 10.5;
           };
           colors = {

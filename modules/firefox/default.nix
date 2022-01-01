@@ -90,7 +90,7 @@
       "experiments.supported" = false;
       "experiments.enabled" = false;
       "experiments.manifest.uri" = "";
-      "font.name.monospace.x-western" = "JuliaMono";
+      "font.name.monospace.x-western" = "Rec Mono Linear";
       "font.name.sans-serif.x-western" = "IBM Plex Sans";
       "font.name.serif.x-western" = "IBM Plex Serif";
       # Disable health reports (basically more telemetry)
